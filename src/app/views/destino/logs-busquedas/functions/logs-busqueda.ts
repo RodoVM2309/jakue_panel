@@ -67,6 +67,11 @@ export module FunctionLogsBusqueda {
           variables.destinos.unshift("Todos");
           variables.estados.unshift({ clave: 'Todos' });
 
+          // Asegurar que el total del paginador sea correcto al cargar inicialmente
+          if (!variables.pageEvent.length || variables.pageEvent.length === 0) {
+            variables.pageEvent.length = variables.logs.length;
+          }
+
           loader.close();
 
           logsSubject.next(variables.logsFiltrados);

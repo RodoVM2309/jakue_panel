@@ -60,7 +60,7 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('placaCamion').valueChanges
       .pipe(debounceTime(500)) // esperar 500 ms después del último cambio
       .subscribe((valueChapa) => {
-        this.variables.pageEvent.pageIndex = 1;
+        this.variables.pageEvent.pageIndex = 0;
         this.refresh.emit(true);
         this.helpSevices.changePaginator(true);
       });
@@ -68,10 +68,20 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('cupo').valueChanges
       .pipe(debounceTime(500)) // esperar 500 ms después del último cambio
       .subscribe((valueCupo) => {
-        this.variables.pageEvent.pageIndex = 1;
+        this.variables.pageEvent.pageIndex = 0;
         this.refresh.emit(true);
         this.helpSevices.changePaginator(true);
       });
+
+    // Suscribirse a cambios en los datos para reaplicar filtros
+    this.dataSource.loading$.subscribe(loading => {
+      if (!loading) {
+        // Cuando termina de cargar, reconstruir y aplicar filtros desde el formulario
+        setTimeout(() => {
+          this.reconstruirFiltrosDesdeFormulario();
+        }, 100);
+      }
+    });
   }
 
   filtroGeneral() {
@@ -95,6 +105,11 @@ export class FiltrosLogsComponent implements OnInit {
         });
       }
     }
+    
+    // Resetear paginador a la primera página cuando se aplica un filtro
+    this.variables.pageEvent.pageIndex = 0;
+    this.helpSevices.changePaginator(true);
+    
     this.aplicarFiltro();
   }
 
@@ -135,7 +150,55 @@ export class FiltrosLogsComponent implements OnInit {
       }
       return resultado;
     });
+    
+    // Actualizar el total del paginador con los datos filtrados
+    this.variables.pageEvent.length = this.variables.logsFiltrados.length;
+    
+    // Si no hay filtros activos, mostrar el total de todos los registros
+    if (this.filtros.length === 0) {
+      this.variables.pageEvent.length = this.variables.logs.length;
+    }
+    
     this.dataSource.asyncTable(this.variables);
+  }
+
+  // Método para reconstruir filtros desde el formulario actual
+  reconstruirFiltrosDesdeFormulario() {
+    const filtrosAnteriores = [...this.filtros]; // Copia de los filtros anteriores
+    this.filtros = [];
+    
+    const formValues = this.variables.filtrarForm.value;
+    
+    // Agregar filtros según los valores del formulario
+    if (formValues.terminal !== "Todos" && formValues.terminal) {
+      this.filtros.push({ campo: 'terminal', valor: formValues.terminal });
+    }
+    
+    if (formValues.producto !== "Todos" && formValues.producto) {
+      this.filtros.push({ campo: 'producto', valor: formValues.producto });
+    }
+    
+    if (formValues.estado !== "Todos" && formValues.estado) {
+      this.filtros.push({ campo: 'estado', valor: formValues.estado });
+    }
+    
+    if (formValues.placaCamion && formValues.placaCamion.trim() !== "") {
+      this.filtros.push({ campo: 'placaCamion', valor: formValues.placaCamion });
+    }
+    
+    if (formValues.cupo && formValues.cupo.trim() !== "") {
+      this.filtros.push({ campo: 'cupo', valor: formValues.cupo });
+    }
+    
+    // Verificar si los filtros cambiaron para resetear paginador
+    const filtrosCambiaron = JSON.stringify(filtrosAnteriores) !== JSON.stringify(this.filtros);
+    if (filtrosCambiaron && this.filtros.length > 0) {
+      this.variables.pageEvent.pageIndex = 0;
+      this.helpSevices.changePaginator(true);
+    }
+    
+    // Aplicar los filtros reconstruidos
+    this.aplicarFiltro();
   }
 
   obtenerIdPorClave(claveBuscada, estados) {
@@ -148,6 +211,13 @@ export class FiltrosLogsComponent implements OnInit {
   }
 
   clearFilter() {
+    // Limpiar filtros internos
+    this.filtros = [];
+    
+    // Resetear paginador a la primera página
+    this.variables.pageEvent.pageIndex = 0;
+    this.helpSevices.changePaginator(true);
+    
     // Obtener la fecha y hora actual
     const horaInicio = new Date();
 
@@ -185,6 +255,9 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('cupo').setValue("");
 
     this.variables.filtrarForm.updateValueAndValidity();
+
+    // Restaurar el total completo del paginador
+    this.variables.pageEvent.length = this.variables.logs.length;
 
     this.refresh.emit(true);
   }
