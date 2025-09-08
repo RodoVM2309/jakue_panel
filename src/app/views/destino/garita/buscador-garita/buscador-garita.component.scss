@@ -1,0 +1,141 @@
+.cuerpo {
+  width: 100%;
+  position: relative;
+  height: 50px;
+  color: #ffffff;
+}
+
+.azul {
+  background: rgb(24, 71, 145);
+}
+
+.verde {
+  background: #78C92A;
+}
+
+.azul-claro {
+  background: #ABE3F8;
+}
+
+.lado-izquierdo-arriba-azul:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgb(24, 71, 145);
+}
+
+.lado-izquierdo-arriba-claro:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent #78C92A;
+}
+
+::ng-deep #buscador {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  color: #ffffff !important;
+  background-color: rgb(131, 183, 25) !important;
+}
+
+::ng-deep #buscador[disabled] {
+  background-color: rgb(186, 209, 141) !important;
+}
+
+::ng-deep #acciones {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 27px;
+}
+
+.input-buscar {
+  width: 40%;
+  height: 40px;
+  background-color: #EBED24;
+  border-color: #EBED24;
+  border-radius: 10px;
+  color: #000;
+  margin-left: 10px;
+}
+
+.icon-buscar {
+  font-size: 35px;
+  height: 40px;
+  width: 40px;
+}
+
+.resultado {
+  background-color: #7AAAC0;
+  color: #ffffff;
+  font-size: 1rem;
+  height: 150px;
+}
+
+.my-table {
+  width: 99%;
+  margin-left: 5px;
+  background-color: #7AAAC0;
+  color: #ffffff;
+}
+
+.my-row {
+  background-color: #ffffff;
+  color: #818288;
+  // text-align: center;
+}
+
+.my-header {
+  color: #ffffff;
+  // text-align: center;
+}
+
+#asignaciones {
+  font-size: 11px;
+  padding: 1px 1px 1px 13px;
+  width: 93%;
+}
+
+.mat-column-nombreChofer {
+  width: 15%;
+}
+
+.mat-column-placaCamion {
+  width: 10%;
+}
+
+.mat-column-terminal {
+  width: 20%;
+}
+
+.mat-column-producto {
+  width: 10%;
+}
+
+.mat-column-tiempo {
+  width: 10%;
+}
+
+.mat-column-asignacion {
+  width: 20%;
+}
+
+.mat-column-estado {
+  width: 10%;
+}
+
+.mat-column-acciones {
+  width: 30%;
+}
+
+::ng-deep .egret-indigo .mat-divider {
+  border-top-color: #fff;
+}

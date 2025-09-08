@@ -1,0 +1,915 @@
+<div class="margin-333" style="height: 85vh;">
+  <div fxLayout="column wrap">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <form id="form-cuponera1" [formGroup]="filtrarForm">
+          <div fxLayout="row wrap"
+            style="background: #ffffff; margin-top: 6px; margin-left: 12px; margin-right: 15px; padding: 0px; ">
+            <div fxFlex="100" style="height: 40px;">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div style="margin-left: 10px; color: #87B1C5">
+                  <span fxFlex style="font-size: 14px;">
+                    <strong>CUPOS DISPONIBLES</strong>
+                  </span>
+                </div>
+                <div>
+                  <button mat-icon-button matTooltip="Adicionar cupos disponibles" color="m-0" class="m-0"
+                    style="height: 45px;width: 45px; padding: 10px;" (click)="addCupoDisponibles()">
+                    <mat-icon fxFlex="30%" style="font-size: 35px; height: 50px; width: 50px; color: #174891">add_circle
+                    </mat-icon>
+                  </button>
+                </div>
+                <div id="fecha-bt1">
+                  <mat-form-field class="fecha-bt">
+                    <input matInput name="fechaFilter" [formControl]="filtrarForm.controls['selectedFecha']"
+                      [matDatepicker]="appDatepicker" (dateChange)="aplicarFiltroFecha($event)" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                    </mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker></mat-datepicker>
+                </div>
+                <div style="text-align: end;">
+                  <strong fxFlex style="font-size: 14px;">
+                    Localidad:</strong>
+                </div>
+                <div style="width: 9%;">
+                  <mat-select class="borderSelect" name="localidad" [formControl]="localidadControl"
+                    placeholder="Localidad" (selectionChange)="aplicarFiltroLocalidad($event.value)">
+                    <mat-option *ngFor="let localidad of localidades" [value]="localidad.id">
+                      {{ localidad.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div style="text-align: end;" >
+                  <strong fxFlex *ngIf="usaMTR" style="font-size: 14px;">
+                    Carátula MtR:</strong>
+                </div>
+                <div style="width: 9%;" >
+                  <mat-select *ngIf="usaMTR" class="borderSelect" name="localidad" [formControl]="caratulaControl"
+                    placeholder="Carátula" (selectionChange)="aplicarFiltroCaratula($event.value)">
+                    <mat-option *ngFor="let carat of caratulas" [value]="carat.id">
+                      {{ carat.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-around center">
+                  <span class="material-icons" style="color: #777777;">alarm</span>
+                  <div fxLayout="column" fxLayoutAlign="space-evenly start">
+                    <strong fxFlex style="font-size: 9px; color: #777777;">PROXIMA</strong>
+                    <strong fxFlex style="font-size: 9px; color: #777777;" *ngIf="horas<10">
+                      ACTUALIZACION 0{{horas}}: {{minute}}: {{second}}
+                    </strong>
+                    <strong fxFlex style="font-size: 9px; color: #777777;" *ngIf="horas>9">
+                      ACTUALIZACION {{horas}}: {{minute}}: {{second}}
+                    </strong>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <button mat-mini-fab style="box-shadow: none; width: 10px; height: 10px;margin-top: 20px;"
+                    color="endestino" class="mr-2"></button>
+                  <span style="color:rgba(111, 190, 68, 0.74)!important; text-align: right;margin-top: 16px;">
+                    Totales
+                  </span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                  <button mat-mini-fab style="box-shadow: none; width: 10px; height: 10px;margin-top: 20px;"
+                    color="xasig" class="mr-2"></button>
+                  <span style="color:#ff6600!important; margin-top: 16px; margin-right: 30px;">
+                    Pendientes por asignar
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <mat-card class="textarea" [style.height.px]='height'>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-card
+            style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA;"
+            [style.width.px]="'100%'"
+            style="padding: 0px; margin-left: 6px; margin-right: 6px; box-shadow: none; margin-top: 7px;">
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div fxFlex="100" class="example-container mat-elevation-z8" [style.height.px]='height - 25'>
+                <table mat-table [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="nombre_destinatario" style="height: 50px;">
+                    <tr>
+                      <th mat-header-cell *matHeaderCellDef
+                        style="text-align: center;margin-left: 10px; padding-left: 10px;" mat-sort-header>
+                        <span>DESTINATARIO</span>
+                        <mat-icon style="height: 15px; width: 10px; margin-top: -10px;margin-right: 10px;">
+                          arrow_drop_down</mat-icon>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index"
+                        style="text-align: left;margin-left: 10px; padding-left: 10px;border-width: thin;border-color: #494848;border-style: solid;"
+                        [style.display]="getRowSpan('nombre_destinatario', i) ? '' : 'none'"
+                        [attr.rowspan]="getRowSpan('nombre_destinatario', i)">
+                        {{cupo.nombre_destinatario | uppercase }}
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <ng-container matColumnDef="nombre_destino">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                      style="text-align: center;padding-left: 20px;">DESTINO</th>
+                    <td mat-cell *matCellDef="let cupo" style="text-align: left;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="10" fxLayoutAlign="start center">
+                            <img src="assets/images/muvin/menu-estado-de-puertos.png" alt="estados de puertos"
+                              style="height: 15px;width: 25px;">
+                          </div>
+                          <div fxFlex="90" fxLayoutAlign="start center">
+                            {{cupo.nombre_destino | uppercase}}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <span class="span_totales">TOTALES</span>
+                        <mat-icon style="height: 15px; width: 10px; margin-top: -10px;">
+                          arrow_left</mat-icon>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="producto1">
+                    <th mat-header-cell *matHeaderCellDef style="margin-left: 10px;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="25" fxLayoutAlign="start center">SOJA</div>
+                          <div fxFlex="25" fxLayoutAlign="end center">
+                            <span class="color-total">{{totalesSinAsignar.totalSoja}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25" fxLayoutAlign="start center">
+                            <span class="color-pendiente">{{totalesSinAsignar.pendienteSoja}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="15">
+                            <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                              style="width: 25px; height: 15px;" [disabled]="cupo.total1==0"
+                              (click)="openPopUpInfoCupo(cupo.nombre_destinatario,cupo.idCuitDestinatario,1,cupo.pendientes2,cupo.total2,cupo.id_destino,'SOJA')">
+                              <mat-icon fxFlex="20%" class="icon-info">info_outline
+                              </mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-total">{{cupo.total1}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-pendiente">{{cupo.pendientes1}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                            <mat-checkbox [checked]="cupo.checked"
+                              [disabled]="columnDisabled.productoSoja || cupo.pendientes1==0"
+                              (change)="onCheckboxChangeRowDisabledAsignado($event,cupo,i,1)">
+                            </mat-checkbox>
+                          </div>
+                          <div fxFlex="10"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> Total </td>
+                  </ng-container>
+                  <ng-container matColumnDef="producto2">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="25" fxLayoutAlign="start center">MAIZ</div>
+                          <div fxFlex="25" fxLayoutAlign="end center">
+                            <span class="color-total">{{totalesSinAsignar.totalMaiz}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25" fxLayoutAlign="start center">
+                            <span class="color-pendiente">{{totalesSinAsignar.pendienteMaiz}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="15">
+                            <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                              style="height: 15px;width: 25px;" [disabled]="cupo.total2==0"
+                              (click)="openPopUpInfoCupo(cupo.nombre_destinatario,cupo.idCuitDestinatario,2,cupo.pendientes2,cupo.total2,cupo.id_destino,'Maiz')">
+                              <mat-icon fxFlex="20%" class="icon-info">info_outline
+                              </mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-total">{{cupo.total2}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-pendiente">{{cupo.pendientes2}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                            <mat-checkbox [checked]="cupo.checked"
+                              [disabled]="columnDisabled.productoMaiz || cupo.pendientes2==0"
+                              (change)="onCheckboxChangeRowDisabledAsignado($event, cupo,i,2)">
+                            </mat-checkbox>
+                          </div>
+                          <div fxFlex="10"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="producto3">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="25" fxLayoutAlign="start center">TRIGO</div>
+                          <div fxFlex="25" fxLayoutAlign="end center">
+                            <span class="color-total">{{totalesSinAsignar.totalTrigo}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25" fxLayoutAlign="start center">
+                            <span class="color-pendiente">{{totalesSinAsignar.pendienteTrigo}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="15">
+                            <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                              style="width: 25px; height: 15px;" [disabled]="cupo.total3==0"
+                              (click)="openPopUpInfoCupo(cupo.nombre_destinatario,cupo.idCuitDestinatario,3,cupo.pendientes3,cupo.total3,cupo.id_destino,'Trigo')">
+                              <mat-icon fxFlex="20%" class="icon-info">info_outline
+                              </mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-total">{{cupo.total3}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-pendiente">{{cupo.pendientes3}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                            <mat-checkbox [checked]="cupo.checked"
+                              [disabled]="columnDisabled.productoTrigo || cupo.pendientes3==0"
+                              (change)="onCheckboxChangeRowDisabledAsignado($event, cupo,i,3)">
+                            </mat-checkbox>
+                          </div>
+                          <div fxFlex="10"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="producto4">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="25" fxLayoutAlign="start center">GIRASOL</div>
+                          <div fxFlex="25" fxLayoutAlign="end center">
+                            <span class="color-total">{{totalesSinAsignar.totalGirasol}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25" fxLayoutAlign="start center">
+                            <span class="color-pendiente">{{totalesSinAsignar.pendienteGirasol}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="15">
+                            <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                              style="width: 25px; height: 15px;" [disabled]="cupo.total5==0"
+                              (click)="openPopUpInfoCupo(cupo.nombre_destinatario,cupo.idCuitDestinatario,5,cupo.pendientes5,cupo.total5,cupo.id_destino,'Girasol')">
+                              <mat-icon fxFlex="20%" class="icon-info">info_outline
+                              </mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-total">{{cupo.total5}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-pendiente">{{cupo.pendientes5}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                            <mat-checkbox [checked]="cupo.checked"
+                              [disabled]="columnDisabled.productoGirasol || cupo.pendientes5==0"
+                              (change)="onCheckboxChangeRowDisabledAsignado($event, cupo,i,5)">
+                            </mat-checkbox>
+                          </div>
+                          <div fxFlex="10"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="producto5">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;border-right-color: #000000;">
+                      <div fxLayout="column wrap">
+                        <div fxFlex="100">
+                          <div><small>OTROS</small></div>
+                          <div id="sele-producto">
+                            <mat-form-field>
+                              <mat-select id="producto" class="select_producto"
+                                (selectionChange)="aplicarFiltroProducto($event)" name="producto"
+                                [formControl]="filtrarForm.controls['selectedProducto']">
+                                <mat-option *ngFor="let otrosp of otrosproductos" [value]="otrosp.id"
+                                  [matTooltip]="otrosp.descripcion | uppercase">
+                                  {{otrosp.descripcion| uppercase | slice:0:6 }}{{
+                                                                    (otrosp.descripcion.length > 6) ? '...': '' }}
+
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center; ">
+                      <div fxLayout="row wrap" fxLayoutAlign="end center">
+                        <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                          <div fxFlex="15">
+                            <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                              style="width: 25px; height: 15px;" [disabled]="cupo.total4==0"
+                              (click)="openPopUpInfoCupo(cupo.nombre_destinatario,cupo.idCuitDestinatario,4,cupo.pendientes4,cupo.total4,cupo.id_destino,'Otros')">
+                              <mat-icon fxFlex="20%" class="icon-info">info_outline
+                              </mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-total">{{cupo.total4}}</span>
+                          </div>
+                          <div fxFlex="5">
+                            <span>/</span>
+                          </div>
+                          <div fxFlex="25">
+                            <span class="color-pendiente">{{cupo.pendientes4}}</span>
+                          </div>
+                          <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                            <mat-checkbox [checked]="cupo.checked"
+                              [disabled]="columnDisabled.productoOtros || cupo.pendientes4==0"
+                              (change)="onCheckboxChangeRowDisabledAsignado($event, cupo,i,4)">
+                            </mat-checkbox>
+                          </div>
+                          <div fxFlex="10"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="grabber" style="margin-top: 5px;"></div>
+    </mat-card>
+
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="background: #87B1C6; margin-left: 10px; margin-right: 10px; padding: 0px; ">
+        <div fxFlex="5" fxFlex.gt-xs="5" fxLayoutAlign="center center">
+          <mat-icon style="color:#E9E9EA;">import_export</mat-icon>
+        </div>
+        <div fxFlex="43" fxFlex.gt-xs="43" fxLayoutAlign="start center"
+          style="height: 40px; margin-top: 10px; margin-left: 10px; color: #E9E9EA">
+          <span fxFlex style="font-size: 14px;"> <strong>CUPOS DISPONIBLES VS. SOLICITADOS: </strong></span>
+
+        </div>
+        <div fxFlex="10" fxFlex.gt-xs="10" fxLayoutAlign="center center" style="margin-top: 10px; text-align: right; margin-right: 15px;border-width: 0.5px;
+              border-style: solid;border-width: 1.5px;  border-radius: 20px; border-color: #E9E9EA;
+              height: 30px; color: #E9E9EA;">&nbsp;
+          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+            <div fxFlex="40" fxLayoutAlign="start center" style="margin-left: 3px;">SOJA</div>
+            <div fxFlex="25" fxLayoutAlign="end center">
+              <span>{{totalesSinAsignar.totalSoja}}</span>
+            </div>
+            <div fxFlex="5">
+              <span>/</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="start center">
+              <span>{{totalesDemandados.totalSoja}}</span>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+          </div>
+        </div>
+        <div fxFlex="9" fxFlex.gt-xs="9" fxLayoutAlign="center center" style="margin-top: 10px; text-align: right; margin-right: 15px;border-width: 0.5px;
+              border-style: solid;border-width: 1.5px;  border-radius: 20px; border-color: #E9E9EA;
+              height: 30px; color: #E9E9EA;">
+          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+            <div fxFlex="40" fxLayoutAlign="start center" style="margin-left: 3px;">MAIZ</div>
+            <div fxFlex="25" fxLayoutAlign="end center">
+              <span>{{totalesSinAsignar.totalMaiz}}</span>
+            </div>
+            <div fxFlex="5">
+              <span>/</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="start center">
+              <span>{{totalesDemandados.totalMaiz}}</span>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+          </div>
+        </div>
+        <div fxFlex="10" fxFlex.gt-xs="10" fxLayoutAlign="center center" style="margin-top: 10px; text-align: right; margin-right: 15px;border-width: 0.5px;
+              border-style: solid;border-width: 1.5px;  border-radius: 20px; border-color: #E9E9EA;
+              height: 30px; color: #E9E9EA;">
+          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+            <div fxFlex="40" fxLayoutAlign="start center" style="margin-left: 3px;">TRIGO</div>
+            <div fxFlex="25" fxLayoutAlign="end center">
+              <span>{{totalesSinAsignar.totalTrigo}}</span>
+            </div>
+            <div fxFlex="5">
+              <span>/</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="start center">
+              <span>{{totalesDemandados.totalTrigo}}</span>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+          </div>
+
+        </div>
+        <div fxFlex="10" fxFlex.gt-xs="10" fxLayoutAlign="center center" style="margin-top: 10px; text-align: right; margin-right: 15px;border-width: 0.5px;
+              border-style: solid;border-width: 1.5px;  border-radius: 20px; border-color: #E9E9EA;
+              height: 30px; color: #E9E9EA;">
+          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+            <div fxFlex="40" fxLayoutAlign="start center" style="margin-left: 3px;">GIRASOL</div>
+            <div fxFlex="25" fxLayoutAlign="end center">
+              <span>{{totalesSinAsignar.totalGirasol}}</span>
+            </div>
+            <div fxFlex="5">
+              <span>/</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="start center">
+              <span>{{totalesDemandados.totalGirasol}}</span>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+          </div>
+        </div>
+        <div fxFlex="10" fxFlex.gt-xs="10" fxLayoutAlign="center center" style="margin-top: 10px; text-align: right; margin-right: 15px;border-width: 0.5px;
+              border-style: solid;border-width: 1.5px;  border-radius: 20px; border-color: #E9E9EA;
+              height: 30px; color: #E9E9EA;">
+          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+            <div fxFlex="40" fxLayoutAlign="start center" style="margin-left: 3px;"
+              [matTooltip]="this.filtro.producto | uppercase">
+              {{this.filtro.producto| uppercase | slice:0:6 }}{{ (this.filtro.producto.length > 6) ?
+                            '...': '' }}
+            </div>
+            <div fxFlex="25" fxLayoutAlign="end center">
+              <span>{{totalesSinAsignar.totalOtros}}</span>
+            </div>
+            <div fxFlex="5">
+              <span>/</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="start center">
+              <span>{{totalesDemandados.totalOtros}}</span>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+          </div>
+        </div>
+        <div fxFlex="3" fxFlex.gt-xs="3"></div>
+      </div>
+    </div>
+    <mat-card style="box-shadow: none; background: #87b1c6; padding: 0; margin-top: 5px;" class="textarea"
+      [style.height.px]='height'>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <form [formGroup]="filtrarForm">
+            <div fxLayout="row wrap"
+              style="background: #ffffff; margin-left: 6px; margin-right: 6px; padding: 0px; margin-top: 6px;">
+              <div fxFlex="100" style="height: 40px;">
+                <div fxFlex="12" fxFlex.gt-xs="12" fxLayoutAlign="start center"
+                  style="height: 40px; margin-left: 10px;max-width: 12%;color: #87B1C5">
+                  <span fxFlex style="font-size: 14px;"> <strong>SOLICITUD DE CLIENTES</strong></span>
+                </div>
+                <div fxFlex="5" fxFlex.gt-xs="5" fxLayoutAlign="start end">
+                  <button mat-icon-button matTooltip="Adicionar cupos solicitados" color="m-0" class="m-0"
+                    style="height: 45px;width: 45px;padding: 12px;" (click)="addCupoSolicitados(1)">
+                    <mat-icon fxFlex="30%" style="font-size: 35px; height: 45px; width: 45px; color: #174891;">
+                      add_circle
+                    </mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="5" fxFlex.gt-xs="5" fxLayoutAlign="end center" style="text-align: end;">
+                  <strong fxFlex style="font-size: 14px; margin-right: 4px;">
+                    Zona:</strong>
+                </div>
+                <div fxFlex="15" fxFlex.gt-xs="20" fxLayoutAlign="start center">
+                  <mat-select class="borderSelect" name="zona" [formControl]="zonaControl" placeholder="Zona"
+                    (selectionChange)="aplicarFiltroZona($event.value)">
+                    <mat-option *ngFor="let zona of zonas" [value]="zona.id">
+                      {{ zona.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div fxFlex="20" fxLayoutAlign="end start">
+                  <button mat-mini-fab style="box-shadow: none; width: 10px; height: 10px;margin-top: 20px;"
+                    color="endestino" class="mr-2"></button>
+                  <span
+                    style="color:rgba(111, 190, 68, 0.74)!important; text-align: right;margin-top: 16px;">Totales</span>
+                </div>
+                <div fxFlex="7" fxFlex.gt-xs="7"></div>
+                <div fxFlex="31" fxLayoutAlign="start start">
+                  <button mat-mini-fab style="box-shadow: none; width: 10px; height: 10px;margin-top: 20px;"
+                    color="xasig" class="mr-2"></button>
+                  <span style="color:#ff6600!important;margin-top: 16px;">Pendientes por
+                    asignar</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-card
+            style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA;"
+            [style.overflow]="'auto'" [style.width.px]="'100%'"
+            style="padding: 0px; margin-left: 6px; margin-right: 6px; box-shadow: none; margin-top: 0;">
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div fxLayout="row wrap">
+                <div fxFlex="100" class="example-container mat-elevation-z8" [style.height.px]='height - 65'>
+                  <table mat-table [dataSource]="dataSourceDemanda" matSort>
+                    <ng-container matColumnDef="nombre_demandante">
+                      <tr style="height: 50px;">
+                        <th mat-header-cell *matHeaderCellDef
+                          style="text-align: center;margin-left: 10px; padding-left: 10px;" mat-sort-header> RECEPTOR
+                        </th>
+                        <td mat-cell *matCellDef="let cupo; let i = index"
+                          style="text-align: left;margin-left: 10px; padding-left: 10px;border-width: thin;border-color: #494848;border-style: solid;"
+                          [style.display]="getRowSpanDemanda('nombre_demandante', i) ? '' : 'none'"
+                          [attr.rowspan]="getRowSpanDemanda('nombre_demandante', i)">
+                          {{cupo.nombre_demandante | uppercase }}
+                        </td>
+                      </tr>
+                    </ng-container>
+                    <ng-container matColumnDef="nombre_destino_d">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header
+                        style="text-align: center;padding-left: 20px;"></th>
+                      <td mat-cell *matCellDef="let cupo" style="text-align: left;">
+                        {{cupo.nombre_destino | uppercase }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total_d">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <div fxLayout="row wrap" fxLayoutAlign="start center">
+                          <span class="span_totales">TOTALES</span>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="producto1_d">
+                      <th mat-header-cell *matHeaderCellDef style="margin-left: 10px;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="25" fxLayoutAlign="start center">SOJA</div>
+                            <div fxFlex="25" fxLayoutAlign="end center">
+                              <span>{{totalesDemandados.totalSoja}}</span>
+                            </div>
+                            <div fxFlex="5">
+                              <span>/</span>
+                            </div>
+                            <div fxFlex="25" fxLayoutAlign="start center">
+                              <span>{{totalesDemandados.pendienteSoja}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                          </div>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="15">
+                              <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                                style="width: 25px; height: 15px;" [disabled]="cupo.total1==0"
+                                (click)="openPopUpInfoDemanda(cupo.id_demandante,1,cupo.pendientes1,cupo.total1,'SOJA')">
+                                <mat-icon fxFlex="20%" class="icon-info">info_outline
+                                </mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="25">
+                              <span class="color-total">{{cupo.total1}}</span>
+                            </div>
+                            <div fxFlex="5">
+                              <span>/</span>
+                            </div>
+                            <div fxFlex="25">
+                              <span class="color-pendiente">{{cupo.pendientes1}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                              <mat-checkbox [checked]="cupo.checked"
+                                [disabled]="columnDisabled.productoSoja || cupo.isSelected || cupo.pendientes1==0"
+                                (change)="onCheckboxChangeRowDisabledDemanda($event,cupo,i,1)">
+                              </mat-checkbox>
+                            </div>
+                            <div fxFlex="10"></div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="producto2_d">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="25" fxLayoutAlign="start center">MAIZ</div>
+                            <div fxFlex="25" fxLayoutAlign="end center">
+                              <span>{{totalesDemandados.totalMaiz}}</span>
+                            </div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25" fxLayoutAlign="start center">
+                              <span>{{totalesDemandados.pendienteMaiz}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                          </div>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="15">
+                              <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                                style="width: 25px; height: 15px;" [disabled]="cupo.total2==0"
+                                (click)="openPopUpInfoDemanda(cupo.id_demandante,2,cupo.pendientes2,cupo.total2,'MAIZ')">
+                                <mat-icon fxFlex="20%" class="icon-info">info_outline
+                                </mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="25"><span class="color-total">{{cupo.total2}}</span></div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25"><span class="color-pendiente">{{cupo.pendientes2}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                              <mat-checkbox [checked]="cupo.checked"
+                                [disabled]="columnDisabled.productoMaiz || cupo.isSelected || cupo.pendientes2==0"
+                                (change)="onCheckboxChangeRowDisabledDemanda($event,cupo,i,2)">
+                              </mat-checkbox>
+                            </div>
+                            <div fxFlex="10"></div>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="producto3_d">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="25" fxLayoutAlign="start center">TRIGO</div>
+                            <div fxFlex="25" fxLayoutAlign="end center">
+                              <span>{{totalesDemandados.totalTrigo}}</span>
+                            </div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25" fxLayoutAlign="start center">
+                              <span>{{totalesDemandados.pendienteTrigo}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                          </div>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="15">
+                              <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                                style="width: 25px; height: 15px;" [disabled]="cupo.total3==0"
+                                (click)="openPopUpInfoDemanda(cupo.id_demandante,3,cupo.pendientes3,cupo.total3,'TRIGO')">
+                                <mat-icon fxFlex="20%" class="icon-info">info_outline
+                                </mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="25"><span class="color-total">{{cupo.total3}}</span></div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25"><span class="color-pendiente">{{cupo.pendientes3}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                              <mat-checkbox [checked]="cupo.checked"
+                                [disabled]="columnDisabled.productoTrigo || cupo.isSelected || cupo.pendientes3==0"
+                                (change)="onCheckboxChangeRowDisabledDemanda($event,cupo,i,3)">
+                              </mat-checkbox>
+                            </div>
+                            <div fxFlex="10"></div>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="producto4_d">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="35" fxLayoutAlign="start center">GIRASOL</div>
+                            <div fxFlex="25" fxLayoutAlign="end center">
+                              <span>{{totalesDemandados.totalGirasol}}</span>
+                            </div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25" fxLayoutAlign="start center">
+                              <span>{{totalesDemandados.totalGirasol}}</span>
+                            </div>
+                            <div fxFlex="10" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                          </div>
+                        </div>
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="15">
+                              <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                                style="width: 25px; height: 15px;" [disabled]="cupo.total5==0"
+                                (click)="openPopUpInfoDemanda(cupo.id_demandante,5,cupo.pendientes5,cupo.total5,'GIRASOL')">
+                                <mat-icon fxFlex="20%" class="icon-info">info_outline
+                                </mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="25"><span class="color-total">{{cupo.total5}}</span></div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25"><span class="color-pendiente">{{cupo.pendientes5}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                              <mat-checkbox [checked]="cupo.checked"
+                                [disabled]="columnDisabled.productoGirasol || cupo.isSelected || cupo.pendientes5==0"
+                                (change)="onCheckboxChangeRowDisabledDemanda($event,cupo,i,5)">
+                              </mat-checkbox>
+                            </div>
+                            <div fxFlex="10"></div>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="producto5_d">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: center;padding-right: 0;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center" *ngIf="this.filtro.producto !== ''">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="25" fxLayoutAlign="start center"
+                              [matTooltip]="this.selectedOtroProducto | uppercase">
+                              <span *ngIf="this.filtro.producto !== ''">
+                                {{this.selectedOtroProducto| uppercase | slice:0:6 }}{{
+                                                                (this.selectedOtroProducto.length > 6) ? '...': '' }}
+                              </span>
+                            </div>
+                            <div fxFlex="25" fxLayoutAlign="end center">
+                              <span>{{totalesDemandados.totalGirasol }}</span>
+                            </div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25" fxLayoutAlign="start center">
+                              <span>{{totalesDemandados.totalGirasol}}</span>
+
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;"></div>
+                          </div>
+                        </div>
+
+
+                      </th>
+                      <td mat-cell *matCellDef="let cupo; let i = index" style="text-align: center;">
+                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                          <div fxFlex="100" fxLayoutAlign="end center" class="td_cell">
+                            <div fxFlex="15">
+                              <button mat-icon-button matTooltip="Información de Cupos" color="m-0" class="m-0"
+                                style="width: 25px; height: 15px;" [disabled]="cupo.total4==0"
+                                (click)="openPopUpInfoDemanda(cupo.id_demandante,filtrarForm.controls['selectedProducto'].value,cupo.pendientes4,cupo.total4,'Otros')">
+                                <mat-icon fxFlex="20%" class="icon-info">info_outline
+                                </mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="25"><span class="color-total">{{cupo.total4}}</span></div>
+                            <div fxFlex="5"><span>/</span></div>
+                            <div fxFlex="25"><span class="color-pendiente">{{cupo.pendientes4}}</span>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="end end" style="margin-bottom: -7px;">
+                              <mat-checkbox [checked]="cupo.checked"
+                                [disabled]="columnDisabled.productoOtros || cupo.isSelected || cupo.pendientes4==0"
+                                (change)="onCheckboxChangeRowDisabledDemanda($event,cupo,i,4)">
+                              </mat-checkbox>
+                            </div>
+                            <div fxFlex="10"></div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsDemanda; sticky: true">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsDemanda;"></tr>
+                  </table>
+
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="grabber" style="margin-top: 5px;"></div>
+    </mat-card>
+  </div>
+
+</div>
+
+<div id="asignar" [ngClass]="!usaMTR ? 'btn-asignar-sin': 'btn-asignar-mtr'">
+  <div class="handle" style="color: #ffffff">
+    <p style="margin: 0px 40px 0px 0px; font-size: xx-small;">ASIGNAR</p>
+    <button mat-fab class="mat-cupo-asignar" [disabled]="selectCupoAsignados.length==0"
+      (click)="openPopUpAsignarSolicitud()" matTooltip="Asignar Cupos">
+      <mat-icon>playlist_add_check</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div id="solicitar" [ngClass]="!usaMTR ? 'btn-solicitar-sin': 'btn-solicitar-mtr'">
+  <div class="handle" style="color: #ffffff">
+    <p style="margin: 0px 20px 0px 0px; font-size: xx-small;">SOLICITAR</p>
+    <button mat-fab class="mat-cupo-solicitar" (click)="addCupoSolicitados(0)" matTooltip="Solicitar Cupos">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div id="rechazar" *ngIf="usaMTR">
+  <div class="handle" style="color: #ffffff">
+    <p style="margin: 0px 20px 0px 0px; font-size: xx-small;">RECHAZAR</p>
+    <button mat-fab class="mat-cupo-rechazar" (click)="rechazarcupos()" matTooltip="Rechazar Cupos">
+      <mat-icon>rule</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div id="filtro-asignados">
+  <div class="handle" *ngIf="!isCustomizerOpen2" style="color: #ffffff">
+    <p style="margin: 0px 10px 0px; font-size: xx-small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen2 = true" matTooltip="Filtrar Cupos">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+
+  <mat-card class="p-0" *ngIf="isCustomizerOpen2">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Cupos disponibles</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen2 = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="LimpiarFiltro()">
+        <mat-icon matTooltip="Limpiar filtros Demandas Vencidas">delete_outline</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="row" fxLayoutAlign="start center">
+        Solicitudes vencidas. Días:
+        <input class="quantity-input default-bg" min="0" name="i" type="number" [(value)]="quantity"
+          [formControl]="filtrarForm.controls['quantity']" style="width: 55px !important;">
+        <button mat-icon-button matTooltip="Buscar" [disabled]="filtrarForm.controls['quantity'].value==0" color="m-0"
+          class="m-0" style="width: 25x; " (click)="BuscarSolicitudesVencidas()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div id="otros_productos">
+  <div class="handle" style="color: #000000">
+
+  </div>
+</div>
+<div id="otros">
+  <div class="handle" style="color: #000000">
+
+  </div>
+</div>

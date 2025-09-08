@@ -1,0 +1,66 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          placeholder="Camión"
+          [formControl]="itemForm.controls['id_camion']"
+          name="id_camion"
+          class="mb-1"
+        >
+          <mat-option
+            *ngFor="let camion of camiones"
+            [value]="camion.id"
+            ngDefaultControl
+          >
+            {{ camion?.nombre_marca_camion }} / {{ camion?.patente }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          placeholder="Acoplado"
+          [formControl]="itemForm.controls['id_acoplado']"
+          name="id_acoplado"
+          class="mb-1"
+        >
+          <mat-option
+            *ngFor="let acoplado of acoplados"
+            [value]="acoplado.id"
+            ngDefaultControl
+          >
+            {{ acoplado?.nombre_marca_acoplado }} / {{ acoplado?.patente }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

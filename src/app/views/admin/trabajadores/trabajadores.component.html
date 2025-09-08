@@ -1,0 +1,95 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Listado de Personas</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content>
+    <form [formGroup]="itemForm" class="pt-1">
+      <mat-form-field>
+        <mat-select (selectionChange)="updateFilter($event,'rol')" [formControl]="itemForm.controls['rol']">
+          <mat-option value="0">Sin Filtro</mat-option>          
+            <mat-option value="2" *ngIf="( chofBool) "> Chofer</mat-option>  
+          
+         <!--  <mat-option value="3">Centro Muvin</mat-option> -->
+          <mat-option value="4" *ngIf="( transBool) ">Transportista</mat-option>
+          <mat-option value="5" *ngIf="( cargBool) ">Cargador</mat-option>
+          <mat-option value="6" *ngIf="( destiBool) ">Destinatario</mat-option>
+          <!-- <mat-option value="7">Destino</mat-option> -->
+          <mat-option value="8" *ngIf="( entreBool) ">Entregador</mat-option>
+          <mat-option value="9" *ngIf="( correBool) ">Corredor</mat-option>
+          <mat-option value="10" *ngIf="( interBool) ">Intermediario Fletes</mat-option>
+          <mat-option value="11" *ngIf="( operaBool) ">Operador</mat-option>
+        </mat-select>
+       <!--  <mat-select style="width: 35%;" id="origen" placeholder="Seleccione el rol"
+        (selectionChange)="updateFilter($event,'rol')" id="filterRoles" placeholder="Seleccione el rol" name="filterRoles" class="mb-1">
+            <mat-option *ngFor="let TempRol of TempRoles" [value]="TempRol.id" ngDefaultControl>
+                {{TempRol.nombre}}
+            </mat-option>
+        </mat-select> -->
+      </mat-form-field>
+    </form>
+
+  </mat-card-content>
+</mat-card>
+<mat-card class="p-0"> 
+  <mat-card-content class="p-0">
+    &nbsp;
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width"> 
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar por Persona</mat-label>
+        <input  matInput (keyup)='updateFilter($event,"nombre")'> 
+      </mat-form-field>
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width"> 
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar por CUIT/CUIL</mat-label>
+        <input  matInput (keyup)='updateFilter2($event)'> 
+      </mat-form-field>
+    <ngx-datatable class="material ml-0 mr-0" [rows]="trabajadores" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [limit]="10" [rowHeight]="'auto'" [messages]="messages">
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1" >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.id }}
+              </ng-template>
+           </ngx-datatable-column> -->
+      <ngx-datatable-column name="Nombre" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT/CUIL" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuit_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Rol" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_rol }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chofer Verificado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template >
+          {{ row?.verificado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Vencimiento Licencia" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template >
+          {{ row?.vencimiento_licencia }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Editar"
+            (click)="openPopUpPerfil(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Verificar" *ngIf="esCentroMuvin && row.id_rol == 2"
+          (click)="bloqueoDesbloqueo(row)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Actualizar vencimiento de la licencia" *ngIf="esCentroMuvin && row.id_rol == 2"
+          (click)="actualizarVencimiento(row)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

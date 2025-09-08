@@ -1,0 +1,93 @@
+<div id="cabecera">
+  <div class="handle" style="color: #ffffff">
+    <p style="margin: 0px 10px 0px; font-size: xx-small;">Nueva</p>
+    <button mat-fab class="mat-ccpp-cabecera" matTooltip="Nueva cabecera" (click)="openPopUp({}, true)">
+      <mat-icon style="margin-top: -8px;" class="icon-display">add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="margin-333" style="height: 85vh;">
+  <div fxLayout="column wrap">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <div fxLayout="row wrap" style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px;">
+          <div fxFlex="20">
+            <div fxLayout="row wrap" style="background: #8EBC22; padding: 15px; ">
+              <p style="margin: 0px 30px 0px; font-size: 15px; color: white;">Cabeceras (
+               <span *ngIf="lista_cabeceras"> {{page.totalElements}}</span>
+                )</p>
+            </div>
+          </div>
+          <div class="triangulo" style="margin-top: 15px;"></div>
+          <div fxFlex="1"></div>
+          <div fxFlex="35" fxLayoutAlign="center center">
+            <input autofocus="true" placeholder="Buscar Cabecera" type="text"
+              [formControl]="buscarForm.controls['titulo']" class="input-buscar">
+          </div>
+          <div fxFlex="2"></div>
+          <div fxFlex="4" fxLayoutAlign="center center">
+            <button mat-raised-button style="background-color: #174891;"
+              type="button" (click)="buscarCabecera()">
+              Buscar
+            </button>
+          </div>
+          <div fxFlex="2"></div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <div class="textarea">
+          <div fxLayout="row wrap">
+            <div fxFlex="90">
+              <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Título</div>
+            </div>
+            <div fxFlex="10">
+              <div style="margin-top: 20px; color: #ffffff;">Acciones</div>
+            </div>
+          </div>
+          <div style="margin-top: 20px; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;">
+            <ngx-datatable matSort class="material ml-0 mr-0" [rows]="lista_cabeceras" [columnMode]="'force'"
+              [headerHeight]="50" [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [limit]="page.size"
+              (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages" [offset]="page.pageNumber-1">
+              <ngx-datatable-column name="" [flexGrow]="2">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.titulo }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Ver" [flexGrow]="1" [maxWidth]="60" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1"
+                  (click)="openPopUpVer(row)" matTooltip="Ver">
+                    <mat-icon style="color: #93BD26;">visibility</mat-icon>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Editar" [flexGrow]="1" [maxWidth]="60" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Editar" (click)="openPopUp(row,false)">
+                    <mat-icon style="color: #767676;">edit</mat-icon>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Copiar" [flexGrow]="1" [maxWidth]="60" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Copiar" (click)="openPopUpCopia(row)">
+                    <mat-icon style="color: #000101;">content_copy</mat-icon>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Borrar" [flexGrow]="1" [maxWidth]="60" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Borrar" (click)="deleteCabecera(row)">
+                    <mat-icon style="color: #C2C1C2;">delete_forever</mat-icon>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

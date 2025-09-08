@@ -1,0 +1,24 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id">
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="descripcion"  maxlength="50" [formControl]="itemForm.controls['descripcion']" placeholder="Descripción">
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['descripcion'].hasError('required') && itemForm.controls['descripcion'].touched"
+        class="form-error-msg">
+        Es requerida la descripcion.
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

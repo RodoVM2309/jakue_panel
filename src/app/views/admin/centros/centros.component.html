@@ -1,0 +1,209 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Centros</h4>
+</div>
+
+<mat-card class="p-0">
+
+  <mat-card-content class="p-0">
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width">
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar centro por Razon social</mat-label>
+        <input  matInput (keyup)='updateFilter($event)'>
+      </mat-form-field>
+
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width">
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar centro por CUIT</mat-label>
+        <input  matInput (keyup)='updateFilter1($event)'>
+      </mat-form-field>
+     <button mat-icon-button mat-sm-button color="warn" (click)="exportAsXLSX()"><mat-icon>list</mat-icon>Exportar a Excel</button>
+
+     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- fecha_desde Column -->
+      <ng-container matColumnDef="nombre_persona">
+        <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+        <td mat-cell *matCellDef="let row">{{row?.nombre_persona}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- fecha_hasta Column -->
+      <ng-container matColumnDef="cuit_persona">
+        <th mat-header-cell *matHeaderCellDef>CUIT</th>
+        <td mat-cell *matCellDef="let row">{{row?.cuit_persona}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Remitente Column -->
+      <ng-container matColumnDef="localidad_persona">
+        <th mat-header-cell *matHeaderCellDef>Localidad</th>
+        <td mat-cell *matCellDef="let row">{{row?.localidad_persona}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- tipo_pedido Column -->
+      <ng-container matColumnDef="desc_tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let row"> {{row?.desc_tipo}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- tipo_interviniente Column -->
+      <ng-container matColumnDef="tipo_interviniente">
+        <th mat-header-cell *matHeaderCellDef>Tipo Interviniente</th>
+        <td mat-cell *matCellDef="let row"> {{row?.tipo_interviniente}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- producto Column -->
+      <ng-container matColumnDef="visualiza_flota_intermediario">
+        <th mat-header-cell *matHeaderCellDef>Visualiza flota intermediario</th>
+        <td mat-cell *matCellDef="let row"> {{row?.visualiza_flota_intermediario}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- cant_camiones Column -->
+      <ng-container matColumnDef="km">
+        <th mat-header-cell *matHeaderCellDef>Inteligencia Logística</th>
+        <td mat-cell *matCellDef="let row"> {{row?.km}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- lugar_carga Column -->
+      <ng-container matColumnDef="condiciones">
+        <th mat-header-cell *matHeaderCellDef>Condiciones de viaje</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.condiciones }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="ve_choferes_libres">
+        <th mat-header-cell *matHeaderCellDef>Ver Choferes Libres</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.ve_choferes_libres }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="dador_cupo">
+        <th mat-header-cell *matHeaderCellDef>Dador Cupo</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.dador_cupo }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column cliente_final -->
+      <ng-container matColumnDef="cliente_final">
+        <th mat-header-cell *matHeaderCellDef>Cliente final</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.cliente_final }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column linea_whatsapp -->
+      <ng-container matColumnDef="linea_whatsapp">
+        <th mat-header-cell *matHeaderCellDef>Línea Whatsapp</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.linea_whats_app }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column contratoRequerido -->
+      <ng-container matColumnDef="contratoRequerido">
+        <th mat-header-cell *matHeaderCellDef>Contrato/Fijación obligatorio</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row?.contratoRequerido }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <!-- Acciones Column usaCupera -->
+      <ng-container matColumnDef="usaCupera">
+        <th mat-header-cell *matHeaderCellDef>Cupera 2.0</th>
+        <td mat-cell *matCellDef="let row">
+          <span *ngIf="row?.usaCupera==1"> NO</span>
+          <span *ngIf="row?.usaCupera==2"> SI</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column asDestinatario -->
+      <ng-container matColumnDef="asDestinatario">
+        <th mat-header-cell *matHeaderCellDef>Solicita cupo</th>
+        <td mat-cell *matCellDef="let row">
+          <span *ngIf="row?.esDestinatario==0"> Si</span>
+          <span *ngIf="row?.esDestinatario==1"> No</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="CambiarTipoCentro(row)" matTooltip="Modificar Tipo">
+              <mat-icon color="primary">assignment_turned_in</mat-icon>
+              <span>Modificar Tipo</span>
+            </button>
+            <button mat-menu-item (click)="CambiarCondiciones(row)" matTooltip="Modificar Condiciones de viaje">
+              <mat-icon color="primary">format_list_numbered</mat-icon>
+              <span>Modificar Condiciones de viaje</span>
+            </button>
+            <button mat-menu-item (click)="CambiarVisualiza(row)" matTooltip="Acceso Visualizar Flota Intermediario">
+              <mat-icon color="primary">local_shipping</mat-icon>
+              <span>Acceso Visualizar Flota Intermediario</span>
+            </button>
+            <button mat-menu-item (click)="CambiarKm(row)" matTooltip="Acceso Inteligencia Logística">
+              <mat-icon color="primary">memory</mat-icon>
+              <span>Acceso Inteligencia Logística</span>
+            </button>
+            <button mat-menu-item (click)="CambiarVerLibres(row)" matTooltip="Acceso Choferes Libres">
+              <mat-icon color="primary">edit_location</mat-icon>
+              <span>Acceso Choferes Libres</span>
+            </button>
+            <button mat-menu-item (click)="openPopUpInfoPersona(row)" matTooltip="Información Perfil">
+              <mat-icon color="primary">account_circle</mat-icon>
+              <span>Información Perfil</span>
+            </button>
+            <button mat-menu-item (click)="subir(row)" matTooltip="Subir Logo">
+              <mat-icon color="primary">panorama</mat-icon>
+              <span>Subir Logo</span>
+            </button>
+            <button mat-menu-item (click)="CambiarDadorCupo(row)" matTooltip="Modificar Dador cupo">
+              <mat-icon color="primary">copyright</mat-icon>
+              <span>Modificar Dador cupo</span>
+            </button>
+            <button mat-menu-item (click)="CambiarClienteFinal(row)" matTooltip="Modificar Cliente Final">
+              <mat-icon color="primary">assistant_photo</mat-icon>
+              <span>Modificar Cliente Final</span>
+            </button>
+            <button mat-menu-item (click)="CambiarLineaWhatsapp(row)" matTooltip="Modificar Línea Whatsapp">
+              <img alt="Modificar Línea Whatsapp" src="assets/images/muvin/whatsapp_azul1.png">
+              <span>Modificar Línea Whatsapp</span>
+            </button>
+            <button mat-menu-item (click)="CambiarUsaCupera(row)" matTooltip="Uso cupera 2.0">
+              <mat-icon color="primary">view_headline</mat-icon>
+              <span>Uso cupera 2.0</span>
+            </button>
+            <button mat-menu-item (click)="CambiarEsDestinatario(row)" matTooltip="Define si un centro puede solicitar cupos">
+              <mat-icon color="primary">offline_pin</mat-icon>
+              <span>Solicita cupo</span>
+            </button>
+            <button mat-menu-item (click)="CambiarInterviniente(row)" matTooltip="Definir tipo interviniente">
+              <mat-icon color="primary">add_task</mat-icon>
+              <span>Definir tipo interviniente</span>
+            </button>
+            <button mat-menu-item (click)="contratoObligatorio(row)" matTooltip="Contrato/Fijación Obligatorio en Demanda">
+              <mat-icon color="primary">wysiwyg</mat-icon>
+              <span>Definir Contrato/Fijación obligatorio</span>
+            </button>
+          </mat-menu>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+        [ngStyle]="(row.disponibilidad=='1' || row?.estado === 'Ocupado') && {'background-color': '#efefef'}"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator class="mat-paginator-sticky" [pageSize]="page.size" [pageSizeOptions]="[10]"
+      [showFirstLastButtons]="true" [length]="page.totalElements" (page)="setPage($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+</mat-card>

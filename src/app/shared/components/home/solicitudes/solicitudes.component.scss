@@ -1,0 +1,188 @@
+table {
+    width: 100%;
+  }
+  .Rotate-90
+    {
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+
+      -webkit-transform-origin: 50% 50%;
+      -moz-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+      -o-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+
+      font-size: 11px;
+      background: #ffffff;
+      width: 50px;
+      position: relative;
+      top: 1px;
+
+      margin: 2 0 16px;
+  }
+  #filtro-dador {
+      position: fixed;
+      z-index: 20000;
+      top: 70px;
+      right: 12px;
+      max-width: 300px;
+      .handle {
+        float: right;
+      }
+      .mat-card-content  {
+        padding: 1rem 1.5rem 2rem;
+      }
+    }
+    .mat-indicador-total{
+      background-color: #B1B2B4 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-pend_asignar{
+      background-color: #EC7420 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-pend_vincular{
+      background-color: #D07F0D !important;
+      color: #fff!important;
+    }
+    .mat-indicador-ctg{
+      background-color: #EADF00 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-cargado{
+      background-color: #96C57B !important;
+      color: #fff!important;
+    }
+    .mat-indicador-mas50{
+      background-color: #5EA844 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-menos50{
+      background-color: #5EA643 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-en_destino{
+      background-color: #406EB0 !important;
+      color: #fff!important;
+    }
+    .mat-indicador-descargados{
+      background-color: #DBDCDD !important;
+      color: #fff!important;
+    }
+    tr.example-detail-row {
+      height: 0;
+    }
+
+    tr.example-element-row:not(.example-expanded-row):hover {
+      background: #f5f5f5;
+    }
+
+    tr.example-element-row:not(.example-expanded-row):active {
+      background: #efefef;
+    }
+
+    .example-element-row td {
+      border-bottom-width: 0;
+    }
+
+    .example-element-detail {
+      overflow: hidden;
+      display: flex;
+    }
+
+    .example-element-diagram {
+      min-width: 80px;
+      border: 2px solid black;
+      padding: 8px;
+      font-weight: lighter;
+      margin: 8px 0;
+      height: 104px;
+    }
+
+    .example-element-symbol {
+      font-weight: bold;
+      font-size: 40px;
+      line-height: normal;
+    }
+
+    .example-element-description {
+      padding: 16px;
+    }
+
+    .example-element-description-attribution {
+      opacity: 0.5;
+    }
+    .mat-column-acciones {
+      width: 10%;
+      text-align: center;
+    }
+
+    #app-filtrosSolicitudes {
+      position: fixed;
+      z-index: 20000;
+      top: 70px;
+      right: 10px;
+      max-width: 300px;
+      .handle {
+        float: right;
+      }
+      .mat-card-content  {
+        padding: 1rem 1.5rem 2rem;
+      }
+    }
+    .mat-column-first_color {
+      width: 5%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-producto {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-fechadesde {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-fechahasta {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-zona {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-demandado {
+      width: 25%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-cantidad {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-asignados {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+    .mat-column-acciones {
+      width: 10%;
+      text-align: center;
+      padding: 0px;
+    }
+
+    .solicitud-acept {
+      background:#87B1C5;
+    }
+    
+    .solicitud-reject {
+      background: #ffc107;
+    }

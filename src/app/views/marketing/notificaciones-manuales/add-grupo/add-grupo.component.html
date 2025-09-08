@@ -1,0 +1,123 @@
+<div>
+  <h1 matDialogTitle>{{data.title}}</h1><span fxFlex></span>
+</div>
+<form [formGroup]="itemFormGrupo" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemFormGrupo.controls['id']" placeholder="Id de grupo">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre" [formControl]="itemFormGrupo.controls['nombre']" placeholder="Nombre" #nombre
+          maxlength="75">
+        <mat-hint align="end">{{nombre.value.length}} / 75</mat-hint>
+      </mat-form-field>
+      <small *ngIf="itemFormGrupo.controls['nombre'].hasError('required') && itemFormGrupo.controls['nombre'].touched"
+        class="form-error-msg">
+        Es requerido el nombre
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="zona_ideal" [formControl]="itemFormGrupo.controls['zona_ideal']" placeholder="Zona ideal">
+          <mat-option *ngFor="let vzona of zonas" [value]="vzona.id">
+            {{vzona.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="radio" [formControl]="itemFormGrupo.controls['radio']" placeholder="Radio" type="number">
+      </mat-form-field>
+      <small *ngIf="itemFormGrupo.controls['radio'].hasError('required') && itemFormGrupo.controls['radio'].touched"
+        class="form-error-msg">
+        Es requerido el radio
+      </small>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex="50" fxFlex.gt-xs="70" class="pr-1">
+        Acoplados:&nbsp;&nbsp;
+        <span fxFlex></span>
+        <mat-select id="tipo_acoplados" [formControl]="itemFormGrupo.controls['tipo_acoplados']"
+          placeholder="Seleccione el tipo acoplado" name="tipo_acoplados" class="mb-1" multiple
+          (selectionChange)="onChangeAcoplado()">
+          <mat-option *ngFor="let tipo of tiposAcoplados" [value]="tipo.id" ngDefaultControl>
+            {{tipo?.descripcion}}
+          </mat-option>
+        </mat-select>
+        <small
+          *ngIf="itemFormGrupo.controls['tipo_acoplados'].hasError('required') && itemFormGrupo.controls['tipo_acoplados'].touched"
+          class="form-error-msg"> Es requerido el tipo de acoplado</small>
+      </div>
+      <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+        <mat-checkbox class="example-radio-button" [formControl]="itemFormGrupo.controls['todosacoplados']"
+          (change)="onChangeTodosAcoplados($event)">
+          Todos los acoplados &nbsp;
+        </mat-checkbox>
+      </div>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="latitud" type="number"  maxlength="32" [formControl]="itemFormGrupo.controls['latitud']" placeholder="Latitud"
+          readonly>
+      </mat-form-field>
+      <small *ngIf="itemFormGrupo.controls['latitud'].hasError('required') && itemFormGrupo.controls['latitud'].dirty" class="form-error-msg">
+        Es requerida la latitud
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="longitud" type="number" [formControl]="itemFormGrupo.controls['longitud']" placeholder="Longitud">
+      </mat-form-field>
+      <small *ngIf="itemFormGrupo.controls['longitud'].hasError('required') && itemFormGrupo.controls['longitud'].dirty" class="form-error-msg">
+        Es requerida la longitud
+      </small>
+    </div>    
+    <mat-accordion class="full-width">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Localice el Lugar Espec&iacute;fico en el mapa
+          </mat-panel-title>
+          <mat-panel-description>
+            
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card-content class="p-0">
+            <div class="form-group">
+                <input 
+                   placeholder="Buscar Localidad Espec&iacute;fica" 
+                   autocorrect="off" 
+                   autocapitalize="off" 
+                   spellcheck="off" 
+                   type="text" 
+                   class="form-control" 
+                   #search 
+                   [formControl]="searchControl">
+              </div>
+              
+          <agm-map [ngStyle]="{height: '200px'}" [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa( $event )" [mapTypeId]="'hybrid'" [mapTypeControl] ="true">
+            <agm-marker *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.lat" [longitude]="marcador.lng"
+              [title]="marcador.titulo" [markerDraggable]="marcador.draggable" (markerClick)="clickMarcador( marcador, i)"
+              (dragEnd)="dragEndMarcador( marcador, $event )">
+              <agm-info-window>
+                <strong>{{ marcador.titulo }}</strong>
+                <p *ngIf="marcador.desc">
+                  {{ marcador.desc }}
+                </p>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </mat-card-content>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemFormGrupo.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

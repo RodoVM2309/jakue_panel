@@ -1,0 +1,90 @@
+import { Cupo } from "./cupo";
+
+export class Chofer {
+  id: number;
+  id_rol: number;
+  id_usuario: number;
+  nombre_persona: string;
+  direccion_persona: string;
+  localidad_persona: string;
+  nombre_rol: string;
+  distancia: number;
+  longitud: number;
+  latitud: number;
+  patente: string;
+  id_chofer_equipo: number;
+  id_equipo: number;
+  estado: string;
+  id_tipo_camion: number;
+  id_transportista: number;
+  nombre_transportista: string;
+  intermediario_transportista: string;
+  celular: string;
+  id_tipo_acoplado: number;
+  tipo_acoplado: string;
+  patente_acoplado: string;
+  por_inteligencia: number;
+  postulado: number;
+  time_last_update: number;
+  zona_activa: {
+    id: number;
+    descripcion: string;
+    id_centro: number;
+    nombre_centro: string;
+  };
+  id_generador: number;
+  nombre_generador: string;
+  id_pedido: number;
+  inteligencia: number;
+  evaluacion: number;
+  porciento_cumplimiento: number;
+  starList: boolean[] = [false, false, false, false, false];
+  verificado: number;
+  esCentro: number;
+  esPremium: number;
+  esLibre: number;
+  interesado: number;
+  id_chofer: number;
+  update_at: any;
+  vencimiento_licencia: any;
+  movil_key: string;
+  chofer_equipo_bloqueado: number;
+  id_cupo: number;
+  fecha_cupo: string;
+  cupoAsignado: string;
+  appInstalada: number;
+  icon: string;
+  // tslint:disable-next-line:eofline
+  id_reserva?:any;
+}
+
+export class ChoferCentro {
+  centro_primario: string;
+  estado: string | null;
+  id_centro: number;
+  id_chofer: number;
+  id_chofer_equipo: number;
+  id_equipo: number;
+  id_estado: number;
+  id_generador: number | null;
+  id_intermediario: number | null;
+  id_observador: number | null;
+  id_pedido: number | null;
+  id_producto: number | null;
+  id_tipo_acoplado: number | null;
+  id_transportista: number | null;
+  latitud: number | null;
+  longitud: number | null;
+  nombre_chofer: string | null;
+  nombre_estado: string | null;
+  nombre_generador: string | null;
+  nombre_intermediario: string | null;
+  nombre_producro: string | null;
+  nombre_transportista: string | null;
+  patente: string | null;
+  patente_acoplado: string | null;
+  telefono: string | null;
+  tipo_flota: string | null;
+  update_at: string | null;
+  hora_arribo: string | null;
+}

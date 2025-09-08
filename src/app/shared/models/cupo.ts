@@ -1,0 +1,183 @@
+export class Cupo {
+  id?: number;
+  idCupoTerminal?: string;
+  fechaCupo?: string;
+  fechaCupoFormateada?: string;
+  destinatarioCuit?: string;
+  codigoCosecha?: number;
+  cartaPorte?: string;
+  numeroCTG?: number;
+  estadoCTG?: string;
+  fechaHoraPedidoCTG?: string;
+  ultimaGeocalizacion?: string;
+  id_entregador?: number;
+  id_pedido?: number;
+  estado?: number;
+  usado?: number;
+  id_producto?: number;
+  id_destino?: number;
+  cuitMercadoTermino?: string;
+  nombreDestinatario?: string;
+  entregadorCuit?: string;
+  nombreDestino?: string;
+  choferCuit?: string;
+  corredorCuit?: string;
+  receptorCuit?: string;
+  dadorCuit?: string;
+  numeroContrato?: string;
+  productoCodigo?: number;
+  nombreProducto?: string;
+  entregadorNombre?: string;
+  destinoCodigoPlantaOncca?: number;
+  datoComplejo?: string;
+  numeroContratoContraparte?: string;
+  observaciones?: string;
+  fechaformat?: string;
+  pedido?: boolean;
+  entregador?: boolean;
+  nombreEstadoViaje: string;
+  nombreEstadoCupo: string;
+  kms: number;
+  nombreDador: string;
+  nombreEntregador: string;
+  nombreCorredor: string;
+  nombreSolicitante: string;
+  nombreChofer: string;
+  en_pedido?: number;
+  asignado?: string;
+  seleccionado?: boolean;
+  habilitado?: boolean;
+  aplicar?: boolean;
+  id_cabecera?: number;
+  position: number;
+}
+
+
+export class CupoV3 {
+  asignado?: boolean;
+  cantHorasSalidaCamion: string;
+  cartaPorte: string;
+  codGrano: string;
+  codLocalidadDestino: string;
+  codLocalidadOrigen: "12180"
+  consultadoXAFIP: string;
+  cosecha: string;
+  creado: string;
+  creadoPor: string;
+  ctg: string;
+  cuitChoferAfip: string;
+  cuitCorredorCAfip: string;
+  cuitCorredorVAfip: string;
+  cuitDestinatarioAfip: string;
+  cuitDestinoAfip: string;
+  cuitIntermediarioFleteAfip: string;
+  cuitMercadoATerminoAfip: string;
+  cuitOrigenAfip: string;
+  cuitRemComercialAfip: string;
+  cuitRepresentanteEntregadorAfip: string;
+  cuitTransportistaAfip: string;
+  desvio: string;
+  dominio: string;
+  esAnulado: string;
+  esRechazado: string;
+  estado: string;
+  fecha: string;
+  fechaActivado: string | null;
+  fechaAnulado: string | null;
+  fechaArribado: string | null;
+  fechaCP_Carga: string | null;
+  fechaCP_Vto: string | null;
+  fechaCTG_Desde: string | null;
+  fechaCTG_Hasta: string | null;
+  fechaConfirmado: string | null;
+  fechaDescargado: string | null;
+  fechaDesviadoD: string | null;
+  fechaDesviadoO: string | null;
+  fechaRechazado: string | null;
+  fechaRegresado: string | null;
+  fechaTomado: string | null;
+  id: string | null;
+  idCuitChofer: string | null;
+  idCuitCorredorC: string | null;
+  idCuitCorredorV: string | null;
+  idCuitDestinatario: string | null;
+  idCuitDestino: string | null;
+  idCuitIntermediarioFlete: string | null;
+  idCuitIntermediarioFleteFlete: string | null;
+  idCuitMercadoATermino: string | null;
+  idCuitOrigen: string | null;
+  idCuitRemComercial: string | null;
+  idCuitRepresentanteEntregador: string | null;
+  idCuitTransportista: string | null;
+  idCuitIntermediario1: string | null;
+  idCuitIntermediario2: string | null;
+  idCupo: string | null;
+  idCupoEstado: string | null;
+  idCupoTerminal: string | null;
+  idEstadoEnPlanta: string | null;
+  idTerminal: string | null;
+  idTurnoDetalle: string | null;
+  id_destino: string | null;
+  id_entregador: string | null;
+  id_pedido: string | null;
+  id_producto: string | null;
+  kmRecorrer: string | null;
+  modificado: string | null;
+  modificadoPor: string | null;
+  nroContrato: string | null;
+  nroEstablecimientoOrigen: string | null;
+  nroPlantaRuca: string | null;
+  pesoNetoEstimado: string | null;
+  renspa: string | null;
+  ultimaGeocalizacion: string | null;
+  ultima_latitud: string | null;
+  ultima_longitud: string | null;
+  ultimo: string | null;
+  habilitado?: boolean;
+  aplicar?: boolean;
+  id_cabecera?: string;
+  caratulaMercadoATermino?: string;
+}
+
+
+export class CupoDisponible {
+  id: string;
+  idCupoTerminal: string;
+  fecha: string;
+  idCuitDestinatario: string;
+  idCuitRepresentanteEntregador: null;
+  dadorCuit: string;
+  cosecha: string;
+  id_producto: string;
+  id_destino: string;
+  nroContrato: string;
+  id_pedido: string | null;
+  en_viaje: string | null;
+  destino: Destino;
+  producto: Destino;
+}
+
+export interface Destino {
+  id: string;
+  descripcion: string;
+}
+
+export class CupoRecuperarV2 {
+  id_cupo: string | null;
+  receptorCuit: string | null;
+  contraparte: string | null;
+  nroContrato: string | null;
+  fecha_solicitud: string | null;
+  fecha: string | null;
+  idCupoTerminal: string | null;
+  id_destino: string | null;
+  id_producto: string | null;
+  idCuitDestinatario: string | null;
+  nombreDestinatario: string | null;
+  seleccionado?: boolean;
+  position: number;
+  corredor: string | null;
+  corredorCuit: string | null;
+  contraparteCuit: string | null;
+  contrato: string | null;
+}

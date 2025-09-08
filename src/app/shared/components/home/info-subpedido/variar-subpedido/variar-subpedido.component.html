@@ -1,0 +1,52 @@
+﻿<mat-card>
+  <mat-card-title class="" style="background: #2bc4f3;">
+    <div class="card-title-text" style="background: #2bc4f3;">
+      CAMIONES POR ADMINISTRAR: {{ viajes_x_asignar }}
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <form [formGroup]="itemForm" (ngSubmit)="guardar()">  
+    <mat-card-content>
+      <mat-form-field>
+        <input
+          id="mat-input1"
+          matInput
+          class="quantity-input default-bg"
+          name="quantity"
+          type="number"
+          [max]="viajes_x_asignar"
+          [min]="minimo"
+          [formControl]="itemForm.controls['quantity']"
+          (change)="modificarcant($event.target.value)"
+        />
+        <mat-error>
+           <small *ngIf="itemForm.controls['quantity'].hasError('min') && itemForm.controls['quantity'].touched"
+            class="form-error-msg">
+            Valor por debajo del valor minimo permitido
+          </small>
+          <small *ngIf="itemForm.controls['quantity'].hasError('max') && itemForm.controls['quantity'].touched"
+            class="form-error-msg">
+            Valor por encima del valor maximo permitido
+          </small>
+        </mat-error>        
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <div fxFlex="100" class="mt-1">
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="dialogRef.close(false)"
+        >
+          Cancelar
+        </button>
+        <span fxFlex></span>
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+          Guardar
+        </button>
+      </div>
+      <!--</div>-->
+    </mat-card-content>
+  </form>
+</mat-card>

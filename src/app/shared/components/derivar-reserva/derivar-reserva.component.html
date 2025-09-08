@@ -1,0 +1,47 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title class="">
+    <div fxLayout="row wrap" class="card-title-text titulo-fondo" fxLayoutAlign="start start">
+      <div fxFlex="100" fxLayoutAlign="start start">
+        <h5 fxFlex="90"> Derivar reserva </h5>
+        <button fxFlex="10" mat-icon-button matTooltip="Cerrar"  fxLayoutAlign="start start" class="m-0"
+          (click)="dialogRef.close(false)">
+          <mat-icon style="margin-top:-15px;">cancel</mat-icon>
+        </button>
+        <!--  <b (click)="this.dialogRef.close(false)" style="text-align: right;color: white ;">X</b> -->
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content>
+    <b> Seleccionaste las reservas id:
+      <span *ngFor="let r of listReservas;let i = index;"> <span *ngIf="i > 0">,</span>{{ r }}</span></b>
+    <form>
+      <div fxLayout="row wrap">
+        <div fxFlex="92" class="mt-0">
+          <mat-form-field class="full-width">
+            <mat-select [(ngModel)]="proveedor" name="proveedor" placeholder="Provedor"
+              (selectionChange)="getTerminales()">
+              <mat-option *ngFor="let l of listProveedor;let i = index;" [value]="l.id">{{ l.razon_social }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="92" class="mt-0">
+          <mat-form-field class="full-width">
+            <mat-select [(ngModel)]="terminal" name="terminal" placeholder="Terminal">
+              <mat-option *ngFor="let l of listTerminales;let i = index;" [value]="l.id">{{ l.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="encabezado row_encabezado">
+        <div fxFlex="100" style="margin: 20px 0px ;display: flex;justify-content: center;">
+          <button (click)="derivarReserva()" class="btn_confirmar" type="button" mat-raised-button>
+            <span style="font-size: small;">Guardar</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>

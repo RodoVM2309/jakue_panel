@@ -1,0 +1,94 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_viaje"
+          [formControl]="itemForm.controls['id_viaje']"
+          placeholder="Id del Estado"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del Estado"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_destino"
+          [formControl]="itemForm.controls['id_destino']"
+          placeholder="Id del Destino"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="fecha"
+          [formControl]="itemForm.controls['fecha']"
+          placeholder="Fecha"
+          [matDatepicker]="appDatepicker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+        </mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      Resultado Calada
+      <mat-select
+        placeholder="Seleccione el Resultado Calada"
+        [formControl]="itemForm.controls['id_estado_descarga']"
+        name="id_destino"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let estado of estadosDescarga"
+          [value]="estado.id"
+          ngDefaultControl
+        >
+          {{ estado.descripcion }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="descripcion"
+          [formControl]="itemForm.controls['descripcion']"
+          placeholder="Información Adicional"
+          #descripcion
+          maxlength="200"
+        ></textarea>
+        <mat-hint align="end">{{ descripcion.value.length }} / 200</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

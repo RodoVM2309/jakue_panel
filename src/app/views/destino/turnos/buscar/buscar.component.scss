@@ -1,0 +1,146 @@
+.cuerpo{
+  width: 100%;
+  position: relative;
+  height: 50px;
+  color:#ffffff;
+}
+
+.azul {
+  background: rgb(24,71,145);
+}
+
+.verde {
+  background: #78C92A;
+}
+.azul-claro {
+  background: #ABE3F8;
+}
+
+.lado-izquierdo-arriba-azul:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color:  transparent transparent transparent rgb(24,71,145);
+}
+.lado-izquierdo-arriba-claro:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color:  transparent transparent transparent #78C92A;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  color: #ffffff !important;
+  background-color: rgb(131,183,25)!important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(186, 209, 141)!important;
+}
+
+.input-buscar {
+  width: 40%;
+  height: 40px;
+  background-color: #EBED24;
+  border-color:#EBED24;
+  border-radius: 10px;
+  color: #000;
+  margin-left: 10px;
+}
+
+.icon-buscar {
+  font-size: 35px;
+  height: 40px;
+  width: 40px;
+}
+
+.resultado{
+ background-color: #7AAAC0;
+ color: #ffffff;
+ font-size: 1rem;
+ height: 150px;
+}
+
+.my-table {
+  width: 100%;
+  margin-left: 5px;;
+  background-color: #7AAAC0;
+  color: #ffffff;
+}
+
+.my-row{
+  background-color: #ffffff;
+  color: #818288;
+  text-align: center;
+}
+.my-header{
+  color: #ffffff;
+  text-align: center;
+}
+
+.mat-column-first_column {
+  width: 5%;
+}
+.mat-column-chofer {
+  width: 20%;
+}
+.mat-column-patente {
+  width: 10%;
+}
+.mat-column-cuit {
+  width: 10%;
+}
+.mat-column-transportista {
+  width: 15%;
+}
+.mat-column-turno {
+  width: 15%;
+}
+.mat-column-estado {
+  width: 30%;
+}
+
+
+.en-tiempo {
+  background: #6aaf22;
+}
+.tarde {
+  background: #ffec00;
+}
+.demorado {
+  background: #c20b1d;
+}
+
+.estado{
+  width: 70%;
+  border-radius: 15px;
+  height: 20px;
+  color: #2E400D;
+  text-align: center;
+}
+
+.mat-divider-horizontal {
+  position: static;
+}
+
+tr.mat-footer-row, tr.mat-row {
+  height: 100px;
+}
+
+.my-table[_ngcontent-c15] {
+  width: 99%;
+}
+
+::ng-deep .egret-indigo .mat-divider {
+  border-top-color: #fff;
+}

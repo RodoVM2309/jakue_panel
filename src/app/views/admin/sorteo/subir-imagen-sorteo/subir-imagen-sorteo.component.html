@@ -1,0 +1,19 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<mat-progress-bar mode="determinate"  [value]="porciento" [bufferValue]="bufferValue"></mat-progress-bar>
+<mat-card class="p-0">
+  <mat-card-content>
+    <div class="mb-1 mt-1">     
+      <p>Localice la imagen en JPG</p>
+      <input type="file" name="foto"  (change)="onFileSelected($event)"   />
+      <button type = "button" (click)="onUpload()">Subir</button>
+    </div>
+
+   </mat-card-content>
+  <mat-card-content>
+      <div fxFlex="100" class="mt-1">        
+        <span fxFlex></span>
+        <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      </div>
+          <!--</div>-->  
+    </mat-card-content>
+</mat-card>

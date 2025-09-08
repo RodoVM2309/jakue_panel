@@ -1,0 +1,53 @@
+
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="column wrap">
+      <div fxFlex="100" style=" color: #E9E9EA;" [ngStyle]="{'background': '#174793'  }">
+        <div fxFlex="5" ></div>
+          <div fxFlex="90" fxLayoutAlign="start center" style="margin-top:3px;">
+            <h3>{{ data.title }}</h3>
+          </div>
+          <div fxFlex="5"></div>
+      </div>
+  </div>
+  <div class="cuerpo" fxLayout="column wrap">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <form [formGroup]="itemForm">
+          <div fxLayout="column">
+            <div fxFlex="100" class="pr-1 mt-1">
+              <div fxFlex="5" class="pr-1"></div>
+              <div fxFlex="90" class="pr-1">
+                <mat-form-field class="full-width">
+                  <textarea
+                    matInput
+                    name="observ"
+                    placeholder="Observaciones"
+                    [formControl]="itemForm.controls['observ']"
+                    rows="5"
+                    readonly
+                  >
+                  </textarea>
+                </mat-form-field>
+              </div>
+              <div fxFlex="5" class="pr-1"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="dialogRef.close(false)"
+              >
+                Cerrar
+              </button>
+    </div>
+  </div>
+  </div>
+
+

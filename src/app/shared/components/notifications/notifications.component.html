@@ -1,0 +1,127 @@
+﻿<div class="text-center mat-bg-primary pt-1 pb-1">
+  <h6 class="m-0">
+    <mat-icon>notifications</mat-icon> Notificaciones
+  </h6>
+</div>
+
+<div class="messages-wrap">
+  <mat-toolbar color="contadorpostulado" class="inbox-toolbar">
+    <!-- Left sidebar toggle button -->
+    <h6 class="m-1">Nuevas consultas </h6>
+  </mat-toolbar>
+  <mat-nav-list class="notification-list" role="list">
+    <!-- Notification item -->
+    <mat-list-item *ngFor="let n of notifications" class="notific-item" role="listitem" routerLinkActive="open">
+      <mat-icon [color]="n.color" class="notific-icon mr-1">{{n.icon}}</mat-icon>
+      <a [routerLink]="[n.route || '/dashboard']" (click)="gotoConsulta(n.id)">
+        <div class="mat-list-text">
+          <h4 class="message">{{n.message | translate}}</h4>
+          <small class="time text-muted">{{n.time}}</small>
+        </div>
+      </a>
+    </mat-list-item>
+  </mat-nav-list>
+  <mat-toolbar color="contadorpostulado" class="inbox-toolbar">
+    <!-- Left sidebar toggle button -->
+    <h6 class="m-1">Lista con Choferes Disponibles </h6>
+  </mat-toolbar>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let list of lista" hideToggle="true">
+      <mat-expansion-panel-header style="height: 60px;">
+        <div fxLayout="row wrap">
+          <div fxFlex="70">
+            <mat-panel-title>
+              <span class="hide-on-open">
+                <mat-icon color="primary">toc</mat-icon>
+              </span>
+              <span class="hide-on-open">{{list.nombre}}</span>
+              <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
+                <div fxLayout="column">
+                  <div fxLayout="row" fxFlex="100">
+                    <span>
+                      <mat-icon color="primary">toc</mat-icon>
+                    </span>
+                    <span>{{list.nombre}}</span>
+                  </div>
+                  <small class="time text-muted " style="text-align: right;">Pedidos: </small>
+                </div>
+              </div>
+            </mat-panel-title>
+          </div>
+          <div fxFlex="30">
+            <mat-panel-description fxLayoutAlign="end center">
+                <small class="m-0">Disponibles:</small>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;margin-top:1px;" color="indigo"
+                class="mr-2">
+                {{list.disponibles}}
+              </button>              
+            </mat-panel-description>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div class="message-text">
+        <div fxLayout="row wrap" *ngFor="let id of list.pedidos">
+          <div fxFlex="100">
+            <div fxFlex="50" fxLayoutAlign="end center">
+              <img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                style="height: 25px; width: 30px;">
+            </div>
+            <div fxFlex="50" fxLayoutAlign="start center" style="margin-top: 10px;">
+              <a (click)="addChoferesListaDisponibles(id)">
+                <strong>ID: {{id}}</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- Notification item -->
+  <!-- <mat-nav-list class="notification-list" role="list">
+ 
+  <div fxLayout="row wrap" *ngIf="isList">
+    <div fxFlex="100">
+      <h6 class="m-1">Lista con Choferes Disponibles </h6>
+      <mat-divider style="width: 95%;"></mat-divider>
+      <div fxLayout="column wrap" style="margin-top: 25px">
+          
+        <div fxFlex="100" *ngFor="let n of lista">       
+            <div fxLayout="column wrap" fxFlex="100">
+              <div fxLayout="row wrap">
+                <div fxFlex="100">
+                  <div fxFlex="20">
+                    <mat-icon color="primary">toc</mat-icon>
+                  </div>
+                  <div fxFlex="80" class="mat-list-text" fxLayout="column wrap" >
+                    <strong>{{n.nombre}}</strong>                   
+                    <small class="time text-muted">Disponibles: {{n.disponibles}}</small>
+                    <small class="time text-muted">Pedidos: </small>
+                    <div fxLayout="row wrap"  *ngFor="let id of n.pedidos">
+                        <div fxFlex="100">
+                          <div fxFlex="50" fxLayoutAlign="end center">
+                            <img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                              style="height: 25px; width: 30px;">
+                          </div>
+                          <div fxFlex="50" fxLayoutAlign="start center" style="margin-top: 10px;">
+                            <a (click)="addChoferesListaDisponibles(id)">
+                              <strong>ID: {{id}}</strong>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+        </div>
+      </div>
+      <mat-divider style="width: 95%;"></mat-divider>
+    </div>
+  </div>
+
+</mat-nav-list> -->
+  <!-- <div class="text-center mt-1" *ngIf="lista.length">
+  <small><a href="#" (click)="clearAll($event)">Clear all notifications</a></small>
+</div> -->

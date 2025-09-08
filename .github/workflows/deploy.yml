@@ -1,0 +1,104 @@
+name: docker_ci
+
+on:
+  push:
+    branches:
+      - 'prod'
+      - 'stag'
+      - 'dev'
+
+# if workflow_dispatch is used, the environments input is used
+# if not, the branch name is used
+env:
+  ENVIRONMENT: ${{ github.event.inputs.environments || github.ref_name }}
+
+jobs:
+  deploy:
+    runs-on: ${{ github.event.inputs.runner || 'ubuntu-latest' }}
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node 8
+      - name: Setup Node 8
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+
+      # Setup cache for node_modules folder and npm cache
+      - name: Setup cache for node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Import Secrets
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+          url: https://vault.alternativasinteligentes.com
+          token: ${{ secrets.VAULT_TOKEN }}
+          # caCertificate: ${{ secrets.VAULT_CA_CERT }}
+          secrets: |
+              ${{ env.ENVIRONMENT }}_environments/data/jakueapp SSH_HOST;
+              ${{ env.ENVIRONMENT }}_environments/data/jakueapp SSH_PRIVATE_KEY;
+              ${{ env.ENVIRONMENT }}_environments/data/jakueapp SSH_USER;
+              ${{ env.ENVIRONMENT }}_environments/data/jakueapp PANEL_ENVIRONMENT;
+
+      # Create SSH key to connect to server
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          cd ~/.ssh/
+          echo "${{ env.SSH_PRIVATE_KEY }}" > id_rsa
+          sudo chmod 600 id_rsa
+        shell: bash
+
+      # Build npm
+      - name: Build npm
+        run: |
+          # copy environment.prod.ts from PANEL_ENVIRONMENT
+          echo "Copying environment.prod.ts from PANEL_ENVIRONMENT"
+          mkdir -p ./src/environments
+          echo "${{ env.PANEL_ENVIRONMENT }}" > ./src/environments/environment.prod.ts
+          echo "${{ env.PANEL_ENVIRONMENT }}" > ./src/environments/environment.ts
+          npm ci
+          export NODE_OPTIONS=--max_old_space_size=8096 && npm run build --stats-json --source-map=false
+          # compress dist folder
+          tar -czf dist.tar.gz ./dist
+
+      - name: Backup old panel
+        run: |
+          # Script to save backup of old panel
+          cat > /tmp/backup.sh << EOF
+          #!/bin/bash
+          # create panel pwa folder if not exists
+          mkdir -p /var/www/jakue-${{ env.ENVIRONMENT }}
+          # create backup folder
+          mkdir -p /home/${{ env.SSH_USER }}/backup
+          # create backup file
+          tar -czf /home/${{ env.SSH_USER }}/backup/jakue-${{ env.ENVIRONMENT }}-panel-$(date +%Y%m%d%H%M).tar.gz /var/www/jakue-${{ env.ENVIRONMENT }}
+          EOF
+          # execute backup script on server
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "bash -s" < /tmp/backup.sh
+
+      # Connect to remote server and deploy
+      - name: Deploy
+        run: |
+          # send dist.tar.gz to server
+          scp -o StrictHostKeyChecking=no dist.tar.gz ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel.tar.gz
+          # extract dist.tar.gz on server on /tmp/jakue-${{ env.ENVIRONMENT }}-dist
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel && tar -xzf /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel.tar.gz -C /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel"
+          # remove old panel folder
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "find /var/www/jakue-${{ env.ENVIRONMENT }} -not -name 'api' -not -name 'pwa'"
+          # send /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel/dist to /var/www/jakue-${{ env.ENVIRONMENT }}
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cp -r /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel/dist/* /var/www/jakue-${{ env.ENVIRONMENT }}"
+          # remove /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "rm -rf /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel"
+          # remove /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel.tar.gz
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "rm -rf /tmp/jakue-${{ env.ENVIRONMENT }}-dist-panel.tar.gz"

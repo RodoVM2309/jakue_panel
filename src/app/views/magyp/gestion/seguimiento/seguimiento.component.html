@@ -1,0 +1,198 @@
+<div class="encabezado" fxLayout="column wrap" fxLayoutAlign="stretch" style="height: 10vh;">
+  <div fxFlex="100">
+    <div fxFlex="35" style="background-color: #154791; color: #ffffff; padding: 5px;" fxLayoutAlign="start center">
+      <div fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex="100">
+            <h5 style="margin-left: 30px;">BUSCADOR TRANSPORTISTAS</h5>
+            <strong style="margin-left: 30px;">SISTEMA S.T.O.P. CEREALES Y OLEAGINOSAS</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="65" fxLayoutAlign="start center">
+      <div fxFlex="100">
+        <form [formGroup]="buscarForm">
+          <div fxLayout="row">
+
+              <div fxFlex="25" fxLayoutAlign="start center" class="lado-izquierdo-arriba">
+                <strong style="margin-left: 20px;">1 - Criterio de Búsqueda</strong>
+              </div>
+              <div fxFlex="25" fxLayoutAlign="start center">
+                <mat-form-field class="full-width mi-form-field" appearance="none">
+                  <mat-select name="id_criterio" [formControl]="buscarForm.controls['id_criterio']" placeholder=""
+                    (selectionChange)="chanceSelectTipo()"
+                    style="position: absolute; margin-top: -11px; text-align: center ;">
+                    <mat-option *ngFor="let criterio of criterios" [value]="criterio.id">
+                      {{ criterio.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="35" fxLayoutAlign="start center">
+                <input *ngIf="isInit" matInput placeholder="{{etiqueta}}" type="text" style="padding-left: 12px;"
+                  readonly class="input-buscar" />
+                <input *ngIf="isSearchCuit" matInput placeholder="{{etiqueta}}" type="text" style="padding-left: 12px;"
+                  [formControl]="buscarForm.controls['cuit']" minlength="11" maxlength="11" class="input-buscar" />
+                <input *ngIf="isSearchPatente" matInput placeholder="{{etiqueta}}" type="text"
+                  style="padding-left: 12px;" [formControl]="buscarForm.controls['patente']" class="input-buscar" />
+                <small *ngIf="isSearchPatente">
+                  <small
+                    *ngIf="buscarForm.controls['patente'].hasError('pattern') && buscarForm.controls['patente'].touched"
+                    class="form-error-msg"> Formato Patente Incorrecto
+                  </small>
+                </small>
+              </div>
+              <div fxFlex="15" fxLayoutAlign="end center" style="margin-right: 20px;">
+                <button mat-raised-button (click)="buscarTransportista()" [disabled]="buscarForm.invalid" style="border-radius: 15px;">
+                  Buscar
+                </button>
+              </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cuerpo" fxLayout="column wrap" fxLayoutAlign="stretch" style="height: 65vh;">
+  <div fxFlex="100" *ngIf="encontradoTrans">
+    <div fxFlex="35" style="background-color: #ffffff; color: #154791;" fxLayoutAlign="start start"
+      *ngIf="encontradoTrans">
+      <div fxFlex="100" fxLayout="column wrap" fxLayoutAlign="start start">
+        <div fxLayout="row wrap" style="width: 100%;">
+          <div fxFlex="100" style=" margin-left: 20px;height: 40px;" fxLayoutAlign="start center">
+            <h5 fxFlex style="color: #154791; margin-left: 16px;">Resultado de su búsqueda</h5>
+          </div>
+        </div>
+        <div fxFlex="100" style="width: 100%;" fxLayoutAlign="center center">
+          <mat-card class="default" style="background: #fcfdff; border-radius: 6px; width: 90%;">
+            <mat-card-title>
+              <div fxLayout="row wrap">
+                <div fxFlex="100" style="width: 100%;">
+                  <div fxFlex="10" fxLayout="column">
+                    <mat-icon class="mat-18" style="color: #85B0C4; margin-left: 10px;margin-top: 13px;">person
+                    </mat-icon>
+                  </div>
+                  <div fxFlex="25" fxLayout="column" style="margin-top: 13px;">
+                    <span><strong>CUIT</strong></span>
+                  </div>
+                  <div fxFlex="55" fxLayout="column" style="margin-top: 13px;">
+                    <span><strong>{{ transportista.cuit }}</strong></span>
+                  </div>
+                  <div fxFlex="10" fxLayout="column" style=" margin-top: 13px;" fxLayoutAlign="start center">
+                    <mat-icon fxFlex="50%" style="color: #85B0C4">access_time</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content style="padding: 0.4rem;">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" style="width: 100%;">
+                  <div fxFlex="10" fxLayout="column"></div>
+                  <div fxFlex="25" fxLayout="column">
+                    <span>Nombre:</span>
+                    <span>Patente:</span>
+                    <span>Último test:</span>
+                    <span>Seguimiento:</span>
+                  </div>
+                  <div fxFlex="65" fxLayout="column">
+                    <span style="font-weight: 600; color: #535353;">{{
+                    transportista.nombre_completo
+                  }}</span>
+                    <span style="font-weight: 600; color: #535353;">{{
+                    transportista.patente
+                  }}</span>
+                    <span style="font-weight: 600; color: #535353;" [innerHtml]="transportista.ultimoTest.resultadoString"></span>
+                    <span style="font-weight: 600; color: #535353;" [innerHtml]="transportista.ultimoTest.seguimientoString"></span>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxLayout="row wrap" style="width: 100%;">
+          <div fxFlex="100" style=" margin-left: 20px;height: 40px;" fxLayoutAlign="start center">
+            <mat-icon class="mat-18" style="color: #85B0C4; margin-left: 10px;">local_shipping</mat-icon>
+            <strong fxFlex style="color: #154791;">Viajes últimos 15 días</strong>
+          </div>
+        </div>
+        <div fxLayout="row wrap" style="height: 40vh; overflow-y: scroll;">
+          <div fxFlex="100" *ngFor="let item of stop; let i=index" class="mi-div"
+            [ngClass]="{ 'mi-div-active': item == activeViaje }" (click)="seleccionar(i)">
+            <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon class="mat-18"
+                [ngStyle]="{'color':item == activeViaje ? 'rgb(255,255,255)':'rgb(211,212,214)' }">fiber_manual_record
+              </mat-icon>
+            </div>
+            <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
+              <small style="font-weight: bold;"> {{item.fechaActivado}}</small>
+              <small style="font-weight: lighter;">{{item.localidadOrigen}}</small>
+            </div>
+            <div fxFlex="10" fxLayout="column" fxLayoutAlign="center start">
+              <mat-icon class="mat-18" [ngStyle]="{'color':item == activeViaje ? 'rgb(255,255,255)':'rgb(82,82,84)' }">
+                arrow_forward</mat-icon>
+            </div>
+            <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
+              <small style="font-weight: bold;">{{item.fechaDescargado}}</small>
+              <small style="font-weight: lighter;">{{item.terminalDestino}}</small>
+            </div>
+            <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon class="mat-18" [ngStyle]="{'color':item == activeViaje ? 'rgb(255,255,255)':'rgb(82,82,84)' }">
+                arrow_right</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="65" fxLayoutAlign="start center">
+      <mat-card style="height: 65vh; width: 100%; padding: 0px; background: rgb(43, 196, 243);">
+        <agm-map [ngStyle]="{ height: '65vh' }" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"
+          [mapTypeId]="'roadmap'" [mapTypeControl]="true" [mapTypeId]="'hybrid'">
+          <div *ngIf="stop.length > 0">
+            <agm-marker *ngFor="let chofer of stop" [latitude]="chofer.latitudOrigen"
+              (markerClick)="clickedMarker(infowindow)" [longitude]="chofer.longitudOrigen"
+              [iconUrl]="chofer == activeViaje ? iconUrlGreen: iconUrlGray ">
+              <agm-info-window #infowindow [disableAutoPan]="true" [isOpen]="false">
+                <p><strong>Origen:</strong> {{ chofer.localidadOrigen }}</p>
+              </agm-info-window>
+            </agm-marker>
+            <agm-marker *ngFor="let chofer of stop" [latitude]="chofer.latitudDestino"
+              (markerClick)="clickedMarker(infowindow)" [longitude]="chofer.longitudDestino"
+              [iconUrl]="chofer == activeViaje ? iconUrlGreen: iconUrlGray ">
+              <agm-info-window #infowindow [disableAutoPan]="true" [isOpen]="false">
+                <p><strong>Destino:</strong> {{ chofer.terminalDestino }}</p>
+              </agm-info-window>
+            </agm-marker>
+            <agm-polyline *ngFor="let chofer of stop">
+              <agm-polyline-point [latitude]="chofer.latitudOrigen" [longitude]="chofer.longitudOrigen">
+              </agm-polyline-point>
+              <agm-polyline-point [latitude]="chofer.latitudDestino" [longitude]="chofer.longitudDestino">
+              </agm-polyline-point>
+              <agm-icon-sequence [strokeColor]="'grey'" [repeat]="'10px'" [offset]="0" [strokeWeight]="2" [scale]="2"
+                [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
+              </agm-icon-sequence>
+            </agm-polyline>
+            <agm-polyline>
+              <agm-polyline-point [latitude]="activeViaje.latitudOrigen" [longitude]="activeViaje.longitudOrigen">
+              </agm-polyline-point>
+              <agm-polyline-point [latitude]="activeViaje.latitudDestino" [longitude]="activeViaje.longitudDestino">
+              </agm-polyline-point>
+              <agm-icon-sequence [strokeColor]="'green'" [repeat]="'10px'" [offset]="0" [strokeWeight]="4" [scale]="2"
+                [strokeOpacity]="100" [path]="'M 0,-1 0,1'">
+              </agm-icon-sequence>
+            </agm-polyline>
+          </div>
+        </agm-map>
+      </mat-card>
+    </div>
+  </div>
+  <div fxFlex="100" *ngIf="!encontradoTrans">
+    <mat-card style="height: 65vh; padding: 0; background: rgb(43, 196, 243);">
+      <agm-map [ngStyle]="{ height: '65vh' }" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"
+        [mapTypeId]="'roadmap'" [mapTypeControl]="true" >
+      </agm-map>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.card-header-success .card-icon,
+    .card-header-success:not(.card-header-icon):not(.card-header-text),
+    .card-header-success .card-text{
+      background-color: #3FB8E6;
+    }
+
+    .card-header-warning .card-icon,
+    .card-header-warning:not(.card-header-icon):not(.card-header-text),
+    .card-header-warning .card-text{
+        background-color: #ff0000;
+    }

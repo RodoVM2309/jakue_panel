@@ -1,0 +1,85 @@
+<div class="encabezado" fxLayout="column wrap" fxLayoutAlign="stretch" style="height: 10vh;">
+    <div fxFlex="100">
+        <div fxFlex="35" style="background-color: #154791; color: #ffffff" fxLayoutAlign="start center">
+            <h5 style="margin-left: 10px;margin-top: 3px;font-weight: bold;">Mensajes</h5>
+        </div>
+        <div fxFlex="65" fxLayoutAlign="start center">
+            <div fxFlex="100">
+                <div fxLayout="row wrap">
+                    <div fxFlex="20" fxLayoutAlign="start center" class="lado-izquierdo-arriba">
+                        <strong style="margin-left: 40px;">Rango a visualizar:</strong>
+                    </div>
+                    <div fxFlex="15" fxLayoutAlign="start center">
+                        <mat-label style="color: black; font-weight: bold;">FECHA:</mat-label>
+                        <mat-icon style="color:#204791; font-weight: bold;margin-left: 15px;line-height: 1;">calendar_today </mat-icon>
+                    </div>
+                    <div fxFlex="20" fxLayoutAlign="start center">
+                        <mat-label style="margin-right: 15px;">Desde</mat-label>
+                        <mat-form-field>
+                            <input matInput name="fechaFilter" (dateInput)="addEvent('input', $event, 'desde')" [formControl]="filtrarForm.controls['selectedFecha']" [matDatepicker]="appDatepicker" (dateChange)="aplicarFiltroFechaDesde($event,filtrarForm.controls['selectedFecha2'].value)"
+                                [max]="maxDate" />
+                            <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                                <mat-icon style="color: black; font-weight: bold;font-size: 30px;" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                            </mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #appDatepicker></mat-datepicker>
+                    </div>
+                    <div fxFlex="20" fxLayoutAlign="start center">
+                        <mat-label style="margin-right: 15px;">Hasta</mat-label>
+                        <mat-form-field>
+                            <input matInput name="fechaFilter2" (dateInput)="addEvent('input', $event, 'hasta')" [formControl]="filtrarForm.controls['selectedFecha2']" [matDatepicker]="appDatepicker2" (dateChange)="aplicarFiltroFechaHasta(filtrarForm.controls['selectedFecha'].value, $event)"
+                                [min]="minDate" />
+                            <mat-datepicker-toggle matSuffix [for]="appDatepicker2">
+                                <mat-icon style="color: black; font-weight: bold;font-size: 30px;" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                            </mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #appDatepicker2></mat-datepicker>
+                    </div>
+                    <div fxFlex="20" fxLayoutAlign="start center">
+                        <button (click)="exportAsXLSX()" style="border: none;
+              background: black;
+              color: white;
+              padding: 10px 0px;
+              border-radius: 50px;
+              cursor: pointer;
+              width: 100%;
+              position: relative;
+              "><mat-icon style="position: absolute;top:20%;left: 10%;">cloud_download</mat-icon>Exportar a Excel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cuerpo">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="fecha">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="font-weight: bolder">Fecha</mat-header-cell>
+            <mat-cell *matCellDef="let element"> <small>{{ element.fecha  | date: 'd/M/yy'}}</small> </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="hora">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="font-weight: bolder">Hora</mat-header-cell>
+            <mat-cell *matCellDef="let element"> <small>{{ element.hora }}</small> </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="telefono">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="font-weight: bolder">Celular</mat-header-cell>
+            <mat-cell *matCellDef="let element"> <small>{{ element.telefono }}</small> </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="nombreIngreso">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="font-weight: bolder"> Provincia </mat-header-cell>
+            <mat-cell *matCellDef="let element"> <small>{{ element.id_provincia | uppercase  }}</small></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mensaje">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="margin-left: 0px; font-weight: bolder;">Mensaje</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="bgc-c th-left"> <small style="margin-left: 20px;">{{ element.mensaje }}</small> </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef class="c-c" style="margin-left: 0px; font-weight: bolder;">Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="bgc-c th-left">
+                <button mat-icon-button mat-sm-button color="warn" matTooltip="Eliminar" (click)="deleteItem(element)"><mat-icon>delete</mat-icon></button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div>

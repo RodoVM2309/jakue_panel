@@ -1,0 +1,64 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text"
+         style="background: #85afc4">
+      ACTUALIZAR TELÉFONO
+    </div>
+  </mat-card-title>
+  <mat-card-content [style.overflow]="'auto'">
+    <form id="form-add-cupo"
+          [formGroup]="editPhoneForm">
+      <div fxLayout="column wrap">
+        <div fxLayout="row wrap">
+          <div fxFlex="100"
+               class="pr-1">
+            <mat-form-field class="full-width"
+                            appearance="outline">
+              <mat-label>Nuevo Teléfono</mat-label>
+              <input matInput
+                     name="telefono"
+                     [formControl]="editPhoneForm.controls['telefono']"
+                     type="tel"
+                     #telefono />
+            </mat-form-field>
+            <small *ngIf="f.telefono.invalid &&
+                        f.telefono.touched
+                      "
+                   class="form-error-msg">
+              El teléfono debe contener 12 dígitos. Ejemplo: 595900000000.
+            </small>
+
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100"
+               class="mt-1"
+               style="height: 50px;">
+            <div fxFlex="48"
+                 fxLayoutAlign="start center">
+              <button mat-raised-button
+                      color="warn"
+                      type="button"
+                      (click)="dialogRef.close(false)">
+                Cancelar
+              </button>
+            </div>
+
+            <div fxFlex="52"
+                 fxLayoutAlign="end center">
+              <button mat-raised-button
+                      color="primary"
+                      (click)="submit()"
+                      [disabled]="
+                      editPhoneForm.invalid || f.telefono.value == data.telefono.value">
+                Guardar
+              </button>
+            </div>
+            <div fxFlex="3"></div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

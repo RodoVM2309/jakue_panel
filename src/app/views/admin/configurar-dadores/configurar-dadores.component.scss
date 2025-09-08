@@ -1,0 +1,48 @@
+.example-container {
+    height: 350px;
+    overflow: auto;
+  }
+  .producto-excluido {
+    height: 405px;
+    overflow: auto;
+  }
+
+  .tp-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+ }
+ .tp-radio-button {
+    margin: 5px;
+ }
+ .tp-selected-value {
+    margin: 15px 0;
+ }
+ table {
+   width: 100%;
+   overflow: auto;
+ }
+
+ tr.mat-footer-row {
+   font-weight: bold;
+ }
+
+ .mat-column-cuit {
+  width: 20%;
+  text-align: left;
+  }
+ .mat-column-espacio {
+  width: 10%;
+  text-align: left;
+  }
+
+
+ .mat-column-razon_social {
+  width: 50%;
+  text-align: left;
+  margin-left: 5%;
+  }
+
+  .mat-column-acciones {
+    width: 20%;
+    text-align: center;
+    }

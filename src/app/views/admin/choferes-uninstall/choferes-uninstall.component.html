@@ -1,0 +1,35 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Choferes no activos {{total_count}}</h4>
+</div>
+offset: {{offset}}
+cantidad: {{cantidad}}
+<mat-card class="p-0">
+  <mat-card-content class="p-0">    
+    <div fxLayout="row wrap ">
+     
+        <button  mat-raised-button class="mb-10" color="primary" (click)="exportAsXLSX()">Descargar Listado</button>
+     
+      <div fxFlex="100" fxLayout="column wrap">
+          <input
+            type='text'
+            style='padding:8px;margin:15px auto;width:30%;'
+            placeholder='Buscar chofer...'
+            (keyup)='updateFilter($event)'
+          />
+          <ngx-datatable 
+            #table
+            class="material ml-0 mr-0"
+            [rows]="rows"
+            [loadingIndicator]="loadingIndicator"
+            [columns]="columns"   
+            [columnMode]="'force'"         
+            [headerHeight]="50"
+            [footerHeight]="50"                    
+            [rowHeight]="'auto'"
+            [reorderable]="reorderable">                    
+          </ngx-datatable>   
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

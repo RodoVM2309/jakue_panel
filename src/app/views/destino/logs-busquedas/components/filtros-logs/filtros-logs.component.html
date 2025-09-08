@@ -1,0 +1,82 @@
+<form [formGroup]="variables.filtrarForm" id="form-cuponera1" class="encabezado">
+  <div fxLayout="column wrap" #tablaFiltros>
+    <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start" class="row_encabezado">
+      <div fxFlex.xs="20" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona" class="select-producto">
+        <span class="label-span">Fecha:</span>
+        <mat-form-field class="full-width mfl">
+          <input matInput style=" font-size: 12px;" [satDatepicker]="picker" #fecha formControlName="fecha"
+            (dateChange)="filtroGeneral()" />
+          <sat-datepicker #picker [rangeMode]="false" [closeAfterSelection]="true">
+          </sat-datepicker>
+          <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="20" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona" class="select-producto">
+        <span class="label-span">Hora Inicio:</span>
+        <mat-form-field class="full-width mfl">
+          <input formControlName="horaInicio" matInput aria-label="default time" [ngxTimepicker]="timeInicio" readonly>
+          <ngx-material-timepicker #timeInicio (closed)="filtroGeneral()"></ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="20" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona" class="select-producto">
+        <span class="label-span">Hora Fin:</span>
+        <mat-form-field class="full-width mfl">
+          <input formControlName="horaFin" matInput aria-label="default time" [ngxTimepicker]="timeFin" [min]="horaInit"
+            readonly>
+          <ngx-material-timepicker #timeFin (closed)="filtroGeneral()"></ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="45" fxFlex.sm="23" fxFlex.lg="23" fxLayoutAlign="center center" id="sele-input">
+        <mat-form-field class="input-buscar">
+          <input matInput autofocus="true" placeholder="Chapa Camión..." type="text" formControlName="placaCamion">
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="2" fxFlex.sm="2" fxFlex.lg="2" fxLayout="columna wrap">
+        <button type="button" mat-icon-button mat-sm-button matTooltip="Limpiar filtros" (click)="clearFilter()"
+          class="btn-clear">
+          <mat-icon style="color: #4C4D4B;">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start" class="row_encabezado" id="opcionales">
+      <div fxFlex.xs="45" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona"
+        class="select-opcionales">
+        <span class="label-span">Producto:</span>
+        <mat-form-field class="full-width mfl">
+          <mat-select name="producto" (selectionChange)="filtroAccion('producto')" formControlName="producto">
+            <mat-option *ngFor="let producto of variables.productos" [value]="producto">
+              {{ producto }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="45" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona"
+        class="select-opcionales">
+        <span class="label-span">Estado:</span>
+        <mat-form-field class="full-width mfl">
+          <mat-select name="estado" (selectionChange)="filtroAccion('estado')" formControlName="estado">
+            <mat-option *ngFor="let estado of variables.estados" [value]="estado.clave">
+              {{ estado.clave }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="20" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona"
+        class="select-opcionales">
+        <span class="label-span">Destino:</span>
+        <mat-form-field class="full-width mfl">
+          <mat-select name="terminal" (selectionChange)="filtroAccion('terminal')" formControlName="terminal">
+            <mat-option *ngFor="let destino of variables.destinos" [value]="destino">
+              {{ destino }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex.xs="45" fxFlex.sm="23" fxFlex.lg="23" fxLayoutAlign="center center" id="sele-input">
+        <mat-form-field class="input-buscar">
+          <input matInput autofocus="true" placeholder="Alfanumérico..." type="text" formControlName="cupo">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

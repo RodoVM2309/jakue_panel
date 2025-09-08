@@ -1,0 +1,67 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id del producto">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id_transporte" [formControl]="itemForm.controls['id_transporte']" placeholder="Id del producto">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Marca"  [formControl]="itemForm.controls['id_marca_camion']" name="id_marca_camion" class="mb-1">
+            <mat-option *ngFor="let marcaCamion of marcaCamiones" [value]="marcaCamion.id" ngDefaultControl>
+                {{marcaCamion?.descripcion}} 
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Tipo"  [formControl]="itemForm.controls['id_tipo_camion']" name="id_tipo_camion" class="mb-1">
+              <mat-option *ngFor="let tipo of tipoCamion" [value]="tipo.id" ngDefaultControl>
+                  {{tipo?.descripcion}} 
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput  maxlength="4" name="anno" [formControl]="itemForm.controls['anno']" placeholder="Año" >
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['anno'].hasError('required') && itemForm.controls['anno'].touched"
+        class="form-error-msg"> Es requerido el año
+      </small>
+      <small *ngIf="itemForm.controls['anno'].hasError('invalidNumber') && itemForm.controls['anno'].touched"
+      class="form-error-msg">
+         El año no es válido, revíselo.
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1"> 
+      <mat-form-field class="full-width">
+        <input matInput  maxlength="10" name="patente" [formControl]="itemForm.controls['patente']" placeholder="Patente" uniquePatenteCamion>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['patente'].hasError('uniquePatenteCamion') && itemForm.controls['patente'].touched"
+        class="form-error-msg"> Patente ya existe.
+      </small>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Carga peligrosa"  [formControl]="itemForm.controls['carga_peligrosa']" name="carga" class="mb-1">
+              <mat-option *ngFor="let carga of cargaPeligrosa" [value]="carga.carga_peligrosa" ngDefaultControl>
+                  {{carga?.desc_carga_peligrosa}} 
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> 
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

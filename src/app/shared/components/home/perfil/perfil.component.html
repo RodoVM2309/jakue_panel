@@ -1,0 +1,262 @@
+﻿<div>
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <span fxFlex></span>
+  <button
+    mat-icon-button
+    mat-sm-button
+    color="primary"
+    class="mr-1"
+    *ngIf="rol == '3'"
+    (click)="subir()"
+    matTooltip="Subir Logo"
+  >
+    <mat-icon>panorama</mat-icon>
+  </button>
+  <mat-icon>account_circle</mat-icon>
+</div>
+<div fxLayout="row wrap" style="height: 55vh;">
+  <!-- Profile Views -->
+  <div fxFlex="100">
+    <mat-card class="p-0">
+      <mat-tab-group>
+        <mat-tab label="{{ 'profile.tab1' | translate }}">
+          <mat-card-content class="mt-0">
+            <form [formGroup]="updatePerfil" (ngSubmit)="postPerfil()">
+              <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="50" class="pr-1">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="nombre"
+                      [formControl]="updatePerfil.controls['nombre']"
+                      placeholder="Nombre"
+                      #nombre
+                      maxlength="75"
+                    />
+                    <mat-hint align="end"
+                      >{{ nombre.value.length }} / 75</mat-hint
+                    >
+                  </mat-form-field>
+                  <small
+                    *ngIf="
+                      updatePerfil.controls['nombre'].hasError('required') &&
+                      updatePerfil.controls['nombre'].touched
+                    "
+                    class="form-error-msg"
+                  >
+                    Es requerido el nombre
+                  </small>
+                </div>
+                <div fxFlex="50" class="pr-1">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="apellidos"
+                      [formControl]="updatePerfil.controls['apellidos']"
+                      placeholder="Apellido"
+                      #apellidos
+                      maxlength="75"
+                    />
+                    <mat-hint align="end"
+                      >{{ apellidos.value.length }} / 75</mat-hint
+                    >
+                  </mat-form-field>
+                  <small
+                    *ngIf="
+                      updatePerfil.controls['apellidos'].hasError('required') &&
+                      updatePerfil.controls['apellidos'].touched
+                    "
+                    class="form-error-msg"
+                  >
+                    Es requerido los apellidos
+                  </small>
+                </div>
+                <div fxFlex="100" class="pr-1">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="razon_social"
+                      [formControl]="updatePerfil.controls['razon_social']"
+                      placeholder="Razón Social"
+                      #razonsocial
+                      maxlength="150"
+                    />
+                    <mat-hint align="end"
+                      >{{ razonsocial.value.length }} / 150</mat-hint
+                    >
+                  </mat-form-field>
+                  <small
+                    *ngIf="
+                      updatePerfil.controls['razon_social'].hasError(
+                        'required'
+                      ) && updatePerfil.controls['razon_social'].touched
+                    "
+                    class="form-error-msg"
+                  >
+                    Es requerido la razon social
+                  </small>
+                </div>
+                <div fxFlex="50" class="pr-1">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="username"
+                      [formControl]="updatePerfil.controls['username']"
+                      placeholder="Usuario"
+                      #username
+                      maxlength="50"
+                      value=""
+                      readonly
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="100" class="pr-1">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="email"
+                      [formControl]="updatePerfil.controls['email']"
+                      placeholder="E-mail"
+                    />
+                  </mat-form-field>
+                  <small
+                    *ngIf="updatePerfil.controls['email'].dirty"
+                    class="form-error-msg"
+                  >
+                    Email incorrecto. Si hay mas de uno separelo por ";"
+                  </small>
+                </div>
+                <div fxFlex="100" class="mt-1">
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    type="button"
+                    (click)="cancelar()"
+                  >
+                    Cancelar
+                  </button>
+                  <span fxFlex></span>
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="updatePerfil.invalid"
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab label="{{ 'usuarios.chancePassword' | translate }}">
+          <mat-card-content class="mt-0">
+            <form
+              [formGroup]="chancePasswordForm"
+              (ngSubmit)="submitChancePassWord()"
+            >
+              <mat-form-field class="full-width">
+                <input
+                  type="password"
+                  name="oldPassword"
+                  matInput
+                  [formControl]="chancePasswordForm.controls['oldPassword']"
+                  placeholder="{{ 'usuarios.oldPassword' | translate }}"
+                  value=""
+                />
+              </mat-form-field>
+              <small
+                *ngIf="
+                  chancePasswordForm.controls['oldPassword'].hasError(
+                    'required'
+                  ) && chancePasswordForm.controls['oldPassword'].touched
+                "
+                class="form-error-msg"
+              >
+                {{ "usuarios.passwordRequired" | translate }}
+              </small>
+              <mat-form-field class="full-width">
+                <input
+                  type="password"
+                  name="newPassword"
+                  matInput
+                  [formControl]="chancePasswordForm.controls['newPassword']"
+                  placeholder="{{ 'usuarios.newPassword' | translate }}"
+                  value=""
+                />
+              </mat-form-field>
+              <small
+                *ngIf="
+                  chancePasswordForm.controls['newPassword'].hasError(
+                    'required'
+                  ) && chancePasswordForm.controls['newPassword'].touched
+                "
+                class="form-error-msg"
+                >{{ "usuarios.confirmPasswordRequired" | translate }}.</small
+              >
+              <small
+                *ngIf="
+                  chancePasswordForm.controls['newPassword'].hasError(
+                    'pattern'
+                  ) && chancePasswordForm.controls['newPassword'].touched
+                "
+                class="form-error-msg"
+              >
+                Su contraseña es débil.
+              </small>
+              <mat-form-field class="full-width">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  matInput
+                  [formControl]="chancePasswordForm.controls['confirmPassword']"
+                  placeholder="{{ 'usuarios.confirmPassword' | translate }}"
+                  value=""
+                />
+              </mat-form-field>
+              <small
+                *ngIf="
+                  chancePasswordForm.controls['confirmPassword'].hasError(
+                    'required'
+                  ) && chancePasswordForm.controls['confirmPassword'].touched
+                "
+                class="form-error-msg"
+                >{{ "usuarios.confirmPasswordRequired" | translate }}.</small
+              >
+              <small
+                *ngIf="
+                  chancePasswordForm.controls['confirmPassword'].hasError(
+                    'equalTo'
+                  )
+                "
+                class="form-error-msg"
+                >{{ "usuarios.noMathPassword" | translate }}.</small
+              >
+              <div>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  type="button"
+                  (click)="cancelar()"
+                  style="text-align: end;"
+                >
+                  Cancelar
+                </button>
+                <span fxFlex></span>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="chancePasswordForm.invalid"
+                >
+                  {{ "usuarios.chancePassword" | translate }}
+                </button>
+                
+                
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,211 @@
+h5 {
+    color: white;
+    margin-left: 60px;
+  }
+
+  :host /deep/ .egret-indigo .mat-button {
+    border-radius: 30px !important;
+  }
+
+  .estilo_card {
+    margin-top: -24px !important;
+    margin-left: -24px !important;
+    margin-right: -24px !important;
+    box-shadow: none !important;
+
+  }
+
+  .estilo_card_tbl {
+    margin: 0px !important;
+    border-radius: 12px;
+    box-shadow: none !important;
+  }
+
+  .titulo-fondo {
+    background: #00498E;
+    height: 50px;
+  }
+
+  .mat-card-title>.card-title-text {
+    background: #224a98;
+    color: white;
+    font-weight: bolder;
+  }
+
+  .scroll {
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  .input_personalizado {
+    height: 47px;
+    margin-top: 7px;
+
+    ::ng-deep .mat-form-field-infix {
+      width: 100px !important;
+      color: #fff;
+      font-size: small;
+    }
+
+
+    ::ng-deep .mat-form-field-ripple {
+      background-color: #fff !important;
+    }
+
+    ::ng-deep .mat-datepicker-toggle-default-icon {
+      color: #fff !important;
+      font-size: medium !important;
+    }
+
+    ::ng-deep .mat-form-field-label {
+      color: #fff !important;
+    }
+
+    ::ng-deep .mat-form-field-underline {
+      background-color: #fff !important;
+    }
+
+
+  }
+
+  #input_stoc {
+    height: 47px;
+    margin-top: 7px;
+    width: 240px !important;
+  }
+
+  .fechap {
+    width: 134px !important;
+  }
+
+  .destino {
+    width: 240px !important;
+  }
+
+  .stoc {
+    width: 170px !important;
+  }
+
+
+  .black-500 {
+    background-color: #555658 !important;
+    margin-bottom: 0px !important;
+    height: 45px;
+  }
+
+  .btn_importar {
+    padding: 5px 12px 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #0c0c0c !important;
+  }
+
+  .btn_asignarchofer {
+    padding: 5px 12px 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #f5f1f1 !important;
+    background-color: #0a0a0a !important;
+  }
+
+  .btn_cancelar {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+
+  }
+
+  .btn_confirmar {
+    padding: 5px 12px 5px 12px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #f5f1f1 !important;
+    background-color: #00498E !important;
+
+  }
+  .btn_invalid {
+    padding: 5px 12px 5px 12px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #f5f1f1 !important;
+    background-color: #a5a8aa !important;
+
+  }
+
+  .bt_salientes {
+    //background-color: #5fb90b;
+    z-index: 0;
+    position: relative;
+    margin-left: 6px !important;
+    padding-left: 23px !important;
+    margin-top: 53px !important;
+  }
+
+  .btn_black {
+    color: #FFFFFF !important;
+    background-color: rgb(26, 23, 27) !important;
+  }
+
+  .contenedor-card {
+    margin-top: 6px !important;
+    margin-left: 41px;
+  }
+
+  .card-content {
+    background-color: #F2F2F3 !important;
+    padding-top: 2px !important;
+  }
+
+  .centrar_cant {
+    margin-left: 14px;
+    color: #000 !important;
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .input-color {
+    color: #CACBCC !important;
+    font-size: 10px;
+    margin-right: 56px;
+  }
+
+  .input_cantidad {
+    border: 2px solid black;
+    border-radius: 4px;
+    margin-left: 34px;
+    width: 50px !important;
+  }
+
+  // input[type="number"]:out-of-range{
+  //   border: 2px solid #F3695F !important;
+  // }
+
+  .errorcantidad {
+    border: 2px solid #F3695F !important;
+  }
+
+
+
+  textarea {
+    border: 2px solid black !important;
+    border-radius: 4px !important;
+  }
+
+  .color-white {
+    color: #FFFFFF !important;
+    font-size: 10px;
+  }
+
+  :host /deep/ .mat-select-value-text {
+    color: #000 !important;
+  }

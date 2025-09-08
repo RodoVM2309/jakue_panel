@@ -1,0 +1,59 @@
+<mat-tab-group (selectedIndexChange)="selectTab($event)" style="margin-top: 8px">
+  <mat-tab label="Asignación" *ngIf="usaCupera === '1'">
+    <app-asignacion *ngIf="selectedTab === 0" [listado]="cuposDadoresApiV3" [detalles]="cuposDetallesApiV3"
+      [fecha]="searchDateString" [productosCentro]="productos" [dataDemanda]="demandasV1"
+      (cambiarFecha)="chanceDate($event, selectedTab)" (chanceProductos)="getItemsProductos()">
+    </app-asignacion>
+  </mat-tab>
+  <mat-tab label="Asignación" *ngIf="usaCupera === '2'">
+    <app-asignacion-v2 *ngIf="selectedTab === 0" [cupos]="cuposApiV3" [detalles]="detallesApiV3"
+      [solicitudes]="solicitudesApiV3" [productos]="productos" [dias]="dias" [fecha]="searchDateString"
+      [myData]="myData" [cantNotificaciones]="notificaciones" (loadNotificacionesEvent)="getNotificaciones()"
+      [listSinEmail]="listSinEmail" (cambiarFecha)="chanceDate($event, selectedTab)"
+      (loadRecuperarEvent)="loadRecuperarAccion()" (chanceProductos)="getItemsProductos()">
+    </app-asignacion-v2>
+  </mat-tab>
+  <mat-tab label="Asignación" *ngIf="usaCupera === '3'">
+    <app-asignacion-c3 *ngIf="selectedTab === 0" [productos]="productos" [dias]="dias" [fecha]="searchDateString"
+      [myData]="myData" [dataCupera]="dataCupera3" [cantNotificaciones]="notificaciones"
+      (loadNotificacionesEvent)="getNotificaciones()" [listSinEmail]="listSinEmail"
+      (cambiarFecha)="chanceDate($event, selectedTab)" (loadRecuperarEvent)="loadRecuperarAccion()"
+      (chanceProductos)="getItemsProductos()">
+    </app-asignacion-c3>
+  </mat-tab>
+  <mat-tab label="Panel Consolidado" *ngIf="usaCupera === '1'">
+    <app-panel-consolidado *ngIf="selectedTab === 1" [listado]="cuposDadoresApiV3" [detalles]="cuposDetallesApiV3"
+      [fecha]="searchDateString" (cambiarFecha)="chanceDate($event, selectedTab)">
+    </app-panel-consolidado>
+  </mat-tab>
+  <mat-tab label="Panel Consolidado" *ngIf="usaCupera != '1'">
+    <app-panel-consolidado-v2 *ngIf="selectedTab === 1" [listado]="cuposDadoresApiV2" [detalles]="cuposDetallesApiV2"
+      [fecha]="searchDateString" (cambiarFecha)="chanceDate($event, selectedTab)" [myData]="myData"
+      [productos]="productos" (chanceProductos)="getItemsProductos()">
+    </app-panel-consolidado-v2>
+  </mat-tab>
+  <mat-tab label="Asignados por Cliente" *ngIf="usaCupera === '1'">
+    <app-asignados-receptor *ngIf="selectedTab === 2" [listado]="cuposDadoresApiV3" [detalles]="cuposDetallesApiV3"
+      [fecha]="searchDateString" (cambiarFecha)="chanceDate($event, selectedTab)">
+    </app-asignados-receptor>
+  </mat-tab>
+  <mat-tab label="Recuperación" *ngIf="usaCupera != '1'">
+    <app-recuperar-v2 *ngIf="selectedTab === 2" [cupos]="cuposRecuperar" [detalles]="detallesRecuperar"
+      [fechaDesde]="fechaDesdeRecuperar" [fechaHasta]="fechaHastaRecuperar" [productos]="productos" [myData]="myData"
+      (cambiarFechaRecuperar)="chanceDateRecuperar($event)" (recuperarEvent)="recuperarAccion()"></app-recuperar-v2>
+  </mat-tab>
+  <!-- <mat-tab label="Solicitudes" *ngIf="usaCupera === '1'">
+    <app-solicitudes-cupo *ngIf="selectedTab === 3"></app-solicitudes-cupo>
+  </mat-tab> -->
+  <mat-tab label="Seguimiento" *ngIf="usaCupera != '1'">
+    <app-seguimiento *ngIf="selectedTab === 3" [listado]="cuposDadoresApiV3" [detalles]="cuposDetallesApiV3"
+      [fecha]="searchDateString" [productos]="productos" [myData]="myData"
+      (cambiarFecha)="chanceDate($event, selectedTab)" (chanceProductos)="getItemsProductos()"></app-seguimiento>
+  </mat-tab>
+  <!-- <mat-tab label="Mapa Cupos" *ngIf="usaCupera === '1'">
+    <app-mapa-cupos *ngIf="selectedTab === 4"></app-mapa-cupos>
+  </mat-tab> -->
+  <!-- <mat-tab label="Solicitudes" *ngIf="usaCupera != '1'">
+    <app-solicitudes-cupo *ngIf="selectedTab === 4"></app-solicitudes-cupo>
+  </mat-tab> -->
+</mat-tab-group>

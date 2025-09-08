@@ -1,0 +1,81 @@
+<form id="form-resunen-diario" [formGroup]="resumenDiarioForm">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="destino">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+          <strong *ngIf="fechaHoy===fechaBuscada">HOY:&nbsp;</strong> 
+          <mat-form-field>
+                  <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon> -->
+                  <input matInput name="fechaFilter" [formControl]="resumenDiarioForm.controls['selectedFecha']"
+                    [matDatepicker]="appDatepicker" (dateChange)="aplicarFiltroFecha($event)" readonly>
+                  <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                  </mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #appDatepicker></mat-datepicker>
+          </th>
+        <td mat-cell *matCellDef="let row; let i = index"
+        style="text-align: left;margin-left: 10px; padding-left: 10px;border-right-style: solid;border-width: thin;border-color: #e9e7e7;"
+        [style.display]="getRowSpan('destino', i) ? '' : 'none'"
+        [attr.rowspan]="getRowSpan('destino', i)">
+        {{row.destino}}
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container matColumnDef="producto">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+          <div id="sele-producto">
+            <mat-form-field style="width: 78%; margin-left: -39px;">
+              <mat-select id="producto"
+                (selectionChange)="aplicarFiltroProducto($event)" name="producto"
+                [formControl]="resumenDiarioForm.controls['selectedProducto']">
+                <mat-option *ngFor="let otrosp of otrosproductos" [value]="otrosp.id">
+                  {{otrosp.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          {{row.producto}}
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container matColumnDef="cupeados">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;"> Camiones Cupeados</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <div fxLayoutAlign="center">{{row.cupeados}}</div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container matColumnDef="descargados">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; ">Descargados</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <div fxLayoutAlign="center">{{row.descargados}}</div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container matColumnDef="solicitados">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; ">Turnos solicitados</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <div fxLayoutAlign="center">{{row.solicitados}}</div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container matColumnDef="cumplidos">
+      <tr>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; ">Turnos cumplidos</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <div fxLayoutAlign="center">{{row.cumplidos}}</div> 
+        </td>
+      </tr>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</form>

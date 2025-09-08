@@ -1,0 +1,10 @@
+.label a {
+    float: right;
+    color: #95a5a6; /* gris (normal) */
+  }
+    .label a:hover {
+      color: #f39c12; /* amarillo (seleccionado) */
+    }
+    .label a:hover ~ a {
+      color: #f39c12; /* amarillo (seleccionado) */
+    }

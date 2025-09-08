@@ -1,0 +1,15 @@
+.example-container {
+    height: 400px;
+    overflow: auto;
+    font-size: 1.0vw !important;
+  }
+  
+  table {
+    width: 100%;
+  }
+
+ @media (max-width: 200px) and (max-heigth: 160px) {
+    .mifuente {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,6 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+  <mat-tab label="Carátulas">
+    <app-dashboard-mtr *ngIf="selectedTab === 0"></app-dashboard-mtr>
+  </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,7 @@
+:host /deep/  .mat-dialog-content2 {
+    background:#f2dede; color: red;
+}
+:host /deep/  .mat-dialog-content {
+    background:#FF351D; color: black;
+}
+

@@ -1,0 +1,43 @@
+.encabezado {
+  background-color: rgb(63,184,230);
+  height: 66px;
+  margin-top: -24px;
+  margin-left: -24px;
+  margin-right: -24px;
+  color: #ffffff
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  margin-left: -24px;
+  margin-right: -24px;
+}
+.full-80 {
+  width: 80%;
+}
+.full-90 {
+  width: 90%;
+}
+
+.my-row {
+  height: 40px;
+}
+
+.my-input {
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgray;
+  height: 30px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 35px;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(121, 122, 118)!important;
+}

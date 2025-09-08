@@ -1,0 +1,8 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+  <mat-tab label="Ingresos">
+    <app-listado-logs-busquedas *ngIf="selectedTab === 0"></app-listado-logs-busquedas>
+  </mat-tab>
+  <!-- <mat-tab label="Buscar">
+    <app-buscador-garita *ngIf="selectedTab === 1"></app-buscador-garita>
+  </mat-tab> -->
+</mat-tab-group>

@@ -1,0 +1,91 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Destinos</h4>
+</div>
+<div class="m-333">
+  <!-- <span fxFlex></span> -->
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Agregar Destino</button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width">
+      <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar Destino por Descripción</mat-label>
+      <input #destinoSearchInput matInput>
+    </mat-form-field>
+    <ngx-datatable
+          class="material ml-0 mr-0"
+          [rows]="destinos"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [externalPaging]="true"
+          [count]="page.totalElements"
+          [offset]="page.pageNumber"
+          [limit]="page.size"
+          (page)='setPage($event)'
+          [rowHeight]="'auto'">
+          <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.id }}
+              </ng-template>
+           </ngx-datatable-column> -->
+          <ngx-datatable-column name="Descripción" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.descripcion }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Razón Social" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_persona_rol }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Localidad" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_localidad }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Zona" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_zona_destino }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Tipo" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_tipo_destino }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Bloqueado" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.desc_bloqueado }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Solución Muvin" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.desc_solucion_muvin }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Playa Intermedia" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.desc_playa_intermedia }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Acciones" [flexGrow]="2">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+            <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="mr-1" (click)="selSituacion(row)" class="hidden-on-open">
+                <mat-icon class="text-muted">arrow_drop_down_circle</mat-icon>
+              </button>
+              <mat-menu  #msgMenu="matMenu">
+                  <mat-radio-group class="example-radio-group" [(ngModel)]="selectSituacion" >
+                    <mat-radio-button class="example-radio-button" *ngFor="let situacion of situaciones" [value]="situacion.id" (change)="onChange($event)">
+                      {{situacion.descripcion}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+              </mat-menu>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUpInfoPersona(row)" matTooltip="Información Perfil"><mat-icon>account_circle</mat-icon></button>
+            <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+  </mat-card-content>
+</mat-card>

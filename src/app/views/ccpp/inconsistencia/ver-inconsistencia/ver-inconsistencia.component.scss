@@ -1,0 +1,235 @@
+.component {
+  background-color: rgb(134,177,197);
+  width: 100%;
+  height: 100%;
+}
+
+.encabezado {
+  background-color: rgb(23, 72, 145);
+  color: #FEFEFE;
+  height: 40px;
+  font-size: 24px;
+}
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+.cuerpo {
+  background-color: rgb(134,177,197);
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.body {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  height: 75vh;
+  background-color: rgb(255, 255, 255);
+}
+
+.rest-body {
+  background-color: rgb(255, 255, 255);
+  height: 66vh;
+}
+.data-activo {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  height: 40px;
+}
+.data-muvin {
+  background-color: rgb(234, 109, 33);
+  color: rgb(255, 255, 255);
+  height: 40px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+#btn-ver {
+  width: 150px;
+  height: 40px;
+  position: fixed;
+  z-index: 20000;
+  bottom: 120px;
+  right: 220px;
+  border-width: 1px;
+  border-radius: 10px;
+  max-width: 300px;
+  .handle {
+    float: right;
+    width: 100%;
+    height: 100%;
+  }
+  .mat-card-content  {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.emisor {
+  margin-top: 5px;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+}
+.emisor-derecho {
+  margin-top: 5px;
+  background-color: #ffffff;
+}
+
+.inca {
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin-top: 1px;
+}
+.inca-derecho {
+  background-color: #ffffff;
+  margin-top: 1px;
+  height: 25px;
+}
+
+.mat-cabecera {
+  background-color: #29327B !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+
+.rotate90 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  font-size: 12px;
+  // background: #ffffff;
+  // width: 50px;
+  position: relative;
+  top: 1px;
+  white-space: nowrap;
+  margin: 2 0 16px;
+}
+
+.td rotate {
+  height: 5%;
+  white-space: nowrap;
+}
+
+.rotate {
+  white-space: nowrap;
+  border-width: 2px;
+  border-radius: 10px;
+  border-style: solid;
+}
+
+.class-border1px {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.class-border2px {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.class-radius {
+  border-radius: 10px;
+}
+
+.border-izq {
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+.border-der {
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.border-arriba {
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+.border-abajo {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.border-todo {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.margen-izq {
+  margin-left: 3px;
+}
+
+.border-centro {
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.input-personal {
+  width: 100% !important;
+  height: 25px;
+  margin-top: -10px;
+}
+
+.circulo {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border-color: #353333;
+  border-style: solid;
+  border-width: 2px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.div-inter {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-top:1px;
+}
+
+.div-rotate {
+  height: 229px;
+}
+.div-granos{
+  height: 170px;
+}
+
+.triangulo {
+
+  border-right: 14px solid #f7b718;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+.tabla-intervinientes {
+  margin-left: 3px; 
+  border-right-style: hidden; 
+  border-top-style: hidden; 
+  border-bottom-style: hidden;
+}
+

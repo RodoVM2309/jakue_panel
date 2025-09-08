@@ -1,0 +1,49 @@
+h5 {
+  color: white;
+  margin-left: 60px;
+}
+.estilo_card {
+  margin-top: -24px !important;
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  box-shadow: none !important;
+
+}
+
+.estilo_card_tbl {
+  margin: 0px !important;
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+.titulo-fondo {
+  background: #00498E;
+  height: 50px;
+}
+
+.btn_confirmar{
+  padding: 5px 12px 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #f5f1f1 !important;
+  background-color: #00498E !important;
+}
+
+.cerrar_popup {
+  cursor: pointer
+}
+
+div button.only-show-on-hover {
+  visibility: hidden;
+}
+div:hover button.only-show-on-hover  {
+  visibility: visible;
+}
+//muestro el boton al hacer hover sobre la fila
+:host /deep/ .datatable-row-wrapper .ng-star-inserted :hover {
+  button{ visibility: visible;}
+  }
+
+.btnReset {
+    margin-top: 10px;
+}

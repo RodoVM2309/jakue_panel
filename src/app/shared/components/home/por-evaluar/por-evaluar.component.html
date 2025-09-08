@@ -1,0 +1,53 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Choferes por Evaluar</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width"> 
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar por nombre de chofer</mat-label>
+        <input  matInput (keyup)='updateFilter($event)'> 
+      </mat-form-field>
+    <ngx-datatable
+          class="material ml-0 mr-0"
+          [rows]="choferes"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [externalPaging]="false" 
+          
+          [limit]="10" 
+          
+          [rowHeight]="'auto'"
+          >
+          <ngx-datatable-column name="ID Pedido" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.id_pedido }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Chofer" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_chofer }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Transportista" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_transportista }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Intermediario" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.nombre_intermediario }}
+            </ng-template>
+          </ngx-datatable-column>
+          
+          <ngx-datatable-column name="Acciones" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>        
+              <button mat-icon-button mat-sm-button color="primary" class="m-0"  (click)="openPopUpEvaluar(row)" matTooltip="Evaluar"><mat-icon>grade</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="primary" class="m-0"  (click)="openPopUpInfoPedido(row)" matTooltip="Información del Pedido"><mat-icon>content_paste</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="warn" class="m-0"  (click)="deleteItem(row)" matTooltip="Eliminar de los por evaluar"><mat-icon>delete_sweep</mat-icon></button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+  </mat-card-content>
+</mat-card>

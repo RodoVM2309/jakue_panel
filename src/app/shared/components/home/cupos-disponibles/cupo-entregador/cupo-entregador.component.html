@@ -1,0 +1,60 @@
+<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <div fxFlex="90"  class="pr-1" *ngIf="!listBlankEntregador">
+        <mat-form-field class="full-width">
+          <mat-select
+            placeholder="Entregador"
+            [formControl]="itemForm.controls['id_entregador']"
+          >
+            <mat-option
+              *ngFor="let entreg of entregadorList"
+              [value]="entreg.cuit"
+            >
+              {{ entreg.nombre_persona }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <small
+          *ngIf="
+            itemForm.controls['id_entregador'].hasError('required') &&
+            itemForm.controls['id_entregador'].touched
+          "
+          class="form-error-msg"
+        >
+          Es requerido el entregador.
+        </small>
+      </div>
+      <div
+        fxFlex="90"
+        class="pr-1"
+        *ngIf="listBlankEntregador"
+      >
+        <span class="classname">No hay entregadores</span>
+      </div>
+
+      <span fxFlex></span>
+      <mat-icon
+        (click)="openPopAgregarEntregador()"
+        color="primary"
+        matTooltip="Agregar Entregador"
+        >add
+      </mat-icon>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

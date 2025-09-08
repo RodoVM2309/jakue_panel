@@ -1,0 +1,99 @@
+<div fxLayout="column wrap">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" style="background: darkblue; color: #E9E9EA;height: 50px;">
+            <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+                <mat-icon>info</mat-icon>
+            </div>
+            <div fxFlex="90" fxLayoutAlign="start start" style="margin-top:15px;">
+                <h3>CHOFERES CON TURNOS</h3>
+            </div>
+            <span FxFlex></span>
+            <div fxFlex="5" style="margin-top:8px;margin-left:15px;">
+                <button mat-icon-button matTooltip="Cerrar" color="m-0" class="m-0" (click)="submit()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 50px;">
+            <div fxFlex="3" style="margin-top:15px;margin-left:15px;"></div>
+            <div fxFlex="40" style="margin-top:15px;margin-left:15px;">
+                <strong style="font-size: 16px;">Fecha:</strong>
+                <strong style="font-size: 14px;"> {{ data.payload.fecha }}</strong>
+            </div>
+            <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+                <strong style="font-size: 16px;">Ventanilla: </strong>
+                <strong style="font-size: 14px;">{{ data.payload.inicio }}-{{ data.payload.fin }} </strong>
+            </div>
+            <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+                <strong style="font-size: 16px;">Producto: </strong>
+                <strong style="font-size: 14px;">{{ nombreProducto }}.</strong>
+            </div>
+            <div fxFlex="10" fxFlexAlign="end end"></div>
+            <div fxFlex="10" fxFlexAlign="end end">
+                <div class="handle" style="color: #fff; margin-top: -30px; margin-right: 10px;">
+                    <p style="margin: 1px -10px 0px; font-size: small;">Contactar</p>
+                    <button mat-fab color="warn" style="
+            border-color: #ffffff;
+            border-style: solid;
+            border-width: 2px;" (click)="openPopUpsms()" matTooltip="Enviar mensaje a los choferes" [disabled]="selection.isEmpty()">
+              <mat-icon style="margin-top: -7px;">comment</mat-icon>
+            </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex="100" style="height: 50vh; overflow-y: scroll;">
+            <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
+                <ng-container matColumnDef="cuitChofer">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuit Chofer</th>
+                    <td mat-cell *matCellDef="let row" style="width: 5px;height: 40px;">
+                        <div>{{row.cuitChofer}}</div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreChofer">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;" mat-sort-header>Nombre Chofer</th>
+                    <td mat-cell *matCellDef="let row; let i = index">
+                        {{ row.nombreChofer }}
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <ng-container matColumnDef="telefonoChofer">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>{{ row.telefonoChofer }}</div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="dominio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dominio</th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>{{ row.dominio }}</div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container> -->
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                        </mat-checkbox>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+            </table>
+        </div>
+
+    </div>
+    <div fxLayout="row wrap" style="height:20px;"></div>
+
+</div>

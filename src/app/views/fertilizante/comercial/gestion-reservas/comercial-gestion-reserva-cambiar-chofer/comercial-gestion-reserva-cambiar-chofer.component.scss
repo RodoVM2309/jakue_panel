@@ -1,0 +1,227 @@
+h5 {
+	color: white;
+	margin-left: 0px;
+  }
+  .estilo_card {
+	margin-top: -24px !important;
+	margin-left: -24px !important;
+	margin-right: -24px !important;
+	box-shadow: none !important;
+
+  }
+
+  .btn_cupos {
+	padding: 5px 12px 5px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	line-height: 16px;
+	color: white !important;
+	border-color: white;
+	//background-color: white;
+  }
+
+
+  .pointer {cursor: pointer;}
+
+  .estilo_card_item {
+	margin: 0px !important;
+	border-radius: 12px;
+	box-shadow: none !important;
+  }
+  .titulo-fondo {
+	background: #00498E;
+	height: 50px;
+  }
+  .subtitulo-fondo {
+	background: #E0E0E0;
+	height: 55px;
+	padding-top: 21px;
+  }
+  .vl {
+	border-left: 3px solid #555658;
+	height: 34px;
+	margin-bottom: 10px;
+  }
+
+  .btn_comun{
+	padding: 5px 12px 5px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #f5f1f1 !important;
+  }
+
+  hr{
+	 border: 1px solid #8F9192;
+	 margin-left: 13px;
+	 margin-right: 13px;
+  }
+  .detalle {
+	margin-left: 16px;
+	margin-bottom: -26px;
+	margin-top: 10px;
+	font-size: 16px;
+  }
+  .btn_buscar{
+	background-color: #00498E !important;
+  }
+  .btn_exportar{
+	background-color: #007BC0 !important;
+  }
+
+  .contenedor-card {
+	margin-top: 6px !important;
+	margin-left: 10px;
+  }
+
+  input{
+	font-size: 12px !important;
+  }
+
+  select {
+	font-size: 12px !important;
+  }
+  .estilo_card_tbl {
+	margin: 0px !important;
+	border-radius: 12px;
+	box-shadow: none !important;
+  }
+  .black-500 {
+	background-color: #555658 !important;
+	margin-bottom: 0px !important;
+	height: 45px;
+  }
+
+  .centrar_cant {
+	margin-left: 22px;
+	color: rgb(252, 248, 248) !important;
+	display: inline-block;
+	text-align: right;
+	font-size: 11px;
+
+  }
+  .stoc {
+	color: rgb(252, 248, 248) !important;
+	display: inline-block;
+	text-align: left;
+	font-size: 10px;
+
+  }
+  .solicitanteDestino {
+	margin-left: 26px;
+	color: rgb(8, 8, 8) !important;
+	display: inline-block;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+  }
+  .destino {
+	color: rgb(8, 8, 8) !important;
+	display: inline-block;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+  }
+  .item {
+	color: rgb(8, 8, 8) !important;
+	display: inline-block;
+	text-align: left;
+	font-size: 12px;
+  }
+  .btn_copiar {
+	margin-top: 19px;
+	margin-left: 0px
+  }
+  .card-content {
+	background-color: #F2F2F3 !important;
+	padding-top: 2px !important;
+  }
+  .color-white {
+	color: #FFFFFF !important;
+	font-size: 11px;
+  }
+
+  .input-color {
+	color: #CACBCC !important;
+	font-size: 13px;
+	//margin-right: 13px;
+  }
+  .solicitanteColor {
+	color: #070707 !important;
+	font-size: 14px;
+	margin-right: 0px;
+	margin-left: 23px;;
+  }
+  .destinoColor {
+	color: #070707 !important;
+	font-size: 14px;
+	margin-right: 0px;
+	margin-left: 0px;;
+  }
+
+  .cerrar_popup {
+	cursor: pointer
+  }
+
+
+  #estado {
+	::ng-deep .mat-select-value-text {
+	  color: #000;
+	}
+	/* cambia el color del triangulo*/
+	::ng-deep .mat-select-arrow {
+	  color: #00498E;
+	}
+	::ng-deep .mat-form-field-infix {
+	  margin-top: 0px;
+	  color: #3b3ef3;
+	  /*  border-top: 0.84375em solid transparent; */
+	}
+	::ng-deep .mat-focused .mat-form-field-label {
+	  /*change color of label*/
+	  color: #3b3ef3;
+	}
+	::ng-deep.mat-form-field-ripple {
+	  /*change color of underline when focused*/
+	  background-color: #028cd100 !important;
+	}
+	/*cambia el color del value dentro de select*/
+	::ng-deep .mat-select-value {
+	  color: #000;
+	}
+  }
+
+  #select-zona {
+	::ng-deep .mat-form-field-infix {
+	  margin-top: 0px;
+	  color: #3b3ef3;
+	  /*  border-top: 0.84375em solid transparent; */
+	}
+	::ng-deep .mat-focused .mat-form-field-label {
+	  /*change color of label*/
+	  color: #3b3ef3;
+	}
+	::ng-deep.mat-form-field-ripple {
+	  /*change color of underline when focused*/
+	  background-color: #028cd100 !important;
+	}
+	/*cambia el color del value dentro de select*/
+	::ng-deep .mat-select-value {
+	  color: #000;
+  }
+  /* cambia el color del triangulo*/
+	::ng-deep .mat-select-arrow {
+	  color: #00498E;
+	}
+  }
+  .btn_asignarchofer {
+	padding: 5px 12px 5px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #f5f1f1 !important;
+	background-color: #0a0a0a !important;
+  }
+
+
+

@@ -1,0 +1,146 @@
+﻿<mat-card-title class="">
+  <div class="card-title-text">
+    Confirmar Pedido creado por Cargador. Cantidad({{ cantTotal }}) Cantidad
+    Disponible({{ cantidadisponible }})
+  </div>
+  <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-checkbox
+      class="example-radio-button"
+      [formControl]="itemForm.controls['mentira']"
+    >
+      Administrarlo el propio centro muvin
+    </mat-checkbox>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-checkbox
+      class="example-radio-button"
+      (change)="onChange2($event)"
+      [formControl]="itemForm.controls['ckOperador']"
+    >
+      Permitir que un Operador administre viajes: &nbsp;
+    </mat-checkbox>
+    <div fxFlex="50" class="pr-1" *ngIf="mostrarOperador">
+      Operador:
+      <span fxFlex></span>
+      <mat-select
+        placeholder="Seleccione el Operador"
+        [formControl]="itemForm.controls['selectedOperador']"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let operador of operadores"
+          [value]="operador.id"
+          ngDefaultControl
+        >
+          {{ operador.nombre_persona }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-checkbox
+      class="example-radio-button"
+      (change)="onChange($event)"
+      [formControl]="itemForm.controls['ckIntermediario']"
+    >
+      Permitir que un Intermediario asigne Viajes al Pedido
+    </mat-checkbox>
+    <div
+      fxFlex="100"
+      fxFlex.gt-xs="100"
+      class="pr-1"
+      *ngIf="mostrarIntermediario"
+    >
+      Intermediario:
+      <span fxFlex></span>
+      <mat-select
+        style="width: 35%;"
+        id="intermediario"
+        placeholder="Seleccione el Intermediario"
+        [formControl]="itemForm.controls['selectedIntermediario']"
+        name="intermediario"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let intermediario of intermediarios"
+          [value]="intermediario.id"
+          ngDefaultControl
+        >
+          {{ intermediario.nombre_intermediario }}
+        </mat-option>
+      </mat-select>
+      Cantidad Administrada:
+      <input
+        id="cantidadasig"
+        class="quantity-input default-bg"
+        min="0"
+        max="cantTotal"
+        name="quantity"
+        type="number"
+        style="width: 55px !important;"
+        [formControl]="itemForm.controls['cantidad']"
+      />
+      <mat-icon
+        (click)="addElement()"
+        color="primary"
+        matTooltip="Agregar intermediario"
+        >add</mat-icon
+      >
+    </div>
+    <mat-divider></mat-divider>
+    <div
+      class="example-container mat-elevation-z8"
+      *ngIf="mostrarIntermediario"
+    >
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="intermediario">
+          <mat-header-cell *matHeaderCellDef> Intermediario </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.intermediario }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidad">
+          <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.cantidad }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon
+              (click)="deleteElement(element)"
+              color="primary"
+              matTooltip="Eliminar intermediario"
+              >delete</mat-icon
+            >
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

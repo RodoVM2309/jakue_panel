@@ -1,0 +1,245 @@
+﻿<div class="component" [ngClass]="this.data.cupera == 1 ? 'component_1': 'component_2'" id="style-1"
+  fxLayout="row wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="7"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong>AGREGAR CUPOS DISPONIBLES</strong>
+      </div>
+      <div fxFlex="13"></div>
+    </div>
+  </div>
+  <div class="cuerpo scrollbar" fxLayout="column wrap">
+    <form [formGroup]="addCupoForm">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <div fxFlex="100">
+          <div fxFlex="2"></div>
+          <div fxFlex="96" class="div-cuerpo">
+            <mat-card class="mat-card-cuerpo">
+              <div fxFlex="100" fxLayout="row wrap">
+                <div fxLayout="row wrap" class="my-row" style="margin-top: 20px;">
+                  <strong style="font-size: 14px;">CUPO</strong>
+                </div>
+                <div fxFlex="100" class="my-row">
+                  <mat-form-field class="full-width">
+                    <mat-select name="Producto" [formControl]="addCupoForm.controls['productoCodigo']"
+                      placeholder="Producto">
+                      <mat-option *ngFor="let producto of productos" [value]="producto.id">
+                        {{ producto.descripcion }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="my-row">
+                  <div fxFlex="67">
+                    <mat-form-field class="full-width">
+                      <mat-label>Destinatario</mat-label>
+                      <input type="text" name="destinatario" #destinatario placeholder="Razón Social del Destinatario"
+                        aria-label="string" matInput [formControl]="addCupoForm.controls['destinatario']"
+                        [matAutocomplete]="autoDest">
+                      <mat-autocomplete autoActiveFirstOption #autoDest="matAutocomplete" [displayWith]="displayFn2">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="llenarCuit(option,'destinatarioCuit')"
+                            *ngFor="let option of filteredOptionsDestinatario" [value]="option">
+                            {{option.razon_social | uppercase}}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="5"></div>
+                  <div fxFlex="28">
+                    <mat-form-field class="full-width">
+                      <mat-label>RUC</mat-label>
+                      <input matInput name="destinatarioCuit" [formControl]="addCupoForm.controls['destinatarioCuit']"
+                        placeholder="Escriba el RUC.." #destinatarioCuit maxlength="11" (change)="comprobarMyCuit()"
+                        (keyup)="comprobarMyCuit()" />
+                      <!-- <mat-hint align="end">{{ destinatarioCuit.value.length }} / 11</mat-hint> -->
+                      <small
+                        *ngIf="addCupoForm.controls['destinatarioCuit'].hasError('required') && addCupoForm.controls['destinatarioCuit'].touched"
+                        class="form-error-msg">
+                        Debe introducir RUC del destinatario
+                      </small>
+                      <!-- <small *ngIf="addCupoForm.controls['destinatarioCuit'].hasError('pattern')"
+                        class="form-error-msg">
+                        Solo debe introducir números
+                      </small>
+                      <small *ngIf="addCupoForm.controls['destinatarioCuit'].hasError('minlength')"
+                        class="form-error-msg">
+                        Debe introducir 11 números
+                      </small>
+                      <small *ngIf="incorrect_destinatario_cuit" class="form-error-msg">
+                        El CUIT no es destinatario
+                      </small> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxFlex="100" class="my-row">
+                  <mat-form-field class="full-width">
+                    <input type="text" placeholder="Destino" aria-label="Destino" matInput
+                      [formControl]="addCupoForm.controls['destinoCodigoPlantaOncca']" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option.descripcion }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="my-row">
+                  <mat-radio-group formControlName="opselected">
+                    <mat-radio-button value="1" (change)="radioChange($event)">Generar Alfanumérico &nbsp;&nbsp;&nbsp;
+                    </mat-radio-button>
+                    <mat-radio-button [disabled]="posee_terminal" value="2" (change)="radioChange($event)">Importar
+                      Alfanumérico</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+
+                <div fxFlex="100" class="my-row" *ngIf="opcionselected == 1">
+                  <mat-form-field>
+                    <input matInput placeholder="Rango Fecha" [satDatepicker]="picker" formControlName="fechaCupo"
+                      (dateChange)="cambioRangoFecha(ref)" [min]="minFecha" />
+                    <sat-datepicker #picker [rangeMode]="true" [closeAfterSelection]="false"></sat-datepicker>
+                    <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="my-row" *ngIf="opcionselected == 1">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Cantidad por Día</mat-label>
+                    <input matInput formControlName="cantidad">
+                  </mat-form-field>
+                </div>
+
+
+
+                <div fxFlex="100" fxLayout="row wrap" style="margin-top: 20px;" class="my-row"
+                  fxLayoutAlign="space-between" *ngIf="opcionselected == 2">
+                  <button mat-raised-button style="background-color: #1E9BD7;color: #ffffff !important;" type="button"
+                    (click)="agregar()">
+                    <mat-icon style="margin-left: -10px; ">offline_bolt</mat-icon>&nbsp;<small>Generar</small>
+                  </button>
+                </div>
+                <div fxFlex="100" fxLayout="row wrap" style="margin-top: 20px;" class="my-row"
+                  fxLayoutAlign="space-between" *ngIf="opcionselected == 2">
+                  <button mat-raised-button style="background: rgb(242,146,8);color: #ffffff !important;" type="button"
+                    (click)="limpiar()" matTooltip="Limpiar los datos ">
+                    <mat-icon style="margin-left: -10px;">delete_sweep</mat-icon><small>Limpiar</small>
+                  </button>
+                  &nbsp;
+                  <button mat-raised-button matTooltip="Descargar documento Excel"
+                    style="background-color: black;color: #ffffff !important;" (click)="descargarArchivo()">
+                    <mat-icon style="margin-left: -10px;">cloud_download</mat-icon><small
+                      style="margin-left: 2px;">Descargar</small>
+                  </button>
+                  &nbsp;
+                  <button mat-raised-button color="accent" matTooltip="Adjuntar archivo"
+                    style="background-color: black;color: #ffffff !important;" (click)="imgFileInput.click()">
+                    <mat-icon style="margin-left: -10px;">attach_file</mat-icon><small>Adjuntar</small>
+                  </button>
+                  &nbsp;
+                  <input hidden type="file" #imgFileInput (change)="incomingfile($event)" accept=".xlsx" />
+                </div>
+                <div fxFlex="100" *ngIf="opcionselected == 2">&nbsp;</div>
+                <div fxLayout="row wrap" class="div-table" style="height: 206px;" *ngIf="opcionselected == 2">
+                  <div fxFlex="100">
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
+                      style="box-shadow: none;">
+                      <ng-container matColumnDef="id">
+                        <tr>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Id
+                          </th>
+                          <td mat-cell *matCellDef="let cupo; let i = index">
+                            {{ cupo.id }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container matColumnDef="descripcion">
+                        <tr style="text-align: center; ">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header
+                            style="text-align: center; width: 200px">
+                            Cupo
+                          </th>
+                          <td mat-cell *matCellDef="let cupo; let i = index">
+                            {{ cupo.descripcion }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container matColumnDef="fecha">
+                        <tr style="text-align: center; ">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header
+                            style="text-align: center; width: 200px">
+                            Fecha
+                          </th>
+                          <td mat-cell *matCellDef="let cupo; let i = index">
+                            {{ cupo.fecha }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef style="width: 10px">
+                          <p class="Rotate-90" style="margin: auto;">
+                            Acciones
+                          </p>
+                        </th>
+                        <td mat-cell *matCellDef="let cupo" style="width: 10px">
+                          <div>
+                            <button mat-icon-button [matMenuTriggerFor]="msgMenu" style="padding: 10px"
+                              (click)="$event.stopPropagation()" class="hidden-on-open">
+                              <mat-icon class="text-muted">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #msgMenu="matMenu">
+                              <button mat-menu-item matTooltip="Eliminar cupo" (click)="eliminarCupo(cupo)">
+                                <mat-icon>cancel</mat-icon> Eliminar
+                              </button>
+                            </mat-menu>
+                          </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div fxFlex="2"></div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center end" class="div-botones">
+        <div fxFlex="100" class="mt-1">
+          <div fxFlex="4"></div>
+          <div fxFlex="44" fxLayoutAlign="center center">
+            <button mat-raised-button style="background-color: black; width: 200px;color: #ffffff !important;"
+              type="button" (click)="dialogRef.close(false)">
+              CANCELAR
+            </button>
+          </div>
+          <div fxFlex="14"></div>
+          <div fxFlex="34" fxLayoutAlign="start center">
+            <button mat-raised-button style="background-color: rgb(23,72,145);width: 200px;color: #ffffff !important;"
+              [disabled]="(opcionselected == 2) ? (cuposGenerados.length == 0 || addCupoForm.invalid) ? true : false : addCupoForm.invalid"
+              (click)="submit()">
+              CONFIRMAR
+            </button>
+          </div>
+          <div fxFlex="4"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <hr>
+<pre>
+  Estado del formulario {{addCupoForm.valid}}
+  <br>
+  Status: {{addCupoForm.status}}
+</pre>
+<pre>
+  {{addCupoForm.getRawValue() | json }}
+</pre> -->

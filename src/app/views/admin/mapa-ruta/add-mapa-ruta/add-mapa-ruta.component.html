@@ -1,0 +1,138 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del producto"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="descripcion"
+          [formControl]="itemForm.controls['descripcion']"
+          placeholder="Descripción"
+          #descripcion
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ descripcion.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['descripcion'].hasError('required') &&
+          itemForm.controls['descripcion'].touched
+        "
+        class="form-error-msg"
+      >
+        La Descripción es obligatoria
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="latitud"
+          type="number"
+          [formControl]="itemForm.controls['latitud']"
+          placeholder="Latitud"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['latitud'].hasError('required') &&
+          itemForm.controls['latitud'].dirty
+        "
+        class="form-error-msg"
+      >
+        Es requerida la latitud
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="longitud"
+          type="number"
+          [formControl]="itemForm.controls['longitud']"
+          placeholder="Longitud"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['longitud'].hasError('required') &&
+          itemForm.controls['longitud'].dirty
+        "
+        class="form-error-msg"
+      >
+        Es requerida la longitud
+      </small>
+    </div>
+    <mat-accordion class="full-width">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Vista del mapa
+          </mat-panel-title>
+          <mat-panel-description>
+            Localización del destino
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!--<div fxFlex="100" fxFlex.gt-sm="30" fxLayout="column">-->
+        <!--<div class="map">-->
+        <mat-card-content class="p-0">
+          <agm-map
+            [ngStyle]="{ height: '300px' }"
+            [zoom]="zoom"
+            [latitude]="lat"
+            [longitude]="lng"
+            (mapClick)="clickMapa($event)"
+            [mapTypeId]="'hybrid'"
+            [mapTypeControl]="true"
+          >
+            <agm-marker
+              *ngFor="let marcador of marcadores; let i = index"
+              [latitude]="marcador.lat"
+              [longitude]="marcador.lng"
+              [title]="marcador.titulo"
+              [markerDraggable]="marcador.draggable"
+              (markerClick)="clickMarcador(marcador, i)"
+              (dragEnd)="dragEndMarcador(marcador, $event)"
+            >
+              <agm-info-window>
+                <strong>{{ marcador.titulo }}</strong>
+                <p *ngIf="marcador.desc">
+                  {{ marcador.desc }}
+                </p>
+                <!--<p>
+                    <a (click)="borrarMarcador(i); marcadorSel=null;" href="text-danger puntero">Borrar marcador</a>
+                  </p>-->
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </mat-card-content>
+        <!-- </div>-->
+        <!--</div>-->
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

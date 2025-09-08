@@ -1,0 +1,79 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="descripcion"  maxlength="200" [formControl]="itemForm.controls['descripcion']" placeholder="{{'config-puerto.descripcion' | translate }}" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="domicilio"  maxlength="200" [formControl]="itemForm.controls['domicilio']" placeholder="{{'config-puerto.domicilio' | translate }}" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombreZonaDestino"  maxlength="50" [formControl]="itemForm.controls['nombreZonaDestino']" placeholder="{{'config-puerto.nombreZonaDestino' | translate }}" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombreTipoDestino"  maxlength="50" [formControl]="itemForm.controls['nombreTipoDestino']" placeholder="{{'config-puerto.nombreTipoDestino' | translate }}" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombreSituacionPuerto"  maxlength="255" [formControl]="itemForm.controls['nombreSituacionPuerto']" placeholder="{{'config-puerto.nombreSituacionPuerto' | translate }}" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombreSituacionPuerto"  maxlength="255" [formControl]="itemForm.controls['nombreSituacionPuerto']" placeholder="{{'config-puerto.nombreSituacionPuerto' | translate }}" readonly>
+      </mat-form-field>
+    </div>    
+    <mat-divider></mat-divider>
+    <div fxFlex="50" class="pr-1">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" style="width: 100%; margin-left: 10px;"> 
+          <div fxFlex="60" fxLayout="row">
+           <span style="font-weight: lighter;">{{'config-puerto.tam_ventana' | translate }}</span>  
+          </div> 
+          <div fxFlex="20" fxLayout="row">
+            <mat-form-field class="full-width">        
+              <input matInput type="number" min="0" max="24" name="hora" [formControl]="itemForm.controls['hora']" placeholder="{{'config-puerto.horas' | translate }}">        
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['hora'].hasError('required') && itemForm.controls['hora'].touched" class="form-error-msg">
+              La cantidad es obligatoria
+            </small>
+          </div> 
+          <div fxFlex="20" fxLayout="row">
+            <mat-form-field class="full-width">        
+              <input matInput type="number" min="0" max="60" name="min" [formControl]="itemForm.controls['min']" placeholder="{{'config-puerto.minutos' | translate }}">        
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['min'].hasError('required') && itemForm.controls['min'].touched" class="form-error-msg">
+              La cantidad es obligatoria
+            </small>
+          </div>           
+        </div>
+      </div>            
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput type="number" name="cam_ventana" min="0" [formControl]="itemForm.controls['cam_ventana']" placeholder="{{'config-puerto.cam_ventana' | translate }}">        
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['cam_ventana'].hasError('required') && itemForm.controls['cam_ventana'].touched" class="form-error-msg">
+        La cantidad es obligatoria
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

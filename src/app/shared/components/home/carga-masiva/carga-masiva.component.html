@@ -1,0 +1,293 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Carga Masiva de Flota</h4>
+</div>
+<div class="m-333" style="background-color: #ffffff;height: 60px;">
+  <!-- <span fxFlex></span> -->
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxFlex="5" class="pr-1" fxLayoutAlign="center center"></div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">
+        <button mat-button color="accent" title="Adjuntar documento Excel" style="background-color: #29bf4f;"
+          mat-mini-fab (click)="imgFileInput.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <input hidden type="file" #imgFileInput (change)="incomingfile($event)" accept=".xlsx" />
+      </div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">
+        <div class="button-row">
+          <button title="Pegar documento Excel adjunto" mat-raised-button type="button" color="primary"
+            (click)="Upload()" [disabled]="imgFileInput.value == ''" matTooltip="Pegar los datos en la lista">
+            Pegar de Excel
+          </button>
+        </div>
+      </div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">
+        <button mat-button color="warn" [disabled]="cantidadChoferesValidos==0" title="Cargar choferes sin errores"
+          style="background-color: #43519e;" (click)="CargarChoferes()" mat-mini-fab>
+          <mat-icon>cloud_upload</mat-icon>
+          <span class="notification-number mat-bg-primary " style="background: #38BEEB!important; margin-left: 16px;"
+            *ngIf="cantidadChoferesValidos>0">{{ cantidadChoferesValidos }}</span>
+        </button>
+      </div>
+      <div fxFlex="15" class="pr-1" fxLayoutAlign="center center"></div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">
+        <button mat-button *ngIf="isErrorLoad" title="Mostrar Tabla Excel" style="background-color: #ffffff;"
+          (click)="showTablaExcel()" mat-mini-fab>
+          <img src="assets/images/icon_excel.png" alt="">
+        </button>
+      </div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">
+        <button mat-button *ngIf="isErrorLoad" title="Errores en la carga" style="background-color: #ffffff;"
+          (click)="showTablaErrors()" mat-mini-fab>
+          <mat-icon color="warn">error</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="15" class="pr-1" fxLayoutAlign="center center"></div>
+      <div fxFlex="10" class="pr-1" fxLayoutAlign="end center">
+        <button mat-button color="primary" title="Descargar plantilla actualizada en Excel" (click)="descargarArchivo()"
+          mat-mini-fab>
+          <mat-icon>cloud_download</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="5" class="pr-1" fxLayoutAlign="center center"></div>
+    </div>
+  </div>
+  <mat-card class="p-0" style="margin-top: 20px; margin-left: 0px;">
+    <mat-card-title class="" *ngIf="choferes.length == 0">
+      <div class="card-title-text" style="background:#85AFC4;color: #ffffff;">
+        No se han cargados choferes
+      </div>
+    </mat-card-title>
+    <mat-card-content class="p-0" style="background-color: #ffffff;height: 80vh; overflow-y: scroll;">
+      <div fxFlex="100" *ngIf="choferes.length > 0 && mostrarTablaExcel">
+        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
+          <ng-container matColumnDef="cuit">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cédula de Identidad (C.I.)</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.ruc }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.email }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="nombre">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.nombre }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="apellidos">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.apellidos }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="telefono">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.telefono }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="chapa_camion">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Chapa Camión</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.chapa_camion }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="chapa_acoplado">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Chapa Acoplado</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.chapa_acoplado }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="hayError">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                <ng-container *ngIf="!row.hayError; else elseTemplate">
+                  <mat-icon class="mat-18" color="primary" matTooltip="Chofer sin Error">check_circle_outline</mat-icon>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <mat-icon class="mat-18" color="warn" matTooltip="Chofer con Error">highlight_off</mat-icon>
+                </ng-template>
+              </td>
+            </tr>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="razon_social">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Razon_social</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.razon_social }}
+              </td>
+            </tr>
+          </ng-container>
+
+          <ng-container matColumnDef="domicilio">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Domicilio</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.domicilio }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="cuit_transportista">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuit_transportista</th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                {{ row.cuit_transportista }}
+              </td>
+            </tr>
+          </ng-container> -->
+
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-description">
+                  <div fxLayout="row wrap">
+                    <!-- <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 70px;">
+                      <div fxFlex="2" s></div>
+                      <div fxFlex="11" style="margin-top:15px;margin-left:15px;">
+                        <strong>Marca Camión</strong>
+                      </div>
+                      <div fxFlex="10" style="margin-top:15px;margin-left:15px;">
+                        <strong>Tipo Camión</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Patente Camión</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Año Camión</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Camión Carga Peligrosa</strong>
+                      </div>
+                      <div fxFlex="11" style="margin-top:15px;margin-left:15px;">
+                        <strong>Marca Acoplado</strong>
+                      </div>
+                      <div fxFlex="10" style="margin-top:15px;margin-left:15px;">
+                        <strong>Tipo Acoplado</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Patente Acoplado</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Año Acoplado</strong>
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        <strong>Acoplado Carga Peligrosa</strong>
+                      </div>
+                      <div fxFlex="2" s></div>
+                    </div>
+                    <div fxFlex="100" style=" color: rgb(8, 8, 8);height: 40px;">
+                      <div fxFlex="2" s></div>
+                      <div fxFlex="11" style="margin-top:15px;margin-left:15px;">
+                        {{ element.marca_camion }}
+                      </div>
+                      <div fxFlex="10" style="margin-top:15px;margin-left:15px;">
+                        {{ element.tipo_camion }}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.patente_camion }}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.ano_camion }}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.camion_carga_peligrosa }}
+                      </div>
+                      <div fxFlex="11" style="margin-top:15px;margin-left:15px;">
+                        {{ element.marca_acoplado }}
+                      </div>
+                      <div fxFlex="10" style="margin-top:15px;margin-left:15px;">
+                        {{ element.tipo_acoplado }}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.patente_acoplado }}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.ano_acoplado}}
+                      </div>
+                      <div fxFlex="9" style="margin-top:15px;margin-left:15px;">
+                        {{ element.acoplado_carga_peligrosa }}
+                      </div>
+                      <div fxFlex="2" s></div>
+                    </div> -->
+                    <div fxFlex="100" *ngIf="element.hayError">
+                      <strong>Observaciones:</strong>
+                      <div fxLayout="column wrap">
+                        <div fxFlex="100" *ngFor="let item of element.observaciones">
+                          - {{item}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === row "
+            (click)="expandedElement = (expandedElement !== row && row.observaciones.length > 0) ? row : null">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+      </div>
+      <div fxFlex="100" *ngIf="mostrarTableError" fxLayoutAlign="center start">
+        <div fxFlex="30" class="pr-1" fxLayoutAlign="center center"></div>
+        <div fxFlex="40" class="pr-1" fxLayoutAlign="center center">
+          <mat-card class="p-0">
+            <mat-card-title class="mat-bg-warn m-0" fxLayoutAlign="center center"
+              style="background:#FF351D; height: 120px;">
+              <div fxFlex="100" fxLayoutAlign="center center">
+                <div fxLayout="row wrap" fxLayoutAlign="center center" >
+                  <div fxFlex="100" fxLayoutAlign="center center">
+                    <img src="assets/images/muvin/icono_x.png" alt="" style="margin-top: 15px;">
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="center center">
+                    <div class="card-title-text" style="color: black;">
+                      <span fxFlex></span>
+                      <h4 style="color: #fff;">Errores en la carga</h4>
+                      <span fxFlex></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content class="p-0">
+              <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="100" *ngFor="let item of listError; let i=index">
+                  <div fxFlex="10" class="pr-1" fxLayoutAlign="center center"> * </div>
+                  <div fxFlex="90" class="pr-1" fxLayoutAlign="start center">
+                    {{item.message}}
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="30" class="pr-1" fxLayoutAlign="center center"></div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>

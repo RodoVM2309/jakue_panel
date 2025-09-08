@@ -1,0 +1,727 @@
+<div class="page-wrap height-45" #main>
+</div>
+
+<div class="margin" >
+  <!--<mat-card [style.overflow-x]="'hidden'" style="height: 95%!important;"> -->
+    <mat-card style="height: 95%!important;">
+    <mat-card-header>
+     <img style="float: left;width: 11%;" [src]="logoTerms">
+    </mat-card-header>
+
+    <mat-sidenav-container style="width: 100%;margin-left: 0%;height: 81vh;">
+      <mat-sidenav EgretSideNavToggle class="sidebar default-light-bg" mode="side">
+
+      <!-- Left sidebar - Terms-->
+        <div fxLayout="row wrap" style="margin-top: 10px; margin-left: 10px; margin-bottom: 8px;height: 150hv;">
+          <!--<div fxLayout="row wrap">-->
+            <div fxFlex="100" style="width: 100%; margin-left: -11px;" id="terms">
+              <mat-list dense role="list" fxFlex="25" fxLayoutAlign="center center">
+                <mat-list-item role="listitem" *ngFor="let term of terms ; let i = index" [ngClass]="term.class">
+                  <span style="font-size:12px">
+                    {{ term.name}}
+                  </span>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          <!--</div>-->
+        </div>
+      </mat-sidenav>
+
+      <!-- Right side  div del  MAPA -->
+      <div fxLayout="row" fxLayoutWrap="wrap" style="height: 100hv;">
+        <!--<div class="full-width">-->
+            <!--<div fxLayout="row wrap">-->
+                <!--<div fxFlex="100%">-->
+                  <!--<mat-card [style.overflow]="'scroll'" (scroll)="onListScroll($event)">-->
+                    <mat-card  [style.width.px]="" class="contenido" style="height: 70vh;flex-direction: column;width:99%;"  (scroll)="onListScroll($event)">
+                      <!--<mat-card  [style.width.px]=""  [style.overflow-y]="'scroll'" [ngStyle]="{'overflow-x': 'hidden'}" (scroll)="onListScroll($event)">                      -->
+                      <!--<div fxLayout="column wrap" fxFlex="50" style="width: 100%;float: right;display: inline-block;">-->
+                        <div class="titulo">
+                          <h1>Términos y condiciones</h1>
+                        </div>
+                        <br>
+                        <div class="subtitulo" #accept>
+                          <h2>  1. ACEPTACIÓN</h2>
+                        </div>
+                        <div class="cuerpo" id="acepto_cuerpo">
+                          <p>
+                            Los presentes Términos y Condiciones (TÉRMINOS) rigen la relación entre los
+                            usuarios del SISTEMA JAKUE (SISTEMA) a través de las aplicaciones
+                            móviles JAKUE o su página web <a href="www.jakue.com.py">www.jakue.com.py</a> (PÁGINA) y la
+                            organización LICENCIANTE Bolsa de Comercio de Rosario, en adelante (BCR),
+                            CUIT 30-52641408-6, inscripta en IGJ, con domicilio en calle Córdoba 1402de la Ciudad de Rosario,
+                            Provincia Santa Fe.
+                          </p>
+                          <br>
+                          <p>
+                            La instalación y utilización del SISTEMA – a través de la aplicación móvil que está
+                            descargando (APP) o a través del acceso web a la PÁGINA implica: a) Que Ud.
+                            comprende y presta total conformidad con los presentes términos y condiciones,
+                            b) que comprende y acepta la extensión y alcance de los derechos y obligaciones
+                            que asume, c) que tiene la capacidad legal para suscribir este contrato, d) que
+                            tiene las habilitaciones legales correspondientes para operar según el Rol dentro
+                            del SISTEMA como Transportista, Empresa de Transporte, Intermediario de Flete,
+                            Productor agropecuario, Corredor de cereales, Acopiador de Cereales, Exportador
+                            de cereales, Entregador, o cualquier actor de la cadena comercial de granos y
+                            oleaginosas (LA CADENA), entre otros, e) que acepta los términos de la política
+                            de privacidad de datos personales de BCR, que son parte integrante de este
+                            acuerdo.
+                          </p>
+                          <br>
+                          <p>
+                            Si no está de acuerdo con estos términos o con cualquiera de sus partes, su uso
+                            está prohibido y deberá abstenerse de utilizar el SERVICIO.
+                          </p>
+
+                          <p>
+                            BCR podrá modificar estos términos y condiciones cuando lo considere necesario.
+                            A tal fin, cualquier modificación será publicada mediante aviso en la versión
+                            actualizada de la APP, así como en la página web www.jakue.com.py. El uso
+                            continuo del SISTEMA posterior a la modificación de los términos y condiciones
+                            significa la aceptación por parte del usuario de los términos modificados. Para el
+                            caso de no estar de acuerdo con los términos actualizados, deberá suspender en
+                            forma inmediata todo uso posterior del SISTEMA.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo" #system>
+                          <h2>2. EL SISTEMA</h2>
+                        </div>
+                        <div class="cuerpo" id="acepto_sistema">
+                          <p>
+                            JAKUE  es una herramienta online de logística digital que se opera a través
+                            de múltiples canales (web, aplicaciones móviles y whatsapp), que conecta a todos
+                            los sectores de la cadena agroindustrial, permitiendo la asignación y coordinación
+                            de cupos, viajes y turnos de descarga, permitiendo su seguimiento de forma
+                            online, con un enfoque sistémico y dando trazabilidad del flujo físico de la
+                            mercadería para todos los intervinientes en la cadena comercial.
+                          </p>
+
+                          <p>
+                            El TRANSPORTISTA descarga una aplicación móvil (APP Choferes) desarrollada
+                            para teléfonos celulares con GPS y paquete de datos que permite que el
+                            TRANSPORTISTA interactúe con los diferentes actores de la cadena comercial
+                            (dador de carga, destino, entregador, etc).
+                          </p>
+                          <p>
+                            La aplicación móvil que descargan los CLIENTES (APP Clientes) es una APP
+                            descargable para teléfonos celulares que permite realizar las funcionalidades del
+                            SISTEMA y tener indicadores de gestión de las operaciones.
+                          </p>
+
+                          <p>
+                            La línea de Whatsapp de JAKUE es un canal de comunicación que permite
+                            su utilización tanto para TRANSPORTISTAS, clientes o usuarios en general que
+                            interactúan con el SISTEMA.
+                          </p>
+
+                          <p>
+                            Los CLIENTES parametrizan los datos de su operación (dadores de carga,
+                            plantas, lugares de carga, flota, horarios de operación de terminales portuarias,
+                            ventanas horarias de los turnos, entre otros) y pueden generar pedidos de
+                            transporte, asignación de cupos, confirmación de Turnos de descarga o cualquier
+                            otra funcionalidad que se detalle oportunamente en el sitio www.jakue.com.py.
+                          </p>
+
+                          <p>
+                            Tanto los TRANSPORTISTAS, que forman parte del sistema por haber
+                            descargado la APP, como los Choferes con un teléfono inteligente y creado un
+                            perfil de usuario, pueden postularse a diferentes viajes ofrecidos y les es
+                            notificado de la asignación, pudiendo acceder en ese momento datos más
+                            detallados del viaje que debe realizar (mapa o croquis, lugar exacto, CLIENTE,
+                            entre otros). La tarifa del viaje no es un requisito obligatorio y pueden ofrecerse
+                            viajes sin la indicación del valor económico. Asimismo, cuando el
+                            TRANSPORTISTA queda libre por haber terminado el viaje asignado, y tiene su
+                            geolocalizador activado, el sistema muestra su nombre, ubicación y teléfono para
+                            que el CLIENTE lo pueda contactar. En cualquiera de los casos, la relación
+                            comercial y la celebración del contrato de transporte es entre el
+                            TRANSPORTISTA y el CLIENTE. BCR no percibe ningún tipo de comisión, ni
+                            ninguna otra retribución sobre el precio pactado entre las partes en dicho contrato
+                            de transporte.
+                          </p>
+
+                          <p>
+                            JAKUE retroalimenta en tiempo real la información del panel web
+                            actualizando los estados de cada viaje, cupos y turnos de descarga, permitiendo
+                            generar historial de estadísticas, reportes e indicadores.
+
+                            Se trata de un sistema colaborativo, cuyo óptimo funcionamiento depende de la
+                            correcta carga de datos de los diferentes actores.
+                          </p>
+                        </div>
+
+
+                        <div class="subtitulo" #req>
+                          <h2>    3. REQUISITOS DE ACCESO – CAPACIDAD</h2>
+                        </div>
+                        <div class="cuerpo" id="acepto_req">
+                          <p>
+                            La APP Choferes está destinada a TRANSPORTISTA que conducen transporte
+                            de carga y que deseen formar parte del SISTEMA JAKUE.
+                            La APP Clientes está destinada a actores de LA CADENA de granos y
+                            oleaginosas para realizar funciones del SISTEMA y tener seguimiento de sus
+                            operaciones.
+                          </p>
+
+                          <p>
+                            Los TRANSPORTISTAS deberán ser mayores de edad y estar legalmente
+                            habilitados para conducir camiones de carga.
+                          </p>
+
+                          <p>
+                            Los usuarios de los CLIENTES deberán ser mayores de edad y no podrán
+                            vincular un viaje a un TRANSPORTISTA, mediante la plataforma JAKUE APP, si
+                            este no está dados de alta en el SISTEMA.
+                          </p>
+
+                        </div>
+
+                        <div class="subtitulo" #acl>
+                          <h2>4. ACLARACIONES ESPECIALES PARA TRANSPORTISTAS</h2>
+                        </div>
+                        <div class="cuerpo" id="acepto_aclaraciones">
+                          <p>
+                            a- Conducción preventiva y responsable. Está estrictamente prohibido
+                            enviar las actualizaciones de carga, descarga y/o cualquier otra
+                            actualización durante la conducción. Las actualizaciones que usted realice
+                            sólo pueden ser enviadas después de haber detenido su vehículo en un
+                            lugar apropiado permitido por la ley.
+                          </p>
+
+                          <p>
+                            b- Documentación exigible para circular. Será de su exclusiva
+                            responsabilidad la obtención y cumplimiento de toda la normativa
+                            relacionada al transporte interjurisdiccional de cargas y poseer la
+                            documentación exigible para circular de acuerdo a la legislación nacional,
+                            provincial, municipal y a cualquier otra exigencia de autoridades de control
+                            vinculadas a la actividad del transporte y/o al tipo de mercadería que
+                            movilice.
+                          </p>
+
+                          <p>
+                            c- Anuncios. Pueden aparecer en la aplicación web anuncios de terceros.
+                            Los mismos no están destinados a ser, ni deben ser, vistos por los
+                            conductores a menos, y/o hasta tanto que, su vehículo haya llegado a una
+                            parada completa.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo" #pi>
+                          <h2>5. PROPIEDAD INTELECTUAL </h2>
+                        </div>
+
+                        <div class="cuerpo" id="propiedad_intelectual">
+                          <p>
+                            BCR es dueño único y exclusivo, de todos los derechos de propiedad intelectual
+                            sobre las aplicaciones APP Choferes y APP Clientes, el SISTEMA y su sitio web
+                            www.muvinapp.com, su contenido y su base de datos.
+                          </p>
+
+                          <p>BCR es también titular de la marca JAKUE.</p>
+
+                          <p>
+                            El uso del SISTEMA en modo alguno implica autorización de uso ni cesión de
+                            ningún derecho de propiedad intelectual y/o industrial y/o marcas de BCR que no
+                            sea objeto de una licencia expresa.
+                          </p>
+
+                          <p>
+                            En su carácter de usuario habilitado Ud. es responsable por el uso indebido del
+                            sistema por parte de terceros que puedan acceder al mismo a través de su
+                            acceso. Atento a lo expuesto deberá tomar todas las medidas necesarias a fin de
+                            que personas no autorizados puedan accederá través de su clave de acceso. En
+                            caso de tomar conocimiento de algún acceso indebido mediante su usuario
+                            deberá comunicarlo inmediatamente a fin de que se proceda a tomar las medidas
+                            pertinentes sin que ello implique deslinde alguno de responsabilidad de su parte.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo" #lu>
+                          <h2>6. LICENCIA DE USUARIO</h2>
+                        </div>
+                        <div class="cuerpo" id="licencia_usuario">
+                          <p>
+                            BCR le otorga, a quienes utilicen el SISTEMA, una licencia revocable, no
+                            exclusiva, e intransferible para utilizar las aplicaciones móviles; APP Choferes y
+                            APP Clientes y el SISTEMA, exclusivamente con la finalidad aquí detallada.
+                            Las licencias otorgadas por BCR no se extienden al uso de datos e información
+                            incluidos en el SISTEMA con fines distintos a los especificados en estos Términos
+                            y Condiciones.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo" #ru>
+                          <h2>7. RESTRICCIONES DE USO</h2>
+                        </div>
+
+                        <div class="cuerpo" id="rectrigiones_uso">
+                          <p>
+                            Queda prohibido la comercialización del sistema. A modo de ejemplo, Ud. no
+                            podrá: revender, distribuir, licenciar o explotar de cualquier forma, con fines
+                            comerciales distintos a los aquí pactados, el SISTEMA o el acceso al mismo.
+                          </p>
+
+                          <p>
+                            La comisión de cualquiera de estas y otras conductas que impliquen un uso
+                            comercial del SISTEMA o sus componentes, de manera indebida o distinta de la
+                            pactada en la presente licencia, y sin el consentimiento previo y por escrito de
+                            BCR., lo hará incurrir en responsabilidad civil y/o penal.
+                          </p>
+
+                        </div>
+
+
+                        <div class="subtitulo">
+                          <h2>8. PROHIBICIONES GENERALES</h2>
+                        </div>
+                        <div class="cuerpo" id="pg">
+
+                        <p>
+                          Está estrictamente prohibido a TRANSPORTISTAS y/o a cualquier usuario del
+                          SISTEMA, bajo pena de incurrir en responsabilidad civil y /o penal, realizar por sí
+                          o a través de otros medios o terceras personas las siguientes actividades:
+                        </p>
+
+                        <p>
+                          (I) copiar, imprimir, guardar, modificar, adaptar, traducir o de cualquier
+                          manera utilizar datos, contenido del sistema o de su base de datos y/o
+                          de su código fuente.
+                        </p>
+
+                        <p>
+                          (II) Realizar cualquier actividad de ingeniería inversa sobre el sistema y sus
+                          componentes, raspado de pantalla, minería de datos, recolección,
+                          agregación de datos e indexación o utilizar otros medios automatizados
+                          para acceder al Sistema o a su base de datos
+                        </p>
+
+                        <p>
+                          (III) interferir o violar cualquier derecho de propiedad intelectual de BCR., de
+                          terceros u otros usuarios.
+                        </p>
+
+                        <p>
+                          (IV) cosechar o recopilar información personal sobre visitantes o usuarios
+                          del SISTEMA, o de cualquier forma afectar su derecho de privacidad sin
+                          su consentimiento expreso, incluyendo el uso de cualquier robot, araña,
+                          búsqueda de sitio o solicitud de recuperación, u otro dispositivo o
+                          proceso manual o automático para recuperar, indexar o extraer datos
+                        </p>
+
+                        <p>
+                          (V) difamar, acosar, acechar o amenazar a cualquier usuario del SISTEMA
+                        </p>
+
+                        <p>
+                          (VI) transmitir o poner a disposición en conexión con el Servicio cualquier
+                          virus, gusano, caballo de Troya, bomba de tiempo, bicho web, spyware
+                          o cualquier otro código, archivo o programa informático que pueda o
+                          esté destinado a dañar o secuestrar el funcionamiento de cualquier
+                          hardware, software o equipo de telecomunicaciones, o cualquier otro
+                          código o componente potencialmente perjudicial, perturbador o
+                          invasivo
+                        </p>
+
+                        <p>
+                          (VII) interferir o interrumpir el funcionamiento del SISTEMA y/o del Sitio, o de
+                          los servidores o redes que alojan el Servicio o hacer que el Servicio
+                          esté disponible, o desobedecer cualquier requisito, procedimiento,
+                          política o Reglamentos de tales servidores o redes
+                        </p>
+
+                        <p>
+                          (VIII) crear una base de datos descargando y almacenando sistemáticamente
+                          todo o parte del contenido del SISTEMA
+                        </p>
+
+                        <p>
+                          (IX) transferir o asignar la contraseña de sus cuentas de acceso al
+                          SISTEMA, incluso temporalmente, a un tercero
+                        </p>
+
+                        <p>
+                          (X) utilizar el SISTEMA para cualquier propósito ilegal, inmoral o no
+                          autorizado.
+                        </p>
+
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>9. CONTENIDOS SUBIDOS AL SISTEMA</h2>
+                        </div>
+
+                        <div class="cuerpo" id="css">
+                          <p>
+                            EL SISTEMA es una plataforma cuyo funcionamiento y utilidad depende, en gran
+                            medida, de los contenidos que carguen los CLIENTES y TRANSPORTISTAS.
+                          </p>
+
+                          <p>
+                            El SISTEMA permite a los usuarios de la plataforma publicar y compartir
+                            información para poder cumplimentar los fines del software.
+                          </p>
+
+                          <p>
+                            El contenido puede incluir información comercial del CLIENTE (Cupos, Turnos,
+                            lugares de carga, cantidades, entre otros).
+                          </p>
+
+                          <p>
+                            El contenido está separado de los anuncios patrocinados por terceros, que
+                            pueden aparecer en el Servicio, y de la información personal cargada por
+                            TRANSPORTISTAS y CLIENTES.
+                          </p>
+
+                          <p>
+                            Cada CLIENTE será el exclusivo responsable por los contenidos subidos al
+                            SISTEMA.
+                          </p>
+
+                          <p>
+                            BCR podrá examinar el contenido antes o después de su publicación, impedir la
+                            publicación de contenidos inapropiados o de otro modo inadecuados o erróneos,
+                            o eliminarlos después de su publicación.
+                          </p>
+
+                          <p>
+                            El contenido enviado por los usuarios para publicación no refleja de manera
+                            alguna las opiniones de BCR. La publicación del CONTENIDO por parte de BCR
+                            no garantiza su validez, fiabilidad, exactitud, legalidad.
+                          </p>
+
+                          <p>
+                            BCR podrá utilizar con fines estadísticos o para la elaboración de reportes o
+                            informes los contenidos y datos subidos por los usuarios, TRANSPORTISTAS o
+                            CLIENTES, aplicando procedimientos de disociación de la información, de modo
+                            que los titulares de los datos sean inidentificables.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>10. FINALIZACIÓN DEL SERVICIO</h2>
+                        </div>
+
+                        <div class="cuerpo" id="fs">
+                          <p>
+                            Usted puede cancelar su uso de las aplicaciones móviles APP Choferes y APP
+                            Clientes en cualquier momento y por cualquier razón, sin obligación de
+                            comunicarlo a BCR. Usted puede cancelar la licencia de uso del SISTEMA de
+                            acuerdo a las condiciones específicas acordadas en la Licencia específica.
+                          </p>
+
+                          <p>
+                            Sin embargo, si también desea que BCR elimine su cuenta y su información
+                            personal, deberá notificar fehacientemente a BCR y en el transcurso de 7 días
+                            corridos se procederá a la eliminación de la misma.
+                          </p>
+
+                          <p>
+                            BCR se reserva el derecho de bloquear su acceso al Servicio e interrumpir su uso
+                            ante el incumplimiento de los presentes términos y condiciones.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>11. INEXISTENCIA DE RELACIONES ASOCIATIVAS Y LABORALES</h2>
+                        </div>
+
+                        <div class="cuerpo" id="ira">
+                          <p>
+                            La prestación del servicio y/o la oferta de servicios de transporte realizada a
+                            través del SISTEMA no constituyen, y no deben ser interpretados, como vínculos
+                            asociativos; empresa conjunta; relación empleador-empleado; contrato de agencia
+                            o relación franquiciante-franquiciado.
+                          </p>
+
+                          <p>
+                            BCR no garantiza la celebración de ningún contrato entre los TRANSPORTISTAS
+                            y CLIENTES integrantes del SISTEMA.
+                          </p>
+
+                          <p>
+                            Los servicios que el TRANSPORTISTA contrate con CLIENTES y/ terceros
+                            usuarios del SISTEMA se regirán por un vínculo contractual autónomo e
+                            independiente, del cual BCR es totalmente ajena. BCR no percibe ningún tipo de
+                            comisión, ni ninguna otra retribución sobre el precio pactado entre las partes por
+                            ningún contrato que una a los distintos usuarios del sistema y/o
+                            TRANSPORTISTAS.
+                          </p>
+
+                          <p>
+                            La gestión de intercambio de cupos referidos a la comercialización de cereales y
+                            oleaginosas dentro de LA CADENA, que sea realizada a través del SISTEMA, no
+                            constituye y no debe ser interpretada ni como vínculos asociativos; ni como
+                            empresa conjunta; ni como relación empleador-empleado; ni como contrato de
+                            agencia ni como relación franquiciante-franquiciado.
+                          </p>
+
+                          <p>
+                            BCR no garantiza la celebración de ningún contrato entre los CLIENTES
+                            integrantes del SISTEMA.
+                          </p>
+
+                          <p>
+                            Los servicios que los CLIENTES y/o terceros usuarios del SISTEMA contraten
+                            entre sí, se regirán por un vínculo contractual autónomo e independiente del cual
+                            BCR es totalmente ajena.
+                          </p>
+
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>12. LIMITACIÓN DE RESPONSABILIDAD Y GARANTÍA</h2>
+                        </div>
+
+                        <div class="cuerpo" id="lrg">
+                          <p>
+                            Ud. asume que el óptimo funcionamiento del SISTEMA depende de la veracidad
+                            de la información subida por los TRANSPORTISTAS y CLIENTES.
+                          </p>
+                          <p>
+                            BCR no puede garantizar que los TRANSPORTISTA asignados permitan su
+                            geolocalización. Tampoco puede garantizar la veracidad de los contenidos
+                            subidos por los usuarios y/o clientes gestores.
+                          </p>
+
+                          <p>
+                            BCR no asume ninguna responsabilidad por errores u omisiones en la carga de
+                            datos por parte de los usuarios o CLIENTES gestores o TRANSPORTISTAS.
+                          </p>
+
+                          <p>
+                            Los errores u omisiones en la carga de datos por parte CLIENTES,
+                            TRANSPORTISTAS o usuarios es exclusiva responsabilidad de cada uno de
+                            ellos.
+                          </p>
+
+                          <p>
+                            Usted acepta y reconoce que el uso del SISTEMA se hace bajo su propio riesgo.
+                            BCR realiza todos sus esfuerzos para proporcionarle un servicio de alta calidad y
+                            satisfactorio. Sin embargo, no garantizamos que el servicio funcione de manera
+                            ininterrumpida o sin errores o fallos, o que esté siempre disponible o libre de
+                            componentes dañinos, o que sea seguro.
+                          </p>
+
+                          <p>
+                            Transmitir y recibir actualizaciones en tiempo real desde y hacia el SISTEMA
+                            requiere una conexión en línea (por ejemplo, Internet, Wi-Fi, 3G, 4G) entre el
+                            panel SISTEMA y las aplicaciones móviles. Los gastos de dicha conexión son los
+                            que se establecen en el acuerdo entre usted y su proveedor de servicios de
+                            comunicación (como su compañía celular y/o proveedor de internet), y de acuerdo
+                            con sus condiciones de pago.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo">
+                         <h2>13. POLITICA DE PRIVACIDAD</h2>
+                        </div>
+
+                        <div class="cuerpo" id="pp">
+                          <p>
+                            Su privacidad es importante para BCR.
+                          </p>
+
+                          <p>
+                            La presente Política de Privacidad determina el tratamiento que BCR dará a los
+                            datos personales recibidos por parte de los TRANSPORTISTAS y CLIENTES, y
+                            que estará en un todo de acuerdo a lo establecido en la Ley Nacional N° 25.326.
+                          </p>
+
+                          <p>
+                            El ingreso por parte de los TRANSPORTISTAS y CLIENTES de datos personales
+                            o información confidencial al SISTEMA, implica su aceptación a las presentes
+                            políticas de privacidad.
+                          </p>
+
+                          <p>
+                            BCR. no recoge ningún tipo de información personal sin que la misma sea
+                            explícitamente provista por los CLIENTES y/o USUARIOS y/o
+                            TRANSPORTISTAS voluntariamente.
+                          </p>
+
+                          <p>
+                            En ningún caso, BCR. solicitará a Ud. datos sensibles, entendiendo por tales a
+                            aquellos datos personales que revelan origen racial y étnico, opiniones políticas,
+                            convicciones religiosas, filosóficas o morales, afiliación sindical e información
+                            referente a la salud o a la vida sexual.
+                          </p>
+
+                          <p>
+                            Cada CLIENTE visualiza exclusivamente los datos que ingresó al sistema como
+                            propios y/o de sus usuarios habilitados. La información que cada CLIENTE cargue
+                            en relación con sus TRANSPORTISTAS, destinos, lugares de carga, tipos de
+                            carga, cupos, turnos y el resto de información cargada en el SISTEMA es de
+                            estricta propiedad de cada empresa y BCR. se compromete a no divulgarla bajo
+                            ningún concepto.
+                          </p>
+
+                          <p>
+                            Los TRANSPORTISTAS sólo pueden visualizar el viaje que le ha sido asignado.
+                            En ningún caso podrán acceder a datos que permitan la identificación de la
+                            operación y/o equipos que no sea información relativa a sus viajes asignados.
+                          </p>
+
+                          <p>
+                            Los datos solicitados serán utilizados exclusivamente para su inclusión en una
+                            base de datos de titularidad de BCR., indispensables para una eficaz gestión del
+                            SISTEMA JAKUE y serán tratados de conformidad con los fines establecidos
+                            en el presente documento.
+                          </p>
+
+                          <p>
+                            BCR. usará los datos recogidos en las distintas interfaces de la plataforma
+                            MUVIN, sólo en aquellos casos que sea necesario. También utilizaremos dichos
+                            datos para mejorar nuestro sistema y la gestión de fletes, proporcionar asistencia
+                            a nuestros clientes y/o TRANSPORTISTAS, con fines estadísticos, de
+                            investigación y desarrollo de nuevos productos y para permitir el desarrollo de
+                            nuevas aplicaciones y/o funciones que mejoren la comunicación entre usuarios,
+                            aplicando procedimientos de disociación de la información, de modo que los
+                            titulares de los datos sean inidentificables.
+                          </p>
+
+                          <p>
+                            La información personal que se reciba será tratada en forma confidencial.
+                          </p>
+
+                          <p>
+                            Ud. declara conocer que la APP Choferes requiere su geolocalización. Ud. acepta
+                            que la configuración de su dispositivo móvil, habilitando la georreferenciación,
+                            permite a BCR, y a otros usuarios del SISTEMA, obtener información sobre su
+                            ubicación con el fin de conectar a todos los sectores de la cadena agroindustrial,
+                            permitiendo la asignación y coordinación de viajes, oferta de transporte y el
+                            seguimiento del estado de las cargas. Ud. acepta que los datos de contacto
+                            proporcionados por Ud. sean compartidos en el SISTEMA para promocionar sus
+                            servicios de transporte, facilitando su ubicación a los efectos de ser contratado
+                            por otros CLIENTES del SISTEMA.
+                          </p>
+
+                          <p>
+                            El TRANSPORTISTA podrá ejercer los siguientes derechos ante BCR:
+                          </p>
+
+                          <ul>
+                            <li>
+                              Solicitar y obtener información en forma gratuita de sus datos personales
+                            incluidos en la base de datos de BCR. destinada a proveer informes.
+                            </li>
+
+                            <li>
+                              Solicitar la rectificación, actualización, supresión, confidencialidad de los
+                            datos personales de los que sea titular cuando ellos no sean correctos o no
+                            estén actualizados, si fuere procedente.
+                            </li>
+                          </ul>
+
+                          <p>
+                            En cada oportunidad en que el TRANSPORTISTA haga uso del SISTEMA, existe
+                            la posibilidad que, de manera automática, obtenga y almacene información en los
+                            registros del servidor. Estos datos podrán incluir:
+                          </p>
+
+                          <ul>
+                            <li>información detallada sobre utilización del servicio</li>
+                            <li>dirección de IP</li>
+                            <li>cookies, que permitirán identificar tu navegador o tu cuenta.</li>
+                          </ul>
+
+                          <p>
+                            Ante cualquier duda, queja o sugerencia acerca de este documento o el
+                            tratamiento de sus datos por parte de BCR., por favor póngase en contacto con
+                            nosotros.
+                          </p>
+
+                          <p>
+                            BCR. se reserva el derecho de modificar el contenido del documento de
+                            privacidad de datos personales con el objeto de adaptarlo a las novedades
+                            legislativas o jurisprudenciales.
+                          </p>
+
+                        </div>
+
+                        <div class="subtitulo">
+                           <h2>14. INFORMACIÓN COMERCIAL Y ENLACES. AUSENCIA DE RESPONSABILIDAD</h2>
+                        </div>
+
+                        <div class="cuerpo" id="icea">
+                          <p>
+                            El SISTEMA puede incluir información comercial o anuncios (por ejemplo, pines
+                            y/o sitios enlazados que indiquen la ubicación de ciertos establecimientos, sus
+                            ofertas comerciales, cupones, etc.), que pueden aparecer en las pantallas o en los
+                            mapas. BCR. no garantiza la fiabilidad o exactitud de los anuncios de terceros. La
+                            publicación de los mismos en el SISTEMA no implica que BCR. recomiende o
+                            estimule su adquisición.
+                          </p>
+
+                          <p>
+                            El uso de servicios o productos anunciados en el SISTEMA por terceros será bajo
+                            la exclusiva responsabilidad y riesgo del TRANSPORTISTA.
+                          </p>
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>15. INCUMPLIMIENTO E INDEMNIZACIÓN</h2>
+                        </div>
+
+                        <div class="cuerpo" id="ici">
+                          <p>
+                            La violación de estos TÉRMINOS lo hará responsable de indemnizar cualquier
+                            daño y perjuicio ocasionado a BCR. y/o a sus empleados, funcionarios, directores
+                            y agentes. Esta indemnización se extiende a todos los gastos, pérdidas, o
+                            cualquier otro daño, directo o indirecto, patrimonial o extrapatrimonial ocasionado,
+                            incluyendo, pero no limitando, los gastos legales y honorarios de abogados.
+                          </p>
+
+                        </div>
+
+                        <div class="subtitulo">
+                          <h2>16. JURISDICCIÓN</h2>
+                        </div>
+
+                        <div class="cuerpo" id="ju">
+                          <p>
+                            Estos términos, y la relación jurídica entre las partes se regirán exclusivamente
+                            por las leyes de la República Argentina. Cualquier disputa, reclamación o
+                            controversia vinculada con estos Términos, y/o la utilización del sistema, estará
+                            bajo la jurisdicción exclusiva de los Tribunales Provinciales de la Ciudad de
+                            Rosario.
+                          </p>
+
+                        </div>
+                        <br>
+                        <br>
+                        <div class="cuerpo">
+                          <p>
+                            Usted ha leído todos los terminos y condiciones
+                          </p>
+                        </div>
+
+                      <!--</div>-->
+
+                      <mat-card-actions>
+                        <div *ngIf="countTermsReaded >= terms.length - 3" id="buttons">
+                          <button class="btn btn-outline-danger" (click)="registerTerm('R')" style="width: 40%;border-radius: 20px;margin-left: 2%;margin-top: 1px;" >Rechazar</button>
+                          <button class="btn btn-primary" (click)="registerTerm('A')" style="width:40%;border-radius: 20px;margin-top: 1px;margin-left: 10px">Aceptar</button>
+                        </div>
+                      </mat-card-actions>
+
+                      <br>
+                      <br>
+                    </mat-card>
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <br>
+      </div>
+      </mat-sidenav-container>
+
+
+  </mat-card>
+
+<!--<mat-card-actions>
+      <button class="btn btn-outline-danger" style="width: 40%;border-radius: 20px;margin-right: 10%;">Rechazar</button>
+      <button class="btn btn-primary" style="width:40%;border-radius: 20px;">Aceptar</button>
+  </mat-card-actions>
+</mat-card>
+-->
+
+</div>

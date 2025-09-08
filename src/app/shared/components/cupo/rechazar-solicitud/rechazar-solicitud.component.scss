@@ -1,0 +1,212 @@
+/*::ng-deep .mat-dialog-container {
+  padding: 0px;
+  background-color: rgb(255, 255, 255);
+}  */
+my-card {
+  margin: -10px;
+  background-color: rgb(233, 233, 234);
+}
+.component {
+  background-color: rgb(233, 233, 234);
+  width: 100%;
+  height: 100%;
+}
+
+.encabezado {
+  background-color: rgb(23, 72, 145);
+  color: #fefefe;
+  height: 40px;
+  font-size: 24px;
+}
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 54vh;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
+}
+
+.div-cuerpo {
+  background-color: rgb(255, 255, 255);
+  margin-top: 10px;
+  height: 45vh;
+  border-radius: 5px;
+}
+.div-margin {
+  box-shadow: none !important;
+  margin: -24px !important;
+}
+
+.footer {
+  color: #fefefe;
+  height: 10vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.div-botones {
+  width: 100%;
+  height: 50px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  color: #ffffff !important;
+}
+
+#sele-motivo {
+  .mat-form-field-infix {
+    margin-top: 7px;
+    margin-left: 5px;
+    color: #000000;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #000000;
+  }
+
+  .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #ffffff !important;
+  }
+
+  .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #000000 !important;
+  }
+}
+
+:host /deep/ .mat-select-value {
+  color: #000000;
+}
+:host /deep/ .mat-select-arrow {
+  color: #000000;
+}
+.select_motivo {
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 5vh;
+  height: 35px;
+  border-width: 1pt;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: #ffffff;
+  color: #000000;
+}
+.select_comentario {
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 5vh;
+  border-width: 1pt;
+  padding-top: 6px;
+  padding-left: 1px;
+  height: 30vh;
+  background: #ffffff;
+  color: #000000;
+}
+#sele-comentario {
+  ::ng-deep .mat-form-field-infix {
+    margin-top: 7px;
+    color: #000000;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #000000;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #ffffff !important;
+  }
+
+  ::ng-deep .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #000000 !important;
+  }
+}
+.width-90 {
+  width: 90%;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+.width-70 {
+  width: 70%;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+#form-rechazar {
+  ::ng-deep.mat-form-field-infix {
+    color: #000;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #000;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #000;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(23, 71, 144) !important;
+    background-color: #fff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused
+      background-color: rgb(23, 71, 144) !important;*/
+    background-color: #fff !important;
+  }
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+:host /deep/ .mat-form-field-infix {
+  margin-top: -5px;
+  color: #00020a;
+  /*  border-top: 0.84375em solid transparent; */
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(18, 74, 153);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00020a;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #3F51B5 !important;
+}

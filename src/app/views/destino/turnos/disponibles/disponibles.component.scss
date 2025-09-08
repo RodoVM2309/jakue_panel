@@ -1,0 +1,126 @@
+:host /deep/ .mat-checkbox-inner-container {
+    display: inline-block;
+    height: 15px !important;
+    line-height: 0;
+    margin: auto;
+    order: 0;
+    position: relative;
+    vertical-align: bottom;
+    white-space: nowrap;
+    width: 15px !important;
+    flex-shrink: 0;
+    //margin-top: 10px;
+}
+
+#app-customizer1 {
+    position: fixed;
+    z-index: 20000;
+    top: 70px;
+    right: 12px;
+    max-width: 300px;
+    .handle {
+        float: right;
+    }
+    .mat-card-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+}
+
+.newline {
+    background: black;
+    height: 1px;
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 0;
+    border: 1px solid black;
+}
+
+:host /deep/ .mat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+}
+
+.body {
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 9px;
+}
+
+.encabezado {
+    height: 50px;
+    background-color: rgb(0, 156, 216);
+    color: #fff;
+    /* position: fixed;
+  top: 130px; */
+    width: 92vw;
+}
+
+.panelIzq {
+    background-color: #ffffff;
+}
+
+.cp_select {
+    place-content: center flex-start;
+    border-color: #87b1c6;
+    border-style: solid;
+    border-radius: 10px;
+    margin-top: -6px;
+    height: 30px;
+    border-width: thin;
+    padding-top: 6px;
+    padding-left: 1px;
+    color: #ffffff;
+    /* background-color: #ffffff; */
+     :host /deep/.mat-form-field-infix {
+        margin-top: -10px;
+        border-top: 0.84375em solid transparent;
+    }
+     :host /deep/ .mat-focused .mat-form-field-label {
+        /*change color of label*/
+        color: #ffffff;
+    }
+     :host /deep/.mat-form-field-underline {
+        /*change color of underline*/
+        background-color: #ffffff !important;
+    }
+     :host /deep/.mat-form-field-ripple {
+        /*change color of underline when focused*/
+        background-color: #ffffff !important;
+    }
+}
+
+
+:host /deep/ #select_bgBlanco .mat-select-value-text {
+  color: rgb(248, 248, 248) !important;
+}
+
+
+:host /deep/ .egret-indigo .mat-select-placeholder {
+    color: #ffffff;
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+}
+
+ :host /deep/.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: white !important;
+}
+
+ :host /deep/.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: white !important;
+    ;
+}
+
+ :host /deep/ .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+}
+
+mat-datepicker-toggle {
+    color: white !important;
+}

@@ -1,0 +1,95 @@
+﻿<div fxLayout="row wrap">
+  <div fxFlex="90"> <h1 matDialogTitle>{{data.title}}</h1></div>
+  <div fxFlex="10"><span fxFlex> <mat-icon fxFlex="20%" >account_circle</mat-icon></span></div>
+ </div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id de la Persona">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="tipo_persona" [formControl]="itemForm.controls['tipo_persona']" placeholder="Tipo"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="cuit_cuil" type="text" [formControl]="itemForm.controls['cuit_cuil']" placeholder="RUC / Cédula de Identidad (C.I)"
+          #cuitcuil readonly>
+        <!-- <mat-hint align="end">{{cuitcuil.value.length}} / 11</mat-hint> -->
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="mostrar && nonombrapell">
+      <mat-form-field class="full-width">
+        <input matInput name="apellidos" [formControl]="itemForm.controls['apellidos']" placeholder="Apellido"
+          #apellidos maxlength="75" readonly>
+        <mat-hint align="end">{{apellidos.value.length}} / 75</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="mostrar && nonombrapell">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre" [formControl]="itemForm.controls['nombre']" placeholder="Nombre" #nombre
+          maxlength="75" readonly>
+        <mat-hint align="end">{{nombre.value.length}} / 75</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1" *ngIf="mostrar && norazonsocial">
+      <mat-form-field class="full-width">
+        <input matInput name="razon_social" [formControl]="itemForm.controls['razon_social']" placeholder="Razón Social"
+          #razonsocial maxlength="150" readonly>
+        <mat-hint align="end">{{razonsocial.value.length}} / 150</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="domicilio" [formControl]="itemForm.controls['domicilio']" placeholder="Domicilio"
+          #message maxlength="200" readonly>
+        <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pais" [formControl]="itemForm.controls['pais']" placeholder="País" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="provincia" [formControl]="itemForm.controls['provincia']" placeholder="Departamento"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="localidad" [formControl]="itemForm.controls['localidad']" placeholder="Localidad"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="telefono" [formControl]="itemForm.controls['telefono']" placeholder="Teléfono" type="tel"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="username" [formControl]="itemForm.controls['username']" placeholder="Usuario" #username
+          maxlength="50" readonly>
+        <mat-hint align="end">{{username.value.length}} / 50</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="email" type="email" [formControl]="itemForm.controls['email']" placeholder="E-mail" type="email"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,707 @@
+#form-cuponera1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(23, 71, 144) !important;
+    background-color: #ffffff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused
+      background-color: rgb(23, 71, 144) !important;*/
+    background-color: #ffffff !important;
+  }
+}
+
+.encabezado {
+  background: #fefefe;
+  color: #0c0c0c;
+  height: 120px;
+  font-size: 14px;
+  margin: 10px 10px 0px 10px;
+}
+
+.row_encabezado {
+  height: 60px;
+  padding: 10px;
+}
+
+.row_encabezado_table {
+  height: 50px;
+  padding: 10px;
+}
+
+.div-table {
+  background: rgb(133, 175, 195);
+  color: #0c0c0c;
+  font-size: 14px;
+  margin: 0px 10px 0px 10px;
+  //overflow: auto;
+  //overflow-x: hidden;
+  //margin: 10px;
+  //width: 100%;
+  //height: 60vh;
+}
+
+.row-table {
+  background-color: #ffffff;
+  margin: 0px 1px 0px 6px;
+}
+
+.hot {
+  width: 99%;
+  //margin-top:20px;
+  background-color: #ffffff;
+  margin: 0px 1px 0px 6px;
+}
+
+#sele-producto {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: 7px;
+    color: #ffffff;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(23, 71, 144) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(23, 71, 144) !important;
+  }
+}
+
+.select_producto {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(23, 71, 144);
+  color: #ffffff;
+}
+
+.fecha-bt {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 5px;
+  margin-top: 2px;
+  width: 92%;
+  height: 35px;
+  padding: 2px;
+  padding-right: 7px;
+  border-width: 0.5px;
+  background: rgb(23, 71, 144);
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+}
+
+#fecha-bt1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: -1px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background: transparent !important;
+    //background-color: #ffffff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background: transparent !important;
+  }
+}
+
+#sele-destinatario {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    margin-left: 5px;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+}
+
+.select-destinatario {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+}
+
+#sele-destino {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(164, 199, 207) !important;
+  }
+}
+
+.select-destino {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+}
+
+.select-destino-disabled {
+  border-color: rgb(139, 165, 172);
+  background: rgb(139, 165, 172);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #c7c1c1;
+}
+
+#sele-tipo {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    margin-left: 10px;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+}
+
+.select-tipo {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+}
+
+#sele-corredor {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(0, 122, 193) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-corredor {
+  border-color: rgb(0, 122, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 122, 193);
+  color: #ffffff;
+}
+
+.select-corredor-disabled {
+  border-color: rgb(113, 160, 187);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(113, 160, 187);
+  color: #c7c1c1;
+}
+
+#sele-contraparte {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(0, 122, 193) !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-contraparte {
+  border-color: rgb(0, 122, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 122, 193);
+  color: #ffffff;
+}
+
+.select-contraparte-disabled {
+  border-color: rgb(113, 160, 187);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(113, 160, 187);
+  color: #c7c1c1;
+}
+
+.input-buscar {
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  width: 100%;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 10px;
+  //background-color: #ffffff;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+/* .input-buscar {
+  width: 100%;
+  height: 30px;
+  background-color: #F5E729;
+  border-color:#F5E729;
+  border-radius: 10px;
+  color: #828486;
+  margin-left: 10px;
+}
+ */
+.input-buscar-disabled {
+  border-color: rgb(113, 160, 187);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  width: 100%;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(113, 160, 187);
+  color: rgb(75, 74, 74);
+  border-color: #f5e729;
+  border-radius: 10px;
+}
+
+.mat-raised-button {
+  line-height: 30px;
+  border-radius: 10px;
+  height: 30px;
+  width: 100%;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+.div-error {
+  line-height: 10px;
+  margin-top: -6px;
+}
+
+.ng-invalid:not(form) {
+  border: 3px solid red;
+}
+
+.mat-fab {
+  border: solid !important;
+}
+
+#solicitar {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  right: 30px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.rtl {
+  direction: rtl;
+}
+
+::ng-deep .mat-radio-label-content {
+  color: grey !important;
+  padding-right: 3px !important;
+  font-size: 11px !important;
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+.mat-radio-outer-circle {
+  border-color: black !important;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: black !important;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  margin: 5px;
+}
+
+.mat-column-corredor {
+  width: 15%;
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.mat-column-contraparte {
+  width: 30%;
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.mat-column-contrato {
+  width: 15%;
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.mat-column-fecha {
+  width: 15%;
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.mat-column-idCupoTerminal {
+  width: 35%;
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.mat-column-select {
+  width: 10%;
+  text-align: center;
+}
+
+.mat-header-cell {
+  border: thin solid #b1aeae;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  border: thin solid #b1aeae;
+  font-size: small;
+}
+
+.mi-header-cell {
+  text-align: left;
+  // padding-left: 20px;
+}
+
+.mi-header-cell-gris {
+  text-align: center;
+  font-size: smaller;
+  background-color: #dadadb;
+}
+
+.mi-header-cell-azul {
+  text-align: center;
+  font-size: smaller;
+  background-color: #007ac1;
+  color: #ffffff;
+}
+
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+  padding-right: 40px;
+}
+
+:host /deep/ .mat-sort-header-container {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  // padding-left: 20px;
+}
+
+.pagination {
+  background-color: #e9e9ea;
+  width: 100%;
+}
+
+/* .mat-sort-header-arrow{
+
+} */
+
+::ng-deep .egret-indigo .mat-paginator,
+.egret-indigo .mat-paginator-page-size .mat-select-trigge {
+  background-color: #e9e9ea;
+}
+
+.mat-sort-header-arrow {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-sort-header-arrow[style] {
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    color: black;
+    display: none !important;
+  }
+
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: black;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none !important;
+    }
+
+    .mat-sort-header-pointer-middle {
+      width: 0px !important;
+      height: 0px !important;
+    }
+
+    /* show two carets on top of each other when not sorted takes place: */
+    .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: "<>";
+          position: absolute;
+          opacity: 1 !important;
+          color: blue !important;
+          font-size: 1.2em;
+          font-weight: bold;
+          transform: translate(-10%, 20%) rotate(90deg) !important;
+        }
+      }
+    }
+  }
+}
+
+.mat-sort-header-indicator {
+  &::before {
+    content: url("../../../../../assets/images/drop_down.png");
+    top: 0.1em;
+    position: absolute;
+    color: black;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 0 4px;
+    transform: rotate(180deg);
+    opacity: 0.6;
+  }
+}
+
+// My custom ascending arrow
+[aria-sort="ascending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        content: url("../../../../../assets/images/drop_up.png");
+        top: -0em;
+        position: absolute;
+      }
+    }
+  }
+}
+
+// My custom descending arrow
+[aria-sort="descending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        content: url("../../../../../assets/images/drop_down.png");
+        top: -1em;
+        position: absolute;
+      }
+    }
+  }
+}
+
+::ng-deep.mat-sort-header-button {
+  width: 80%;
+}
+
+::ng-deep.input.mat-input-element {
+  margin-top: -3.3em;
+}
+
+.btnRecuperar {
+  background-color: rgb(0, 123, 193);
+}
+
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+

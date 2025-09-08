@@ -1,0 +1,110 @@
+<!-- <div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="5"></div>
+      <div fxFlex="90" fxLayoutAlign="start start" style="margin-top: 15px">
+        <h4>RECHAZAR SOLICITUD DE CUPOS</h4>
+      </div>
+      <span FxFlex></span>
+      <div fxFlex="5" style="margin-top: 8px; margin-left: 15px"></div>
+    </div>
+  </div> -->
+<mat-card class="p-0 div-margin">
+  <mat-card-title class="">
+    <div class="card-title-text" style="
+          background: #004a90;
+          color: white;
+          font-weight: 400;
+          font-size: larger;
+        ">
+      RECHAZAR SOLICITUD DE CUPOS
+    </div>
+  </mat-card-title>
+  <mat-card-content style="overflow-y: auto">
+    <form [formGroup]="itemForm" id="form-rechazar">
+      <div class="cuerpo" fxLayout="column wrap">
+        <div fxLayout="row wrap" fxLayoutAlign="start start">
+          <div fxFlex="100">
+            <div fxFlex="4"></div>
+            <div fxFlex="92" class="div-cuerpo">
+              <div fxFlex="100">
+                <div fxFlex="5"></div>
+                <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="start start">
+                  <div fxFlex="100" fxLayoutAlign="start center" id="sele-motivo" class="select_motivo">
+                    <div fxFlex="30"><strong>Seleccionar Motivo:</strong></div>
+                    <div fxFlex="70">
+                      <mat-form-field class="full-width">
+                        <mat-select name="id" [formControl]="itemForm.controls['id']">
+                          <mat-option *ngFor="let motivo of motivos" [value]="motivo.id">
+                            {{ motivo.descripcion }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100">
+                    <small *ngIf="
+                      itemForm.controls['id'].hasError('required') &&
+                      itemForm.controls['id'].touched
+                    " class="form-error-msg">
+                      Es requerido seleccionar el motivo
+                    </small>
+                  </div>
+                  <div fxFlex="100" class="pr-1 select_comentario" id="sele_comentario">
+                    <strong>Comentario:</strong>
+                    <mat-form-field class="full-width">
+                      <textarea matInput name="comentario" placeholder="" #observaciones
+                        [formControl]="itemForm.controls['comentario']" rows="8" maxlength="250"
+                        onkeypress="if (this.value.length > 250) { return false; }">
+                    </textarea>
+                      <mat-hint align="end">{{observaciones.value.length }} / 250</mat-hint>
+                    </mat-form-field>
+                    <small *ngIf="
+                      itemForm.controls['comentario'].hasError('required') &&
+                      itemForm.controls['comentario'].touched
+                    " class="form-error-msg">
+                      Es requerido el comentario
+                    </small>
+                  </div>
+                </div>
+                <div fxFlex="5"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+          <div fxFlex="100">
+            <div fxFlex="5"></div>
+            <div fxFlex="85" fxLayoutAlign="end center">MAXIMO 250 CARACTERES </div>
+            <div fxFlex="10"></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer" fxLayout="row wrap">
+        <div fxLayout="row wrap" fxLayoutAlign="center start" class="div-botones">
+          <div fxFlex="100" class="mt-1">
+            <div fxFlex="4"></div>
+            <div fxFlex="44" fxLayoutAlign="center center">
+              <button mat-raised-button style="background-color: black" type="button" (click)="dialogRef.close(false)">
+                CANCELAR
+              </button>
+            </div>
+            <!-- <div fxFlex="14"></div> -->
+            <div fxFlex="34" fxLayoutAlign="start center">
+              <button mat-raised-button style="
+                background-color: rgb(23, 72, 145);
+                width: 200px;
+                color: #ffffff !important;
+              " [disabled]="itemForm.invalid" (click)="submit()">
+                ENVIAR
+              </button>
+            </div>
+            <div fxFlex="18"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<!-- </div> -->

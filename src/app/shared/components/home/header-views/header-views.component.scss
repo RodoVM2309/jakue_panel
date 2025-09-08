@@ -1,0 +1,37 @@
+.choferes{
+    background: #24b1dc;
+    color: #fff;
+}
+.pedido{
+    background: #0081B2;
+    color: #fff;
+}
+.camiones{
+    background: #00587C;
+    color: #51CAF5;
+}
+.intermediarios{
+    background: #124a99;
+    color: #51CAF5;
+}
+.ubicacion{
+  background: #99c5f1;
+  color: rgb(17, 121, 158);
+}
+#app-customizer {
+    position: fixed;
+    z-index: 20000;
+    top: 70px;    
+    right: 92px;
+    max-width: 300px;
+    .handle {
+      float: right;
+    }
+    .mat-card-content  {
+      padding: 1rem 1.5rem 2rem;
+    }
+  }
+  .mat-fab {    
+    border: solid !important;
+  }  
+

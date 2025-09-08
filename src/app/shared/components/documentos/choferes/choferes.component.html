@@ -1,0 +1,888 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Documentación de los Choferes</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Nombre
+      </mat-label>
+      <input matInput name="nombre" [value]="filtro.nombre" (keyup)="updateFilter($event,'nombre')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Patente Camion
+      </mat-label>
+      <input matInput name="patente" [value]="filtro.patente" (keyup)="updateFilter($event,'patente')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Cuit
+      </mat-label>
+      <input matInput name="cuit" [value]="filtro.cuit" (keyup)="updateFilter($event,'cuit')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Transportista
+      </mat-label>
+      <input matInput name="transportista" [value]="filtro.transportista"
+        (keyup)="updateFilter($event,'transportista')">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
+
+      <ng-container matColumnDef="nombreChofer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Chofer</th>
+        <td mat-cell *matCellDef="let doc; let i = index">
+          {{ doc.nombreChofer }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="patenteCamion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Patente</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>{{ doc.patenteCamion }}</div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="cuitChofer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuit</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>{{ doc.cuitChofer }}</div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="nombreTransportista">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transportista</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>{{ doc.nombreTransportista }}</div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="recibo_sueldo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Recibe Sueldo</th>
+        <td mat-cell *matCellDef="let doc">
+          <div >
+            <div fxFlex="100">
+              <div fxFlex="50" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir "
+                  (click)="subirDocumento(doc,1)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc.recibo_sueldo == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,1)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc.recibo_sueldo == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,1)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="form_931">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Form 931</th>
+        <td mat-cell *matCellDef="let doc">
+          <div >
+            <div fxFlex="100">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir form 931"
+                  (click)="subirDocumento(doc,2)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc.form_931 == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,2)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc.form_931 == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,2)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="pago_931">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pago 931</th>
+        <td mat-cell *matCellDef="let doc">
+          <div >
+            <div fxFlex="100">
+              <div fxFlex="100" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir Pago 931"
+                  (click)="subirDocumento(doc,3)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc.pago_931 == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,3)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.pago_931 == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,3)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="art">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ART</th>
+        <td mat-cell *matCellDef="let doc">
+          <div >
+            <div fxFlex="100">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir ART"
+                  (click)="subirDocumento(doc,4)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.art == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,4)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.art == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,4)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="licencia_conduccion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Lic. Conduc.</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir Lic. Conducc"
+                  (click)="subirDocumento(doc,5)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.licencia_conduccion == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,5)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.licencia_conduccion == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,5)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,6)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.dni == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,6)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.dni == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,6)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="examen_psicofisico">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ex. Físico</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,7)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.examen_psicofisico == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,7)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.examen_psicofisico == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,7)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="vcto_examen_psicofisico">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Vcto</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>{{doc?.vcto_examen_psicofisico}}</div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="curso_actualizacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Curso Act.</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,8)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.curso_actualizacion == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,8)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.curso_actualizacion == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,8)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="seguro_carga">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Seguro Carga</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,9)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.seguro_carga == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,9)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.seguro_carga == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,9)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="seguro_accidentes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Seguro Acc.</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,10)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.seguro_accidentes == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,10)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.seguro_accidentes == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,10)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="comprobante_pago_monotributo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mono tributo</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column" >
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,11)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.comprobante_pago_monotributo == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,11)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.comprobante_pago_monotributo == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,11)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="acoplado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acoplado</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,12)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.acoplado == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,12)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.acoplado == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,12)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="inscripcion_ruta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Inscripción ruta</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,13)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.inscripcion_ruta == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,13)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.inscripcion_ruta == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,13)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <ng-container matColumnDef="rto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>RTO</th>
+        <td mat-cell *matCellDef="let doc">
+          <div>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="100" fxLayout="column">
+                <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                  (click)="subirDocumento(doc,14)">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.rto == 1">
+                <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                  (click)="descargarDocumento(doc,14)">
+                  <mat-icon>cloud_download</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="50" fxLayout="column" *ngIf="doc?.rto == 1">
+                <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                  (click)="verDocumento(doc,14)">
+                  <mat-icon>panorama</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let doc" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail" [@detailExpand]="doc == expandedElement ? 'expanded' : 'collapsed'">
+
+            <div class="example-element-description">
+              <strong style="font-size: 14px; color: black">Observaciones:</strong>
+              <p style="color: black">{{doc.rto}}</p>
+            </div>
+          </div>
+        </td>
+      </ng-container> -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let doc; columns: displayedColumns" class="example-element-row"
+        [class.example-expanded-row]="expandedElement === doc"
+        (click)="expandedElement = (expandedElement !== doc) ? doc : null">
+      </tr>
+      <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+    <!-- <ngx-datatable class="material ml-0 mr-0" [rows]="docChoferes" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [limit]="page.size"
+      (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreChofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente de Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patenteCamion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuitChofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Transportista" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreTransportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Recibo Sueldo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.recibo_sueldo == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.recibo_sueldo == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.recibo_sueldo == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Formulario 931" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.form_931 == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,2)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.form_931 == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,2)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.form_931 == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,2)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Pago 931" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.pago_931 == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.pago_931 == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.pago_931 == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="ART" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.art == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.art == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.art == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Licencia de conducir" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.licencia_conduccion == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.licencia_conduccion == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.licencia_conduccion == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="DNI" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.dni == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.dni == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.dni == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Psicofísico" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.examen_psicofisico == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.examen_psicofisico == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.examen_psicofisico == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Vencimiento" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row?.vcto_examen_psicofisico}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Curso actualización" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.curso_actualizacion == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.curso_actualizacion == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.curso_actualizacion == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Seguro Carga" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.seguro_carga == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.seguro_carga == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.seguro_carga == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Seguro Accidentes" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.seguro_accidentes == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.seguro_accidentes == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.seguro_accidentes == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Monotributo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.comprobante_pago_monotributo == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.comprobante_pago_monotributo == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.comprobante_pago_monotributo == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.acoplado == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.acoplado == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.acoplado == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Inscripcion ruta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.inscripcion_ruta == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.inscripcion_ruta == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.inscripcion_ruta == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="RTO" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="100" fxLayout="column" *ngIf="row?.rto == 0">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-0" matTooltip="Subir"
+                (click)="subirDocumento(row,1)">
+                <mat-icon>cloud_upload</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.rto == 1">
+              <button mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip="Descargar"
+                (click)="descargarDocumento(row,1)">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="50" fxLayout="column" *ngIf="row?.rto == 1">
+              <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Ver"
+                (click)="verDocumento(row,1)">
+                <mat-icon>panorama</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable> -->
+  </mat-card-content>
+</mat-card>
+<!-- <div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen" style="color: #00AEEF; margin-right:28px;">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" matTooltip="Filtrar Órdenes de Retiro">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Ordenes de Retiro</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="limpiarFiltros()">
+        <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select id="showFiltro" placeholder="Filtrar las órdenes" name="showFiltro" class="mb-1"
+            [(value)]="selectedFilter" (selectionChange)="chanceFiltro()">
+            <mat-option *ngFor="let filtro of mostrarFiltro" [value]="filtro.value">
+              {{ filtro.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> -->

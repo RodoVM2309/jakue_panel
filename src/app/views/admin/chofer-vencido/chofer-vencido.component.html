@@ -1,0 +1,55 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Listado de chofers con licencia vencida</h4>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+      <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width"> 
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar Persona'</mat-label>
+        <input  matInput (keyup)='updateFilter($event,"nombre")'> 
+      </mat-form-field>  
+      <!--mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width"> 
+        <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar CUIT/CUIL</mat-label>
+        <input  matInput (keyup)='updateFilter2($event)'> 
+      </mat-form-field-->  
+    <ngx-datatable class="material ml-0 mr-0" [rows]="trabajadores" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [limit]="10" [rowHeight]="'auto'" [messages]="messages">
+     
+      <ngx-datatable-column name="Nombre" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT/CUIL" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuit_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Rol" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_rol }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chofer Verificado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template >
+          {{ row?.verificado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Vencimiento Licencia" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template >
+          {{ row?.vencimiento_licencia }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Actualizar vencimiento de la licencia" *ngIf="esCentroMuvin && row.id_rol == 2"
+          (click)="actualizarVencimiento(row)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

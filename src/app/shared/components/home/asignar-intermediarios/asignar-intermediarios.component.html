@@ -1,0 +1,279 @@
+﻿<div fxLayout="column wrap">
+  <div fxLayout="row wrap">
+    <div
+      fxFlex="100"
+      style="color: #e9e9ea; height: 50px; background: #174793;"
+    >
+      <div fxFlex="5" style="margin-top: 15px; margin-left: 15px;"></div>
+      <div fxFlex="90" fxLayoutAlign="start start" style="margin-top: 15px;">
+        <h3>CAMIONES POR ADMINISTRAR: ({{ cantidadisponible }})</h3>
+      </div>
+      <div fxFlex="5" style="margin-top: 8px; margin-left: 15px;">
+        <button
+          mat-icon-button
+          matTooltip="Cerrar asignar de cupos"
+          color="m-0"
+          class="m-0"
+          (click)="cancelar()"
+        >
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div
+      fxFlex="100"
+      style="background: rgb(207, 207, 212); color: rgb(8, 8, 8); height: 50px;"
+    >
+      <h3>Intermediarios Postulados</h3>
+    </div>
+  </div>
+  <div
+    fxLayout="row wrap"
+    style="padding: 0.4rem;"
+    *ngIf="intermediariosPostulados.length == 0"
+  >
+    <div fxFlex="100" style="width: 100%; margin-left: 20px; height: 20vh;">
+      <h4>- No existen intermediarios postulados</h4>
+    </div>
+  </div>
+  <div fxLayout="row wrap" *ngIf="intermediariosPostulados.length > 0">
+    <div fxFlex="100">
+      <div fxLayout="column wrap">
+        <div fxLayout="row wrap" style="padding: 0.4rem; height: 40px;">
+          <div fxFlex="100">
+            <div fxFlex="40" fxLayout="column">
+              Nombre Intermediario
+            </div>
+            <div fxFlex="10" fxLayout="column">
+              Teléfono
+            </div>
+            <div fxFlex="20" fxLayout="row" fxLayoutAlign="center start">
+              Cantidad Postulado
+            </div>
+            <div fxFlex="30" fxLayout="column">
+              Acciones
+            </div>
+          </div>
+        </div>
+        <mat-divider style="height: 2px;"></mat-divider>
+        <div
+          fxLayout="row wrap"
+          style="padding: 0.4rem; height: 20vh; overflow-y: scroll;"
+        >
+          <div
+            fxFlex="100"
+            *ngFor="let row of intermediariosPostulados; let i = index"
+          >
+            <mat-card
+              class="default"
+              style="
+                background: #fcfdff;
+                margin-left: 20px;
+                border-radius: 6px;
+                border: 3px;
+              "
+            >
+              <mat-card-content style="margin-top: -6px; padding: 6px;">
+                <div fxLayout="row wrap">
+                  <div fxFlex="40" fxLayout="column">
+                    {{ row?.nombre_persona }}
+                  </div>
+                  <div fxFlex="10" fxLayout="column">
+                    {{ row?.telefono }}
+                  </div>
+                  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center start">
+                    {{ row?.cantidad }}
+                  </div>
+                  <div fxFlex="30" fxLayout="column">
+                    <div fxLayout="row wrap">
+                      <div fxFlex="100">
+                        <div fxFlex="70">Cantidad Administrada:</div>
+                        <div fxFlex="20">
+                          <input
+                            class="quantity-input default-bg"
+                            min="0"
+                            max="{{ row.cantidad }}"
+                            name="quantity"
+                            [(ngModel)]="row.cantidadAdministrada"
+                            row.cantidadAdministrada
+                            type="number"
+                            [formControl]="itemForm.controls['quantity' + i]"
+                            (keyup)="
+                              changeCantidadAdministrada(
+                                $event.target.value,
+                                row.cantidad,
+                                i
+                              )
+                            "
+                            style="width: 55px !important;"
+                          />
+                        </div>
+                        <div fxFlex="10">
+                          <mat-icon
+                            (click)="addElement2(row)"
+                            color="primary"
+                            matTooltip="Agregar intermediario postulado"
+                            >add</mat-icon
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" style="width: 100%; height: 35vh;">
+    <div fxFlex="100">
+      <form [formGroup]="itemForm" (ngSubmit)="submit()">
+        <div fxLayout="column wrap" fxLayout.lt-sm="column">
+          <div fxLayout="row wrap">
+            <div
+              fxFlex="100"
+              style="
+                background: rgb(207, 207, 212);
+                color: rgb(8, 8, 8);
+                height: 50px;
+              "
+            >
+              <h3>Adicionar Intermediarios</h3>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <mat-checkbox
+              *ngIf="chek"
+              class="example-radio-button"
+              (change)="onChange($event)"
+              [formControl]="itemForm.controls['ckIntermediario']"
+            >
+              Permitir que un Intermediario administre viajes: &nbsp;
+            </mat-checkbox>
+            <div
+              fxFlex="100"
+              class="pr-1"
+              *ngIf="mostrarIntermediario"
+              style="height: 50px;"
+            >
+              <!-- Intermediario: -->
+              <div fxFlex="40" fxLayout="row" fxLayoutAlign="start center">
+                <mat-select
+                  id="intermediario"
+                  placeholder="Seleccione el Intermediario"
+                  [formControl]="itemForm.controls['selectedIntermediario']"
+                  name="intermediario"
+                  class="mb-1"
+                >
+                  <mat-option
+                    *ngFor="let intermediario of intermediarios"
+                    [value]="intermediario.id"
+                    ngDefaultControl
+                  >
+                    {{ intermediario.nombre_intermediario }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div fxFlex="40" fxLayout="row" fxLayoutAlign="end center">
+                <strong>Cantidad Administrada:</strong>
+                <input
+                  id="cantidadasig"
+                  class="quantity-input default-bg"
+                  min="0"
+                  max="{{ cantidadisponible }}"
+                  name="quantity"
+                  type="number"
+                  style="width: 55px !important;"
+                  [formControl]="itemForm.controls['cantidad']"
+                />
+              </div>
+              <div fxFlex="20" fxLayout="row" fxLayoutAlign="center start">
+                <button
+                  mat-icon-button
+                  color="m-0"
+                  [disabled]="
+                    itemForm.controls['selectedIntermediario'].value == ''
+                  "
+                  (click)="addElement()"
+                  style="text-align: center;"
+                >
+                  <mat-icon matTooltip="Agregar intermediario">add </mat-icon>
+                </button>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div
+              class="example-container mat-elevation-z8"
+              *ngIf="mostrarIntermediario"
+              style="width: 100%; height: 25vh;"
+            >
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="intermediario">
+                  <mat-header-cell *matHeaderCellDef>
+                    Intermediario
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.intermediario }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="cantidad">
+                  <mat-header-cell *matHeaderCellDef>
+                    Cantidad
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.cantidad }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <mat-icon
+                      (click)="deleteElement(element)"
+                      color="primary"
+                      matTooltip="Eliminar intermediario"
+                    >
+                      delete</mat-icon
+                    >
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="mt-1">
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="cancelar()"
+              >
+                Cancelar
+              </button>
+              <span fxFlex></span>
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="itemForm.invalid || comprobador.length == 0"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

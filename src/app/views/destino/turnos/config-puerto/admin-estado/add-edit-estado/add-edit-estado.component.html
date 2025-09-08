@@ -1,0 +1,65 @@
+<!-- dialog-box.component.html -->
+<div fxLayout="column wrap" style="padding: 0px;">
+  <div fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="color:  #ffffff;" [ngStyle]="{'background-color':isDelete ? '#ff0000' : '#00008b'   }">
+        <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+        </div>
+        <div fxFlex="85" fxLayoutAlign="start start" style="margin-top:15px;">
+          <h4><strong>{{traduccionAction}} Estado del Puerto</strong></h4>
+        </div>
+        <span FxFlex></span>
+        <div fxFlex="10" style="margin-top:8px;margin-left:15px;">
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-1" fxLayoutAlign="center start">
+      <form [formGroup]="estadoForm">
+        <div class="card-body">
+          <div *ngIf="action != 'Delete'; else elseTemplate">
+            <div>
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput placeholder="escriba el estado... "  maxlength="50" [formControl]="estadoForm.controls['descripcion']"
+                  type="text">
+                <mat-icon matSuffix *ngIf="isAdd">mode_edit</mat-icon>
+                <div
+                  *ngIf="estadoForm.controls['descripcion'].hasError('required') && estadoForm.controls['descripcion'].touched"
+                  class="form-error-msg">
+                  Debe ingresar el estado
+                </div>
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Color</mat-label>
+                <input matInput placeholder="selecciona el color.." [formControl]="estadoForm.controls['color']"
+                  type="color">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+                <div *ngIf="estadoForm.controls['color'].hasError('required') && estadoForm.controls['color'].touched"
+                  class="form-error-msg">
+                  Debe seleccionar el color
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <ng-template #elseTemplate>
+            ¿Está usted seguro de eliminar <b>{{local_data.descripcion}}</b>?
+          </ng-template>
+
+          <div class="separator"></div>
+          <div fxLayout="row wrap" class="mt-1" fxLayoutAlign="center end" style="height: 50px;">
+            <div fxFlex="100">
+              <div fxFlex="50" fxLayoutAlign="center start"> <button mat-raised-button color="warn" type="button"
+                (click)="closeDialog()">CANCELAR</button></div>
+              <div fxFlex="50" fxLayoutAlign="center start">
+                <button mat-raised-button
+                  style="background-color: #6AC52E;font-size: small; min-width: 60px;" (click)="doAction()">
+                  CONFIRMAR</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,364 @@
+table {
+  width: 100%;
+}
+
+.my-card {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0),
+    0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+  background: #e9e9ea;
+  margin-left: -10px;
+  margin-right: -10px;
+  height: 84vh;
+}
+
+.Rotate-90 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  font-size: 11px;
+  background: #ffffff;
+  width: 50px;
+  position: relative;
+  top: 1px;
+
+  margin: 2 0 16px;
+}
+
+#filtro-dador {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 12px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.mat-indicador-total {
+  background-color: #b1b2b4 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-chofer {
+  background-color: #DFD335 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-pend_asignar {
+  background-color: #ec7420 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-pend_vincular {
+  background-color: #d07f0d !important;
+  color: #fff !important;
+}
+
+.mat-indicador-ctg {
+  background-color: #eadf00 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-sin-ctg {
+  background-color: #EB5700 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-cargado {
+  background-color: #96c57b !important;
+  color: #fff !important;
+}
+
+.mat-indicador-mas50 {
+  background-color: #5ea844 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-menos50 {
+  background-color: #5ea643 !important;
+  color: #fff !important;
+}
+
+.mat-indicador-en_destino {
+  background-color: rgb(0, 108, 177) !important;
+  color: #fff !important;
+}
+
+.mat-indicador-rechazado {
+  background-color: rgb(0, 124, 216) !important;
+  color: #fff !important;
+}
+
+.mat-indicador-descargados {
+  background-color: rgb(0, 157, 224) !important;
+  color: #fff !important;
+}
+
+.mat-indicador-anulados {
+  background-color: #ee5a66 !important;
+  color: #fff !important;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-column-first_color {
+  width: 3%;
+}
+
+.mat-column-destino {
+  width: 40%;
+}
+
+.mat-column-total {
+  width: 12%;
+}
+
+.mat-column-pend_asignar {
+  width: 8%;
+}
+
+.mat-column-pend_vincular {
+  width: 8%;
+}
+
+.mat-column-ctg {
+  width: 12%;
+}
+
+.mat-column-sin-ctg {
+  width: 12%;
+}
+
+.mat-column-cargado {
+  width: 8%;
+}
+
+.mat-column-mas50 {
+  width: 8%;
+}
+
+.mat-column-menos50 {
+  width: 8%;
+}
+
+.mat-column-en_destino {
+  width: 12%;
+}
+
+.mat-column-rechazado {
+  width: 12%;
+}
+
+.mat-column-descargados {
+  width: 12%;
+}
+
+.mat-column-anulados {
+  width: 10%;
+}
+
+//Tabla 2
+.mat-column-first_color_2 {
+  width: 3%;
+}
+
+.mat-column-receptor {
+  width: 40%;
+}
+
+.mat-column-total_2 {
+  width: 12%;
+}
+
+.mat-column-pend_asignar_2 {
+  width: 8%;
+}
+
+.mat-column-pend_vincular_2 {
+  width: 8%;
+}
+
+.mat-column-ctg_2 {
+  width: 12%;
+}
+
+.mat-column-sin_ctg2 {
+  width: 12%;
+}
+
+.mat-column-cargado_2 {
+  width: 8%;
+}
+
+.mat-column-mas50_2 {
+  width: 8%;
+}
+
+.mat-column-menos50_2 {
+  width: 8%;
+}
+
+.mat-column-en_destino_2 {
+  width: 12%;
+}
+
+.mat-column-descargados_2 {
+  width: 12%;
+}
+
+.mat-column-rechazado_2 {
+  width: 12%;
+}
+
+.mat-column-anulados_2 {
+  width: 8%;
+}
+
+::ng-deep.td.mat-cell:last-of-type,
+::ng-deeptd.mat-footer-cell:last-of-type,
+::ng-deep.th.mat-header-cell:last-of-type {
+  padding-right: 0px;
+}
+
+.width-99 {
+  width: 99%;
+}
+
+.selected-filtro-producto {
+  color: #87B1C5;
+  font-size: 15px;
+  border-radius: 10px;
+  border-color: #87B1C5;
+  border-style: solid;
+  border-radius: 20px;
+  height: 40px;
+}
+
+.disabled-filtro-producto {
+  color: #BBBABB;
+  font-size: 15px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+
+:host /deep/ .egret-indigo .mat-select-value {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: #00020a;
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(2, 5, 8);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #3F51B5;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #000103 !important;
+}
+
+#fecha-bt-con {
+  ::ng-deep.mat-form-field-infix {
+    color: rgb(0, 0, 0);
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: 0px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(0, 0, 0);
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(0, 0, 0);
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background: transparent !important;
+  }
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(8, 0, 0);
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}

@@ -1,0 +1,225 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Bajada Masiva de Pedidos o Viajes</h4>
+</div>
+<mat-card class="p-0">
+   
+
+  <mat-card-content class="p-0">
+      <form [formGroup]="bajadaForm" (ngSubmit)="Ejecutarfiltro()">
+          <br>
+          <div fxLayout="row wrap">
+              <div fxFlex="50" fxFlex.gt-xs="5" class="pr-1">
+              </div> 
+              <div fxFlex="50" fxFlex.gt-xs="30" class="pr-1">
+                  <mat-form-field class="full-width">
+                      <input matInput name="desdeDate" formControlName="desdeDate" placeholder="Fecha Desde"
+                          [matDatepicker]="appDatepicker" [max]="maxDate" (dateInput)="addEvent('input', $event, 'desde')"
+                          (dateChange)="addEvent('change', $event, 'desde')">
+                      <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                      </mat-datepicker-toggle>
+
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker></mat-datepicker>
+              </div>
+              <div fxFlex="50" fxFlex.gt-xs="30" class="pr-1">
+                  <mat-form-field class="full-width">
+                      <input matInput name="hastaDate" formControlName="hastaDate" placeholder="Fecha hasta"
+                          [matDatepicker]="appDatepicker1" [min]="minDate" (dateInput)="addEvent('input', $event, 'hasta')"
+                          (dateChange)="addEvent('change', $event, 'hasta')">
+                      <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker1></mat-datepicker>
+              </div>
+              <div fxFlex="10"  fxFlex.gt-sm="20" fxLayout="column" style="margin-top: 6px;"fxHide.lt-sm="true">
+                <mat-select id="tipoReporte"  formControlName="tipoReporte" placeholder="Tipo reporte" name="tipoReporte" class="mb-1"  >
+                <mat-option *ngFor="let tipo of tipos" [value]="tipo.id" ngDefaultControl>
+                  {{tipo?.descripcion}}
+                </mat-option>
+              </mat-select>
+            </div>
+              <button mat-raised-button color="primary" [disabled]="bajadaForm.invalid">Filtrar</button>
+          </div>
+      </form>
+        <button class="p-1" mat-icon-button mat-sm-button color="warn" (click)="exportAsXLSX()"><mat-icon>list</mat-icon>Exportar a Excel</button> 
+    
+  </mat-card-content>
+
+  <mat-card-content class="p-0" *ngIf="tipo== 1">
+    <ngx-datatable class="material ml-0 mr-0" 
+      [rows]="bajadaMasiva" 
+      [columnMode]="'force'" 
+      [headerHeight]="50"
+      [footerHeight]="50" 
+      [externalPaging]="false" 
+      [count]="page.totalElements" 
+      [offset]="0" 
+      [limit]="10"      
+      [rowHeight]="'auto'">
+      
+      <ngx-datatable-column name="Tipo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.tipo_pedido }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Id" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Generador" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_generador }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cargador" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.nombre_dador }}
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="Producto" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_producto }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Lugar de carga" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_lugar_carga }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Zona Destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.zona_destino }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="F. Desde" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_desde }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="F. Hasta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_hasta }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cantidad" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cantidad }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Asignados" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.viajes_asignados }}
+        </ng-template>
+      </ngx-datatable-column>
+      
+    </ngx-datatable>
+  </mat-card-content>
+  <mat-card-content class="example-container" *ngIf="tipo== 2" >
+    <ngx-datatable class="material ml-0 mr-0" 
+      [rows]="bajadaViaje" 
+      [columnMode]="'force'" 
+      [headerHeight]="50"
+      [footerHeight]="50" 
+      [externalPaging]="false" 
+      [count]="page.totalElements" 
+      [offset]="0" 
+      [limit]="10"      
+      [rowHeight]="'auto'">
+      
+      <ngx-datatable-column name="Pedido" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id_pedido }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_chofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.destino }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="F. carga" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.fecha }}
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="F. Cupo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_cupo }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Carta Porte" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.carta_porte }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cupo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cupo }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Corredor" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_corredor }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Entregador" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_entregador }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Destinatario" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_destinatario }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Estado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.estado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="N. Contrato/Fijación" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.numeroContrato }}
+        </ng-template>
+      </ngx-datatable-column>  
+      <ngx-datatable-column name="Emp. transporte" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_transportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente chasis" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_camion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Fecha y Horario de Descarga" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_descarga }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="T. permanencia origen" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.tiempo_lugar_carga }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="T. permanencia destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.tiempo_lugar_descarga }}
+        </ng-template>
+      </ngx-datatable-column> -->
+      
+    </ngx-datatable>
+  </mat-card-content>
+
+
+</mat-card>

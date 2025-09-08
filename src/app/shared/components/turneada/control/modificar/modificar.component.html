@@ -1,0 +1,28 @@
+<div><h1 matDialogTitle>{{data.title}}</h1><span fxFlex></span><mat-icon>list</mat-icon></div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="80" class="pr-1">
+      <mat-form-field class="p-5"  style='margin-left:15px' class="example-full-width">
+        <mat-select  placeholder=" {{'panelTurneado.control-mensual.listasTurneada' | translate}}"
+          name="id_lista_nueva" [formControl]="itemForm.controls['id_lista_nueva']">
+          <mat-option *ngFor="let listav of listas" [value]="listav.id">
+            {{listav.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1"  >
+      <mat-form-field class="full-width">
+        <input matInput maxlength="2000" name="{{'panelTurneado.control-mensual.observaciones' | translate}}" [formControl]="itemForm.controls['observaciones']" placeholder="{{'panelTurneado.control-mensual.observaciones' | translate}}" >
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['observaciones'].hasError('required') && itemForm.controls['observaciones'].touched"
+        class="form-error-msg"> {{'panelTurneado.control-mensual.observRequired' | translate}}
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid ">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

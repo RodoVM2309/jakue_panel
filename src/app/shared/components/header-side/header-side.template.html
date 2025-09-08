@@ -1,0 +1,73 @@
+﻿<mat-toolbar class="topbar"
+             style="height: 72px;"
+             [ngStyle]="{'background': topbar_magyp ? '#3FB9E7' : '#124A99' }">
+  <!--   Sidenav toggle button -->
+
+
+  <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item
+            matTooltip="{{'MYPROFILE' | translate}}"
+            [routerLink]="['/profile/overview']">
+      <mat-icon>account_box</mat-icon>
+      <span>{{'MYPROFILE' | translate}}</span>
+    </button>
+
+    <button mat-menu-item
+            matTooltip="{{'SIGNOUT' | translate}}"
+            [routerLink]="['/sessions/signin']">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>{{'SIGNOUT_APP' | translate}}</span>
+    </button>
+  </mat-menu>
+
+  <button *ngIf="layoutConf.sidebarStyle !== 'closed'"
+          mat-icon-button
+          id="collapseToggle"
+          fxHide.lt-md="true"
+          (click)="toggleCollapse()"
+          matTooltip="Expandir/Contraer"
+          class="toggle-collapsed">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <app-header-menu></app-header-menu>
+  <span fxFlex="80"></span>
+  <!-- Language Switcher -->
+
+  <button *ngIf="rolAdmin || rolConsultor"
+          mat-icon-button
+          matTooltip="{{'NOTIFICATIONS' | translate}}"
+          (click)="toggleNotific()"
+          [style.overflow]="'visible'"
+          class="topbar-button-right">
+    <mat-icon>notifications</mat-icon>
+    <span class="notification-number mat-bg-warn"
+          *ngIf="notifications.length>0">{{notifications.length}}</span>
+  </button>
+
+  <!-- Boton de spporte -->
+  <button (click)="openSoporte()"
+          mat-raised-button
+          color="primary"
+          class="button-soporte animate__animated animate__bounce animate__delay-2s"
+          [ngClass]="{expandido: this.layoutConf.sidebarStyle !== 'compact'}">
+    <div class="button-content">
+      <img src="assets/images/whats_app.png"
+           alt=""
+           style="width: 40px;">
+      <div class="button-text">
+        <span style="margin-bottom: -17px;">¡Contactá con nuestra línea</span>
+        <span>exclusiva de soporte!</span>
+      </div>
+    </div>
+  </button>
+
+  <!--  Logo MUVIN -->
+  <img style="height: 66px;"
+       src="assets/images/muvin/jakue_logo-06.png"
+       alt="" />
+  <!-- Logo -->
+
+
+</mat-toolbar>
+<mat-divider></mat-divider>
+<!-- <div id="app-customizer" *ngIf="(esDadorCupo || esClienteFinal) && rol!=='14'"></div> -->

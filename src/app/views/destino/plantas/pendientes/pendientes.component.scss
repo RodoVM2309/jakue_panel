@@ -1,0 +1,32 @@
+#app-customizer {
+
+
+  :host /deep/ #select_bgNegro .mat-select-value-text {
+    color: rgb(12, 12, 12) !important;
+  }
+
+    position: fixed;
+    z-index: 20000;
+    top: 70px;
+    right: 12px;
+    max-width: 300px;
+    .handle {
+      float: right;
+    }
+    .mat-card-content  {
+      padding: 1rem 1.5rem 2rem;
+    }
+  }
+  :host /deep/ .mat-icon{
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+}
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
+

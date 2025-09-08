@@ -1,0 +1,86 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{'configuracion-dadores.title' | translate}}</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 75vh">
+    <br>
+    <div fxLayout="row wrap">
+      <div fxFlex="50">
+        <mat-card class="default" style="height: 70vh;" [@animate]="{value:'*',params:{delay:'300ms',y:'50px'}}">
+          <mat-card-title style="padding: 10px;"><strong style="font-size: 16px;">Dadores de Cupo </strong>
+          </mat-card-title>
+          <mat-nav-list class="compact-list mb-1 example-container" style="height: 90%;">
+            <mat-list-item *ngFor="let dador of centroDadores">
+              <h4 matLine>{{dador.cuit}}</h4>
+              <p matLine style="margin-left: 10px;">{{dador.nombre_persona}}</p>
+
+              <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="warn" class="mr-2"
+                (click)="excluirDadorCentro(dador)" matTooltip="Excluir dadores de cupo en el centro">
+                <mat-icon style="margin-top: -3px;">delete</mat-icon>
+              </button>
+              <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="excluirDadorCupo(dador)"
+                matTooltip="Excluir dadores de cupo en el centro">
+                <mat-icon>remove</mat-icon>
+              </button> -->
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+      </div>
+      <div fxFlex="50">
+        <mat-card class="p-0" style="height: 70vh;">
+          <mat-card-title style="padding: 10px;"><strong style="font-size: 16px;">Dadores excluidos </strong>
+          </mat-card-title>
+          <mat-card-content class="p-0 producto-excluido">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+              <!-- CUIT Column -->
+              <ng-container matColumnDef="cuit">
+                <th mat-header-cell *matHeaderCellDef> Cuit </th>
+                <td mat-cell *matCellDef="let row"> {{row.cuit}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+               <!-- espacio Column -->
+               <ng-container matColumnDef="espacio">
+                <th mat-header-cell *matHeaderCellDef>  </th>
+                <td mat-cell *matCellDef="let row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <!-- razon_social Column -->
+              <ng-container matColumnDef="razon_social">
+                <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+                <td mat-cell *matCellDef="let row"> {{row.razon_social}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{restDadores.length}} </td>
+              </ng-container>
+
+              <!-- Acciones Column -->
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <button mat-raised-button color="primary" class="mr-1" (click)="incluirDadorCentro(row)" matTooltip="Incluir dadores de cupo en el centro">
+                            <mat-icon>add</mat-icon>
+                          </button> -->
+                  <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="primary"
+                    class="mr-2" (click)="incluirDadorCentro(row)"
+                    matTooltip="Incluir dadores de cupo en el centro">
+                    <mat-icon style="margin-top: -3px;">add</mat-icon>
+                  </button>
+                  <!-- <button mat-icon-button mat-sm-button color="primary"
+                        (click)="incluirDadorCentro(row)" matTooltip="Incluir dadores de cupo en el centro">
+                        <mat-icon>add</mat-icon>
+                      </button> -->
+                </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

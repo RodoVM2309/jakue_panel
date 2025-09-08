@@ -1,0 +1,54 @@
+<br />
+<div class="m-333">
+  <h4 style="color:#124A99;">{{ "usuario-whatsapp.title" | translate }}</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 90vh">
+    <br />
+    <form [formGroup]="itemForm">
+      <div fxLayout="column wrap" fxLayout.lt-sm="column" fxFlexAlign="center center">
+        <div fxLayout="row wrap" style="margin-top: 17vh;">
+          <div fxFlex="100" class="pr-1">
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="end center">
+              <button mat-raised-button [ngStyle]="{
+                  'background-color': usuarioWhatsapp0
+                    ? '#A3DDF2'
+                    : 'rgb(236, 239, 240)'
+                }" style="width:  80vh; height: 80px;border-radius: 20px;font-size:x-large; "
+                (click)="onChangeUsuarioWhatsapp(0)">
+                <mat-icon *ngIf="usuarioWhatsapp0">done</mat-icon>&nbsp;&nbsp;
+                <strong [ngStyle]="{
+                    color: usuarioWhatsapp0 ? '#304AA3' : '#787676'
+                  }">{{ "usuario-whatsapp.tipo1" | translate }}</strong>
+              </button>
+            </div>
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="start center">
+              <div fxLayout="column wrap">
+                <button mat-raised-button [ngStyle]="{
+                    'background-color': usuarioWhatsapp1
+                      ? '#A3DDF2'
+                      : 'rgb(236, 239, 240)'
+                  }" style="width:  80vh; height: 80px;border-radius: 20px;font-size: x-large; "
+                  (click)="onChangeUsuarioWhatsapp(1)">
+                  <mat-icon *ngIf="usuarioWhatsapp1">done</mat-icon>&nbsp;&nbsp;
+                  <strong [ngStyle]="{
+                      color: usuarioWhatsapp1 ? '#304AA3' : '#787676'
+                    }">
+                    {{ "usuario-whatsapp.tipo2" | translate }}
+                  </strong>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>        
+
+        <div fxFlex="100" class="pr-1" style="height: 30vh;margin-top:50px;" fxLayoutAlign="center center">
+          <button mat-raised-button color="primary" fxFlexAlign="center center" [disabled]="!chanceValue"
+            (click)="submit()">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

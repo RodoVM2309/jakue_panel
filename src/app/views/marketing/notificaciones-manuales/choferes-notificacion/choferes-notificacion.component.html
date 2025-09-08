@@ -1,0 +1,100 @@
+<div fxLayout="row wrap">
+  <div fxLayout="column" fxFlex="100">
+    <div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center;text-align: center">
+      <div fxFlex="100" style="width: 100%">
+
+        <div fxFlex="80">
+          <h1 matDialogTitle>{{data.title}}</h1>
+        </div>
+        <div fxFlex="20" style="text-align: right">
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Enviar Notificaciones PUSH"
+            (click)="openPopUpSendNotificaciones()" [disabled]="page.totalElements===0">
+            <mat-icon>message</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <mat-card class="p-0">
+          <mat-card-content class="p-0">
+            <ngx-datatable class="material ml-0 mr-0" [rows]="listChoferes" [columnMode]="'force'" [headerHeight]="50"
+              [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+              [messages] = "{emptyMessage: 'No hay choferes que cumplan el filtro.'}"
+              [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+              <ngx-datatable-column name="Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row?.nombre_persona}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Celular" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row?.celular}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Movil Key" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.movil_key }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Equipo" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.patente }}/
+                  <br>{{ row?.patente_acoplado }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tipo Acoplado" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.tipo_acoplado }}
+                </ng-template>
+              </ngx-datatable-column>
+              <!-- <ngx-datatable-column name="Zona Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ pedidoZona }}
+                </ng-template>
+              </ngx-datatable-column> -->
+              
+              <ngx-datatable-column name="Transportista" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_transportista }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Intermediario" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.intermediario_transportista }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Distancia" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.distancia }} Km
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Evaluación" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button [style.overflow]="'visible'" class="topbar-button-right white-icon">
+                    <mat-icon>star_border</mat-icon>
+                    <span style="color:white" class="notification-number mat-bg-accent">{{row?.evaluacion}}</span>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+              <!-- <ngx-datatable-column name="%" [width]="45" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.porciento_cumplimiento }}
+                </ng-template>
+              </ngx-datatable-column> -->
+            </ngx-datatable>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+
+    <div fxLayout="row wrap" fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+    </div>
+
+  </div>
+</div>

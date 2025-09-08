@@ -1,0 +1,61 @@
+my-card {
+  margin: -10px;
+  background-color: rgb(233, 233, 234);
+}
+
+#sele-producto {
+  :host /deep/ .mat-form-field-infix {
+    margin-top: -10px;
+  }
+}
+
+.select_producto {
+  color: #000;
+  background-color: #ffffff;
+}
+
+.not-empty-select.mat-selected {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004A90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #837f7f;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}
+
+.asignado {
+  background: #6BB022;
+  height: 40px;
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+}
+
+:host /deep/ .mat-radio-label-content {
+  color: black !important;
+  padding-right: 3px !important;
+  font-size: 14px !important;
+}
+
+:host /deep/ .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+.mat-radio-outer-circle {
+  border-color: black !important;
+}
+
+:host /deep/ .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: black !important;
+}

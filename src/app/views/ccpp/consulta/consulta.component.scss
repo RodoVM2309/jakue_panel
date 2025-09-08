@@ -1,0 +1,102 @@
+.mat-fab {
+  border: solid !important;
+}
+.icon-display {
+  transform: scale(1.5);
+}
+.caja-bordeada {
+  color: #828486;
+  background-color: #f5e729;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: small;
+  border-color: #f5e729;
+  border-style: solid;
+  border-radius: 25px;
+  border-width: 0.5px;
+  height: 30px;
+}
+.textarea {
+  min-height: 150px;
+  border: 1px solid #ddd;
+  position: relative;
+  width: 99%;
+  box-shadow: none;
+  background: #86b1c5;
+  padding: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.circulo {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #f8ac00;
+}
+.input-buscar {
+  width: 90%;
+  height: 30px;
+  background-color: #f5e729;
+  border-color: #f5e729;
+  border-radius: 10px;
+  color: #828486;
+  margin-left: 10px;
+}
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+::ng-deep .ngx-datatable.material datatable-header-cell {
+  background: #86b1c5;
+  color: #ffffff !important;
+}
+
+::ng-deep .datatable-header-cell {
+  background-color: #86b1c5 !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+.criterio{
+  border-color: #87B1C6 ;
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 0px;
+  height: 30px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 2px;
+  background-color: #ffffff;
+}
+#criterio {
+  ::ng-deep.mat-form-field-infix {
+    margin-left: 15px;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+    /* margin: 15px; */
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #ffffff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #ffffff !important;
+  }
+}

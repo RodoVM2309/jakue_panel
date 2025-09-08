@@ -1,0 +1,35 @@
+﻿<div>
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <span fxFlex></span><mat-icon>map</mat-icon>
+</div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          name="zonas"
+          [formControl]="itemForm.controls['id_zona']"
+          placeholder="Zona"
+        >
+          <mat-option *ngFor="let vzona of zonas" [value]="vzona.id">
+            {{ vzona.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

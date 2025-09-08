@@ -1,0 +1,246 @@
+<mat-card class="card_filtro">
+  <div fxLayout="row" fxLayoutAlign="space-between stretch">
+    <form id="form-seguimiento-reserva" autocomplete="off" [formGroup]="filtrosForm" (ngSubmit)="submit(pageEvent)">
+      <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- Rango Fecha -->
+          <div fxLayout="column">
+            <div fxLayoutGap fxLayoutAlign="center center">
+              <mat-form-field class="fecha-bt" id="fecha-bt1">
+                <input matInput placeholder="Rango Fecha" [satDatepicker]="picker" formControlName="rango_fecha"
+                  (dateChange)="cambioRangoFecha()" />
+                <sat-datepicker #picker [rangeMode]="true" [closeAfterSelection]="false">
+                </sat-datepicker>
+                <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100">
+              <small *ngIf="filtrosForm.controls['rango_fecha'].hasError('rango')" class="form-error-msg div-error">
+                No es posible un rango mayor a 5 días.
+              </small>
+            </div>
+          </div>
+          <!-- PRODUCTO -->
+          <div fxLayoutGap fxLayoutAlign="center center" class="select_verde">
+            <span style="padding-top: 1px;">Producto: </span>
+            <mat-select-autocomplete selectPlaceholder="Buscar..." [options]="listadoProductos" [multiple]='true'
+              [labelCount]='3' name="optionsSelector" ngDefaultControl [formControl]="filtrosForm.controls['producto']">
+            </mat-select-autocomplete>
+          </div>
+        </div>
+        <div fxFlex="3"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- Proovedores -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="id-proveedor" class="select_filtro"
+          *ngIf="!esMuvinProveedor">
+            <span>Proovedores: </span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="proveedor" formControlName="proveedor" (selectionChange)="onChangeProveedor($event)">
+                <mat-option *ngFor="let item of listadoProveedores" [value]="item.id">
+                  {{item.razon_social}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Terminal de carga -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="id-select-terminal" class="select_filtro"
+          *ngIf="esMuvinProveedor">
+            <span>Terminal:</span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="terminal" [(ngModel)]="selectedTerminal" (selectionChange)="onChange()"
+                formControlName="terminal" [disabled]="selectedProveedor === -1" [multiple]="aplicarSeleccionMultiple()">
+                <mat-option *ngFor="let item of listadoTerminalCarga" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- RESERVA -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs" class="select_verde">
+            <span style="padding-left: 11px;">Reserva:</span>
+            <mat-form-field class="full-width">
+              <input name="reserva" formControlName="reserva" matInput type="text" value="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- Terminal de carga -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="id-select-terminal" class="select_filtro"
+          *ngIf="!esMuvinProveedor">
+            <span>Terminal:</span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="terminal" [(ngModel)]="selectedTerminal" (selectionChange)="onChange()"
+                formControlName="terminal" [disabled]="selectedProveedor === -1" [multiple]="aplicarSeleccionMultiple()">
+                <mat-option *ngFor="let item of listadoTerminalCarga" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- CLIENTE -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs" class="select_celeste"
+          *ngIf="esMuvinProveedor">
+            <span style="padding-left: 11px;">Cliente:</span>
+            <mat-form-field class="full-width">
+              <input name="cliente" formControlName="cliente" matInput type="text" value="">
+            </mat-form-field>
+          </div>
+          <!-- ESTADO-->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_gris">
+            <span style="padding-right: 14px;">Estado: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="estado" formControlName="estado" [(ngModel)]="selectedEstado">
+                <mat-option *ngFor="let item of estados" [value]="item.id">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1" *ngIf="esMuvinProveedor"></div>        
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between center">
+          <!-- ZONA-->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_blue"
+          *ngIf="esMuvinProveedor">
+            <span style="padding-right: 36px;">Zonas: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="zona" formControlName="zona" [(ngModel)]="selectedZona">
+                <mat-option *ngFor="let zona of listadoZonas" [value]="zona.id">
+                  {{zona.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap  *ngIf="!esMuvinProveedor">&nbsp;</div>
+          <!-- TIPO DE DESPACHO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="id-tipo-despacho" class="select_filtro">
+            <span>Tipo despacho: </span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="tipo_despacho" formControlName="tipo_despacho" [(ngModel)]="selectedTipoDespacho"
+                [multiple]='true'>
+                <mat-option *ngFor="let item of listadoDespachos" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between center">
+          <div fxLayoutGap>&nbsp;</div>
+          <div fxLayoutGap fxLayoutAlign="center center">
+            <button class="buscar_btn" [disabled]="!habilitarButton" type="submit" mat-raised-button>
+              <span style="font-size: small;">BUSCAR </span>
+            </button>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+      </div>
+    </form>
+  </div>
+</mat-card>
+
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+  <div fxFlex="90" class="segunda_tbl comunes">
+    <div fxLayout="column" fxLayoutAlign="space-around stretch" style="margin-bottom: 5px; ">
+      <div>
+        <mat-table id="id-tabla-reserva" [dataSource]="dataSource" matSort>
+          <!-- Position fecha -->
+          <ng-container matColumnDef="fecha">
+            <th class="col_blue" style="width: 2%" mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell style="text-align: center;padding: 2px;" *matCellDef="let element">
+              {{element.fecha | date:
+              'dd/MM' }} </td>
+          </ng-container>
+          <!-- Position reserva -->
+          <ng-container matColumnDef="reserva">
+            <th class="col_blue" style="width: 4%;" mat-header-cell *matHeaderCellDef> Reserva </th>
+            <td mat-cell *matCellDef="let element"> {{element.reserva}} </td>
+          </ng-container>
+          <!-- Position terminal -->
+          <ng-container matColumnDef="terminal">
+            <th class="col_blue" style="width: 10%;" mat-header-cell *matHeaderCellDef> Terminal </th>
+            <td mat-cell *matCellDef="let element"> {{element.terminal}} </td>
+          </ng-container>
+          <!-- Position despacho -->
+          <ng-container matColumnDef="tipo_despacho">
+            <th class="col_blue" style="width: 10%;" mat-header-cell *matHeaderCellDef> Tipo Despacho </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipo_despacho}} </td>
+          </ng-container>
+          <!-- Position cliente -->
+          <ng-container matColumnDef="cliente" *ngIf='esMuvinProveedor'>
+            <th class="col_celeste" style="width: 10%;" mat-header-cell *matHeaderCellDef> Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+          </ng-container>
+          <!-- Position zona -->
+          <ng-container matColumnDef="zona" *ngIf='esMuvinProveedor'>
+            <th class="col_celeste" style="width: 4%;" mat-header-cell *matHeaderCellDef> Zona </th>
+            <td mat-cell *matCellDef="let element"> {{element.zona}} </td>
+          </ng-container>
+          <!-- Position producto -->
+          <ng-container matColumnDef="producto">
+            <th class="col_verde" style="width: 10%;" mat-header-cell *matHeaderCellDef> Producto </th>
+            <td mat-cell *matCellDef="let element"> {{element.producto}} </td>
+          </ng-container>
+          <!-- Position toneladas -->
+          <ng-container matColumnDef="tn">
+            <th class="col_verde" style="width: 4%;" mat-header-cell *matHeaderCellDef> Tn </th>
+            <td mat-cell *matCellDef="let element"> {{element.tn}} </td>
+          </ng-container>
+          <!-- Position chofer -->
+          <ng-container matColumnDef="nombre_chofer">
+            <th class="col_gris" style="width: 10%;" mat-header-cell *matHeaderCellDef> Chofer </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre_chofer}} </td>
+          </ng-container>
+          <!-- Position cupo -->
+          <ng-container matColumnDef="cupo">
+            <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> Cupo </th>
+            <td mat-cell *matCellDef="let element"> {{element.cupo}} </td>
+          </ng-container>
+          <!-- Position Terminal del Cupo -->
+          <ng-container matColumnDef="terminal_cupo">
+            <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> Ter. Carga </th>
+            <td mat-cell *matCellDef="let element"> {{element.terminal_cupo}} </td>
+          </ng-container>
+          <!-- Position fecha cupo -->
+          <ng-container matColumnDef="fecha_cupo">
+            <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> Fecha Cupo </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha_cupo | date:
+              'dd/MM'}} </td>
+          </ng-container>
+          <!-- Position turno -->
+          <ng-container matColumnDef="turno">
+            <th class="col_gris" style="width: 8%;" mat-header-cell *matHeaderCellDef> Turno </th>
+            <td mat-cell *matCellDef="let element"> {{element.turno}} </td>
+          </ng-container>
+          <!-- Position arribo -->
+          <ng-container matColumnDef="fecha_arribo">
+            <th class="col_verdeClaro" style="width: 8%;" mat-header-cell *matHeaderCellDef> Arribado </th>
+            <td mat-cell *matCellDef="let element"> {{element.arribo | date:
+              'dd/MM/yyy HH:mm'}} </td>
+          </ng-container>
+          <!-- Position estado -->
+          <ng-container matColumnDef="estado">
+            <th class="col_verdeClaro" style="width: 8%;" mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="centrar">
+                <span *ngIf="element.estado != 'PROCESADO'">{{element.estado}}</span>
+                <button *ngIf="element.estado == 'PROCESADO'" class="btn_estado" type="button" mat-raised-button
+                  (click)="openPopupReservas(element)">
+                  {{ element.estado }}
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table>
+        <mat-paginator #paginator id="paginacion" [length]="pageEvent.length" [pageSize]="pageEvent.pageSize"
+          (page)="getServerData($event)" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

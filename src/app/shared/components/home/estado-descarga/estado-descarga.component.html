@@ -1,0 +1,80 @@
+﻿<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text">Estados de Descarga del Viaje</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <table style="background:white;color:black">
+      <thead style="background:rgb(84, 235, 222);color:black">
+        <tr>
+          <td>Fecha</td>
+          <td>Chofer</td>
+          <td>Tipo Camion</td>
+          <td>Entregador</td>
+          <td>Estado Viaje</td>
+          <td>Destino</td>
+          <td>Dador</td>
+          <td>Estado</td>
+          <td>Destinatario</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{fechaViaje}}</td>
+          <td>{{nombre_chofer}}</td>
+          <td>{{nombre_tipo_camion}}</td>
+          <td>{{nombre_entregador}}</td>
+          <td>{{nombre_estado_viaje}}</td>
+          <td>{{nombre_destino}}</td>
+          <td>{{nombre_dador}}</td>
+          <td>{{estado}}</td>
+          <td>{{nombre_destinatario}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>
+<div class="m-333">
+    <!-- <span fxFlex></span> -->
+    <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Add Estado Descarga</button>
+  </div>
+<mat-card class="p-0">
+    <mat-card-content class="p-0">
+      <ngx-datatable
+            class="material ml-0 mr-0"
+            [rows]="viajesEstadosDescarga"
+            [columnMode]="'flex'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [limit]="10"
+            [rowHeight]="'auto'">
+             <ngx-datatable-column name="descripcion" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.descripcion }}
+              </ng-template>
+            </ngx-datatable-column>  
+            <ngx-datatable-column name="Fecha" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.fecha }}
+                </ng-template>
+             </ngx-datatable-column>
+             <ngx-datatable-column name="`Estado Descarga" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_estado_descarga }}
+                </ng-template>
+             </ngx-datatable-column>
+             <ngx-datatable-column name="Destino" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_destino }}
+                </ng-template>
+             </ngx-datatable-column>
+            <ngx-datatable-column name="Acciones" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+          <button mat-raised-button color="warn" type="button" (click)="gotoHome()" >Cancelar</button>
+    </mat-card-content>
+  </mat-card>

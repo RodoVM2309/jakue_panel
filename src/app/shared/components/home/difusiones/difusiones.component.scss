@@ -1,0 +1,49 @@
+.mat-card.default .mat-card-title{
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0px;
+  }
+  .mr-2.position-button{
+    margin-left: 13px;
+  }
+
+
+  .scroll-container {
+    height: 75vh;
+    overflow: auto;
+    padding: 0;
+  }
+
+  .myspan-gris {
+
+    color:#636466;
+    font-size: 16px;
+  }
+  .myspan-verde {
+    color:#33A85D;
+  }
+  .verde-difusion {
+    background: #33A85D;
+}
+.mat-difusion-negro {
+  background: #000000!important;
+  color: #fff!important;
+  font-size: 40px;
+}
+.mat-difusion-done {
+  background: #18ee05!important;
+  color: #fff!important;
+  font-size: 40px;
+}
+.mat-difusion-clear {
+  background: #f10404!important;
+  color: #fff!important;
+  font-size: 40px;
+}
+.linea {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #C4C4C5;
+  margin-bottom: 1px;
+}

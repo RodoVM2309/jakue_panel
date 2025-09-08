@@ -1,0 +1,318 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Eficiencia Logistica</h4>
+</div>
+<div class="m-333">
+  <div>
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('cumplimiento')">
+      Cumplimiento de viajes
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('rechazos')">
+      Rechazos
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('desvios')">
+      Desvíos
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('tiempocarga')">
+      Tiempo lugar de carga
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('tiempodescarga')">
+      Tiempo lugar de descarga
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('tiempoflotaintermediario')">
+      Flota-Viajes-Intermediarios
+    </button>&nbsp;&nbsp;
+    <button style="border-radius: 100px !important;" mat-raised-button color="primary"
+      (click)="mostrarRankings('intermediariotransportista')">
+      Intermediarios y Transportistas
+    </button>&nbsp;&nbsp;
+  </div>
+  &nbsp;&nbsp;
+  <mat-card *ngIf="cumplimiento" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Cumplimiento de viajes</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <!--<mat-radio-group>
+        <mat-radio-button value="" (change)="changeOptionFiltro($event)" (checked)='true'>Todos </mat-radio-button>
+        <mat-radio-button value="transportista" (change)="changeOptionFiltro($event)">Empresa de transporte </mat-radio-button>
+        <mat-radio-button value="intermediario" (change)="changeOptionFiltro($event)">Intermediarios </mat-radio-button>
+      </mat-radio-group> -->
+      <mat-form-field>
+        <mat-select placeholder="Filtro"  [value]="filtros_ranking" name="filtros_ranking" class="mb-1"
+          (selectionChange)="changeOptionFiltro($event)" >
+          <mat-option *ngFor="let filtroranking of filtros_ranking" [value]="filtroranking.value" ngDefaultControl>
+            {{filtroranking.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ngx-datatable class="material ml-0 mr-0" [rows]="proveedoresCentro" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Razón social" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.razon_social }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Ranking" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.ranking }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tipo" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.tipo }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Total viajes" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.total_viajes }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Viajes completados" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.viajes_completados }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>            
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="rechazos" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Rechazos</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <ngx-datatable class="material ml-0 mr-0" [rows]="cargadoresRechazo" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Razón social" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.razon_social }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Ranking" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.ranking }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Total viajes" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.total_viajes }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Viajes rechazados" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.viajes_rechazados }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Productos"
+              (click)="openPopUpRechazados(row,'Productos','productos')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Motivos de rechazo"
+              (click)="openPopUpRechazados(row,'Motivos de rechazo','motivos')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Lugares de carga"
+              (click)="openPopUpRechazados(row,'Lugares de carga','lugares')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Destinos"
+              (click)="openPopUpRechazados(row,'Destinos','destinos')">
+              <mat-icon>list</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="desvios" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Desvios</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <ngx-datatable class="material ml-0 mr-0" [rows]="cargadoresDesvio" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Razón social" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.razon_social }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Ranking" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.ranking }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Total viajes" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.total_viajes }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Viajes desviados" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.viajes_desviados }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Productos"
+              (click)="openPopUpDesviados(row,'Productos','productos')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Motivos de desvío"
+              (click)="openPopUpDesviados(row,'Motivos de desvio','motivos')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Lugares de carga"
+              (click)="openPopUpDesviados(row,'Lugares de carga','lugares')">
+              <mat-icon>list</mat-icon>
+            </button>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Destinos"
+              (click)="openPopUpDesviados(row,'Destinos','destinos')">
+              <mat-icon>list</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="tiempocarga" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Lugares de Carga</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <ngx-datatable class="material ml-0 mr-0" [rows]="tiempoLugar" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Lugar de carga" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.lugar_carga }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tiempo (Horas)" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.tiempo }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="tiempodescarga" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Lugares de Descarga</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <ngx-datatable class="material ml-0 mr-0" [rows]="tiempoDestino" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Lugar de descarga" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.destino }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tiempo (Horas)" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.tiempo }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="tiempoflotaintermediario" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Flota-Viajes-Intermediarios</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <ngx-datatable class="material ml-0 mr-0" [rows]="flotaIntermediario" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Razón social" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.razon_social }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="intermediariotransportista" class="p-0">
+    <div class="m-333">
+      <h4 style="color:#124A99;">Intermediarios y Transportistas</h4>
+    </div>
+    <mat-card-content class="p-0">
+      &nbsp;
+      <!--<mat-radio-group>
+        <mat-radio-button value="" (change)="changeOptionFiltro($event)" (checked)='true'>Todos </mat-radio-button>
+        <mat-radio-button value="transportista" (change)="changeOptionFiltro($event)">Empresa de transporte </mat-radio-button>
+        <mat-radio-button value="intermediario" (change)="changeOptionFiltro($event)">Intermediarios </mat-radio-button>
+      </mat-radio-group>-->
+      <mat-form-field>
+        <mat-select placeholder="Filtro"  [value]="filtros_ranking" name="filtros_ranking2" class="mb-1"
+          (selectionChange)="changeOptionFiltro($event)" >
+          <mat-option *ngFor="let filtroranking of filtros_ranking" [value]="filtroranking.value" ngDefaultControl>
+            {{filtroranking.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ngx-datatable class="material ml-0 mr-0" [rows]="viajesProveedores" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+        [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column name="Razón social" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.razon_social }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tipo" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.tipo }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Cantidad  de Viajes" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.cantidad_viajes }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Porciento de Viajes" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.porciento_viajes }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Flota Propia" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.flota_propia }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Flota Premium" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.flota_premium }}
+          </ng-template>
+        </ngx-datatable-column>    
+        <ngx-datatable-column name="Acciones" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Infomación"
+              (click)="openPopViajesProveedores(row)">
+              <mat-icon>list</mat-icon>
+            </button>            
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </mat-card-content>
+  </mat-card>

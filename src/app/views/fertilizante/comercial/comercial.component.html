@@ -1,0 +1,13 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)"
+style="margin-top: 8px;padding: 0px;" >
+  <mat-tab label="Dashboard Comercial" >
+      <app-panel-reservas *ngIf="selectedTab === 0"></app-panel-reservas>
+   </mat-tab>
+  <mat-tab label="Seguimiento" >    
+    <app-comercial-seguimiento *ngIf="selectedTab === 1"></app-comercial-seguimiento>
+  </mat-tab>
+  <mat-tab label="Gestión Reserva" >    
+    <app-comercial-gestion-reserva *ngIf="selectedTab === 2"></app-comercial-gestion-reserva>
+  </mat-tab>
+</mat-tab-group>
+

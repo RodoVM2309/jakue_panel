@@ -1,0 +1,277 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="3"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong>INFORMACIÓN CCPP </strong>
+      </div>
+      <div fxFlex="17"></div>
+    </div>
+  </div>
+  <form [formGroup]="addCabeceraForm">
+    <div class="cuerpo" fxLayout="column wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <div fxFlex="100">
+          <div fxFlex="4"></div>
+          <div fxFlex="92" class="div-cuerpo">
+            <div fxFlex="100">
+              <div fxFlex="5"></div>
+              <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="start start">
+                <div fxFlex="100" fxLayout="column wrap">
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreTitular" [formControl]="addCabeceraForm.controls['nombreTitular']"
+                          placeholder="TITULAR" #nombreTitular />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitTitula" [formControl]="addCabeceraForm.controls['idCuitTitula']"
+                          placeholder="CUIT" #idCuitTitula />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreIntermediario"
+                          [formControl]="addCabeceraForm.controls['nombreIntermediario']" placeholder="Intermediario"
+                          #nombreIntermediario />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitIntermediario"
+                          [formControl]="addCabeceraForm.controls['idCuitIntermediario']" placeholder="CUIT"
+                          #idCuitIntermediario />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreRemitente"
+                          [formControl]="addCabeceraForm.controls['nombreRemitente']"
+                          placeholder="Remitente Comercial" />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitRemComercial"
+                          [formControl]="addCabeceraForm.controls['idCuitRemComercial']" placeholder="CUIT"
+                          #idCuitRemComercial />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreCorredorComprador"
+                          [formControl]="addCabeceraForm.controls['nombreCorredorComprador']"
+                          placeholder="Corredor Comprador" #nombreCorredorComprador />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitCorredorC"
+                          [formControl]="addCabeceraForm.controls['idCuitCorredorC']" placeholder="CUIT"
+                          #idCuitCorredorC />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreMercadoATermino"
+                          [formControl]="addCabeceraForm.controls['nombreMercadoATermino']"
+                          placeholder="Mercado a término" #nombreMercadoATermino />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitMercadoATermino"
+                          [formControl]="addCabeceraForm.controls['idCuitMercadoATermino']" placeholder="CUIT"
+                          #idCuitMercadoATermino />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreCorredorVendedor"
+                          [formControl]="addCabeceraForm.controls['nombreCorredorVendedor']"
+                          placeholder="Corredor Vendedor" #nombreCorredorVendedor />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitCorredorV"
+                          [formControl]="addCabeceraForm.controls['idCuitCorredorV']" placeholder="CUIT"
+                          #idCuitCorredorV />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreEntregador"
+                          [formControl]="addCabeceraForm.controls['nombreEntregador']"
+                          placeholder="Representante Entregador" #nombreEntregador />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitRepresentanteEntregador"
+                          [formControl]="addCabeceraForm.controls['idCuitRepresentanteEntregador']" placeholder="CUIT"
+                          #idCuitRepresentanteEntregador />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreDestinatario"
+                          [formControl]="addCabeceraForm.controls['nombreDestinatario']" placeholder="Destinatario"
+                          #nombreDestinatario />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitDestinatario"
+                          [formControl]="addCabeceraForm.controls['idCuitDestinatario']" placeholder="CUIT"
+                          #idCuitDestinatario />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreIntermediarioFlete"
+                          [formControl]="addCabeceraForm.controls['nombreIntermediarioFlete']"
+                          placeholder="Intermediario Flete" #nombreIntermediarioFlete />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitIntermediarioFlete"
+                          [formControl]="addCabeceraForm.controls['idCuitIntermediarioFlete']" placeholder="CUIT"
+                          #idCuitIntermediarioFlete />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreDestino" [formControl]="addCabeceraForm.controls['nombreDestino']"
+                          placeholder="Destino" #nombreDestino />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitDestino" [formControl]="addCabeceraForm.controls['idCuitDestino']"
+                          placeholder="CUIT" #idCuitDestino />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nroContrato" [formControl]="addCabeceraForm.controls['nroContrato']"
+                          placeholder="Contrato/Fijación" #nroContrato />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <strong style="font-size: 14px;">Observaciones:</strong>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreIntermediario1"
+                          [formControl]="addCabeceraForm.controls['nombreIntermediario1']" placeholder="Intermediario 2"
+                          #nombreIntermediario1 />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitIntermediario1"
+                          [formControl]="addCabeceraForm.controls['idCuitIntermediario1']" placeholder="CUIT"
+                          #idCuitIntermediario1 />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <div fxFlex="60">
+                      <mat-form-field class="full-width">
+                        <input matInput name="nombreIntermediario2"
+                          [formControl]="addCabeceraForm.controls['nombreIntermediario2']" placeholder="Intermediario 3"
+                          #nombreIntermediario2 />
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="5"></div>
+                    <div fxFlex="35">
+                      <mat-form-field class="full-width">
+                        <input matInput name="idCuitIntermediario2"
+                          [formControl]="addCabeceraForm.controls['idCuitIntermediario2']" placeholder="CUIT"
+                          #idCuitIntermediario2 />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="caratula" [formControl]="addCabeceraForm.controls['caratula']"
+                        placeholder="Carátula Mercado a Término" #caratula />
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="comentario" [formControl]="addCabeceraForm.controls['comentario']"
+                        placeholder="Comentario" #comentario />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="5"></div>
+            </div>
+          </div>
+          <div fxFlex="4"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" fxLayout="row wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="center start" class="div-botones">
+        <div fxFlex="100" class="mt-1">
+          <div fxFlex="4"></div>
+          <div fxFlex="44" fxLayoutAlign="center center">
+            <button mat-raised-button style="background-color: black;" type="button" (click)="dialogRef.close(false)">
+              CANCELAR
+            </button>
+          </div>
+          <div fxFlex="14"></div>
+          <div *ngIf="permiteEditar === true" fxFlex="34" fxLayoutAlign="start center">
+            <button mat-raised-button style="background-color: rgb(23,72,145);width: 200px;color: #ffffff !important;"
+              [disabled]="addCabeceraForm.invalid" (click)="submit()">
+              GUARDAR
+            </button>
+          </div>
+          <div fxFlex="18"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

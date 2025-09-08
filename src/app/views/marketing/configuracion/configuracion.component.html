@@ -1,0 +1,72 @@
+<br />
+<div class="m-333">
+  <h4 style="color: #124a99;">Configuración</h4>
+</div>
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Marketing">
+      <mat-card-content class="mt-1">
+        <form [formGroup]="itemForm" (ngSubmit)="submit()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Tiempo va a correr el crom para las notificaciones PUSH"
+                  formControlName="horas"
+                />
+                <mat-error>
+                  <span
+                    *ngIf="
+                      !itemForm.get('horas').valid &&
+                      itemForm.get('horas').touched
+                    "
+                    >Por favor entre el tiempo. Es requerido el tiempo</span
+                  >
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput  type="number" formControlName="km"  class="form-control" placeholder="Radio de km" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['km'].hasError('required') && itemForm.controls['km'].touched"
+                class="form-error-msg">Por favor entre los km. Es requerido el valor
+              </small>
+              <small *ngIf="itemForm.controls['km'].hasError('max') && itemForm.controls['km'].touched"
+              class="form-error-msg">
+                 Se admiten hasta 200 km.
+              </small>
+            </div> -->
+          </div>
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <!-- <div fxFlex="50" class="pr-1">
+              <mat-checkbox class="example-radio-button" [formControl]="itemForm.controls['condiciones_viaje']">
+                Condiciones de Viaje&nbsp;
+              </mat-checkbox>
+            </div> -->
+            <div fxFlex="100" class="mt-1">
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="closeForm()"
+              >
+                Cancelar
+              </button>
+              <span fxFlex></span>
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="itemForm.invalid"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

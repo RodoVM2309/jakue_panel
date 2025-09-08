@@ -1,0 +1,40 @@
+.not-empty-select.mat-selected {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004A90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #837f7f;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}
+.encabezado{
+  height: 50px;
+  background-color: rgb(23, 72, 145);
+  color:#fff;
+  width: 100%;
+}
+
+.component_1 {
+  background-color: rgb(233, 233, 234);
+}
+.component_2 {
+  background-color: rgb(233, 233, 234);
+  margin-right: -24px;
+  margin-left: -24px;
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
+

@@ -1,0 +1,186 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Volúmenes</h4>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <form [formGroup]="staticForm" (ngSubmit)="Ejecutarfiltro()">
+      <br>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="desdeDate" formControlName="desdeDate" placeholder="Fecha Desde"
+              [matDatepicker]="appDatepicker" [max]="maxDate" (dateInput)="addEvent('input', $event, 'desde')"
+              (dateChange)="addEvent('change', $event, 'desde')">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+            </mat-datepicker-toggle>
+
+          </mat-form-field>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="hastaDate" formControlName="hastaDate" placeholder="Fecha hasta"
+              [matDatepicker]="appDatepicker1" [min]="minDate" (dateInput)="addEvent('input', $event, 'hasta')"
+              (dateChange)="addEvent('change', $event, 'hasta')">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker1></mat-datepicker>
+        </div>
+        <button mat-raised-button color="primary" [disabled]="staticForm.invalid">Filtrar</button>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+          <mat-card class="pedido">
+            <mat-card-title fxLayoutAlign="start center">
+              <img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt="" style="height: 32px;"><small
+                style="color:white"> Total de Pedidos </small>
+              <span fxFlex></span>
+              <mat-chip class="icon-chip" color="primary" selected="true">
+                <mat-icon>trending_up</mat-icon>20%
+              </mat-chip>
+            </mat-card-title>
+            <mat-card-content>
+              <button mat-mini-fab color="primary" class="mr-2" (click)="cargarPedidos()">{{total_pedidos}}</button>
+              <!-- <small class="text-muted">Mensual</small> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+          <mat-card class="viajes">
+            <mat-card-title fxLayoutAlign="start center">
+              <img src="assets/images/muvin/transito-panel.png" alt="" style="height: 32px;">
+              <small style="color:white">Total de Viajes</small>
+              <span fxFlex></span>
+              <mat-chip class="icon-chip" color="accent" selected="true">
+                <mat-icon>trending_up</mat-icon>10%
+              </mat-chip>
+            </mat-card-title>
+            <mat-card-content>
+              <button mat-mini-fab color="accent" class="mr-2" (click)="cargarViajes()">{{total_viajes}}</button>
+              <!-- <h3 class="m-0 font-normal">{{total_viajes}}</h3> -->
+              <!--  <small class="text-muted">Mensual</small> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+          <mat-card class="camiones">
+            <mat-card-title fxLayoutAlign="start center">
+              <img src="assets/images/muvin/menu-choferes-de-muvin.png" alt="" style="height: 32px;">
+              <small style="color:white">Total de Camiones</small>
+              <span fxFlex></span>
+              <mat-chip class="icon-chip" color="accent" selected="true">
+                <mat-icon>trending_up</mat-icon>9%
+              </mat-chip>
+            </mat-card-title>
+            <mat-card-content>
+              <!-- <h3 class="m-0 font-normal">{{total_camiones}}</h3> -->
+              <button mat-mini-fab color="accent" class="mr-2">{{total_camiones}}</button>
+              <!--  <small class="text-muted">Mensual</small> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+          <mat-card class="lista_negra">
+            <mat-card-title fxLayoutAlign="start center">
+              <small style="color:white">Lista Negra</small>
+              <span fxFlex></span>
+              <mat-chip class="icon-chip" color="warn" selected="true">
+                <mat-icon>trending_down</mat-icon>2%
+              </mat-chip>
+            </mat-card-title>
+            <mat-card-content>
+              <!-- <h3 class="m-0 font-normal">{{lista_negra}}</h3> -->
+              <button mat-mini-fab color="accent" class="mr-2">{{lista_negra}}</button>
+              <!--  <small class="text-muted">Mensual</small> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="20" fxLayout="column wrap">
+          <mat-card class="p-0" [@animate]="{value:'*',params:{scale:'.9',delay:'300ms'}}">
+            <mat-card-title class="">
+              <div class="card-title-text">
+                <span>Empresas Transportistas con más Viajes</span>
+                <span fxFlex></span>
+                <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu2">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu2="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>settings</mat-icon>
+                    <span>Empresas Transportistas</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>do_not_disturb</mat-icon>
+                    <span>Intermediarios</span>
+                  </button>
+                </mat-menu>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="mb-0" *ngFor="let rank of ranking">
+                <p class="mb-05 text-muted">{{rank.razon_social}}</p>
+                <mat-progress-bar matTooltip="{{rank.cantidad_viajes}}" class="" color="primary" mode="determinate"
+                  [value]="rank.cantidad_viajes">
+                </mat-progress-bar>
+              </div>
+              
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+
+          <div style="display: block" class="chart" *ngIf="pieChartLabels.length > 0">
+            <canvas id="chart" baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+              (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+          <div *ngIf="showChartLine"  fxLayout="row wrap" [@animate]="{value:'*',params:{y:'25px',delay:'300ms'}}">          
+            <mat-card class="default">
+              <mat-card-title class="">
+                <span>{{empresaMostrada}}</span>
+                <span fxFlex></span>
+              </mat-card-title>
+            </mat-card>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="50" fxLayout="column">
+              <mat-card class="default">           
+                <mat-card-subtitle>Cantidad de Viajes Realizados por Meses/Año</mat-card-subtitle>
+                <mat-card-content class="p-0">
+                  <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                      [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"></canvas>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" fxLayout="column">
+              <mat-card class="default">            
+                <mat-card-subtitle>Cantidad de Viajes Realizados por Productos</mat-card-subtitle>
+                <mat-card-content class="p-0">
+                  <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels1" [colors]="lineChartColors"
+                      [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)"></canvas>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      
+    </form>
+  </mat-card-content>
+</mat-card>

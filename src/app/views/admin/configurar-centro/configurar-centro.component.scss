@@ -1,0 +1,26 @@
+.example-container {
+    height: 350px;
+    overflow: auto;
+  }
+  .producto-excluido {
+    height: 413px;
+    overflow: auto;
+  }  
+
+  .tp-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+ }
+ .tp-radio-button {
+    margin: 5px;
+ }
+ .tp-selected-value {
+    margin: 15px 0;
+ }
+ table {
+   width: 100%;
+ }
+ 
+ tr.mat-footer-row {
+   font-weight: bold;
+ }

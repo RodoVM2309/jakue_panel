@@ -1,0 +1,57 @@
+﻿<mat-card-title class="">
+    <h1 matDialogTitle>{{ data.title }}</h1>
+    <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="" />
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="fecha" [formControl]="itemForm.controls['fecha']" placeholder="Fecha Carga" [matDatepicker]="appDatepicker" />
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                </mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #appDatepicker></mat-datepicker>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="carta_porte" maxlength="70" [formControl]="itemForm.controls['carta_porte']" placeholder="Carta de Porte">
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['carta_porte'].hasError('required') &&
+          itemForm.controls['carta_porte'].touched
+        " class="form-error-msg">
+        Es requerido la carta porte
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="cupo" maxlength="70" [formControl]="itemForm.controls['cupo']" placeholder="Número de Cupo">
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['cupo'].hasError('required') &&
+          itemForm.controls['cupo'].touched
+        " class="form-error-msg">
+        Es requerido el cupo
+      </small>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+        Cancelar
+      </button>
+            <span fxFlex></span>
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+        </div>
+    </div>
+</form>

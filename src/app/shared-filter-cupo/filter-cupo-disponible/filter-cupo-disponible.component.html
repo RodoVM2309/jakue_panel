@@ -1,0 +1,172 @@
+<div class="margin-333"  id="style-1">
+  <div fxLayout="column wrap">
+    <form
+      id="form-cuponera1"
+      [formGroup]="filtrarForm"
+      class="encabezado"
+      style="width: 96%; margin-left: 2%"
+    >
+      <div fxLayout="row wrap" #tablaFiltros>
+        <div
+          fxFlex="100"
+          fxLayoutGap="10px"
+          fxLayoutAlign="start"
+          class="row_encabezado"
+        >
+          <div
+          fxFlex.xs="15"
+          fxFlex.sm="15"
+          fxFlex.lg="15"
+            fxLayout="columna wrap"
+            class="select_producto"
+          >
+            <span class="label-span">Producto:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select
+                name="producto"
+                id="producto"
+                (selectionChange)="aplicarFiltro('id_producto', $event)"
+                [formControl]="filtrarForm.controls['selectedProducto']"
+                class="mb-1"
+              >
+                <mat-option
+                  *ngFor="let producto of productos"
+                  [value]="producto.id"
+                  ngDefaultControl
+                  class="mat-option-content"
+                >
+                  {{ producto.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+          fxFlex.xs="15"
+          fxFlex.sm="15"
+          fxFlex.lg="15"
+            fxLayout="columna wrap"
+            class="select_producto"
+          >
+            <span class="label-span">Fecha desde:</span>
+            <mat-form-field class="full-width mfl">
+              <input
+                matInput
+                name="fechaFilter"
+                [formControl]="filtrarForm.controls['selectedFecha']"
+                [matDatepicker]="appDatepicker"
+                (dateChange)="aplicarFiltro('fechaCupo', $event)"
+                readonly
+              />
+              <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+              </mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #appDatepicker></mat-datepicker>
+          </div>
+
+          <div fxFlex.xs="15"
+          fxFlex.sm="15"
+          fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario"
+               >
+            <span class="label-span">Destino:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select
+                name="destino"
+                (selectionChange)="aplicarFiltro('id_destino',$event)"
+                [formControl]="filtrarForm.controls['selectedDestino']"
+              >
+              <mat-option
+              *ngFor="let destino of destinos"
+              [value]="destino.id_destino"
+              ngDefaultControl
+            >
+              {{ destino.descripcion }}
+            </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex.xs="15"
+          fxFlex.sm="15"
+          fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario"
+               >
+            <span class="label-span">Planta/Origen:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select
+                name="plata_origen"
+                (selectionChange)="aplicarFiltro('id_origen',$event)"
+                [formControl]="filtrarForm.controls['selectedOrigenDestino']"
+              >
+                <mat-option
+                  *ngFor="let originDestino of origenDestinos"
+                  [value]="originDestino.id_origen"
+                  ngDefaultControl
+                  class="mat-option-content"
+                >
+                  {{ originDestino.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.xs="45"
+          fxFlex.sm="15"
+          fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario">
+            <span class="label-span">Transportadora:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select
+                name="transportadora"
+                (selectionChange)="aplicarFiltro('id_transportadora',$event)"
+                [formControl]="filtrarForm.controls['selectedTransportadora']"
+              >
+                <mat-option
+                  *ngFor="let transportadora of transportadoras"
+                  [value]="transportadora.id_usuario"
+                  ngDefaultControl
+                >
+                  {{ transportadora.nombre_intermediario }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+            fxFlex="10"
+            fxFlex.gt-xs="10"
+            fxLayoutAlign="start center"
+            style="margin-top: -5px"
+          >
+            <span
+              mat-icon-button
+              matTooltip="Limpiar Filtro"
+              color="mr-0"
+              class="mr-0"
+              (click)="limpiarFiltros()"
+              style="text-align: center; padding-left: 0px; cursor: pointer; margin-top: 5px;"
+            >
+              <mat-icon>delete_outline</mat-icon>
+            </span>
+          </div>
+
+
+           <div fxFlex="none" fxLayoutAlign="start center">
+            <button
+              mat-raised-button
+              style="background-color: rgb(62, 80, 187); width: 95%"
+              type="button"
+              (click)="downloadFile()"
+            >
+             <span class="label-span">Exportar Reporte</span>
+              <mat-icon style="margin-top: -4px; margin-left: 5px"
+                >cloud_download</mat-icon
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

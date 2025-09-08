@@ -1,0 +1,38 @@
+﻿<mat-card>
+  <mat-card-title class="" style="background: #2bc4f3;">
+    <div class="card-title-text" style="background: #2bc4f3;">
+      KM POR ADMINISTRAR
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <input
+      id="mat-input1"
+      value="{{ row.km }}"
+      matInput
+      class="quantity-input default-bg"
+      name="quantity"
+      type="number"
+      min="0"
+      (change)="modificarcant($event.target.value)"
+    />
+  </mat-card-content>
+
+  <mat-card-content>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" (click)="guardar()">
+        Guardar
+      </button>
+    </div>
+    <!--</div>-->
+  </mat-card-content>
+</mat-card>

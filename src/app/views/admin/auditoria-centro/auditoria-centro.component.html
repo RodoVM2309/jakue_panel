@@ -1,0 +1,184 @@
+<div class="margin-333">
+	<div fxLayout="column wrap">
+		<div fxLayout="row wrap">
+			<div fxFlex="100">
+				<form id="form-auditoria" [formGroup]="auditoriaForm">
+					<div fxLayout="row wrap" class="encabezado">
+						<div fxFlex="100" class="row_encabezado">
+							<div fxFlex="1"></div>
+
+							<!--GC: Filtro Desde  - Inicio -->
+							<div fxFlex="12">
+								<mat-form-field class="fecha-from">
+									<mat-label class="label">Fecha Inicio</mat-label>
+									<input matInput name="fechaFilter" placeholder="Fecha inicio"
+										[formControl]="auditoriaForm.controls['selectedDateFrom']"
+										[matDatepicker]="appFromDatepicker" readonly>
+									<mat-datepicker-toggle matSuffix [for]="appFromDatepicker">
+									</mat-datepicker-toggle>
+								</mat-form-field>
+								<mat-datepicker #appFromDatepicker></mat-datepicker>
+							</div>
+
+							<div fxFlex="3"></div>
+
+							<div class="au_hora">
+								<div>
+									<div id="input_hora_inicio">
+										<mat-form-field class="hour-from">
+											<mat-label class="label">Hora Inicio</mat-label>
+											<input matInput value="{{hourFrom}}" placeholder="Hora inicio"
+												(click)="openHourFrom()"
+												[formControl]="auditoriaForm.controls['selectedHourFrom']">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+
+							<div fxFlex="3"></div>
+							<!--GC: Filtro Desde  - Fin -->
+
+							<!--GC: Filtro Hasta - Inicio -->
+							<div fxFlex="12">
+								<mat-form-field class="fecha-to">
+									<mat-label class="label">Fecha Fin</mat-label>
+									<input matInput name="fechaToFilter" id="fecha-to" placeholder="Fecha fin"
+										[formControl]="auditoriaForm.controls['selectedDateTo']"
+										[matDatepicker]="appToDatepicker" readonly>
+									<mat-datepicker-toggle matSuffix [for]="appToDatepicker">
+									</mat-datepicker-toggle>
+								</mat-form-field>
+								<mat-datepicker #appToDatepicker></mat-datepicker>
+							</div>
+
+							<div fxFlex="3"></div>
+							<!--GC: Filtro Hasta - Fin -->
+
+							<div class="au_hora">
+								<div>
+									<div id="input_hora_fin">
+										<mat-form-field class="hour-to">
+											<mat-label class="label">Hora Fin</mat-label>
+											<input matInput value="{{hourTo}}" placeholder="Hora fin"
+												(click)="openHourTo()"
+												[formControl]="auditoriaForm.controls['selectedHourTo']">
+										</mat-form-field>
+									</div>
+
+								</div>
+							</div>
+
+							<div fxFlex="3"></div>
+
+							<div fxFlex="4" fxLayoutAlign="center center">
+								<button mat-raised-button style="background-color: #174891;" type="button"
+									(click)="searchAudit()">
+									Buscar
+								</button>
+							</div>
+							<div fxFlex="2"></div>
+
+						</div>
+
+						<mat-divider></mat-divider>
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="export" fxLayout="row wrap">
+	<div fxFlex="80">
+		<div fxFlex="2" fxLayoutAlign="left left">
+
+			<button mat-raised-button type="button" style="background-color: #174790;" (click)="exportAsXLSX()">
+				<small>EXPORTAR</small>
+			</button>
+
+		</div>
+	</div>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+<hr>
+
+<!-- Aqui debajo viene la parte de la tabla -->
+<div fxLayout="row wrap" class="div-table">
+	<div fxFlex="100" *ngIf="showTable">
+		<div fxLayout="row wrap">
+
+			<table mat-table [dataSource]="dataSource" matSort>
+				<ng-container matColumnDef="fecha" style="height: 50px;">
+					<tr>
+						<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">
+							Fecha / Hora
+						</th>
+						<td mat-cell *matCellDef="let auditoria; let i = index">
+							{{auditoria.fecha}}
+						</td>
+					</tr>
+				</ng-container>
+				<ng-container matColumnDef="user">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">Usuario</th>
+					<td mat-cell *matCellDef="let auditoria">
+						{{auditoria.user}}
+
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="ip">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">IP</th>
+					<td mat-cell *matCellDef="let auditoria">
+						{{auditoria.ip}}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="metodo">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">Método</th>
+					<td mat-cell *matCellDef="let auditoria">
+						{{auditoria.metodo}}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="json_entrada">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">Json entrada</th>
+					<td mat-cell *matCellDef="let auditoria">
+						{{auditoria.json_entrada | slice:0:30 }}
+						<button mat-raised-button
+							style="background-color: #1E9BD7;color: #ffffff !important;float:right; right: 15%;"
+							type="button" (click)="exportToTxt(auditoria.json_entrada)">
+							<mat-icon style="margin-left: -12px;">cloud_download</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="json_salida">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">Json salida</th>
+					<td mat-cell *matCellDef="let auditoria">
+						{{auditoria.json_salida | slice:0:30 }}
+						<button mat-raised-button
+							style="background-color: #1E9BD7;color: #ffffff !important;float:right; right: 15%;"
+							type="button" (click)="exportToTxt(auditoria.json_salida)">
+							<mat-icon style="margin-left: -12px;">cloud_download</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Aqui debajo viene el pagination -->
+<div fxLayout="row wrap" class="pagination">
+	<div fxFlex="100" fxLayoutAlign="end center">
+		<mat-paginator #paginator class="mat-paginator-sticky" [length]="totalSize" [pageIndex]="pageIndex"
+			[pageSize]="pageSize" (page)="filterData($event)" [showFirstLastButtons]="true">
+		</mat-paginator>
+	</div>
+</div>

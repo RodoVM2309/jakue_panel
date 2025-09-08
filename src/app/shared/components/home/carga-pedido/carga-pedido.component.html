@@ -1,0 +1,1417 @@
+<div class="margin-333">
+  <mat-card
+    style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA; height: 84vh;"
+    [style.overflow]="'auto'" [style.width.px]="">
+    <mat-card
+      style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #174793; padding: 0px; margin-top: 5px;"
+      [style.overflow]="'auto'" [style.width.px]="'100%'" [style.height.px]="'5'">
+      <mat-card-content> </mat-card-content>
+    </mat-card>
+    <app-header-views></app-header-views>
+    <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div> -->
+    <mat-sidenav-container>
+      <!-- Left sidebar -->
+      <mat-sidenav EgretSideNavToggle class="shop-sidebar default-light-bg" [opened]="isSidenavOpen" mode="side"
+        style="height: 70vh;  visibility: visible;" (scroll)="onTableScroll($event)">
+        <div fxLayout="row wrap" style="margin-top: 10px; margin-left: 10px; margin-bottom: 8px;"></div>
+        <div fxLayout="row wrap" *ngIf="!showDetallePedido">
+          <div fxFlex="100" style="width: 100%; margin-left: 10px;">
+            <button style="border-radius: 100px !important;" mat-raised-button color="verflotacomp"
+              (click)="flotaCompleta()">
+              VER FLOTA COMPLETA
+            </button>
+            <span fxFlex></span>
+            <button mat-icon-button matTooltip="Refrescar" color="mr-1" class="mr-1" (click)="gotoRefresh()">
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <br />
+          <div fxLayout="row wrap" style="width: 100%;">
+            <div fxFlex="100" style="margin-left: 10px; width: 100%; margin-top: 20px;" *ngIf="sinpedido">
+              <mat-card class="default" style="background: #FCFDFF;border-radius: 6px;">
+                <mat-card-title style="padding: 19px; background-color: blanchedalmond;">
+                  ¡Alerta!
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding: 0.4rem;">
+                  No hay pedidos para mostrar.
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div fxFlex="100" *ngFor="let row of datostemp" style="margin-left: 10px; width: 100%;">
+              <mat-card class="default" style="background: #FCFDFF;border-radius: 6px;">
+                <mat-card-title>
+                  <div fxLayout="row wrap" (click)="showMapaPedido(row)">
+                    <div fxFlex="100"
+                      [ngClass]="{'mat-color-reserva': row.tipo_pedido == 'Retorno','mat-color-cereales': row.tipo_pedido != 'Retorno'}"
+                      style=" width: 100%;">
+                      <div fxFlex="7" fxLayout="column">
+                        <div fxFlex [ngStyle]="{'background':row.background }"
+                          style=" width: 28px !important;  height: 64px !important;">
+                          <div *ngIf="row.tipo_pedido == 'Cereal'">
+                            <mat-icon style="color: #FCFDFF;" matTooltip="{{row.tooltip}}">arrow_forward</mat-icon>
+                          </div>
+                          <div *ngIf="row.tipo_pedido == 'Retorno'">
+                            <mat-icon style="color: #FCFDFF;" matTooltip="{{row.tooltip}}">arrow_back</mat-icon>
+                          </div>
+                          <div *ngIf="row.tipo_pedido == 'Corto'">
+                            <mat-icon style="color: #FCFDFF;" matTooltip="{{row.tooltip}}">redo</mat-icon>
+                          </div>
+                        </div>
+                      </div>
+                      <div fxFlex="23" fxLayout="column" style="margin-top: 13px;">
+                        &nbsp;&nbsp;ID {{ row.id }}
+                      </div>
+                      <!-- ASIGNAR CHOFER DIRECTO FERTILIZANTE(RETORNO)  -->
+                      <div fxLayout="column" fxLayoutAlign="space-evenly start">
+                        <div *ngIf="row.tipo_pedido == 'Retorno'">
+                          <button *ngIf="row.contrata == 1 && idCentro == row.id_cliente" type="button"
+                            (click)="openPopupAsignarDirecto(row,1)" class="btn_asignarDirecto" color="default"
+                            mat-stroked-button> ASIGNAR DIRECTO </button>
+                          <button *ngIf="row.contrata == 0" type="button" (click)="openPopupAsignarDirecto(row,1)"
+                            class="btn_asignarDirecto" color="default" mat-stroked-button> ASIGNAR DIRECTO </button>
+                          <button *ngIf="row.contrata == 1 && idCentro != row.id_cliente" type="button"
+                            (click)="openPopupAsignarDirecto(row,0)" class="btn_fleteProveedor" mat-stroked-button>
+                            FLETE PROVEEDOR</button>
+                        </div>
+                      </div>
+                      <div fxFlex="column" fxLayoutAlign="space-between center" *ngIf="row.tipo_pedido != 'Retorno'">
+                        &nbsp;&nbsp;
+                      </div>
+                      <!-- / ASIGNAR CHOFER CONTRATA PROVEEDOR FERTILIZANTE(RETORNO)  -->
+
+
+                      <div fxFlex="10" fxLayout="column"
+                        style="margin-top: 8px; margin-left: 22px; align-items: flex-end;">
+                        <mat-icon fxFlex="50%">access_time</mat-icon>
+                      </div>
+                      <div fxFlex="30" fxLayout="column" style="margin-top: 13px; align-items: center;">
+                        {{ row._fecha_desde }} > {{ row._fecha_hasta }}
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding: 0.4rem;">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100" style=" width: 100%">
+                      <div fxFlex="10" fxLayout="column" (click)="showMapaPedido(row)">
+                        <span>Gen:</span>
+                        <span>Carg:</span>
+                        <span>Prod:</span>
+                        <span>Origen:</span>
+                        <span>Dest:</span>
+                      </div>
+                      <div fxFlex="45" fxLayout="column" (click)="showMapaPedido(row)">
+                        <span style="font-weight: 600; color:#848587;">{{row.nombre_generador}}</span>
+                        <span style="font-weight: 600; color:#848587;">{{row.nombre_cliente}}</span>
+                        <span style="font-weight: 600; color:#848587;">{{row.producto.descripcion}}</span>
+                        <span style="font-weight: 600; color:#848587;">{{ row.origen.descripcion }}</span>
+                        <span style="font-weight: 600; color:#848587;">{{row.zonaDestino.descripcion}}</span>
+                      </div>
+                      <div fxFlex="45" fxLayout="column">
+                        <div fxLayout="row" layout-align="center" style="height: 80%;" style="margin-top: 12px;">
+                          <!--  PEDIDO CON CUPOS FERTILIZANTES  -->
+                          <div fxFlex="20" fxLayoutAlign="center center">
+                            <mat-icon *ngIf="row.posee_cupo_fer  > 0" aria-hidden="false"
+                              matTooltip="Tiene {{row.posee_cupo_fer}} cupo/s asignado" color="con_cupo">
+                              copyright
+                            </mat-icon>
+                          </div>
+                          <div fxFlex="5"></div>
+                          <div fxFlex="20">
+                            <button matTooltip="Por asignar" mat-mini-fab color="xasig" style="box-shadow: none;"
+                              class="mr-2">
+                              {{ row.cantidad - row.viajes_asignados +  row.reduccion}}
+                            </button>
+                          </div>
+                          <div fxFlex="20">
+                            <button mat-menu-item matTooltip="Difusión"
+                              *ngIf="row.id_lista === null &&  row.difundido === 0 && this.mostrardifusion === true"
+                              (click)="openPopCondicionesViaje(row)">
+                              <mat-icon color="orange">cast</mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="25">
+                            <button mat-icon-button *ngIf="
+                                                              row.id_centro == idCentro &&
+                                                              row.solicitud == 0 &&
+                                                              row.id_lista != null &&
+                                                              row.viajes_x_asignar == 0 &&
+                                                              !rolDador" [disabled]="row.id_lista != null">
+                              <mat-icon color="disabledLista" matTooltip="Pedido Turneada, no hay choferes por asignar"
+                                style="font-size: 32px;">
+                                notifications</mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="
+                                                            row.id_centro == idCentro &&
+                                                            row.solicitud == 0 &&
+                                                            row.id_lista != null &&
+                                                            row.viajes_x_asignar > 0 &&
+                                                            row.disponibles == '0' &&
+                                                            !rolDador
+                                                          " [disabled]="row.id_lista != null">
+                              <mat-icon color="disabledLista" matTooltip="Pedido Turneada, no hay choferes disponibles"
+                                style="font-size: 32px;">
+                                notifications</mat-icon>
+                            </button>
+
+                            <button mat-icon-button *ngIf="
+                                row.id_centro == idCentro &&
+                                row.solicitud == 0 &&
+                                row.id_lista != null &&
+                                row.viajes_x_asignar > 0 &&
+                                row.disponibles != '0' &&
+                                !rolDador
+                              " [disabled]="row.id_lista != null" (click)="addChoferesListaDisponibles(row.id)">
+                              <mat-icon color="primary" (click)="addChoferesListaDisponibles(row.id)"
+                                matTooltip="Pedido Turneada. Asignar Choferes " style="font-size: 32px;"
+                                class="animated infinite swing">
+                                notifications</mat-icon>
+                              <span class="notification-number mat-bg-primary iconoCamionActivo"
+                                *ngIf="row.disponibles != '0'">{{ row.disponibles }}</span>
+                            </button>
+                            <!-- ASIGNAR CHOFER  -->
+                            <button mat-icon-button *ngIf="
+                                row.id_centro == idCentro &&
+                                row.solicitud == 0 &&
+                                row.id_lista == null &&
+                                !rolDador
+                              " [disabled]="
+                                row.contrata == 1 ||
+                                row.bloqueado == 1 ||
+                                rolAdminMuvin ||
+                                row.viajes_mios == 0 ||
+                                (!roloperador && row.id_operador > 0)
+                              " (click)="goAsignarViaje(row)">
+                              <mat-icon [color]="
+                              (row.contrata == 1 ||
+                              row.bloqueado == 1 ||
+                              rolAdminMuvin ||
+                              row.viajes_mios == 0 ||
+                              (!roloperador && row.id_operador > 0)) ? 'noasignarviaje' : 'asignarviaje'" [matTooltip]="
+                              (row.contrata == 1 || row.bloqueado == 1 ||
+                              rolAdminMuvin || row.viajes_mios == 0 || (!roloperador && row.id_operador > 0))
+                                ? 'Asignar Viajes Proveedor' : 'Asignar Viajes'" style="font-size: 32px;">
+                                local_shipping</mat-icon>
+                              <span class="notification-number mat-bg-primary colorPostulados" *ngIf="
+                                  row.difundido == 1 ||
+                                  row.difundido == 4 ||
+                                  row.difundido == 5 ||
+                                  row.difundido == 7
+                                ">
+                                {{ row.postulados }}
+                              </span>
+                            </button>
+                            <!-- / ASIGNAR CHOFER  -->
+
+
+                            <!-- ASIGNAR CHOFER CONTRATA PROVEEDOR FERTILIZANTE(RETORNO)  -->
+                            <button mat-icon-button *ngIf="row.contrata == 1 && idCentro == row.id_cliente"
+                              (click)="goAsignarViaje(row,'F')">
+                              <mat-icon color="asignarviaje" matTooltip="Asignar Viajes Propios"
+                                style="font-size: 32px;">
+                                local_shipping</mat-icon>
+                              <span class="notification-number mat-bg-primary colorPostulados" *ngIf="
+                                  row.difundido == 1 ||
+                                  row.difundido == 4 ||
+                                  row.difundido == 5 ||
+                                  row.difundido == 7
+                                ">
+                                {{ row.postulados }}
+                              </span>
+                            </button>
+                            <!-- / ASIGNAR CHOFER CONTRATA PROVEEDOR FERTILIZANTE(RETORNO)  -->
+                            <button mat-icon-button *ngIf="
+                                row.tipo != 2 &&
+                                row.nombre_observador !== null &&
+                                row.id_observador == idCentro &&
+                                !rolDador
+                              ">
+                              <mat-icon matTooltip="Este Pedido lo Administra el Intermediario: {{
+                                  row.nombre_centro
+                                }} ">
+                                info_outline
+                              </mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="row.solicitud == 1 && !rolDador"
+                              (click)="goConfirmarPedido(row)">
+                              <mat-icon matTooltip="Confirmar Pedido creado por el Cargador: {{
+                                  row.nombre_cliente
+                                }}">
+                                assignment_ind
+                              </mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="rolDador">
+                              <mat-icon matTooltip="Pedido asignado a Centro Muvin">error</mat-icon>
+                            </button>
+                          </div>
+                          <div fxFlex="20">
+                            <button mat-icon-button *ngIf="row.difundido > 1" (click)="mostrarInfoSubPedido(row)"
+                              [disabled]="rolAdminMuvin" matTooltip="Asignar pedido intermediario">
+                              <img src="assets/images/muvin/cargando-panel2.png" alt="" style="height: 32px;" />
+                              <span class="notification-number mat-bg-primary"
+                                style="background: #38BEEB!important; margin-left: 16px;">
+                                {{ row.intermediarios_postulados }}
+                              </span>
+                            </button>
+                          </div>
+                          <div fxFlex="15">
+                            <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="$event.stopPropagation()"
+                              class="hidden-on-open">
+                              <mat-icon matTooltip="Acciones del Pedido" class="text-muted" style="font-size: 43px;">
+                                more_vert</mat-icon>
+                            </button>
+                            <mat-menu #msgMenu="matMenu">
+                              <div *ngIf="rol == '5'">
+                                <button mat-menu-item (click)="openPopReduccion(row)">
+                                  <mat-icon>edit</mat-icon>+/- Camiones
+                                </button>
+                                <button mat-menu-item matTooltip="Ver observaciones"
+                                  (click)="openPopUpObservaciones(row)">
+                                  <mat-icon>feedback</mat-icon> Ver
+                                  observaciones
+                                </button>
+                                <button mat-menu-item matTooltip="Enviar SMS a Choferes" (click)="openPopUpsms(row)">
+                                  <mat-icon>message</mat-icon> SMS a Choferes
+                                </button>
+                              </div>
+                              <div *ngIf="
+                                  (rol === '3' && !row.id_operador) ||
+                                  rol === '11'
+                                ">
+                                <button mat-menu-item (click)="exportAsXLSX(row)" [disabled]="rolAdminMuvin">
+                                  <mat-icon>list</mat-icon>Orden de Carga
+                                </button>
+
+                                <button mat-menu-item *ngIf="
+                                    (!row.bloqueado &&
+                                      row.id_centro == idCentro &&
+                                      row.solicitud == 0) ||
+                                    (!row.bloqueado &&
+                                      rolDador &&
+                                      row.solicitud == 0)
+                                  " (click)="bloquearPedido(row)" [disabled]="rolAdminMuvin">
+                                  <mat-icon>block</mat-icon> Bloquear
+                                </button>
+                                <button mat-menu-item *ngIf="
+                                    (row.bloqueado &&
+                                      row.id_centro == idCentro &&
+                                      row.solicitud == 0) ||
+                                    (row.bloqueado &&
+                                      rolDador &&
+                                      row.solicitud == 0)
+                                  " (click)="desBloquearPedido(row)" [disabled]="rolAdminMuvin">
+                                  <mat-icon>play_circle_outline</mat-icon>
+                                  Desbloquear
+                                </button>
+                                <button mat-menu-item (click)="openPopReduccion(row)" *ngIf="
+                                    (row.id_centro == idCentro &&
+                                      row.solicitud == 0 &&
+                                      row.id_pedido_padre == null) ||
+                                    (rolDador && row.solicitud == 0)
+                                  ">
+                                  <mat-icon>local_shipping</mat-icon>+/- Camiones
+                                </button>
+                                <!-- *ngIf="row.soy_padre" -->
+                                <button mat-menu-item (click)="openPopFecha(row)" *ngIf="
+                                    (row.id_centro == idCentro &&
+                                      row.solicitud == 0 &&
+                                      row.id_pedido_padre == null) ||
+                                    (rolDador && row.solicitud == 0)
+                                  ">
+                                  <mat-icon>today</mat-icon> Extender Fecha
+                                </button>
+                                <!-- *ngIf="row.soy_padre" -->
+                                <button mat-menu-item (click)="mostrarInfoSubPedido(row)" [disabled]="rolAdminMuvin">
+                                  <mat-icon>list_alt</mat-icon>Sub-pedidos
+                                </button>
+                                <button mat-menu-item matTooltip="Enviar SMS a Choferes" (click)="openPopUpsms(row)">
+                                  <mat-icon>message</mat-icon> SMS a Choferes
+                                </button>
+
+                                <button mat-menu-item matTooltip="Ver observaciones"
+                                  (click)="openPopUpObservaciones(row)">
+                                  <mat-icon>feedback</mat-icon> Ver
+                                  observaciones
+                                </button>
+                                <button mat-menu-item *ngIf="row.difundido > 0" matTooltip="Ver difusiones"
+                                  (click)="openPopUpCondiciones(row)">
+                                  <mat-icon>cast</mat-icon> Ver difusiones
+                                </button>
+                                <button mat-menu-item
+                                  *ngIf="tipoTurneada > 0 && row.id_pedido_padre != null && row.id_lista == null"
+                                  matTooltip="Habilitar turneada" (click)="openPopUpTurneada(row)">
+                                  <mat-icon>toc</mat-icon> Habilitar turneada
+                                </button>
+                                <button mat-menu-item *ngIf="
+                                    (row.cantidad == row.estados.Descargado ||
+                                      row.cantidad + row.reduccion ==
+                                        row.estados.Descargado ||
+                                      (row.bloqueado &&
+                                        row.viajes_asignados ==
+                                          row.estados.Descargado)) &&
+                                    (row.id_centro == idCentro || rolDador)
+                                  " (click)="ocultarPedido(row)" [disabled]="rolAdminMuvin">
+                                  <mat-icon>cancel</mat-icon> Ocultar
+                                </button>
+                                <!-- <button [disabled] = "!row.editable" mat-menu-item matTooltip="Editar los datos de la reserva"
+                                  (click)="editarReserva(row)">
+                                  <mat-icon>edit</mat-icon> Editar reserva
+                                </button> -->
+                                <button mat-menu-item matTooltip="Editar los datos de la reserva"
+                                  (click)="editarReserva(row)">
+                                  <mat-icon>edit</mat-icon> Editar reserva
+                                </button>
+                              </div>
+                            </mat-menu>
+                          </div>
+                        </div>
+                        <div fxLayout="row" style=" align-items: flex-end;justify-content: flex-end;">
+                          <div style="margin-top: 20px;">
+                            <button matTooltip="Ver detalle y viajes del pedido" mat-button class="mr-1"
+                              (click)="showDetalle(row)" style="padding: 0 0px">
+                              <small style="font-size: 17px; font-weight: 600; color:#848587;">VER DETALLE</small>
+                            </button>
+                            <button matTooltip="Eliminar Pedido" mat-button class="mr-1" (click)="eliminarPedido(row)"
+                              style="padding: 0 0px">
+                              <small style="font-size: 17px; font-weight: 600; color:#f10745;">ELIMINAR</small>
+                            </button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <!-- DETALLES DEL PEDIDO -->
+        <div fxLayout="row wrap" *ngIf="showDetallePedido">
+          <h4 style="color: #87B1C6; margin-left: 22px;">
+            Detalles del pedido
+          </h4>
+          <span fxFlex></span>
+          <button mat-icon-button matTooltip="Refrescar" color="mr-1" class="mr-1" (click)="refreshDetalle()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+          <span fxFlex></span>
+          <div class="pb-0" style=" align-items:center;justify-content: flex-end;">
+            <button mat-button class="mr-0" (click)="hideDetalle()">
+              <h5>
+                <mat-icon>reply</mat-icon>Volver
+              </h5>
+            </button>
+          </div>
+          <br />
+          <div fxFlex="100" style="margin-left: 10px;">
+            <mat-card class="default" style="background: #FCFDFF; border-radius: 6px;">
+              <mat-card-title>
+                <div fxLayout="row wrap">
+                  <div fxFlex="100" [ngClass]="{
+                                                'mat-color-reserva': pedido.tipo_pedido == 'Retorno',
+                                                'mat-color-cereales': pedido.tipo_pedido != 'Retorno'
+                                              }" style=" width: 100%">
+                    <div fxFlex="7" fxLayout="column">
+                      <div fxFlex [ngStyle]="{'background':pedido.background }"
+                        style=" width: 28px !important;  height: 64px !important;">
+                        <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                          <mat-icon style="color: #FCFDFF;" matTooltip="{{pedido.tooltip}}">arrow_forward</mat-icon>
+                        </div>
+                        <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                          <mat-icon style="color: #FCFDFF;" matTooltip="{{pedido.tooltip}}">arrow_back</mat-icon>
+                        </div>
+                        <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                          <mat-icon style="color: #FCFDFF;" matTooltip="{{pedido.tooltip}}">redo</mat-icon>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="53" fxLayout="column" style="margin-top: 13px;">
+                      &nbsp;&nbsp;ID {{ pedido.id }}
+                    </div>
+
+                    <div fxLayout="column" fxLayoutAlign="space-evenly start">
+                      &nbsp;
+                    </div>
+
+                    <div fxFlex="10" fxLayout="column"
+                      style="margin-top: 8px; margin-left: 22px; align-items: flex-end;">
+                      <mat-icon fxFlex="50%">access_time</mat-icon>
+                    </div>
+                    <div fxFlex="30" fxLayout="column" style="margin-top: 13px; align-items: center;">
+                      {{ pedido._fecha_desde }} > {{ pedido._fecha_hasta }}
+                    </div>
+                  </div>
+                </div>
+              </mat-card-title>
+              <mat-divider></mat-divider>
+              <mat-card-content style="padding: 0.4rem;">
+                <div fxLayout="row wrap">
+                  <div fxFlex="100" style=" width: 100%">
+                    <div fxFlex="10" fxLayout="column">
+                      <span>Gen:</span>
+                      <span>Carg:</span>
+                      <span>Prod:</span>
+                      <span>Origen:</span>
+                      <span>Dest:</span>
+                    </div>
+                    <div fxFlex="47" fxLayout="column">
+                      <span style="font-weight: 600; color:#848587;">{{
+                        pedido.nombre_generador
+                      }}</span>
+                      <span style="font-weight: 600; color:#848587;">{{
+                        pedido.nombre_cliente
+                      }}</span>
+                      <span style="font-weight: 600; color:#848587;">{{
+                        pedido.producto.descripcion
+                      }}</span>
+                      <span style="font-weight: 600; color:#848587;">{{
+                        pedido.origen.descripcion
+                      }}</span>
+                      <span style="font-weight: 600; color:#848587;">{{
+                        pedido.zonaDestino.descripcion
+                      }}</span>
+                    </div>
+                    <div fxFlex="40" fxLayout="column">
+                      <div fxLayout="row" layout-align="center" style="height: 80%;" style="margin-top: 12px;">
+                        <div fxFlex="20">
+                          <button matTooltip="Por asignar" mat-mini-fab color="xasig" style="box-shadow: none;"
+                            class="mr-2">
+                            {{
+                              pedido.cantidad -
+                                pedido.viajes_asignados +
+                                pedido.reduccion
+                            }}
+                          </button>
+                        </div>
+                        <div fxFlex="20">
+                          <button matTooltip="Calada rechazada" mat-mini-fab color="rechazo" style="box-shadow: none;"
+                            class="mr-2">
+                            {{ pedido.estados.Rechazado }}
+                          </button>
+                        </div>
+                        <div fxFlex="25">
+                          <button mat-icon-button *ngIf="
+                              pedido.id_centro == idCentro &&
+                              pedido.solicitud == 0 &&
+                              pedido.id_lista != null &&
+                              pedido.viajes_x_asignar == 0 &&
+                              !rolDador
+                            " [disabled]="pedido.id_lista != null">
+                            <mat-icon color="disabledLista" matTooltip="Pedido Turneada, no hay choferes por asignar"
+                              style="font-size: 32px;">
+                              notifications</mat-icon>
+                            <!--  <span
+                            class="notification-number mat-bg-primary"
+                            style="background: #38BEEB!important; margin-left: 16px;"
+                            *ngIf="pedido.difundido > 0 && pedido.postulados == 0"
+                            >{{ pedido.postulados }}</span
+                          > -->
+                          </button>
+                          <button mat-icon-button *ngIf="
+                              pedido.id_centro == idCentro &&
+                              pedido.solicitud == 0 &&
+                              pedido.id_lista != null &&
+                              pedido.viajes_x_asignar > 0 &&
+                              pedido.disponibles == '0' &&
+                              !rolDador
+                            " [disabled]="pedido.id_lista != null">
+                            <mat-icon color="disabledLista" matTooltip="Pedido Turneada, no hay choferes disponibles"
+                              style="font-size: 32px;">
+                              notifications</mat-icon>
+
+                            <!--  <span
+                            class="notification-number mat-bg-primary"
+                            style="background: #38BEEB!important; margin-left: 16px;"
+                            *ngIf="pedido.difundido > 0 && pedido.postulados == 0"
+                            >{{ pedido.postulados }}</span
+                          > -->
+                          </button>
+
+                          <button mat-icon-button *ngIf="
+                              pedido.id_centro == idCentro &&
+                              pedido.solicitud == 0 &&
+                              pedido.id_lista != null &&
+                              pedido.viajes_x_asignar > 0 &&
+                              pedido.disponibles != '0' &&
+                              !rolDador
+                            " [disabled]="pedido.id_lista != null" (click)="addChoferesListaDisponibles(pedido.id)">
+                            <mat-icon color="primary" (click)="addChoferesListaDisponibles(pedido.id)"
+                              matTooltip="Pedido Turneada. Asignar Choferes " style="font-size: 32px;">
+                              notifications</mat-icon>
+                            <span class="notification-number mat-bg-primary"
+                              style="background: #38BEEB!important; margin-left: 16px;"
+                              *ngIf="pedido.disponibles != '0'">{{ pedido.disponibles }}</span>
+                          </button>
+
+                          <!-- ASIGNAR CHOFER RETORNO  -->
+                          <button mat-icon-button *ngIf="pedido.tipo == 2"
+                            [disabled]="pedido.id_centro == idCentro  && pedido.contrata == 1" (click)="(pedido.id_centro == idCentro  && pedido.contrata == 0)  ? goAsignarViaje(pedido)
+                              : goAsignarViaje(pedido,'F')">
+                            <mat-icon
+                              [color]="(pedido.id_centro == idCentro  && pedido.contrata == 1)  ? 'noasignarviaje' : 'asignarviaje'"
+                              [matTooltip]="(pedido.id_centro == idCentro  && pedido.contrata == 1)  ? 'Asignar Viajes Proveedor' : 'Asignar Viajes Propios'"
+                              style="font-size: 32px;">
+                              local_shipping
+                            </mat-icon>
+                          </button>
+                          <!-- / ASIGNAR CHOFER RETORNO -->
+                          <!-- Asignacion Camion  -->
+                          <button mat-icon-button *ngIf="
+                              pedido.tipo != 2 &&
+                              pedido.id_centro == idCentro &&
+                              pedido.solicitud == 0 &&
+                              pedido.id_lista == null &&
+                              !rolDador
+                            " [disabled]="
+                              pedido.bloqueado == 1 ||
+                              rolAdminMuvin ||
+                              pedido.viajes_mios == 0 ||
+                              (!roloperador && pedido.id_operador > 0)
+                            " (click)="goAsignarViaje(pedido)">
+                            <mat-icon color="asignarviaje" matTooltip="Asignar Viajes" style="font-size: 32px;">
+                              local_shipping</mat-icon>
+                            <span class="notification-number mat-bg-primary"
+                              style="background: #38BEEB!important; margin-left: 16px;" *ngIf="
+                                pedido.difundido > 0 && pedido.postulados > '0'
+                              ">
+                              {{ pedido.postulados }}
+                            </span>
+                            <span class="notification-number mat-bg-primary"
+                              style="background: #38BEEB!important; margin-left: 16px;" *ngIf="
+                                pedido.difundido > 0 && pedido.postulados == '0'
+                              ">
+                              {{ pedido.postulados }}
+                            </span>
+                          </button>
+                          <!--/ Asignacion Camion  -->
+
+                          <button mat-icon-button *ngIf="
+                              pedido.tipo != 2 &&
+                              pedido.nombre_observador != null &&
+                              pedido.id_observador == idCentro &&
+                              !rolDador
+                            ">
+                            <mat-icon matTooltip="Este Pedido lo Administra el Intermediario: {{
+                                pedido.nombre_centro
+                              }} ">
+                              info_outline
+                            </mat-icon>
+                          </button>
+                          <button mat-icon-button *ngIf="pedido.solicitud == 1 && !rolDador"
+                            (click)="goConfirmarPedido(pedido)">
+                            <mat-icon matTooltip="Confirmar Pedido creado por el Cargador: {{
+                                pedido.nombre_cliente
+                              }}">
+                              assignment_ind
+                            </mat-icon>
+                          </button>
+                          <button mat-icon-button *ngIf="rolDador">
+                            <mat-icon matTooltip="Pedido asignado a Centro Muvin">error</mat-icon>
+                          </button>
+                        </div>
+                        <div fxFlex="20">
+                          <button mat-icon-button *ngIf="pedido.difundido > 1" (click)="mostrarInfoSubPedido(pedido)"
+                            [disabled]="rolAdminMuvin" matTooltip="Asignar pedido intermediario">
+                            <img src="assets/images/muvin/cargando-panel2.png" alt="" style="height: 32px;" />
+                            <span class="notification-number mat-bg-primary"
+                              style="background: #38BEEB!important; margin-left: 16px;">
+                              {{ pedido.intermediarios_postulados }}
+                            </span>
+                          </button>
+                        </div>
+                        <div fxFlex="15">
+                          <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="$event.stopPropagation()"
+                            class="hidden-on-open">
+                            <mat-icon matTooltip="Acciones del Pedido" class="text-muted" style="font-size: 43px;">
+                              more_vert</mat-icon>
+                          </button>
+                          <mat-menu #msgMenu="matMenu">
+                            <div *ngIf="rol == '5'">
+                              <!-- *ngIf="
+                                  (pedido.id_centro == idCentro &&
+                                    pedido.solicitud == 0 &&
+                                    pedido.id_pedido_padre == null) ||
+                                  (rolDador && pedido.solicitud == 0)
+                                " -->
+                              <button mat-menu-item (click)="openPopReduccion(pedido)">
+                                <mat-icon>edit</mat-icon>+/- Camiones
+                              </button>
+                              <button mat-menu-item matTooltip="Ver observaciones"
+                                (click)="openPopUpObservaciones(pedido)">
+                                <mat-icon>feedback</mat-icon> Ver observaciones
+                              </button>
+                              <button mat-menu-item matTooltip="Enviar SMS a Choferes" (click)="openPopUpsms(pedido)">
+                                <mat-icon>message</mat-icon> SMS a Choferes
+                              </button>
+                            </div>
+                            <div *ngIf="
+                                (rol === '3' && !pedido.id_operador) ||
+                                rol === '11'
+                              ">
+                              <button mat-menu-item (click)="exportAsXLSX(pedido)" [disabled]="rolAdminMuvin">
+                                <mat-icon>list</mat-icon>Orden de Carga
+                              </button>
+                              <button mat-menu-item *ngIf="
+                                  (!pedido.bloqueado &&
+                                    pedido.id_centro == idCentro &&
+                                    pedido.solicitud == 0) ||
+                                  (!pedido.bloqueado &&
+                                    rolDador &&
+                                    pedido.solicitud == 0)
+                                " (click)="bloquearPedido(pedido)" [disabled]="rolAdminMuvin">
+                                <mat-icon>block</mat-icon> Bloquear
+                              </button>
+                              <button mat-menu-item *ngIf="
+                                  (pedido.bloqueado &&
+                                    pedido.id_centro == idCentro &&
+                                    pedido.solicitud == 0) ||
+                                  (pedido.bloqueado &&
+                                    rolDador &&
+                                    pedido.solicitud == 0)
+                                " (click)="desBloquearPedido(pedido)" [disabled]="rolAdminMuvin">
+                                <mat-icon>play_circle_outline</mat-icon>
+                                Desbloquear
+                              </button>
+                              <button mat-menu-item (click)="openPopReduccion(pedido)" *ngIf="
+                                  (pedido.id_centro == idCentro &&
+                                    pedido.solicitud == 0 &&
+                                    pedido.id_pedido_padre == null) ||
+                                  (rolDador && pedido.solicitud == 0)
+                                ">
+                                <mat-icon>edit</mat-icon>+/- Camiones
+                              </button>
+                              <button mat-menu-item (click)="mostrarInfoSubPedido(pedido)" [disabled]="rolAdminMuvin">
+                                <mat-icon>list_alt</mat-icon>Sub-pedidos
+                              </button>
+                              <button mat-menu-item matTooltip="Enviar SMS a Choferes" (click)="openPopUpsms(pedido)">
+                                <mat-icon>message</mat-icon> SMS a Choferes
+                              </button>
+                              <button mat-menu-item matTooltip="Difusión" *ngIf="
+                                  pedido.id_lista === null &&
+                                  pedido.difundido === 0 &&
+                                  mostrardifusion === true
+                                " (click)="openPopCondicionesViaje(pedido)">
+                                <mat-icon>cast</mat-icon> Difusión
+                              </button>
+                              <button mat-menu-item matTooltip="Ver observaciones"
+                                (click)="openPopUpObservaciones(pedido)">
+                                <mat-icon>feedback</mat-icon> Ver observaciones
+                              </button>
+                              <button mat-menu-item *ngIf="pedido.difundido > 0" matTooltip="Ver difusiones"
+                                (click)="openPopUpCondiciones(pedido)">
+                                <mat-icon>cast</mat-icon> Ver difusiones
+                              </button>
+                              <button mat-menu-item *ngIf="
+                                  (pedido.cantidad ==
+                                    pedido.estados.Descargado ||
+                                    pedido.cantidad + pedido.reduccion ==
+                                      pedido.estados.Descargado ||
+                                    (pedido.bloqueado &&
+                                      pedido.viajes_asignados ==
+                                        pedido.estados.Descargado)) &&
+                                  (pedido.id_centro == idCentro || rolDador)
+                                " (click)="ocultarPedido(pedido)" [disabled]="rolAdminMuvin">
+                                <mat-icon>cancel</mat-icon> Ocultar
+                              </button>
+                            </div>
+                          </mat-menu>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div fxLayout="row wrap">
+            <div fxFlex="95" style=" width: 100%; height: 120px; margin-left: 15px;">
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90"
+                  style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">Total</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indigo" class="mr-2">
+                  {{ pedido.cantidad + pedido.reduccion }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">Por
+                  asignar</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="xasig" class="mr-2">
+                  {{
+                    pedido.cantidad - pedido.viajes_asignados + pedido.reduccion
+                  }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90"
+                  style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">Asignados</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="brown" class="mr-2">
+                  {{ pedido.viajes_asignados }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <p class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">
+                  Pendiente + 50 Km
+                </p>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="teal">
+                  {{ pedido.estados.Pendiente }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90"
+                  style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">Pendiente - 50 km</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="purple" class="mr-2">
+                  {{ pedido.estados.A_Km_de_origen }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <p class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">
+                  Cargados
+                </p>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="cargado" class="mr-2">
+                  {{ pedido.estados.Cargado }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90"
+                  style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">Menos de 50 km</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="menos50" class="mr-2">
+                  {{ pedido.estados.A_km_de_destino }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <span class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">En
+                  Destino</span>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="endestino"
+                  class="mr-2">
+                  {{ pedido.estados.En_destino }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <p class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">
+                  Calada conforme
+                </p>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="calada" class="mr-2">
+                  {{ pedido.estados.Conforme }}
+                </button>
+              </div>
+              <div fxFlex="9" fxLayout="column">
+                <p class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">
+                  Rechazados
+                </p>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="rechazo" class="mr-2">
+                  {{ pedido.estados.Rechazado }}
+                </button>
+              </div>
+              <div fxFlex="10" fxLayout="column">
+                <p class="Rotate-90" style="margin: auto; font-weight: 600; color:#848587; background: #fafafa;">
+                  Vacios
+                </p>
+                <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="vacio" class="mr-2">
+                  {{ pedido.estados.Descargado }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" style="width: 22%">
+            <div fxFlex="95">
+              <h5>
+                <mat-icon style="color: #87B1C6; margin-top: 11px; margin-left: 10px;">person</mat-icon>
+                <div style="color: #87B1C6; margin-top: 13px; float: right;">
+                  Choferes
+                </div>
+              </h5>
+            </div>
+          </div>
+
+
+
+          <div fxLayout="row wrap" style="width: 100%" *ngFor="let viaje of viajesPedido">
+            <mat-divider style="width: 95%;"></mat-divider>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="1" fxLayout="column" fxLayoutAlign="start end">
+                <div fxFlex="100" *ngIf="
+                    viaje.calada_rechazada.length > 0 || viaje.id_estado == 7
+                  " style="background:#D32D26; width: 100%; height:100%;"
+                  matTooltip="Calada Rechazada o Viaje Rechazado"></div>
+                <div fxFlex="100" *ngIf="viaje.bloqueado == 1" style="background:#1E1E21; width: 100%; height:100%; "
+                  matTooltip="Viaje Cancelado"></div>
+                <div fxFlex="100" *ngIf="viaje.id_estado == 9" style="background:#2FB34A;width: 100%; height:100%; "
+                  matTooltip="Viaje Terminado"></div>
+                <div fxFlex="100" *ngIf="viaje.bloqueado == 0 && viaje.desvios != '0'"
+                  style="background:rgb(210, 212, 41);width: 100%;  height:100%; " matTooltip="Viaje con Desvío"></div>
+                <div fxFlex="100" *ngIf="viaje.confirmado == null || viaje.confirmado == 0"
+                  style="background:rgb(129, 41, 212); width: 100%; height:100%;"
+                  matTooltip="Viaje sin confirmar por el chofer"></div>
+                <div *ngIf="viaje.confirmado == 1 && viaje.id_estado != 9"
+                  style="background:rgb(28, 3, 250);  width: 100%; height:100%;"
+                  matTooltip="Viaje confirmado por el chofer"></div>
+                <div fxFlex="100" *ngIf="
+                    viaje.bloqueado == 0 &&
+                    viaje.id_estado != 9 &&
+                    viaje.id_estado != 7 &&
+                    viaje.desvios == '0'
+                  " style="background:#FCFDFF; width: 100%; height:100%;
+                  border-style: solid; border-width: 0.5px;" matTooltip="Viaje Normal"></div>
+              </div>
+              <div fxFlex="26" fxLayout="column">
+                <small style="margin-top: 18px; margin-left: 5px; color:#848587;">{{
+                  viaje.nombre_chofer
+                }}</small>
+              </div>
+              <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="30" fxLayoutAlign="start center">
+                  <mat-icon>directions_bus</mat-icon>
+                </div>
+                <div fxFlex="70" fxLayout="column" style=" height: 40px;" fxLayoutAlign="start center">
+                  <div fxFlex="100" style="height: 15px;" fxLayoutAlign="center center">
+                    <small style=" color:#848587;" matTooltip="Patente camión">
+                      {{ viaje.patente_camion }}
+                    </small>
+                  </div>
+                  <div fxFlex="100" style="height: 15px;margin-top: -8px;">
+                    <small style=" color:#848587;" matTooltip="Patente acoplado">
+                      {{ viaje.patente_acoplado }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="31" fxLayout="column wrap" style=" height: 40px;" fxLayoutAlign="start center">
+                <mat-icon style="margin-top: 12px;" [ngStyle]="{ color: viaje.color_estado }">brightness_1</mat-icon>
+                <small style="margin-top: 16px; color:#848587;">
+                  {{ viaje.nombre_estado_viaje }}
+                </small>
+              </div>
+              <div fxFlex="8" fxLayout="column">
+                <button mat-icon-button style="margin-top: 8px;" (click)="confirmViaje(viaje)"
+                  matTooltip="Carta de Porte / Remito">
+                  <div style="color:#00A6E8 !important;">CP/R</div>
+                </button>
+                <!--  <small *ngIf="viaje.carta_porte !== ''" style="margin-top: 16px; color:#848587;">{{ viaje.carta_porte }}</small> -->
+              </div>
+              <div fxFlex="10" fxLayout="row">
+                <button mat-icon-button (click)="openPopUpInfoPersona(viaje)" matTooltip="Información">
+                  <mat-icon style="color:#00A6E8 !important;margin-top: 8px;">info_outline</mat-icon>
+                </button>
+                <!-- <button mat-icon-button *ngIf="(viaje.siniestro === 1)" (click)="openPopUpSiniestro(viaje)"
+                  matTooltip="Siniestros">
+                  <mat-icon style="color:#00A6E8 !important;margin-top: 16px;">bug_report</mat-icon>
+                </button> -->
+              </div>
+              <div fxFlex="8" fxLayout="row wrap">
+                <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="$event.stopPropagation()"
+                  class="hidden-on-open" style="margin-top: 8px;margin-left: 5px;">
+                  <mat-icon style="color:#00A6E8 !important;" class="text-muted">more_vert</mat-icon>
+                </button>
+                <mat-menu #msgMenu="matMenu">
+                  <div *ngIf="(rol === '3' && !pedido.id_operador) || rol === '11'">
+                    <button mat-icon-button *ngIf="
+                        viaje.bloqueado != 1 &&
+                        viaje.id_estado < 3 &&
+                        viaje.id_destino == null &&
+                        viaje.id_centro_viaje == idCentro
+                      " [disabled]="viaje.id_estado >= 5" matTooltip="Destino"
+                      (click)="confirmViajeDestino(viaje, pedido.tipo_pedido)">
+                      <mat-icon>directions_boat</mat-icon>
+                    </button>
+
+                    <button mat-icon-button *ngIf="
+                        viaje.bloqueado != 1 &&
+                        viaje.id_estado < 3 &&
+                        viaje.id_destino != null &&
+                        viaje.id_centro_viaje == idCentro
+                      " [disabled]="viaje.id_estado >= 5" matTooltip="Confirmar Carga" (click)="confirmViaje(viaje)">
+                      <mat-icon>developer_board</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="
+                        viaje.bloqueado != 1 &&
+                        viaje.id_centro_viaje == idCentro
+                      " [disabled]="viaje.id_estado >= 5" matTooltip="Parámetros Comerciales"
+                      (click)="confirmViajeParametros(viaje)">
+                      <mat-icon>settings</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Resultado Calada"
+                      *ngIf="viaje.id_estado > 2 && viaje.id_estado < 5" [disabled]="
+                        viaje.id_estado >= 5 &&
+                        viaje.id_centro_viaje == idCentro
+                      " (click)="gotoEstadoDescarga(viaje)">
+                      <mat-icon>local_shipping</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Confirmar Vacio" *ngIf="
+                        viaje.id_estado > 4 &&
+                        viaje.id_estado !== 9 &&
+                        viaje.id_centro_viaje == idCentro
+                      " [disabled]="viaje.id_estado < 3" (click)="descargarViaje(viaje, pedido.tipo_pedido)">
+                      <mat-icon>assignment_turned_in</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Desvío" *ngIf="
+                        viaje.id_estado != 9 &&
+                        viaje.id_estado >= 3 &&
+                        viaje.bloqueado != 1 &&
+                        viaje.id_centro_viaje == idCentro
+                      " [disabled]="viaje.id_estado < 3" (click)="desvioViaje(viaje, pedido.tipo_pedido)">
+                      <mat-icon>shuffle</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Whatsapp" *ngIf="pedido.id_centro == idCentro">
+                      <img src="assets/images/muvin/whatsapp.png" alt="" (click)="whatsapp(viaje)" />
+                    </button>
+
+                    <!--**** FLUJO FLETE RETORNO ****-->
+
+                    <!-- Whatsapp Retorno -->
+                    <button mat-icon-button matTooltip="Whatsapp"
+                      *ngIf="pedido.tipo == 2 && pedido.id_cliente == idCentro && pedido.contrata == 1">
+                      <img src="assets/images/muvin/whatsapp.png" alt="" (click)="whatsapp(viaje)" />
+                    </button>
+                    <!-- Cancelar Viaje Retorno -->
+                    <button mat-icon-button matTooltip="Cancelar Viaje" *ngIf="
+                        pedido.tipo == 2  &&
+                        viaje.bloqueado != 1 &&
+                        viaje.id_estado != 9" (click)="bloquearViaje(viaje)"
+                      [disabled]="pedido.id_cliente != idCentro && pedido.contrata == 1">
+                      <mat-icon>highlight_off</mat-icon>
+                    </button>
+                    <!-- / Cancelar Viaje Retorno -->
+
+                    <!--**** / FLUJO FLETE RETORNO ****-->
+
+                    <!-- Cancelar Viaje -->
+                    <button mat-icon-button matTooltip="Cancelar Viaje" *ngIf="
+                        pedido.tipo != 2 &&
+                        viaje.bloqueado != 1 &&
+                        viaje.id_estado != 9 &&
+                        viaje.id_centro_viaje == idCentro
+                      " (click)="bloquearViaje(viaje)" [disabled]="rolAdminMuvin  ">
+                      <mat-icon>highlight_off</mat-icon>
+                    </button>
+                    <!-- / Cancelar Viaje -->
+
+                    <button mat-icon-button matTooltip="Descarga de Carta Porte" *ngIf="viaje.pdf === 1"
+                      (click)="descargarArchivo(1, viaje.id)">
+                      <mat-icon>system_update</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Descarga de seguro" *ngIf="viaje.seguro === 1"
+                      (click)="descargarArchivo(2, viaje.id)">
+                      <mat-icon>assignment_returned</mat-icon>
+                    </button>
+                  </div>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-sidenav>
+      <!-- Right side  div del  MAPA -->
+      <div fxLayout="row" fxLayoutWrap="wrap" style="height: 65vh;">
+        <div class="full-width">
+          <div fxLayout="row wrap">
+            <div fxFlex="100%">
+              <mat-card style="height: 645px; width:98%; padding: 0px; background: rgb(43, 196, 243);">
+                <!--div fxLayout="row" fxLayout.lt-sm="column" class="shop-top-toolbar">
+                    <button mat-icon-button class="mr-1" (click)="toggleSideNav()">
+                      <mat-icon>short_text</mat-icon>
+                    </button>
+                  </div-->
+                <agm-map [ngStyle]="{ height: '645px' }" [zoom]="zoom" [latitude]="mapCenter.lat"
+                  [longitude]="mapCenter.lng" [mapTypeId]="'roadmap'" [mapTypeControl]="true">
+                  <div *ngIf="showChoferesPedido">
+                    <!-- agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles"-->
+                    <agm-marker-spider>
+                      <div *ngFor="let viaje of marcadoresViaje">
+                        <agm-marker [latitude]="viaje.latitud" [longitude]="viaje.longitud" [iconUrl]="viaje.icon"
+                          (markerClick)="clickedMarker(infoWindow)">
+                          <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                            <p>
+                              <strong>Patente:</strong> {{ viaje.patente }}
+                            </p>
+                            <p *ngIf="viaje.patente_acoplado != null">
+                              <strong>Patente Acoplado:</strong> {{ viaje.patente_acoplado }}
+                            </p>
+                            <p>
+                              <strong>Chofer:</strong> {{ viaje.nombreChofer }}
+                            </p>
+                            <p>
+                              <strong>Transportista:</strong> {{ viaje.nombreTransportista }}
+                            </p>
+                            <p>
+                              <strong>Celular:</strong> {{ viaje.telefono }}
+                            </p>
+                            <p>
+                              <strong>Última actualización:</strong> {{ viaje.updateAt }}
+                            </p>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
+                      <div *ngFor="let viaje of viajes">
+                        <agm-direction *ngIf="viaje.bloqueado === 0 && viaje.id_estado != 9" [origin]="viaje.l_carga"
+                          [destination]="viaje.l_destino" [renderOptions]="viaje.renderOptions">
+                        </agm-direction>
+                        <agm-marker *ngIf="viaje.bloqueado === 0 && viaje.id_estado != 9"
+                          [latitude]="viaje.latitud_destino" [longitude]="viaje.longitud_destino"
+                          [iconUrl]="iconUrlcargaBlue" (markerClick)="clickedMarker(infoWindow)">
+                          <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                            <p>
+                              <strong>Destino del viaje</strong>
+                            </p>
+                            <p>
+                              {{ viaje.nombre_destino }}
+                            </p>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
+                    </agm-marker-spider>
+                    <!--/agm-marker-cluster-->
+
+                    <agm-marker [latitude]="pedido.origen.latitud" [longitude]="pedido.origen.longitud"
+                      [iconUrl]="iconUrlcargaYellow" (markerClick)="clickedMarker(infoWindow)">
+                      <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                        <p>
+                          <strong>Lugar de Carga</strong>
+                        </p>
+                        <p>
+                          {{ pedido.origen.descripcion }}
+                        </p>
+                        <p>
+                          <strong>Dirección:</strong> {{ pedido.origen.direccion }}
+                        </p>
+                        <p>
+                          <strong>Persona Contacto:</strong> {{ pedido.origen.nombre_contacto }}
+                        </p>
+                        <p>
+                          <strong>Mail Contacto:</strong> {{ pedido.origen.email }}
+                        </p>
+                        <p>
+                          <strong>Telefono de Contacto:</strong> {{ pedido.origen.telefono }}
+                        </p>
+                      </agm-info-window>
+                    </agm-marker>
+
+                    <agm-marker *ngIf="
+                        pedido.tipo_pedido == 'Corto' ||
+                        pedido.tipo_pedido == 'Retorno'
+                      " [latitude]="pedido.zonaDestino.latitud" [longitude]="pedido.zonaDestino.longitud"
+                      [iconUrl]="iconUrlcargaRed" (markerClick)="clickedMarker(infoWindow)">
+                      <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                        <p>
+                          <strong>Destino</strong>
+                        </p>
+                        <p>
+                          {{ pedido.zonaDestino.descripcion }}
+                        </p>
+                      </agm-info-window>
+                    </agm-marker>
+                  </div>
+                  <!-- Si ha escogido la opcion de mostrar todos los choferes -->
+                  <div *ngIf="showAllChoferes ">
+                    <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                      <agm-marker-spider>
+                        <div *ngFor="let chofer of marcadores">
+                          <agm-marker *ngIf="chofer.latitud !== 0" [latitude]="chofer.latitud"
+                            [longitude]="chofer.longitud" [iconUrl]="chofer.icon"
+                            (markerClick)="clickedMarker(infoWindow)">
+                            <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                              <p>
+                                <strong>Patente:</strong> {{ chofer.patente }}
+                              </p>
+                              <p *ngIf="chofer.patente_acoplado != null">
+                                <strong>Patente Acoplado:</strong> {{ chofer.patente_acoplado }}
+                              </p>
+                              <p>
+                                <strong>Chofer:</strong> {{ chofer.nombreChofer }}
+                              </p>
+                              <p>
+                                <strong>Transportista:</strong> {{ chofer.nombreTransportista }}
+                              </p>
+                              <p>
+                                <strong>Celular:</strong> {{ chofer.telefono }}
+                              </p>
+                              <p>
+                                <strong>Última actualización:</strong> {{ chofer.updateAt }}
+                              </p>
+                            </agm-info-window>
+                          </agm-marker>
+                        </div>
+                      </agm-marker-spider>
+                    </agm-marker-cluster>
+                    <!-- <ng-container *ngIf="!rolDador; else elseTemplate">
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chofer of choferesDisponibles">
+                            <agm-marker *ngIf="chofer.latitud !== 0" [latitude]="chofer.latitud"
+                              [longitude]="chofer.longitud" [iconUrl]="chofer.icon"
+                              (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chofer.patente }}
+                                </p>
+                                <p *ngIf="chofer.patente_acoplado != null">
+                                  <strong>Patente Acoplado:</strong> {{ chofer.patente_acoplado }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chofer.nombre_chofer }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chofer.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chofer.telefono }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chofer.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chofer of choferesDisponiblesReloj">
+                            <agm-marker *ngIf="chofer.latitud !== 0" [latitude]="chofer.latitud"
+                              [longitude]="chofer.longitud" [iconUrl]="chofer.icon"
+                              (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chofer.patente }}
+                                </p>
+                                <p *ngIf="chofer.patente_acoplado != null">
+                                  <strong>Patente Acoplado:</strong> {{ chofer.patente_acoplado }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chofer.nombre_chofer }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chofer.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chofer.telefono }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chofer.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chof of choferesViajes">
+                            <agm-marker *ngIf="chof.latitud !== 0" [latitude]="chof.latitud" [longitude]="chof.longitud"
+                              [iconUrl]="chof.icon" (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chof.patente }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chof.nombre_persona }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chof.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chof.celular }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chof.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chof of choferesViajesReloj">
+                            <agm-marker *ngIf="chof.latitud !== 0" [latitude]="chof.latitud" [longitude]="chof.longitud"
+                              [iconUrl]="chof.icon" (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chof.patente }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chof.nombre_persona }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chof.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chof.celular }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chof.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chof of choferesViajes">
+                            <agm-marker *ngIf="chof.latitud !== 0" [latitude]="chof.latitud" [longitude]="chof.longitud"
+                              [iconUrl]="chof.icon" (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chof.patente }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chof.nombre_persona }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chof.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chof.celular }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chof.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                      <agm-marker-cluster [maxZoom]="10" [styles]="clusterStyles">
+                        <agm-marker-spider>
+                          <div *ngFor="let chof of choferesViajesReloj">
+                            <agm-marker *ngIf="chof.latitud !== 0" [latitude]="chof.latitud" [longitude]="chof.longitud"
+                              [iconUrl]="chof.icon" (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Patente:</strong> {{ chof.patente }}
+                                </p>
+                                <p>
+                                  <strong>Chofer:</strong> {{ chof.nombre_persona }}
+                                </p>
+                                <p>
+                                  <strong>Transportista:</strong> {{ chof.nombre_transportista }}
+                                </p>
+                                <p>
+                                  <strong>Celular:</strong> {{ chof.celular }}
+                                </p>
+                                <p>
+                                  <strong>Última actualización:</strong> {{ chof.update_at }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-marker-spider>
+                      </agm-marker-cluster>
+                    </ng-template> -->
+                  </div>
+                </agm-map>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-container>
+  </mat-card>
+</div>
+<!-- <app-customizer></app-customizer> -->
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen" style="color: #fff; margin-right:28px;">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" matTooltip="Filtrar Pedidos">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen" style="height: 85vh;">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Panel de Pedidos y Viajes</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="limpiarFiltros()">
+        Limpiar Filtro <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Tipo de pedido" [value]="filtro.tipo" name="id_tipo_pedido" class="mb-1"
+            (selectionChange)="updateFilter($event, 'tipo')">
+            <mat-option *ngFor="let tipo of tipos_pedido" [value]="tipo.id" ngDefaultControl>
+              {{ tipo.tipo }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="generador" [value]="filtro.generador" placeholder="Generador"
+            (keyup)="updateFilter($event, 'generador')" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="origen" [value]="filtro.origen" placeholder="Lugar de Carga"
+            (keyup)="updateFilter($event, 'origen')" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="zonadestino" [value]="filtro.zonadestino" placeholder="Zona Destino"
+            (keyup)="updateFilter($event, 'zonadestino')" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="producto" [value]="filtro.producto" placeholder="Producto"
+            (keyup)="updateFilter($event, 'producto')" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="dador" [value]="filtro.dador" placeholder="Cargador"
+            (keyup)="updateFilter($event, 'dador')" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput name="contrato" [value]="filtro.contrato" placeholder="Contrato/Fijación"
+            (keyup)="updateFilter($event, 'contrato')" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="appDatepicker" [value]="filtro.fechadesde" placeholder="Fecha Desde"
+            [max]="maxDate" (dateInput)="updateFilter($event, 'fechadesde')" style="color: rgba(0, 0, 0, 0.87);"
+            (dateChange)="updateFilter($event, 'fechadesde')" disabled />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+          <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="appDatepicker2" [value]="filtro.fechahasta" placeholder="Fecha Hasta"
+            [min]="minDate" (dateInput)="updateFilter($event, 'fechahasta')" style="color: rgba(0, 0, 0, 0.87);"
+            (dateChange)="updateFilter($event, 'fechahasta')" disabled />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+          <mat-datepicker #appDatepicker2></mat-datepicker>
+          <mat-datepicker #appDatepicker2 disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Filtros especiales" [value]="filtroespeciales" name="filtros_especiales" class="mb-1"
+            (selectionChange)="updateFilter2($event)" multiple>
+            <mat-option *ngFor="let filtro_esp of filtros_especiales" [value]="filtro_esp.id" ngDefaultControl>
+              {{ filtro_esp.tipo }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div id="app-customizer1" style="z-index: 19999;" *ngIf="tipocentro != 0 || rol == '5'">
+
+  <!-- <div class="handle" style="color: #fff; margin-right: 15px;">
+    <p style="margin: 4px 3px 0px; font-size: small;">Pedido</p>
+    <button mat-fab class="mat-verde-pedido" (click)="openPopUpSeleccionarPedido()" matTooltip="Adicionar Pedidos">
+      <mat-icon style="margin-top: -7px;">add</mat-icon>
+    </button>
+  </div>
+  <div class="handle" style="color: #fff; margin-right: 15px;">
+    <p style="margin: 4px 3px 0px; font-size: small;">Reserva</p>
+    <button mat-fab class="mat-color-reserva" (click)="gotoAddFertilizantes()" matTooltip="Crear Reserva">
+      <mat-icon style="margin-top: -7px;">add</mat-icon>
+    </button>
+  </div> -->
+</div>

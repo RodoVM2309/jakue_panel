@@ -1,0 +1,55 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Pedidos Asignados</h4>
+</div>
+<div>
+    <button style="border-radius: 100px !important; margin-top: 22px !important; margin-bottom: 6px !important;"
+      mat-raised-button  color="primary" (click)="gotoAddPedido()">Nuevo Pedido Cereal&nbsp;&nbsp;&nbsp;
+      <img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt="">                  
+    </button><br>
+    <button style="border-radius: 100px !important; margin-top: 1px !important; margin-bottom: 6px !important;"
+      mat-raised-button  color="primary" (click)="gotoAddPedidoRetorno()">Nuevo Pedido Retorno
+      <img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt="">                  
+    </button>
+ </div>
+<mat-card-content>
+
+    <kendo-grid 
+    [data]="gridView" 
+    [groupable]="true" 
+    [height]="600" 
+    [group]="groups" 
+    style="width: 100%" 
+    (groupChange)="groupChange($event, pedidos)">
+      <kendo-grid-messages groupPanelEmpty="Arrastrar hasta aquí el título de la columna que desee agrupar." pagerPage="Página"
+        pagerOf="de" pagerItems="pedido" pagerItemsPerPage="pedido por página">
+      </kendo-grid-messages>      
+       <kendo-grid-column field="tipo_pedido" title="Pedido" width="60">
+      </kendo-grid-column>
+      <kendo-grid-column field="nombre_centro" title="Centro" width="70">
+      </kendo-grid-column>      
+      <kendo-grid-column field="fecha_desde" title="Fecha Desde" width="50">
+        <ng-template kendoGridGroupHeaderTemplate let-value="value">
+          {{value}}
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="fecha_hasta" title="Fecha Hasta" width="50">
+      </kendo-grid-column>
+      <kendo-grid-column field="producto.descripcion" title="Producto" width="50">
+      </kendo-grid-column>
+      <kendo-grid-column field="cantidad" title="Cantidad de viajes" width="50">
+      </kendo-grid-column>
+     
+      
+      <kendo-grid-column field="origen.descripcion" title="Lugar de carga" width="70">
+          <ng-template kendoGridCellTemplate let-pedidos>
+              <div *ngIf="pedidos.tipo_pedido == 'Cereal'">{{pedidos.origen.descripcion}}</div>
+              <div *ngIf="pedidos.tipo_pedido == 'Retorno'">{{pedidos.origen[0].descripcion}}</div>
+            </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="zonaDestino.descripcion" title="Zona destino" width="60">
+      </kendo-grid-column>
+      
+    </kendo-grid>
+  </mat-card-content>
+

@@ -1,0 +1,143 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{data.title}}</h4>
+  <span fxFlex></span>
+    <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <agm-map [ngStyle]="{height: '300px'}" [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeId]="'hybrid'"
+      [mapTypeControl]="true">
+      <agm-marker *ngFor="let chofer of choferes; let i = index" 
+      [latitude]="chofer.latitud" 
+      [longitude]="chofer.longitud"
+      [iconUrl]="iconUrlGreen" 
+      [title]="chofer.nombre_chofer" (markerClick)="clickedMarker(infoWindow)">
+        <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>            
+              <strong>              
+                <p>
+                  <strong>Chofer:</strong> {{ chofer.nombre_chofer }}
+                </p>
+                <p>
+                  <strong>Teléfono:</strong> {{chofer.telefono}}
+                </p>
+                <p>
+                  <strong>Email:</strong> {{chofer.email}}
+                </p>
+                <p>
+                  <strong>Fecha Registro:</strong> {{chofer.fecha}}
+                </p>
+                <p>
+                  <strong>Tipo de Acoplado:</strong> {{chofer.tipo_acoplado}}
+                </p>
+                <p>
+                  <strong>Último GPS:</strong> {{chofer.last_update}}
+                </p>
+                <p>
+                 <strong>Zona:</strong> {{chofer.zona}}
+                </p> 
+                <p>
+                 <strong>Patente camión:</strong> {{chofer.patente}}
+                </p> 
+                <p>
+                 <strong>Patente acoplado:</strong> {{chofer.patente_acoplado}}
+                </p> 
+              </strong>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </mat-card-content>
+
+  <mat-card-content class="p-0">
+    <button mat-button color="primary" *ngIf="llamar" matTooltip="Enviar SMS seleccionados" (click)="openPopUpsms()">
+      <mat-icon>message</mat-icon>
+    </button>
+    <ngx-datatable #myTable class="material expandable" 
+    [rows]="choferes"
+    [columnMode]="'force'" 
+    [headerHeight]="50"
+    [footerHeight]="50" 
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [limit]="8" 
+    [externalPaging]="false" 
+    [selected]="seleccionados"
+    [selectionType]="'checkbox'"
+    (select)='onSelect($event)'>
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.id }}
+            </ng-template>
+          </ngx-datatable-column> -->
+          
+      <ngx-datatable-row-detail [rowHeight]="50" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+          <div style="padding-left: 60px;font-size:14px">
+            <div>{{ row?.nombre_chofer }}, Telefono: {{ row?.telefono }}, Patente: {{row?.patente}}, Patente Acoplado:{{row?.patente_acoplado}}</div>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+      <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+            title="Expandir/Colapsar Fila"
+            (click)="toggleExpandRow(row)"
+            class="desktop-hidden"></a>
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+          <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
+        </ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+          <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Nombre" [flexGrow]="2" [minWidth]="200" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_chofer }}
+        </ng-template>
+      </ngx-datatable-column> 
+      <ngx-datatable-column name="Telefono" [flexGrow]="1" [minWidth]="110" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.telefono }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="showEmpresa"  name="Empresa de Transporte" [flexGrow]="1" [minWidth]="300">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_transportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente Camión"  [flexGrow]="1"  [minWidth]="110" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente }}
+        </ng-template>
+      </ngx-datatable-column>  
+      <ngx-datatable-column name="Patente Acoplado"  [flexGrow]="1"  [minWidth]="100">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Tipo Acoplado" [flexGrow]="2" [minWidth]="200">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.tipo_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Distancia"  [flexGrow]="1"  [minWidth]="80" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.distancia }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column  [width]="80" name="Acciones" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="pb-1">
+            <button mat-icon-button mat-sm-button matTooltip="Enviar Whatsapp">
+              <img src="assets/images/muvin/whatsapp.png" alt="" (click)="openPopUpwhatsapp(row)">
+            </button>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,97 @@
+div.page-wrap {
+    background-image: url('../../../../assets/images/muvin/back_login_muvin_01.jpg');
+    height: 100% !important;
+    position: relative;
+}
+
+.principal{
+    height: 90%!important;
+}
+
+div.margin {
+  position: relative;
+	top: -94%;
+  width: 96%;
+  left: 2%;
+  height: 90%;
+}
+
+div.page-wrap > div.terms-hold{
+    width: 96%;
+    margin: 0 auto;
+}
+
+div.page-wrap > div.terms-hold > mat-card > mat-card-content > div.terms-header{
+    float: left;
+    width: 30%;
+}
+
+
+
+/*mat-sidenav-content.mat-drawer-content{
+
+}*/
+
+//mat-sidenav-container > mat-sidenav-content
+.contenido{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 85%;
+}
+
+mat-card.contenido{
+    padding-bottom: 1px!important;
+    padding-right: 1px!important;
+}
+
+
+
+mat-list > mat-list-item.inactive {
+    color: #A0A7AA !important;
+    font-weight: bold;
+    height: 27px;
+}
+
+mat-list > mat-list-item.activo{
+    color: #24529e !important;
+    font-weight: bold;
+    text-align: left;
+    height: 27px;
+}
+
+.mat-list-item{
+    height: 25px;
+}
+
+.mat-list-item {
+    width: 25rem;
+    font-size: 9px!important;
+    //background-color: red;
+}
+mat-sidenav{
+    overflow-y: hidden!important;
+}
+
+div.mat-list-item-content{
+    font-size:12px!important;
+}
+
+.sidebar {
+    width: 26rem;
+}
+
+
+.titulo{
+    color: #24529e;font-weight: bold;text-align: left;font-size: 30px;
+}
+
+.subtitulo{
+    color: #24529e;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 17px;
+}
+
+.cuerpo{
+    color: #888888
+}

@@ -1,0 +1,212 @@
+<div fxLayout="column wrap">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="background: darkblue; color: #E9E9EA;height: 50px;">
+      <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+        <mat-icon>info</mat-icon>
+      </div>
+      <div fxFlex="90" fxLayoutAlign="start start" style="margin-top:15px;">
+        <h3>INFORMACIÓN DE CUPOS ASIGNADOS</h3>
+      </div>
+      <span FxFlex></span>
+      <div fxFlex="5" style="margin-top:8px;margin-left:15px;">
+        <button mat-icon-button matTooltip="Cerrar información de cupos" color="m-0" class="m-0" (click)="submit()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 50px;">
+      <div fxFlex="3" style="margin-top:15px;margin-left:15px;"></div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Cupo: </strong>
+        <strong style="font-size: 14px;">{{ data.payload.total }} / {{ data.payload.pendiente }} </strong>
+      </div>
+      <div fxFlex="57" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Receptor: </strong>
+        <strong style="font-size: 14px;">{{ data.payload.demandante }} </strong>
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Producto: </strong>
+        <strong style="font-size: 14px;">{{ producto }}.</strong>
+      </div>
+
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="first_column">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+          <td mat-cell *matCellDef="let cupo" style="width: 5px;height: 40px;">
+            <div style="background:#87B1C5; height: 100%; text-align: center;">
+              <mat-icon *ngIf="cupo == expandedElement" style="color: #FCFDFF;"
+                (click)="mostrarDetallesCupos(expandedElement,cupo)">expand_more </mat-icon>
+              <mat-icon *ngIf="cupo !== expandedElement" style="color: #FCFDFF;"
+                (click)="mostrarDetallesCupos(expandedElement,cupo)">chevron_right </mat-icon>
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef style="text-align: right;">{{demandasCupo.length}}-</td>
+        </ng-container>
+        <ng-container matColumnDef="fechaCupo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Desde</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.fechaDesde }}</div>
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef>solicitudes </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaHasta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Hasta</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.fechaHasta }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="codigoCosecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cosecha</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.codigoCosecha }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container> -->
+        <ng-container matColumnDef="numeroContrato">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Contrato/Fijación</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.contrato }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef>TOTALES</td>
+        </ng-container>
+        <ng-container matColumnDef="zona">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Zona</th>
+          <td mat-cell *matCellDef="let cupo">
+            {{  cupo.zona }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <ng-container matColumnDef="cantidad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.cantidad }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalCantidad() }} </td>
+        </ng-container>
+        <ng-container matColumnDef="asignado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Asignados</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.asignado }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalAsignados() }} </td>
+        </ng-container>
+        <ng-container matColumnDef="observaciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.observaciones }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="caratula_mtr" *ngIf="usaMTR">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Carátula MtR</th>
+          <td mat-cell *matCellDef="let cupo">
+            <div (click)="mostrarDetallesCupos(expandedElement,cupo)">{{ cupo.caratula_mtr }}</div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Editar cant. cupos</th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <button mat-icon-button matTooltip="Cambiar Cantidad de Cupos" (click)="openPopUpChanceDemanda(cupo)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="redirigir" *ngIf="usaMTR">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Redirigir</th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <button [disabled]="cupo.redirigida == '1'"
+              mat-icon-button matTooltip="Generar solicitud de cupos a partir de una solicitud existente"
+              (click)="addCupoSolicitados(cupo)">
+              <mat-icon>north_east</mat-icon>
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>acciones</th>
+          <td mat-cell *matCellDef="let cupo" style="width: 10px">
+            <div>
+              <button mat-icon-button [matMenuTriggerFor]="msgMenu" style="padding: 10px"
+                (click)="$event.stopPropagation()" class="hidden-on-open">
+                <mat-icon class="text-muted">more_vert</mat-icon>
+              </button>
+              <mat-menu #msgMenu="matMenu">
+                <button mat-menu-item *ngIf="cupo.asignado>0"
+                  (click)="mostrarDetallesCuposExpandir(expandedElement,cupo)" matTooltip="Cupos Asignados">
+                  Cupos Asignados
+                </button>
+                <button mat-menu-item matTooltip="Cambiar Cantidad de Cupos" (click)="openPopUpChanceDemanda(cupo)">
+                  Cambiar Cantidad de Cupos
+                </button>
+              </mat-menu>
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let cupo" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" [@detailExpand]="cupo == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="example-element-description">
+                <strong style="font-size: 14px; color: black">Cupos Asignados:</strong>
+                <div *ngIf="cupo == expandedElement && cupo.asignado != 0">
+                  <div fxLayout="row wrap" style="margin-left: 20px;">
+                    <div fxFlex="100" style="color: rgb(71, 68, 68)">
+                      <div fxFlex="20" >Alfanumerico</div>
+                      <div fxFlex="20">Fecha</div>
+                      <div fxFlex="20">Carta Porte</div>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" *ngFor="let detalle of detallesSolicitud" style="margin-left: 20px;">
+                    <div fxFlex="100">
+                      <div fxFlex="20"> {{detalle.idCupoTerminal}}</div>
+                      <div fxFlex="20">{{detalle.fecha}}</div>
+                      <div fxFlex="20">{{detalle.cartaPorte}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="cupo == expandedElement && cupo.asignado==0">
+                  No hay cupos asignados
+                </div>
+                <!--  <p style="color: black">{{cupo.observaciones}}</p> -->
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let cupo; columns: displayedColumns" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === cupo"
+          (click)="expandedElement = (expandedElement !== cupo) ? cupo : null">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+      </table>
+    </div>
+
+  </div>
+  <div fxLayout="row wrap" style="height:20px;"></div>
+  <!--div fxLayout="row wrap">
+      <mat-paginator
+        #paginator
+        class="mat-paginator-sticky"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+      >
+      </mat-paginator>
+    </div-->
+</div>

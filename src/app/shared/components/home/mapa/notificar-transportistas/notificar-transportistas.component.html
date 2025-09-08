@@ -1,0 +1,141 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="6"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong>NOTIFICAR A TRANSPORTISTAS </strong>
+      </div>
+      <div fxFlex="14"></div>
+    </div>
+  </div>
+  <div class="cuerpo" fxLayout="row wrap">
+    <div  fxLayout="row wrap" fxLayoutAlign="start start" class="row-cuerpo">
+      <div fxFlex="100" fxLayoutAlign="start center">
+        <div fxFlex="4"></div>
+        <div fxFlex="56">
+          <span style="color: blue;font-size: medium;"> Seleccionar destinatarios</span>
+        </div>
+        <div fxFlex="32" fxLayoutAlign="end center">
+          Total de choferes: <div fxFlex="4"></div>{{this.choferes.length}}
+        </div>
+        <div fxFlex="8"></div>
+
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start start" style="width: 100%;margin-top: -20px;">
+      <div fxFlex="100">
+        <div fxFlex="4"></div>
+        <div fxFlex="92" class="example-table-container">
+          <table mat-table [dataSource]="dataSource" class="example-table" matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="nombre_chofer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Chofer</th>
+              <td mat-cell *matCellDef="let element">
+                <div>{{ element.nombre_chofer }}</div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="patente">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Patentes
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <div>{{ element.patente }}</div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="hora_arribo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Hora arribo
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <div>{{ element.hora_arribo }}</div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <div fxLayout="row wrap">
+                  <div fxFlex="60" fxLayoutAlign="end center">
+                    <span style="color:#16d326">Notificar</span>
+                  </div>
+                  <div fxFlex="20" fxLayoutAlign="center center"></div>
+                  <div fxFlex="20" fxLayoutAlign="center center">
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <div fxLayout="row wrap">
+                  <div fxFlex="40" fxLayoutAlign="center center"></div>
+                  <div fxFlex="20" fxLayoutAlign="center center">
+                    <button mat-icon-button matTooltip="Whatsapp">
+                      <img src="assets/images/muvin/whatsApp_Logo_1.png" style="width: 80%;margin-top: -10px;" alt="" (click)="gotoWhatsapp(row)" />
+                    </button>
+                  </div>
+                  <div fxFlex="20" fxLayoutAlign="center center"></div>
+                  <div fxFlex="20" fxLayoutAlign="center center">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+          </table>
+        </div>
+        <div fxFlex="4"></div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start end" style=" margin-top: 20px; width: 100%;height: 30px;">
+      <div fxFlex="6"></div>
+      <div fxFlex="90" fxLayoutAlign="start center">
+        <label style="color: blue">Mensaje</label>
+      </div>
+      <div fxFlex="4"></div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start end" class="div-mensaje">
+      <div fxFlex="6"></div>
+      <div fxFlex="90" fxLayoutAlign="start center">
+        <mat-form-field class="full-width">
+          <textarea matInput name="body" placeholder="Texto mensaje"  #body [formControl]="itemForm.controls['body']"
+            style="height: 10vh" rows="2" maxlength="250">
+            </textarea>
+            <mat-hint align="end">{{body.value.length }} / 250</mat-hint>
+          <small *ngIf="
+                itemForm.controls['body'].hasError('required') &&
+                itemForm.controls['body'].touched
+              " style="margin-left: 50px" class="form-error-msg">
+            El cuerpo del mensaje es obligatorio
+          </small>
+        </mat-form-field>
+      </div>
+      <div fxFlex="4"></div>
+    </div>
+  </div>
+  <div class="footer" fxLayout="row wrap " fxLayoutAlign="start end">
+    <div fxLayout="row wrap" fxLayoutAlign="center start" class="div-botones">
+      <div fxFlex="100" class="mt-1">
+        <div fxFlex="4"></div>
+        <div fxFlex="54" fxLayoutAlign="center center">
+          <button mat-raised-button style="background-color: black" type="button" (click)="dialogRef.close(false)">
+            CANCELAR
+          </button>
+        </div>
+        <!-- <div fxFlex="14"></div> -->
+        <div fxFlex="24" fxLayoutAlign="start center">
+          <button mat-raised-button style="
+              background-color: rgb(23, 72, 145);
+              width: 200px;
+              color: #ffffff !important;
+            " [disabled]="selection.selected.length == 0 || itemForm.invalid" (click)="submit()">
+            ENVIAR
+          </button>
+        </div>
+        <div fxFlex="18"></div>
+      </div>
+    </div>
+  </div>
+</div>

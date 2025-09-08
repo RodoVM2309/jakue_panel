@@ -1,0 +1,224 @@
+﻿<mat-card class="container-card p-0">
+  <mat-card-title>
+    <div fxLayout="row wrap" class="card-title-text" style="background:#85AFC4;height: 50px;">
+      <div fxFlex="100">
+        <div fxFlex="10">
+          <mat-icon style="font-size: 30px; ">arrow_forward</mat-icon>
+        </div>
+        <div fxFlex="90">
+          <h5>DERIVAR A TRANSPORTADORA</h5>
+        </div>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content class="estilo_card-box box-card">
+    <form [formGroup]="addPedidoForm" class="padding-form">
+      <div fxLayout="row wrap" class="mi-row">
+
+        <div fxFlex="50" fxFlex.gt-xs="50" class="pr-0">
+          <mat-form-field class="full-width">
+            <input matInput disabled="true" name="hastaDate" [formControl]="addPedidoForm.controls['hastaDate']"
+              placeholder="Fecha Cupo" [matDatepicker]="appDatepicker1" [min]="minDate"
+              (dateInput)="addEvent('input', $event, 'hasta')" (dateChange)="addEvent('change', $event, 'hasta')" />
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker1></mat-datepicker>
+        </div>
+        <div fxFlex="5" fxFlex.gt-xs="5" class="pr-0">
+        </div>
+        <div fxFlex="45" fxFlex.gt-xs="45" class="pr-0">
+          <mat-form-field style="width: 100%;">
+            <mat-select *ngIf="valorIdProducto !== ''" disabled="true" style="display: contents;" id="producto"
+              placeholder="Producto" [formControl]="addPedidoForm.controls['selectedProducto']" name="producto"
+              class="mb-1">
+              <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+                {{ producto.descripcion }}
+              </mat-option>
+            </mat-select>
+            <mat-select *ngIf="valorIdProducto === ''" id="producto" placeholder="Seleccione el Producto"
+              [formControl]="addPedidoForm.controls['selectedProducto']" name="producto" class="mb-1">
+              <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+                {{ producto.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.gt-xs="50" class="pr-0" style="margin-top: 10px;">
+          <button (click)="closeAutocompleteOptions()" class="button-close"></button>
+
+          <mat-form-field class="full-width">
+            <mat-label>Origen</mat-label>
+
+            <input type="text" placeholder="Escriba el nombre del origen de la carga" aria-label="origen" matInput
+              [formControl]="addPedidoForm.controls['nombre_origen']" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedOrigin($event)">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.descripcion">
+                {{option.descripcion }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex="5" fxFlex.gt-xs="5" class="pr-0">
+        </div>
+
+        <div fxFlex="45" fxFlex.gt-xs="45" class="pr-0" style="margin-top: 10px;">
+
+          <mat-form-field class="full-width">
+            <mat-label>Cantidad de Camiones</mat-label>
+            <input matInput min="1" name="quantity" placeholder="Cantidad de Camiones" type="number" readonly disabled
+              (change)="ChangeCantidad($event)" [formControl]="addPedidoForm.controls['quantity']" />
+
+            <small *ngIf="
+         addPedidoForm.controls['quantity'].hasError('required') &&
+         addPedidoForm.controls['quantity'].touched
+       " class="form-error-msg">
+              Debe introducir la Cantidad de Camiones</small>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <!--
+        <div *ngIf="isDifusionLigth"
+             fxFlex="100"
+             fxLayout="column"
+             class="pb-0"
+             style="padding: 0px; margin-top: 15px;">
+          <mat-checkbox class="example-radio-button"
+                        style="margin-left: 18px; width: 25%;">
+            Mis conductores
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="isDifusionLigth"
+             fxFlex="100"
+             fxLayout="column"
+             class="pb-0"
+             style="padding: 0px;">
+          <mat-checkbox class="example-radio-button"
+                        style="margin-left: 18px; width: 25%;">
+            Conductores Jakue
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="isDifusionLigth"
+             fxFlex="100"
+             fxFlex.gt-xs="50"
+             class="pr-0"
+             style="margin-top: 5px; margin-left: 18px;">
+          Tarifa:
+          <input class="quantity-input default-bg"
+                 name="quantity"
+                 type="number"
+                 style="width: 55px !important;" />
+          GS/ton
+        </div>
+
+        <div
+             fxFlex="100"
+             fxLayout="column"
+             class="pb-0"
+             style="padding: 0px;">
+          <mat-form-field class="example-full-width"
+                          style="margin-left: 18px; width: 46%;">
+            <input matInput
+                   placeholder="Silo origen"
+                   value="">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100"
+             *ngIf="mostrarOpciondifusion"
+             fxLayout="column"
+             class="pb-0"
+             style="padding: 0px; margin-top: 15px;">
+          <mat-slide-toggle color="primary"
+                            [formControl]="addPedidoForm.controls['ckIntermediario']"
+                            style="width: 40%;"
+                            (change)="onChangeIntermediario($event)">
+            Derivar a Transportadora
+        </div> -->
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-0">
+          <div fxFlex="50">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Transportadora</mat-label>
+              <mat-select id="intermediario" (selectionChange)="selectIntermediario($event)"
+                [formControl]="addPedidoForm.controls['selectedIntermediario']" name="intermediario">
+                <mat-option *ngFor="let intermediario of intermediarios" [value]="intermediario" ngDefaultControl>
+                  {{ intermediario.nombre_intermediario }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="26">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Camiones</mat-label>
+              <input matInput id="cantidadasig" min="1" max="{{ cantidadisponible }}" name="quantity" type="number"
+                [formControl]="addPedidoForm.controls['cantidad']" />
+            </mat-form-field>
+
+          </div>
+          <div fxFlex="19" fxLayoutAlign="start center">
+            <button mat-raised-button mat-sm-button matTooltip="Agregar Transportadora"  color="primary"
+              style="margin-left: 10px;" [disabled]="addPedidoForm.controls['selectedIntermediario'].value==''"
+              (click)="addElement()">
+              Agregar <mat-icon matTooltip="Agregar intermediario">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-0">
+          <div class="example-container">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="intermediario">
+                <th mat-header-cell *matHeaderCellDef>
+                  Transportadora
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.intermediario }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cantidad">
+                <th mat-header-cell *matHeaderCellDef>
+                  Cantidad
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.cantidad }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-icon (click)="deleteElement(element)" color="primary" matTooltip="Eliminar intermediario">delete
+                  </mat-icon>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="display: flex; justify-content: space-around;">
+    <button mat-raised-button color="warn" type="button" (click)="dialogLocaRef.close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" [disabled]="validForm()" (click)="submitForm()">
+      Guardar
+    </button>
+  </mat-card-actions>
+</mat-card>

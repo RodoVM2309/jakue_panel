@@ -1,0 +1,97 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Mapa General Choferes Libres</h4>
+</div>
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen">
+    <button mat-fab color="warn" (click)="isCustomizerOpen = true" (click)="limpiarinfowind()"
+      matTooltip="Filtrar Mapa">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-bg-warn">
+      <div class="card-title-text">
+        <button mat-icon-button (click)="limpiarFiltros()" style="top: -7px;">
+          <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <span>Filtrar Mapa Choferes Libres</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button matTooltip="Cerrar" (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content [style.overflow]="'auto'" [style.height.vh]="'75'">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-select id="filterZonaChofer" placeholder="Zona choferes" name="filterZonaChofer" class="mb-1"
+          [(value)]="selectedFilterZonaChofer" (selectionChange)="chanceSelectTipo()">
+          <mat-option [value]="0">
+            Zona Choferes (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let zonaChofer of zonaChoferes" [value]="zonaChofer.id" ngDefaultControl>
+            {{zonaChofer.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-select id="filterTipoAcoplado" placeholder="Tipo de acoplado" name="Tipo de acoplado" class="mb-1"
+          [(value)]="selectedFilterTipoAcoplado" (selectionChange)="chanceSelectTipo()">
+          <mat-option [value]="0">
+            Tipo Acoplado (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let tiposCamion of tiposCamiones" [value]="tiposCamion.id" ngDefaultControl>
+            {{tiposCamion.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-select id="filterHoras" placeholder="Menos de 12 Horas" name="filterHoras" class="mb-1"
+          [(value)]="selectedFilterHoras" (selectionChange)="chanceSelectTipo()">
+          <mat-option [value]="0">
+            Horas de reporte (Sin Filtro)
+          </mat-option>
+          <mat-option [value]="12">
+            Menos de 12 Hr
+          </mat-option>
+        </mat-select>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card style="height: 90%;">
+  <div class="map">
+    <mat-card-content class="p-0">
+      <agm-map [ngStyle]="{height: '536px'}" [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeId]="'hybrid'"
+        [mapTypeControl]="true">
+        <agm-marker-cluster
+          imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+          <agm-marker *ngFor="let chofer of choferesTodos; let i = index" [latitude]="chofer.latitud"
+            [longitude]="chofer.longitud" [title]="chofer.nombre" [iconUrl]="iconUrlGreen"
+            (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window [isOpen]="false" #infoWindow>
+              <strong>
+                <p>
+                  <strong>Chofer:</strong> {{ chofer.nombre }} {{ chofer.apellidos }}
+                </p>
+                <p>
+                  <strong>Teléfono:</strong> {{chofer.telefono}}
+                </p>
+                <p>
+                  <strong>Email:</strong> {{chofer.email}}
+                </p>
+                <p>
+                  <strong>Fecha Registro:</strong> {{chofer.fecha}}
+                </p>
+                <p>
+                  <strong>Tipo de Acoplado:</strong> {{chofer.tipo_acoplado}}
+                </p>
+                <p>
+                  <strong>Último GPS:</strong> {{chofer.last_update}}
+                </p>
+               
+              </strong>
+            </agm-info-window>
+          </agm-marker>
+        </agm-marker-cluster>
+      </agm-map>
+    </mat-card-content>
+  </div>
+</mat-card>

@@ -1,0 +1,44 @@
+import { StringFilterMenuComponent } from "@progress/kendo-angular-grid";
+
+export class PedidoDifundido {
+    cantidad: number;
+    cantidad_choferes_postulados: number;
+    carga_peligrosa: number;
+    centro: string;
+    condiciones_pago: string;
+    cupos_obligatorio_producto: number;
+    da_efectivo: string;
+    da_gasoil: string;
+    fecha_desde: string;
+    fecha_hasta: string;
+    id: number;
+    id_centro: number;
+    id_cliente: number;
+    id_generador: number;
+    id_medio_pago: number;
+    id_origen: number;
+    id_pedido: number;
+    id_producto: number;
+    id_zona_destino: number;
+    km: number;
+    kilometros: number;
+    latitud: number;
+    localidad_carga: string;
+    longitud: number;
+    medio_pago: string;
+    nombre_dador: string;
+    nombre_generador: string;
+    nombre_lugar_carga: string;
+    nombre_producto: string;
+    observaciones: string;
+    postulado: number;
+    precio_viaje: number;
+    precio_viaje2: number;
+    reduccion: number;
+    telefono_contacto: string;
+    tipo: number;
+    tipo_precio: number;
+    zona_destino: string;
+    zona_destino_pedido: string;
+    showDetalles:boolean = false;
+}

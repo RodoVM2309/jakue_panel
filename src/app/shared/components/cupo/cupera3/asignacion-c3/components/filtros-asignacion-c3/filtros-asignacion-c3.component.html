@@ -1,0 +1,188 @@
+<form id="form-cuponera1" [formGroup]="filtrarForm" class="encabezado">
+  <div fxLayout="row wrap" #tablaFiltros>
+    <div fxFlex="100" class="row_encabezado">
+      <div fxFlex="17" fxLayoutAlign="end start" id="fecha-bt1">
+        <mat-form-field class="fecha-bt">
+          <input matInput name="fechaFilter" [formControl]="filtrarForm.controls['selectedFecha']"
+            placeholder="Fecha desde" [matDatepicker]="appDatepicker" readonly />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker" color="blanco">
+          </mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #appDatepicker></mat-datepicker>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="35" fxLayoutAlign="start center" id="sele-zona-centro" class="select-zona-centro">
+        <div fxFlex="20" fxLayoutAlign="start center">
+          <span style="margin-left: 13px">ZONAS:</span>
+        </div>
+        <div fxFlex="80" fxLayoutAlign="end center">
+          <mat-form-field class="full-width tl">
+            <mat-select name="zonaCupo" multiple (selectionChange)="aplicarFiltroZona($event)"
+            [formControl]="filtrarForm.controls['selectedZonaCupo']">
+              <mat-option *ngFor="let otrosd of variables.zonasCupos" [value]="otrosd.id"
+                [disabled]="isOptionDisabled(otrosd.id)">
+                {{ otrosd.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"> </div>
+      <div fxFlex="35" fxLayoutAlign="left center" id="sele-producto" class="select_producto">
+        <span style="margin-left: 10px">PRODUCTOS:</span>
+        <mat-form-field class="full-width tl">
+          <mat-select [formControl]="filtrarForm.controls['selectedProducto']" multiple>
+            <mat-select-trigger>
+              <span *ngIf="f.selectedProducto.value?.length === productos.length"> Todos</span>
+              <span *ngIf="f.selectedProducto.value?.length>0 && f.selectedProducto.value?.length < 4">
+                <span *ngIf="f.selectedProducto.value?.length===1">{{ valor(f.selectedProducto.value[0]) }}</span>
+                <span *ngIf="f.selectedProducto.value?.length===2">{{ valor(f.selectedProducto.value[0]) }} ,{{
+                  valor(f.selectedProducto.value[1]) }}</span>
+                <span *ngIf="f.selectedProducto.value?.length===3">{{ valor(f.selectedProducto.value[0]) }} ,{{
+                  valor(f.selectedProducto.value[1]) }} ,{{ valor(f.selectedProducto.value[2]) }}</span>
+              </span>
+              <span *ngIf="f.selectedProducto.value?.length > 3 && f.selectedProducto.value?.length != productos.length"
+                > {{ valor(f.selectedProducto.value[0]) }} ,{{ valor(f.selectedProducto.value[1]) }} ,{{
+                  valor(f.selectedProducto.value[2]) }}
+                <span class="example-additional-selection">
+                 (+  {{f.selectedProducto.value.length - 3}} productos )
+                </span>
+
+              </span>
+            </mat-select-trigger>
+            <app-select-all-option [control]="filtrarForm.controls['selectedProducto']" [_values]="productos">
+            </app-select-all-option>
+            <mat-option *ngFor="let otrosp of productos" [value]="otrosp.id"  (selectionChange)="selectProducto($event)">
+              {{ otrosp.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="11" fxLayout="row wrap" fxLayoutAlign="center start">
+        <div fxLayoutAlign="center start">
+          <div>
+            <p style="margin-top: -10px; font-size: xx-small; color: rgb(23, 71, 144)">
+              ADICIONAR
+            </p>
+            <button mat-fab class="mat-cupera3-add" style="margin-top: -20px" (click)="addCupoDisponibles()"
+              matTooltip="Adicionar cupos disponibles" style="width: 50px; height:50px; margin-top: -15px;">
+              <mat-icon style="margin-top:-10px;">add</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="myData.solicitaCupos" fxLayoutAlign="end center">
+          <div>
+            <p style="margin-top: -10px; font-size: xx-small; color: blue">
+              SOLICITAR
+            </p>
+            <button mat-fab class="mat-cupo-solicitar" style="margin-top: -20px" (click)="addCupoSolicitados(0)"
+              matTooltip="Solicitar Cupos" style="width: 50px; height:50px; margin-top: -15px;">
+              <mat-icon style="margin-top:-10px;">playlist_add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxFlex="100" class="row_encabezado">
+      <div fxFlex="17" fxLayoutAlign="start start" id="sele-comercial" [ngClass]="
+          disabledComercial ? 'select-comercial-disabled' : 'select-comercial'">
+        <div fxFlex="35" fxLayoutAlign="start center">
+          <span style="margin-left: 5px">Comercial:</span>
+        </div>
+        <div fxFlex="65" fxLayoutAlign="end center">
+          <mat-form-field class="full-width tl">
+            <mat-select name="comerciales" (selectionChange)="aplicarFiltroComercial($event)"
+              [formControl]="filtrarForm.controls['selectedComercial']">
+              <mat-option *ngFor="let otrosde of comerciales; trackBy: trackByFn" [value]="otrosde.id">
+                {{ otrosde.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="17" fxLayoutAlign="start start" id="sele-cliente" [ngClass]="
+          disabledCliente ? 'select-cliente-disabled' : 'select-cliente'">
+        <div fxFlex="35" fxLayoutAlign="start center">
+          <span style="margin-left: 5px">Cliente: </span>
+        </div>
+        <div fxFlex="65" fxLayoutAlign="end center">
+          <mat-form-field class="full-width tl">
+            <mat-select name="cliente" (selectionChange)="aplicarFiltroCliente($event)"
+              [disabled]="!variables.showDetalleZona || variables.showDetalleProductoZona" [formControl]="filtrarForm.controls['selectedCliente']">
+              <mat-option *ngFor="let otroscp of clientes; trackBy: trackByFn" [value]="otroscp.id">
+                {{ otroscp.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="17" fxLayoutAlign="start start" id="sele-destSolicitud" [ngClass]="
+          disabledDestSolicitud
+            ? 'select-destSolicitud-disabled'
+            : 'select-destSolicitud'
+        ">
+        <div fxFlex="42" fxLayoutAlign="start center">
+          <span style="margin-left: 5px">Destinatario:</span>
+        </div>
+        <div fxFlex="58" fxLayoutAlign="end center">
+          <mat-form-field class="full-width tl">
+            <mat-select name="destSolic" (selectionChange)="aplicarFiltroDestinatario($event)"
+              [disabled]="!variables.showDetalleZona" [formControl]="filtrarForm.controls['selectedDestSolic']">
+              <mat-option *ngFor="let otrosds of destinatarios; trackBy: trackByFn" [value]="otrosds.id">
+                {{ otrosds.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="17" fxLayoutAlign="start start" id="sele-destino" [ngClass]="
+          disabledDestino ? 'select-destino-disabled' : 'select-destino'
+        ">
+        <div fxFlex="35" fxLayoutAlign="start center">
+          <span style="margin-left: 10px">Destino:</span>
+        </div>
+        <div fxFlex="65" fxLayoutAlign="end center">
+          <mat-form-field class="full-width">
+            <mat-select name="destino" (selectionChange)="aplicarFiltroDestino($event)"
+              [formControl]="filtrarForm.controls['selectedDestino']">
+              <mat-option *ngFor="let otrosde of destinos; trackBy: trackByFn" [value]="otrosde.id">
+                {{ otrosde.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="17" fxLayoutAlign="start start" id="sele-contrato" [ngClass]="
+          disabledContrato ? 'select-contrato-disabled' : 'select-contrato'
+        ">
+        <div fxFlex="35" fxLayoutAlign="start center">
+          <span style="margin-left: 5px">Contrato:</span>
+        </div>
+        <div fxFlex="65" fxLayoutAlign="end center">
+          <mat-form-field class="full-width">
+            <mat-select name="contrato" (selectionChange)="aplicarFiltroContrato($event)"
+              [disabled]="!variables.showDetalleZona" [formControl]="filtrarForm.controls['selectedContrato']">
+              <mat-option *ngFor="let otrosct of contratos; trackBy: trackByFn" [value]="otrosct.id">
+                {{ otrosct.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="10" fxLayoutAlign="start center">
+        <button mat-raised-button style="background-color: #174891; height: 33px;margin-top:-4px;" type="button"
+          [disabled]="
+            filtrarForm.controls['selectedZonaCupo'].value.length === 0
+          " (click)="buscar()">
+          BUSCAR
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

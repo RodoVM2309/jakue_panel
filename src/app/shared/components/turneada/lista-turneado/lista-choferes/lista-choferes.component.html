@@ -1,0 +1,136 @@
+<div>
+  <h1 matDialogTitle>Lista de choferes</h1>
+  <span fxFlex></span>
+  <mat-icon>list</mat-icon>
+</div>
+<div class="margin-333">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="mt-1">
+      <div fxLayout="row" [formGroup]="listBoxForm">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <h5 class="vertical-spacing-5">Choferes Disponibles</h5>
+          <select
+            class="form-control list-box"
+            formControlName="availableListBox"
+            multiple
+          >
+            <option
+              *ngFor="let item of availableItems"
+              [value]="item?.id"
+              (dblclick)="moveAvailableItemToSelected(item)"
+              >{{ item?.razon_social }}</option
+            >
+          </select>
+        </div>
+        <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="availableItems.length === 0"
+            (click)="moveAllItemsToSelected()"
+            matTooltip="Mover todos los choferes para seleccionados"
+          >
+            <mat-icon>format_indent_increase</mat-icon>
+          </button>
+          <br />
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="!availableListBoxControl.value?.length"
+            (click)="moveMarkedAvailableItemsToSelected()"
+            matTooltip="Mover choferes para seleccionados"
+          >
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+          <br />
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="!selectedListBoxControl.value?.length"
+            (click)="moveMarkedSelectedItemsToAvailable()"
+            matTooltip="Mover choferes para disponibles"
+          >
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <br />
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="selectedItems.length === 0"
+            (click)="moveAllItemsToAvailable()"
+            matTooltip="Mover todos los choferes para disponibles"
+          >
+            <mat-icon>format_indent_decrease</mat-icon>
+          </button>
+          <br />
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="!(selectedListBoxControl.value?.length === 1)"
+            (click)="moveItemsUp()"
+            matTooltip="Mover chofer hacia arriba en seleccionados"
+          >
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <br />
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            style="margin-top: 10px;"
+            [disabled]="!(selectedListBoxControl.value?.length === 1)"
+            (click)="moveItemsDown()"
+            matTooltip="Mover chofer hacia abajo en seleccionados"
+          >
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+          <h5 class="vertical-spacing-5">Choferes Seleccionados</h5>
+          <select
+            class="form-control list-box"
+            formControlName="selectedListBox"
+            multiple
+          >
+            <option
+              *ngFor="let item of selectedItems"
+              [value]="item?.id"
+              (dblclick)="moveSelectedItemToAvailable(item)"
+              >{{ item?.razon_social }}</option
+            >
+          </select>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" (click)="submit()">
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>

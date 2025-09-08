@@ -1,0 +1,88 @@
+<!-- <div class="circulo"></div> -->
+<div class="margin-333" style="height: 85vh;">
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxLayout="row wrap" style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px;">
+        <div fxFlex="100">
+          <div fxLayout="row wrap" style="background: #EA6D21; padding: 15px; ">
+            <p style="margin: 0px 30px 0px; font-size: 15px; color: white;">Inconsistencias</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    &nbsp;
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div class="textarea">
+        <!-- <div fxLayout="row wrap">
+          <div fxFlex="10">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Carta de porte</div>
+          </div>
+          <div fxFlex="13">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Fecha</div>
+          </div>
+          <div fxFlex="10">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Producto</div>
+          </div>
+          <div fxFlex="28">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Destinatario</div>
+          </div>
+          <div fxFlex="29">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Titular</div>
+          </div>
+          <div fxFlex="10">
+            <div style="margin-top: 20px; color: #ffffff; text-align: center;">Accion</div>
+          </div>
+        </div> -->
+        <div style="margin-top: 6px; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;">
+          <ngx-datatable matSort class="material ml-0 mr-0" [rows]="data" [columnMode]="'force'" 
+            [headerHeight]="50" [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [limit]="page.size"
+            (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages"  [offset]="page.pageNumber-1">
+            <ngx-datatable-column name="Carta de porte" [flexGrow]="1" [maxWidth]="120" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.cartaPorte }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Fecha" [flexGrow]="1" [maxWidth]="180" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.fecha }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Producto" [flexGrow]="1"  [maxWidth]="120" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.granoNombre }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Destinatario" [flexGrow]="1" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.nombreDestinatario }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Titular" [flexGrow]="1" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.nombreTitular }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Ver" [flexGrow]="1" [maxWidth]="80" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Ver" (click)="openPopUpVer(row)">
+                  <mat-icon style="color: #93BD26;">visibility</mat-icon>
+                </button>
+              </ng-template>
+            </ngx-datatable-column>
+            <!-- <ngx-datatable-column name="Notificar" [flexGrow]="1" [maxWidth]="80">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Notificar" (click)="openPopUpNotificar(row)" >
+                  <mat-icon style="color: #1F6FB2;">mail_outline</mat-icon>
+                </button>
+              </ng-template>
+            </ngx-datatable-column> -->
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

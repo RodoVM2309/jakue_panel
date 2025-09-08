@@ -1,0 +1,56 @@
+image: docker:latest
+services:
+  - docker:18-dind
+variables:
+  DOCKER_DRIVER: overlay
+
+build_dev:
+  stage: build
+  tags:
+    - muvin
+  only:
+    - cap
+  script:
+  - rm -f src/environments/*.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fdev%2Fpanel%2Fenvironment%2Ets/raw?ref=master -o src/environments/environment.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fdev%2Fpanel%2Fenvironment%2Eprod%2Ets/raw?ref=master -o src/environments/environment.prod.ts
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - docker pull $CI_REGISTRY_IMAGE:dev
+  - docker build -t $CI_REGISTRY_IMAGE:dev .
+  - docker push $CI_REGISTRY_IMAGE:dev
+  - docker rmi $CI_REGISTRY_IMAGE:dev
+  - docker logout $CI_REGISTRY
+
+build_cap:
+  stage: build
+  tags:
+    - muvin
+  only:
+    - cap
+  script:
+  - rm -f src/environments/*.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fcap%2Fpanel%2Fenvironment%2Ets/raw?ref=master -o src/environments/environment.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fcap%2Fpanel%2Fenvironment%2Eprod%2Ets/raw?ref=master -o src/environments/environment.prod.ts
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - docker pull $CI_REGISTRY_IMAGE:cap
+  - docker build -t $CI_REGISTRY_IMAGE:cap .
+  - docker push $CI_REGISTRY_IMAGE:cap
+  - docker rmi $CI_REGISTRY_IMAGE:cap
+  - docker logout $CI_REGISTRY
+
+build_prod:
+  stage: build
+  tags:
+    - muvin
+  only:
+    - Produccion
+  script:
+  - rm -f src/environments/*.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fprd%2Fpanel%2Fenvironment%2Ets/raw?ref=master -o src/environments/environment.ts
+  - curl -s -H PRIVATE-TOKEN:$CICD_TOKEN ${CICD_BASE_URL}%2Fmuvinapp%2Fprd%2Fpanel%2Fenvironment%2Eprod%2Ets/raw?ref=master -o src/environments/environment.prod.ts
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - docker pull $CI_REGISTRY_IMAGE:prd
+  - docker build -t $CI_REGISTRY_IMAGE:prd .
+  - docker push $CI_REGISTRY_IMAGE:prd
+  - docker rmi $CI_REGISTRY_IMAGE:prd
+  - docker logout $CI_REGISTRY

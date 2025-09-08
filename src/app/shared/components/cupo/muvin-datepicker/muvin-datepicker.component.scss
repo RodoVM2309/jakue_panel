@@ -1,0 +1,41 @@
+.fecha-bt {
+    border-color: rgb(23, 71, 144);
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 2px;
+    width: 90%;
+    height: 35px;
+    padding: 0px;
+    border-width: 0.5px;
+    background: rgb(23, 71, 144);
+    color: #fff;
+    text-align: left;
+  }
+
+  #fecha-bt1 {
+    ::ng-deep.mat-form-field-infix {
+      color: #fff;
+      border-top: 0.84375em solid transparent;
+      text-align: left;
+      margin-left: 10px;
+     
+    }
+  
+    ::ng-deep .mat-focused .mat-form-field-label {
+      /*change color of label*/
+      color: #ffffff;
+    }
+    ::ng-deep .mat-form-field-label {
+      /*change color of label*/
+      color: #ffffff;
+    }
+    ::ng-deep .mat-form-field-underline {
+        /*change color of underline*/
+        background-color: #ffffff !important;
+      }
+    
+      ::ng-deep.mat-form-field-ripple {
+        /*change color of underline when focused*/
+        background-color: #ffffff !important;
+      }
+}

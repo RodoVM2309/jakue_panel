@@ -1,0 +1,30 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id del destino">
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Situacion del puerto" [formControl]="itemForm.controls['id_situacion_puerto']" >
+          <mat-option *ngFor="let vsituacion of situacionList" [value]="vsituacion.id">{{vsituacion.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['id_situacion_puerto'].hasError('required') && itemForm.controls['id_situacion_puerto'].touched" class="form-error-msg">
+      Es requerida la situación.
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="horas_atraso"  type="number"  [formControl]="itemForm.controls['horas_atraso']" placeholder="Horas de atraso">
+      </mat-form-field>      
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

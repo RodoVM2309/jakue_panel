@@ -1,0 +1,238 @@
+﻿<br />
+<div class="m-333">
+  <h4 style="color:#124A99;">Flota Administrada</h4>
+</div>
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+    <mat-card>
+      <mat-card-title fxLayoutAlign="start center">
+        <small class="text-muted">Total de Choferes</small>
+        <span fxFlex></span>
+      </mat-card-title>
+      <mat-card-content>
+        <h3 class="m-0 font-normal">{{ totalChoferes }}</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+    <mat-card>
+      <mat-card-title>
+        <small class="text-muted">Total de Choferes Asignados</small>
+        <span fxFlex></span>
+      </mat-card-title>
+      <mat-card-content>
+        <h3 class="m-0 font-normal">{{ totalChoferesOcupados }}</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+    <mat-card>
+      <mat-card-title>
+        <small class="text-muted">Choferes con la App Descargada</small>
+        <span fxFlex></span>
+      </mat-card-title>
+      <mat-card-content>
+        <h3 class="m-0 font-normal">{{ totalApp }}</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <mat-form-field
+      class="p-5"
+      style="padding:8px;margin:15px auto;width:20%;"
+      class="example-full-width"
+    >
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Nombre</mat-label
+      >
+      <input
+        matInput
+        name="nombre"
+        [value]="filtro.nombre"
+        (keyup)="updateFilter($event, 'nombre')"
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      class="p-5"
+      style="padding:8px;margin:15px auto;width:20%;"
+      class="example-full-width"
+    >
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Chapa
+        Camión</mat-label
+      >
+      <input
+        matInput
+        name="patente"
+        [value]="filtro.patente"
+        (keyup)="updateFilter($event, 'patente')"
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      class="p-5"
+      style="padding:8px;margin:15px auto;width:20%;"
+      class="example-full-width"
+    >
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Cédula de Identidad (C.I.)</mat-label
+      >
+      <input
+        matInput
+        name="cuit"
+        [value]="filtro.cuit"
+        (keyup)="updateFilter($event, 'cuit')"
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      class="p-5"
+      style="padding:8px;margin:15px auto;width:20%;"
+      class="example-full-width"
+    >
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por
+        Transportista</mat-label
+      >
+      <input
+        matInput
+        name="transportista"
+        [value]="filtro.transportista"
+        (keyup)="updateFilter($event, 'transportista')"
+      />
+    </mat-form-field>
+
+    <button mat-icon-button mat-sm-button color="warn" (click)="exportAsXLSX()">
+      <mat-icon>list</mat-icon>Exportar a Excel
+    </button>
+  </mat-card-content>
+</mat-card>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable
+      class="material"
+      [rows]="choferes"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [externalPaging]="true"
+      [count]="page.totalElements"
+      [limit]="page.size"
+      (page)="setPage($event)"
+      [rowHeight]="'auto'"
+      [messages]="messages"
+    >
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chapa de Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chapa de Acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cédula de Identidad" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuit_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Transportista" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_transportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Intermediario Vinculado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.intermediario_transportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Estado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="row?.estado === 'Disponible'" style="color:#24c42c;">{{
+            row?.estado
+          }}</span>
+          <span *ngIf="row?.estado === 'Ocupado'" style="color:red;">{{
+            row?.estado
+          }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Zona de Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_zona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Registrado en App" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.desc_app }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="3">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxLayout="row wrap">
+            <div fxFlex="100">
+              <button
+            mat-icon-button
+            mat-sm-button
+            icon-only
+            color="primary"
+            class="mr-0"
+            matTooltip="Vincular Zona"
+            (click)="openPopUpVincularZona(row)"
+          >
+            <mat-icon>map</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            icon-only
+            color="primary"
+            class="m-0"
+            matTooltip="Información Perfil"
+            (click)="openPopUpInfoPersona(row)"
+            matTooltip="Información Perfil"
+          >
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <!--button
+            mat-icon-button
+            mat-sm-button
+            icon-only
+            color="dark"
+            class="m-0"
+            matTooltip="Agregar a Lista Negra"
+            (click)="openPopUpAddBlackList(row)"
+          >
+            <mat-icon>playlist_add</mat-icon>
+          </button-->
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            (click)="openPopUpVincularEquipo(row)"
+            matTooltip="Vincular Equipo"
+          >
+            <mat-icon>contacts</mat-icon>
+          </button>
+            </div>
+          </div>
+
+          <!-- <button mat-icon-button mat-sm-button icon-only color="dark" class="m-1" matTooltip="Programar Estados" (click)="openPopUpEstados(row)">
+            <mat-icon>history</mat-icon>
+          </button> -->
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

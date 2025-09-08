@@ -1,0 +1,113 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title class="">
+    <div  fxLayout="row wrap" class="card-title-text titulo-fondo">
+      <div fxFlex="95">
+        <h5> {{data.title}}</h5>
+      </div>
+      <div fxFlex="5" fxLayoutAlign="end center">
+        <h5 class="cerrar_popup" (click)="gotoHome()"> x </h5>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content>
+
+    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+      <mat-card-content class="p-0">
+        <div fxLayout="row wrap">
+          <div  fxFlex="100" class="pt-1" >
+            <form>
+              <!-- Buscar -->
+              <div  fxFlex="100" fxFlex.gt-xs="20" class="pr-1" style="margin-left: 19px;" >
+                <mat-form-field class="full-width">
+                  <mat-label><mat-icon matPrefix>search</mat-icon> Buscar </mat-label>
+                  <input
+                  matInput
+                  name="buscar"
+                  #buscar
+                  (keyup)="updateFilter($event, filter.value)">
+                </mat-form-field>
+              </div>
+              <!-- Filtro -->
+              <div  fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                <mat-form-field class="full-width">
+                  <mat-label>Filtros</mat-label>
+                  <mat-select name="filtro"  #filter  [value]="selected"
+                  (selectionChange)=" (buscar.value.length >= 3) ?  updateFilter(buscar.value, filter.value ) : ''" >
+                    <mat-option value="nombre">Nombre Chofer</mat-option>
+                    <mat-option value="cuit">Cuit Chofer</mat-option>
+                    <mat-option value="patente" >Patente</mat-option>
+                    <!-- <mat-option value="acoplado" >Acoplado</mat-option>
+                    <mat-option value="cuit_transportista" >Cuit Transportista</mat-option> -->
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div  fxFlex="100" fxFlex.gt-xs="5" class="pr-1">
+                <button mat-icon-button color="warn" type="reset" (click)="resetBusqueda()" class="btnReset" tooltip="Resetear busqueda">
+                  <mat-icon >cached</mat-icon>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+    <ngx-datatable
+              class="material ml-0 mr-0"
+              [rows]="choferes"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [scrollbarH]="true"
+              [rowHeight]="50"
+              [count]="page.totalElements"
+              [offset]="page.pageNumber"
+              [limit]="page.size"
+              (page)='setPage($event)'
+              [externalPaging]="true"
+              >
+
+
+              <ngx-datatable-column name="Patente de Camión" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.patente }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Patente de Acoplado" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.patente_acoplado }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Nombre Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_persona }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="CUIT Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.cuit_persona }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="CUIT Empresa Transportista" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.cuit_persona }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="" [flexGrow]="1">
+                <ng-template let-row="row"  ngx-datatable-cell-template>
+                  <div>
+                    <button
+                      mat-stroked-button
+                      type="button"
+                      class="btn_confirmar only-show-on-hover"
+                      color="primary"
+                      (click)="obtenerChofer(row)">
+                     Seleccionar
+                    </button>
+                  </div>
+               </ng-template>
+              </ngx-datatable-column>
+
+        </ngx-datatable>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,107 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Búsqueda de Flota</h4>
+</div>
+<div class="m-333">
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUpBusquedaFlota()">Crear Búsqueda de Flota</button>
+</div>
+<div class="m-333">
+  <button mat-raised-button style="color:rgb(78, 216, 240);" [matMenuTriggerFor]="animals">
+    Filtrar Búsqueda
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  <mat-menu #animals="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="interesados" >
+      Finalizadas
+    </button>
+  </mat-menu>
+  <mat-menu #interesados="matMenu">
+    <button mat-menu-item class="myButton">
+      <mat-select id="showInteresados" placeholder="Finalizadas o no las búsquedas"
+        name="showInteresados" class="mb-1" [(value)]="selectedFilterInteresados"
+        (selectionChange)="chanceSelectInteresados()">
+        <mat-option *ngFor="let interesados of mostrarInteresados" [value]="interesados.value">
+          {{ interesados.viewValue }}
+        </mat-option>
+      </mat-select>
+    </button>
+  </mat-menu>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">    
+    <!--div fxLayout="row wrap" fxLayout.lt-sm="column">
+        Buscar por
+      <div fxFlex="100" class="pr-1">
+        <input type='text' name="patente" [value]="filtro.patente" style='padding:8px;margin:15px auto;width:90%;'
+          placeholder="Criterios de Búsqueda" (keyup)="updateFilter($event,'cuit')">
+      </div>     
+    </div--> 
+    <ngx-datatable class="material ml-0 mr-0" [rows]="busquedaList" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+      (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.id }}
+            </ng-template>
+          </ngx-datatable-column> -->
+      <ngx-datatable-column name="Fecha" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Producto" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_producto }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Localidad Carga" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.localidad_carga}}
+        </ng-template>
+      </ngx-datatable-column> 
+      <ngx-datatable-column name="Zona Destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.zona_destino}}
+        </ng-template>
+      </ngx-datatable-column>      
+      <ngx-datatable-column name="Condiciones de pago" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.condiciones_pago }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Da Gasolina" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.da_gasoil_txt }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Da Efectivo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.da_efectivo_txt }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Precio Viaje" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.precio_viaje }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Carga Peligrosa " [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.carga_peligrosa_txt }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button [disabled]="row?.id_pedido!= undefined || row?.finalizada==1" mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Gestionar Búsqueda" (click)="goToGestionar(row)">
+            <mat-icon>map</mat-icon>
+          </button>
+          <button [disabled]="row?.id_pedido!= undefined || row?.finalizada==1" mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Pasar a Pedido" (click)="openPopUpSeleccionarPedido(row)">
+              <mat-icon>touch_app</mat-icon>
+            </button>
+          <button [disabled]="row?.id_pedido!= undefined || row?.finalizada==1" mat-icon-button mat-sm-button color="primary" class="m-0" matTooltip=" Perdido - finalizar" (click)="goToFinalizar(row)">
+            <mat-icon>backspace</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

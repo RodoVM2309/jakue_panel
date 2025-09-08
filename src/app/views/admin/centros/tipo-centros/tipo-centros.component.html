@@ -1,0 +1,20 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Tipo" [formControl]="itemForm.controls['tipo']">
+          <mat-option *ngFor="let vtipo of tipoList" [value]="vtipo.id">{{vtipo.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['tipo'].hasError('required') && itemForm.controls['tipo'].touched" class="form-error-msg">
+      Es requerido el tipo.
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+    </div>
+  </div>
+</form>

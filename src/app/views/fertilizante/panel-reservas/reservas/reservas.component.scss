@@ -1,0 +1,79 @@
+table {
+  background-color: white ;
+  border: 1px solid;
+  width: 100%;
+}
+
+
+//table thead { display:block; width: 100%; }
+//table tbody { height:200px; overflow-y:scroll; }
+mat-paginator{
+  background-color: #154790;
+}
+
+td, th {
+  border: 1px solid black;
+
+}
+td:first-child {
+  padding-left: 10px;
+}
+.td_cell {
+  width: 100%;
+  font-size: 17px;
+}
+.div-dia-izq {
+  border-right-color: #000;
+  border-right-style: solid;
+  border-right-width: thin;
+  height: 36px;
+  font-size: 17px;
+}
+
+.btn_exportar {
+  padding: 5px 12px 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #0a0a0a !important;
+  background-color: white;
+}
+.row_pendiente {
+  text-align: center;
+  background-color: #ea6a21;
+  color:white;
+  width: 8%;
+}
+.row_cupos {
+  text-align: center;
+  background-color: #154790;
+  color:white;
+  width: 8%;
+}
+
+.col_tipoDespacho {
+  text-align: center;
+  background-color: #d9d8de;
+  // column-span: 2;
+  width: 12%;
+
+}
+
+.col_pendientes{
+  text-align: center;
+  background-color: #fff5c8;
+  cursor: pointer;
+}
+
+.col_grupoClientes {
+  text-align:left;
+  color:#17468e;
+  padding-left: 10px;
+}
+.row_common {
+  text-align:center;
+  color:#17468e;
+}
+
+
+

@@ -1,0 +1,22 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title class="">
+    <div fxLayout="row wrap" class="card-title-text titulo-fondo">
+      <div fxFlex="100">
+        <h5>Pedido masivo</h5>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content style="justify-content: space-evenly;">
+        <div fxFlex="100" fxFlex.gt-xs="6">
+          <button type="button" (click)="getPedidoGenerarExcel()" mattooltip="Descargar plantilla actualizada en Excel"
+            class="btn_importar" mat-stroked-button>
+            <mat-icon>cloud_download</mat-icon> Descargar
+          </button>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="6">
+          <button type="button" (click)="openMasivo()" mattooltip="Descargar plantilla actualizada en Excel"
+            class="btn_importar" mat-stroked-button>
+            <mat-icon>cloud_upload</mat-icon> Importar
+          </button>
+        </div>
+  </mat-card-content>

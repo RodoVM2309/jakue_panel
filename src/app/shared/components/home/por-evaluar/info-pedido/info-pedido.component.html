@@ -1,0 +1,71 @@
+<div>
+  <h1 matDialogTitle>{{data.title}}</h1>
+  <span fxFlex></span>
+</div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id de la Persona">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoOrigen" [formControl]="itemForm.controls['pedidoOrigen']" placeholder="Lugar de Carga" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoZona" [formControl]="itemForm.controls['pedidoZona']" placeholder="Zona Destino" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoDador" [formControl]="itemForm.controls['pedidoDador']" placeholder="Cargador" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="tipo_pedido" [formControl]="itemForm.controls['tipo_pedido']" placeholder="Tipo de Pedido" readonly>
+        </mat-form-field>
+      </div>
+    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoProducto" [formControl]="itemForm.controls['pedidoProducto']" placeholder="Producto" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoFechaDesde" [formControl]="itemForm.controls['pedidoDador']" placeholder="Fecha Desde" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="pedidoFechaHasta" [formControl]="itemForm.controls['pedidoFechaHasta']" placeholder="Fecha Hasta" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="cantidad" [formControl]="itemForm.controls['cantidad']" placeholder="Total de Camiones" readonly>
+        </mat-form-field>
+      </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="cantidadAsignados" [formControl]="itemForm.controls['cantidadAsignados']" placeholder="Asignados" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="cantidadAsignados" [formControl]="itemForm.controls['cantidadAsignados']" placeholder="Por asignar" readonly>
+        </mat-form-field>
+      </div>
+    
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+    </div>
+  </div>
+</form>

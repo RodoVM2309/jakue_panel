@@ -1,0 +1,98 @@
+.component {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 93vh;
+  overflow: auto;
+}
+
+.encabezado {
+  background-color: #174793;
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+
+}
+.footer {
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 70vh;
+  width: 100%;
+  overflow: auto;
+}
+
+.sub-encabezado {
+  background: rgb(207, 207, 212);
+  color: rgb(8, 8, 8);
+  height: 6vh;
+}
+
+.add_cabecera {
+  background: rgb(255, 255, 255);
+  color: rgb(8, 8, 8);
+  height: 6vh;
+}
+table {
+  width: 100%;
+}
+
+td.mat-cell {
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  margin-left: 10px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.mat-column-titulo {
+  width: 80%;
+}
+.mat-column-detalle {
+  width: 10%;
+}
+.mat-column-seleccionar {
+  width: 10%;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.div-asignar {
+  background-color: rgb(255, 255,255);
+  height: 55vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+.div-paginator {
+  background-color: rgb(255, 255,255);
+  height: 50px;
+  width: 100%;
+}
+
+::ng-deep .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  border-bottom-style:solid;
+  border-bottom-color: rgb(224,224,224);
+  border-bottom-width: 1px;
+}
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}

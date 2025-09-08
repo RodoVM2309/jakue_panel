@@ -1,0 +1,48 @@
+﻿<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="background: #85afc4">
+      ACTUALIZAR CHAPAS
+    </div>
+  </mat-card-title>
+  <mat-card-content [style.overflow]="'auto'">
+    <form id="form-add-cupo" [formGroup]="editPatenteForm">
+      <div fxLayout="column wrap">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="pr-1">
+    
+            <label>Chapas:</label> 
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Camión</mat-label>
+              <input matInput name="chapa_camion" [formControl]="editPatenteForm.controls['chapa_camion']"
+                placeholder="Chapa Camión" type="text" />
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Carreta</mat-label>
+              <input matInput name="chapa_acoplado" [formControl]="editPatenteForm.controls['chapa_acoplado']"
+                placeholder="Chapa Acoplado" type="text" />
+            </mat-form-field>
+            
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="mt-1" style="height: 50px;">
+            <div fxFlex="48" fxLayoutAlign="start center">
+              <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+                Cancelar
+              </button>
+            </div>
+          
+            <div fxFlex="52" fxLayoutAlign="end center">
+              <button mat-raised-button color="primary" (click)="submit()" [disabled]="
+              editPatenteForm.invalid">
+                Guardar
+              </button>
+            </div>
+            <div fxFlex="3"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

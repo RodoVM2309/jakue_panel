@@ -1,0 +1,44 @@
+﻿<h1 matDialogTitle>{{ "usuario-whatsapp.nav" | translate }} </h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <!-- <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id ">
+      </mat-form-field>
+    </div>  -->
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="razon_social" [formControl]="itemForm.controls['razon_social']" placeholder='{{ "usuario-whatsapp.razon_social" | translate }}' #razon_social maxlength="100">
+
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['razon_social'].hasError('required') && itemForm.controls['razon_social'].touched" class="form-error-msg">
+        {{ "usuario-whatsapp.error_razon_social" | translate }}
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="cuit_cliente" [formControl]="itemForm.controls['cuit_cliente']" placeholder="CUIT" #cuit_cliente maxlength="100">
+        <mat-hint align="end">{{cuit_cliente.value.length}} / 11</mat-hint>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['cuit_cliente'].hasError('required') && itemForm.controls['cuit_cliente'].touched" class="form-error-msg">
+        {{ "usuario-whatsapp.error_cuit" | translate }}
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="telefono" [formControl]="itemForm.controls['telefono']" placeholder='{{ "usuario-whatsapp.telefono" | translate }}' #telefono maxlength="100">
+        <mat-hint align="end">{{telefono.value.length}} / 10</mat-hint>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['telefono'].hasError('required') && itemForm.controls['telefono'].touched" class="form-error-msg">
+        {{ "usuario-whatsapp.error_telefono" | translate }}
+      </small>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">{{ "CANCEL" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{ "SAVE" | translate }}</button>
+
+    </div>
+  </div>
+</form>

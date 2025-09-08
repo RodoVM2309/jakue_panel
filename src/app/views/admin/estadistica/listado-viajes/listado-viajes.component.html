@@ -1,0 +1,135 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{data.title}}</h4>
+  <div fxFlex fxHide.lt-sm="true" class="search-bar" id="buscador">
+    <form class="top-search-form">
+      <mat-icon role="img">search</mat-icon>
+      <input autofocus="true" placeholder="Buscador" type="text" (keyup)='updateFilter($event)'>
+    </form>
+  </div>
+  <span fxFlex></span>
+  <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+</div>
+<mat-card class="p-0">
+  <ngx-datatable #myTable class="material expandable" [rows]="viajes" [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+    [limit]="page.size" (page)='setPage($event)'>
+    <ngx-datatable-row-detail [rowHeight]="200" #myDetailRow (toggle)="onDetailToggle($event)">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+        <div style="padding-left:35px;">
+          <div>Chofer: {{ row?.nombre_chofer }}, Cuit: {{ row?.cuit_chofer }}, Celular: {{row?.telefono}}
+            <br>
+            Patente: {{row?.patente_camion}}, Tipo: {{row?.nombre_tipo_camion}}, Acoplado:
+            {{row?.nombre_tipo_acoplado}}, Patente Acoplado: {{row?.patente_acoplado}}
+            <br>
+            Estados:
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha y Hora</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let estado of row?.historico_estados" >
+                  <td>{{estado.create_at}}</td>
+                  <td>{{estado.estado.descripcion}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-row-detail>
+    <!-- Column Templates -->
+    <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+        <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+          title="Expandir/Colapsar Fila" (click)="toggleExpandRow(row)">
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- Column Templates -->
+
+    <!-- <ngx-datatable-column name="No." [flexGrow]="1" [minWidth]="20">
+      <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+        <strong>{{rowIndex}}</strong>
+      </ng-template>
+      </ngx-datatable-column> -->
+    <!-- <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+    <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+      <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
+    </ng-template>
+    <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+      <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
+    </ng-template>
+  </ngx-datatable-column> -->
+    <ngx-datatable-column name="Id Pedido" [flexGrow]="1" [minWidth]="30">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.id_pedido}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Fecha " [flexGrow]="1" [minWidth]="30">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.fecha}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Centro" [flexGrow]="1" [minWidth]="110">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.centro }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Nombre del Dador" [flexGrow]="1" [minWidth]="110">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.nombre_cliente }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Lugar de Destino" [flexGrow]="1" [minWidth]="110">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.nombre_destino }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Producto" [flexGrow]="1" [minWidth]="50">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.producto_descripcion }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Nombre Transportista" [flexGrow]="2" [minWidth]="200">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.nombre_transportista }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Nombre Chofer" [flexGrow]="2" [minWidth]="200">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.nombre_chofer }}
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column name="Patente Acoplado"  [flexGrow]="1"  [minWidth]="100">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.patente_acoplado }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Tipo Acoplado" [flexGrow]="2" [minWidth]="200">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.tipo_acoplado }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Distancia"  [flexGrow]="1"  [minWidth]="80" >
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row?.distancia }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column  [width]="80" name="Acciones" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <div class="pb-1">
+        <button mat-icon-button mat-sm-button matTooltip="Enviar Whatsapp">
+          <img src="assets/images/muvin/whatsapp.png" alt="" (click)="openPopUpwhatsapp(row)">
+        </button>
+      </div>
+    </ng-template>
+  </ngx-datatable-column> -->
+
+  </ngx-datatable>
+</mat-card>

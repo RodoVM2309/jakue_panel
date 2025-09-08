@@ -1,0 +1,114 @@
+﻿<div class="m-333">
+  <h4 style="color:#124A99;">Consultas</h4>
+</div>
+<br>
+<mat-sidenav-container>
+  <mat-sidenav class="chat-sidenav" [opened]="isSidenavOpen" mode="side">
+    <mat-toolbar color="primary" class="inbox-toolbar">
+      <a href="" class="toolbar-avatar online">
+        <img src="assets/images/user.png" alt="">
+        <span class="status-dot"></span> Realizadas por:
+      </a>
+    </mat-toolbar>
+    <div [perfectScrollbar] class="chat-sidebar-scroll">
+      <!-- Left side contact list -->
+      <mat-nav-list class="inbox-nav-list" role="list">
+        <mat-list-item *ngFor="let chofer of listachoferes; let i=index" (click)="showConsultas(chofer,i)"
+        [ngStyle]="{'background-color':chofer.id_chofer==activeChofer.id_chofer ? 'rgb(193,230,247)' :'rgb(255,255,255)'  }"
+        >
+          <a href="" class="toolbar-avatar online">
+            <button
+                matTooltip="Consultas"
+                mat-mini-fab
+                color="logoConsulta"
+                style="box-shadow: none;"
+                class="mr-2"
+              >
+              <img src="assets/images/faces/face-1.png" alt="" style="margin-top:-5px;width: 20px;">
+              <!-- <mat-icon
+              color="blanco"
+              matTooltip="Consultas"
+              style="font-size: 32px;"
+              >local_shipping</mat-icon> -->
+              <span class="notification-number mat-bg-warn" style="margin-top:-5px" *ngIf="chofer.cantidad>0">{{chofer.cantidad}}</span>
+              </button>
+            <!--  -->
+          </a>
+          <h5 matLine>{{chofer.nombre_chofer}}</h5>
+          <h6 matLine>{{chofer.tipo_det}}</h6>
+          <p matLine class="text-muted">{{chofer.fecha | date:'medium' }}</p>
+          <!--<div matLine *ngFor="let consulta of chofer.consultas" (click)="showDetail(usuario,consulta)">
+            <p matLine class="text-muted">{{consulta.fecha | date:'medium' }}</p>
+            <span fxFlex></span>
+            <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="$event.stopPropagation()"
+              class="hidden-on-open">
+              <mat-icon class="text-muted">more_vert</mat-icon>
+            </button>
+            <mat-menu #msgMenu="matMenu">
+              <button mat-menu-item (click)="openPopUp(consulta)">
+                    <mat-icon>reply</mat-icon> Responder</button>
+              <button mat-menu-item (click)="archivarItem(consulta)">
+                <mat-icon>archive</mat-icon> Archivar
+              </button>
+            </mat-menu>
+          </div>-->
+        </mat-list-item>
+      </mat-nav-list>
+
+    </div>
+  </mat-sidenav>
+  <div class="messages-wrap1" >
+    <mat-toolbar color="primary" class="inbox-toolbar">
+      {{activeChofer.nombre_chofer}}
+      <span fxFlex></span>
+      {{activeChofer.tipo_det}}
+      <span fxFlex></span>
+      Servidor Socket:
+    <!-- <span *ngIf="wsService.socketStatus" class="text-success">Online</span>
+    <span *ngIf="!wsService.socketStatus" class="text-danger">Offline</span> -->
+    </mat-toolbar>
+    <div class="content2" style="height: 90vh;overflow-y: scroll;">
+      <div class="messages">
+        <ul *ngIf="activeChofer">
+          <div fxLayout="row wrap" *ngFor="let consulta of listaconsultas">
+            <div fxFlex="100">
+                <li *ngIf="consulta.userId==activeChofer.id_chofer" class="sent">
+                    <p class="textwhite">{{consulta.userName}} | {{consulta.fecha | date:'medium'}}</p>
+                    <p>{{consulta.message}}</p>
+                    <button mat-icon-button matTooltip="Responder"> <mat-icon left (click)="openPopUp(consulta)">send</mat-icon></button> &nbsp;&nbsp; &nbsp;
+                    <button mat-icon-button matTooltip="Archivar"><mat-icon right (click)="archivarItem(consulta)">archive</mat-icon></button>
+                </li>
+                <li *ngIf="consulta.userId!=activeChofer.id_chofer" class="replies">
+                    <p>{{consulta.message}}</p>
+                    <p class="textblue">{{consulta.userName}} | {{consulta.fecha | date:'medium'}}</p>
+                </li>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <!--<mat-list class="conversations">
+      <mat-list-item *ngFor="let consulta of listaconsultas">
+        <p matLine>{{consulta.message}}</p>
+        <p matLine class="text-muted">{{consulta.userName}}</p>
+      </mat-list-item>
+    </mat-list>-->
+    <!-- Input box and send button -->
+    <!--<div class="chat-input-actions">
+      <form [formGroup]="itemForm" #msgForm="ngForm" class="inputForm" (ngSubmit)="sendRespuesta()"
+        (keyup.enter)="sendRespuesta()" fxLayout="row">
+
+        <mat-form-field class="full-width mr-1">
+          <textarea matInput name="mensaje" [formControl]="itemForm.controls['mensaje']"
+            placeholder="Escriba su respuesta" name="message" class="inputText" value=""></textarea>
+        </mat-form-field>
+        <small *ngIf="itemForm.controls['mensaje'].hasError('required') && itemForm.controls['mensaje'].touched"
+          class="form-error-msg"> Es requerido la respuesta
+        </small>
+        <button mat-fab color="primary" [disabled]="itemForm.invalid">
+          <mat-icon>send</mat-icon>
+        </button>
+      </form>
+    </div>-->
+  </div>
+</mat-sidenav-container>

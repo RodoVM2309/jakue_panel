@@ -1,0 +1,354 @@
+﻿<div>
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <span fxFlex></span><mat-icon>account_circle</mat-icon>
+</div>
+<form [formGroup]="itemFormPersona" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemFormPersona.controls['id']"
+          placeholder="Id de la Persona"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select  autofocus="true" style="color: rgb(7, 0, 0);" name="id_tipo_persona" [formControl]="itemFormPersona.controls['id_tipo_persona']"
+          placeholder="Tipo" (selectionChange)="chanceTipoPersona($event)" [disabled]="rigthChancePersona">
+          <mat-option *ngFor="let vtipo of tipospersona" [value]="vtipo.id">
+            {{ vtipo.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['id_tipo_persona'].hasError('required') &&
+          itemFormPersona.controls['id_tipo_persona'].touched
+        " class="form-error-msg">
+        Es requerido el tipo
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="cuit_cuil" type="text" [formControl]="itemFormPersona.controls['cuit_cuil']" validCuit existeCuit
+          placeholder="RUC / Cédula de Identidad (C.I.)" #cuitcuil maxlength="11" [readonly]="esInicio" />
+        <!-- <mat-hint align="end">{{ cuitcuil.value.length }} / 11</mat-hint> -->
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('required') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Es requerido el RUC / Cédula de Identidad (C.I.)
+      </small>
+      <!-- <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('minlength') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Debe tener 11 digitos.
+      </small> -->
+     <!--  <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('maxlength') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Debe tener 11 digitos.
+      </small>
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('min') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        RUC incorrecto.
+      </small>
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('max') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        RUC incorrecto.
+      </small>
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('pattern') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Sólo números
+      </small>
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('validCuit') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Debe ser un RUC Válido
+      </small>-->
+      <small *ngIf="
+          itemFormPersona.controls['cuit_cuil'].hasError('existeCuit') &&
+          itemFormPersona.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+         RUC / Cédula de Identidad (C.I.) ya existe.
+      </small>
+
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="!nonombrapell">
+      <mat-form-field class="full-width">
+        <input matInput name="apellidos" [formControl]="itemFormPersona.controls['apellidos']" placeholder="Apellido"
+          #apellidos maxlength="75"
+          (change)="mostrarRazonSocial()"
+          (keyup)="mostrarRazonSocial()" />
+        <mat-hint align="end">{{ apellidos.value.length }} / 75</mat-hint>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['apellidos'].hasError('required') &&
+          itemFormPersona.controls['apellidos'].touched
+        " class="form-error-msg">
+        Es requerido los apellidos
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="!nonombrapell">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre" [formControl]="itemFormPersona.controls['nombre']" placeholder="Nombre"
+          [readonly]="nonombrapell" #nombre maxlength="75" (change)="mostrarRazonSocial()"
+          (keyup)="mostrarRazonSocial( )" />
+        <mat-hint align="end">{{ nombre.value.length }} / 75</mat-hint>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['nombre'].hasError('required') &&
+          itemFormPersona.controls['nombre'].touched
+        " class="form-error-msg">
+        Es requerido el nombre
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1" *ngIf="!norazonsocial">
+      <mat-form-field class="full-width">
+        <input matInput name="razon_social" [formControl]="itemFormPersona.controls['razon_social']"
+          placeholder="Razón Social"   #razonsocial maxlength="150" />
+        <mat-hint align="end">{{ razonsocial.value.length }} / 150</mat-hint>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['razon_social'].hasError('required') &&
+          itemFormPersona.controls['razon_social'].touched
+        " class="form-error-msg">
+        Es requerido la razon social
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="domicilio" [formControl]="itemFormPersona.controls['domicilio']" placeholder="Domicilio"
+          #message maxlength="200" />
+        <mat-hint align="end">{{ message.value.length }} / 200</mat-hint>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['domicilio'].hasError('required') &&
+          itemFormPersona.controls['domicilio'].touched
+        " class="form-error-msg">
+        Es requerido el domicilio
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="pais" [formControl]="itemFormPersona.controls['pais']" placeholder="País"
+          (selectionChange)="getProvincias()">
+          <mat-option *ngFor="let vpais of paises" [value]="vpais.id">
+            {{ vpais.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small
+      *ngIf="
+        itemFormPersona.controls['pais'].hasError('required') &&
+        itemFormPersona.controls['pais'].touched
+      "
+      class="form-error-msg"
+    >
+      Es requerido el país
+    </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="provincia" [formControl]="itemFormPersona.controls['provincia']" placeholder="Departamento"
+          (selectionChange)="getLocalidades()">
+          <mat-option *ngFor="let vprov of provincias" [value]="vprov.id">
+            {{ vprov.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small
+      *ngIf="
+        itemFormPersona.controls['provincia'].hasError('required') &&
+        itemFormPersona.controls['provincia'].touched
+      "
+      class="form-error-msg"
+    >
+      Es requerido la provincia
+    </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select name="id_localidad" [formControl]="itemFormPersona.controls['id_localidad']"
+          placeholder="Localidad">
+          <mat-option *ngFor="let vlocalidad of localidades" [value]="vlocalidad.id">
+            {{ vlocalidad.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['id_localidad'].hasError('required') &&
+          itemFormPersona.controls['id_localidad'].touched
+        " class="form-error-msg">
+        Es requerido la localidad
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+       <!--  <span matPrefix>+54 &nbsp;</span> -->
+        <input matInput name="telefono" [formControl]="itemFormPersona.controls['telefono']" placeholder="Teléfono"
+          type="tel" uniqueTelefonoPersona
+          #telefono maxlength="15" />
+       <!--  <mat-icon matSuffix>mode_edit</mat-icon> -->
+      </mat-form-field>
+      <small *ngIf="
+          itemFormPersona.controls['telefono'].hasError('required') &&
+          itemFormPersona.controls['telefono'].touched
+        " class="form-error-msg">
+        Es requerido el telefono
+      </small>
+      <small *ngIf="
+          itemFormPersona.controls['telefono'].hasError(
+            'uniqueTelefonoPersona'
+          ) && itemFormPersona.controls['telefono'].touched
+        " class="form-error-msg">
+        Telefono ya existe. No puede estar repetido.
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="username"
+          [formControl]="itemFormPersona.controls['username']"
+          placeholder="Usuario"
+          #username
+          maxlength="50"
+          value="{{ cuitcuil.value }}"
+          readonly
+        />
+        <!-- <mat-hint align="end">{{cuitcuil.value}}{{username.value.length}} / 50</mat-hint> -->
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemFormPersona.controls['username'].hasError('required') &&
+          itemFormPersona.controls['username'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido el usuario
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="password"
+          type="password"
+          [formControl]="itemFormPersona.controls['password']"
+          placeholder="Contraseña"
+          #password
+          minlength="8"
+          maxlength="12"
+        />
+        <mat-hint align="end">{{ password.value.length }} / 12</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemFormPersona.controls['password'].hasError('required') &&
+          itemFormPersona.controls['password'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido el password
+      </small>
+      <small
+        *ngIf="
+          itemFormPersona.controls['password'].hasError('pattern')
+        "
+        class="form-error-msg"
+      >
+      Su contraseña es débil.
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <!-- <mat-form-field class="full-width">
+        <input
+          matInput
+          name="email" maxlength="100"
+          [formControl]="itemFormPersona.controls['email']"
+          placeholder="E-mail"
+          #email
+          (change)="comprobarEmails()"
+          (keyup)="comprobarEmails()"
+        />
+        <mat-hint align="end">{{ email.value.length }} / 100</mat-hint>
+      </mat-form-field> -->
+      <mat-form-field class="full-width">
+        <mat-chip-list #chipList aria-label="Mail de la persona">
+          <mat-chip *ngFor="let mail of mailarray" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(mail)">
+            {{mail.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Nuevo mail..."
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+            [formControl]="itemFormPersona.controls['email']"
+          >
+        </mat-chip-list>
+      </mat-form-field>
+      <small
+        *ngIf="
+          incorrect_emails &&
+          itemFormPersona.controls['email'].dirty &&
+          itemFormPersona.controls['email'].touched
+        "
+        class="form-error-msg"
+      >
+        El Email es incorrecto.
+      </small>
+      <small
+        *ngIf="
+          exists_emails &&
+          itemFormPersona.controls['email'].dirty &&
+          itemFormPersona.controls['email'].touched
+        "
+        class="form-error-msg"
+      >
+        Email ya existe en nuestra base de datos. No puede estar repetido. Intente con otro email.
+      </small>
+      <small
+        *ngIf="mailarray.length == 0"
+        class="form-error-msg"
+      >
+        Es requerido al menos un Mail.
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="
+        mailarray.length == 0 || itemFormPersona.invalid || incorrect_emails || exists_emails
+        "
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

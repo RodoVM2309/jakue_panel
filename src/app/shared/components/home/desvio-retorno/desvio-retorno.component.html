@@ -1,0 +1,127 @@
+﻿<mat-card-title class="">
+    <h1 matDialogTitle>{{ data.title }}</h1>
+    <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="" />
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="idDesvio" [formControl]="itemForm.controls['idDesvio']" placeholder="" />
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="isNew" [formControl]="itemForm.controls['isNew']" placeholder="" />
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select disabled placeholder="Destino Actual" [formControl]="itemForm.controls['id_destino']" name="id_destino" class="mb-1">
+                    <mat-option *ngFor="let destino of destinos" [value]="destino.id" ngDefaultControl>
+                        {{ destino.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select disabled placeholder="Destinatario" [formControl]="itemForm.controls['id_destinatario']" name="id_destinatario" class="mb-1">
+                    <mat-option *ngFor="let destinatario of destinatarios" [value]="destinatario.id" ngDefaultControl>
+                        {{ destinatario.nombre_persona }} {{ destinatario.direccion_persona }} {{ destinatario.localidad_persona }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select disabled placeholder="Entregador" [formControl]="itemForm.controls['id_entregador']" name="id_entregador" class="mb-1">
+                    <mat-option *ngFor="let entregador of entregadores" [value]="entregador.id" ngDefaultControl>
+                        {{ entregador.nombre_persona }} {{ entregador.direccion_persona }} {{ entregador.localidad_persona }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select disabled placeholder="Corredor" [formControl]="itemForm.controls['id_corredor']" name="id_corredor" class="mb-1">
+                    <mat-option *ngFor="let corredor of corredores" [value]="corredor.id" ngDefaultControl>
+                        {{ corredor.nombre_persona }} {{ corredor.direccion_persona }} {{ corredor.localidad_persona }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput readonly name="carta_porte" [formControl]="itemForm.controls['carta_porte']" placeholder="Carta Porte" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['carta_porte'].hasError('required') &&
+          itemForm.controls['carta_porte'].touched
+        " class="form-error-msg">
+        Es requerido la carta porte
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput readonly name="cupo" [formControl]="itemForm.controls['cupo']" placeholder="Cupo" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['cupo'].hasError('required') &&
+          itemForm.controls['cupo'].touched
+        " class="form-error-msg">
+        Es requerido el cupo
+      </small>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select placeholder="Nuevo Destino" [formControl]="itemForm.controls['id_newDestino']" name="id_newDestino" class="mb-1">
+                    <mat-option *ngFor="let destino of destinos1" [value]="destino.id" ngDefaultControl>
+                        {{ destino.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select placeholder="Motivo de Desvío" [formControl]="itemForm.controls['id_desvio_motivo']" name="id_desvio_motivo" class="mb-1">
+                    <mat-option *ngFor="let desvioMotivo of desviosMotivo" [value]="desvioMotivo.id" ngDefaultControl>
+                        {{ desvioMotivo.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="observaciones" maxlength="2000" [formControl]="itemForm.controls['observaciones']" placeholder="Observaciones">
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['observaciones'].hasError('required') &&
+          itemForm.controls['observaciones'].touched
+        " class="form-error-msg">
+        Es requerido las observaciones
+      </small>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngIf="errorValidacion" style="background-color: red;">
+            Error: Destinos no pueden ser iguales
+        </div>
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+        Cancelar
+      </button>
+            <span fxFlex></span>
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+        </div>
+    </div>
+</form>

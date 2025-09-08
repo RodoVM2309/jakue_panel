@@ -1,0 +1,134 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_sorteo"
+          [formControl]="itemForm.controls['id_sorteo']"
+          placeholder="Id del sorteo"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="dni"
+          [formControl]="itemForm.controls['dni']"
+          placeholder="DNI"
+          #dni
+          maxlength="8"
+          minlength="8"
+          (change)="onChange($event)"
+        />
+        <mat-hint align="end">{{ dni.value.length }} / 8</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['dni'].hasError('required') &&
+          itemForm.controls['dni'].touched
+        "
+        class="form-error-msg"
+      >
+        El Apellido es obligatorio
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="nombre"
+          [formControl]="itemForm.controls['nombre']"
+          placeholder="Nombre"
+          #nombre
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ nombre.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['nombre'].hasError('required') &&
+          itemForm.controls['nombre'].touched
+        "
+        class="form-error-msg"
+      >
+        El Nombre es obligatorio
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="apellidos"
+          [formControl]="itemForm.controls['apellidos']"
+          placeholder="Apellidos"
+          #apellidos
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ apellidos.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['apellidos'].hasError('required') &&
+          itemForm.controls['apellidos'].touched
+        "
+        class="form-error-msg"
+      >
+        El Apellido es obligatorio
+      </small>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="email"
+          [formControl]="itemForm.controls['email']"
+          placeholder="Email"
+          #email
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ email.value.length }} / 250</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="telefono"
+          [formControl]="itemForm.controls['telefono']"
+          placeholder="Teléfono"
+          #telefono
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ telefono.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['telefono'].hasError('required') &&
+          itemForm.controls['telefono'].touched
+        "
+        class="form-error-msg"
+      >
+        El Teléfono es obligatorio
+      </small>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

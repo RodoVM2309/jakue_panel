@@ -1,0 +1,113 @@
+﻿.component {
+  background-color: rgb(233, 233, 234);
+  width: 100%;
+  height: 100%;
+}
+
+.encabezado {
+  background-color: rgb(23, 72, 145);
+  color: #FEFEFE;
+  height: 40px;
+  font-size: 24px;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.div-cuerpo {
+  background-color: rgb(255, 255, 255);
+  margin-top: 10px;
+  height: 80vh;
+  border-radius: 5px;
+}
+.footer {
+  color: #FEFEFE;
+  height: 8vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.div-botones {
+  width: 100%;
+  height: 50px;
+}
+
+// ::ng-deep .mat-form-field {
+//   height: 50px;
+// }
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  color: #ffffff !important;
+}
+
+.full-80 {
+  width: 80%;
+}
+
+.full-90 {
+  width: 90%;
+}
+
+.full-70 {
+  width: 70%;
+}
+
+.full-60 {
+  width: 60%;
+}
+
+.form-span-cosecha {
+  color: #c9c5c5
+}
+
+.mat-cabecera {
+  background-color: #29327B !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+
+.mat-guardar-cabecera {
+  background-color: rgb(134, 177, 197) !important;
+  color: #fff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+
+#form-add-cupo {
+
+  ::ng-deep .mat-form-field-infix {
+    margin-top: 0px !important;
+    border-top: 0.84375em solid transparent !important;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    display: none !important;
+  }
+
+  // ::ng-deep .mat-form-field {
+  //   height: 15px;
+  // }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #247ba0;
+  }
+
+}

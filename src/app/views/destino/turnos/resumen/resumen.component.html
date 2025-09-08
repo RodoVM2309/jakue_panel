@@ -1,0 +1,11 @@
+<mat-tab-group style="margin-top: 8px;background-color: #ffffff;" #tabGroup1>
+  <mat-tab label="{{'panelDestino.turnos-resumen.diario.default' | translate}}">
+    <app-turnos-resumen-diario *ngIf="tabGroup1.selectedIndex === 0"></app-turnos-resumen-diario>
+  </mat-tab>
+  <mat-tab label="{{'panelDestino.turnos-resumen.semanal.default' | translate}}">
+    <app-turnos-resumen-semanal *ngIf="tabGroup1.selectedIndex === 1"></app-turnos-resumen-semanal>
+  </mat-tab>
+  <mat-tab label="{{'panelDestino.turnos-resumen.mensual.default' | translate}}">
+    <app-turnos-resumen-mensual *ngIf="tabGroup1.selectedIndex === 2"></app-turnos-resumen-mensual>
+  </mat-tab>    
+</mat-tab-group>

@@ -1,0 +1,103 @@
+<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Hojas de Rutas de Viajes</h4>
+</div>
+<mat-card class="p-0">
+   
+
+  <mat-card-content class="p-0">
+      <form [formGroup]="hojaForm" (ngSubmit)="Ejecutarfiltro()">
+          <br>
+          <div fxLayout="row wrap">
+              <div fxFlex="50" fxFlex.gt-xs="5" class="pr-1">
+              </div> 
+              <div fxFlex="50" fxFlex.gt-xs="30" class="pr-1">
+                  <mat-form-field class="full-width">
+                      <input matInput name="desdeDate" formControlName="desdeDate" placeholder="Fecha Desde"
+                          [matDatepicker]="appDatepicker" [max]="maxDate" (dateInput)="addEvent('input', $event, 'desde')"
+                          (dateChange)="addEvent('change', $event, 'desde')">
+                      <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                      </mat-datepicker-toggle>
+
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker></mat-datepicker>
+              </div>
+              <div fxFlex="50" fxFlex.gt-xs="30" class="pr-1">
+                  <mat-form-field class="full-width">
+                      <input matInput name="hastaDate" formControlName="hastaDate" placeholder="Fecha hasta"
+                          [matDatepicker]="appDatepicker1" [min]="minDate" (dateInput)="addEvent('input', $event, 'hasta')"
+                          (dateChange)="addEvent('change', $event, 'hasta')">
+                      <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker1></mat-datepicker>
+              </div>
+              
+              <button mat-raised-button color="primary" [disabled]="hojaForm.invalid">Buscar</button>
+          </div>
+      </form>
+        <button class="p-1" mat-icon-button mat-sm-button color="warn" (click)="exportAsXLSX()"><mat-icon>list</mat-icon>Exportar a Excel</button> 
+    
+  </mat-card-content>
+
+  <mat-card-content class="p-0" >
+    <ngx-datatable class="material ml-0 mr-0" 
+      [rows]="hojaRutas" 
+      [columnMode]="'force'" 
+      [headerHeight]="50"
+      [footerHeight]="50" 
+      [externalPaging]="false"       
+      [offset]="0" 
+      [limit]="10"      
+      [rowHeight]="'auto'">
+      
+      <ngx-datatable-column name="Fecha Desde" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_desde }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Fecha Hasta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_hasta }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Razon Social" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.generador_razon_social }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Lugar de Origen" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row?.lugar_origen }}
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="Lugar Destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.lugar_destino }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.chofer_razon_social }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.chofer_cuit }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.camion_patente }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente Acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.acoplado_patente }}
+        </ng-template>
+      </ngx-datatable-column>    
+    </ngx-datatable>
+  </mat-card-content>
+ 
+
+
+</mat-card>

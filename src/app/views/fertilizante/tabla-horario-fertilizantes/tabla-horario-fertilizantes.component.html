@@ -1,0 +1,8 @@
+<div style="width: 100%;">
+    <hot-table
+    [afterInit] = "afterInit"
+    [afterSelectionEnd]="detectChanges"
+    [afterGetColHeader]="pintarDiaActual"
+    [settings]="tableSettings"
+    [data]="dataset"></hot-table>
+</div>

@@ -1,0 +1,70 @@
+<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_chofer"
+          [formControl]="itemForm.controls['id_chofer']"
+          placeholder="Id del Chofer"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      Cantidad de viajes:
+      <input
+        class="quantity-input default-bg"
+        min="1"
+        name="cantidad"
+        type="number"
+        [formControl]="itemForm.controls['cantidad']"
+        style="width: 55px !important;"
+      />
+      <small
+        *ngIf="
+          itemForm.controls['cantidad'].hasError('required') &&
+          itemForm.controls['cantidad'].touched
+        "
+        class="form-error-msg"
+      >
+        Debe introducir la Cantidad de Viajes</small
+      >
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="motivo"
+          placeholder="Motivo"
+          [formControl]="itemForm.controls['motivo']"
+          rows="1"
+        >
+        </textarea>
+        <small
+          *ngIf="
+            itemForm.controls['motivo'].hasError('required') &&
+            itemForm.controls['motivo'].touched
+          "
+          class="form-error-msg"
+        >
+          Debe introducir el motivo</small
+        >
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

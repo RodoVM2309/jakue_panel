@@ -1,0 +1,133 @@
+<form [formGroup]="itemForm">
+  <div class="component"
+       fxLayout="row wrap">
+    <div class="encabezado"
+         fxLayout="column wrap"
+         fxLayoutAlign="center center">
+      <div fxLayout="row wrap">
+        <div fxFlex="100"
+             fxLayoutAlign="center center">
+          <img src="assets/images/muvin/icono_ok.png"
+               alt="" />
+        </div>
+      </div>
+      <div fxLayout="row wrap"
+           style="margin-top: 20px; width: 100%;">
+        <div fxFlex="100"
+             fxLayoutAlign="start center">
+          <div fxFlex="5"></div>
+          <div fxFlex="90">
+            <small> <strong>EL USUARIO NO POSEE CORREO ELECTRÓNICO REGISTRADO EN JAKUE</strong>
+            </small>
+          </div>
+          <div fxFlex=""
+               class="pr-1"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="cuerpo"
+         fxLayout="column wrap">
+      <div fxLayout="row wrap"
+           fxLayoutAlign="center center">
+        <div fxFlex="100"
+             fxLayout="column wrap"
+             style="font-size: 16px;">
+          <div fxLayoutAlign="start center"
+               style="margin: 6px 16px 0px 40px;">
+            <p> <strong> {{razon}}</strong>&nbsp;- RUC:&nbsp; <strong>{{cuit}}</strong>, no posee
+              un
+              correo electrónico en Jakue App en donde notificarle esta asignación. </p>
+          </div>
+          <div fxLayoutAlign="center center"
+               style="margin: 10px;">
+            <strong>¿Desea indicar una dirección de correo?</strong>
+          </div>
+        </div>
+        <div fxFlex="5"
+             class="pr-1"></div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <div fxFlex="5"></div>
+          <div fxFlex="90"
+               class="select-acciones">
+            <mat-form-field class="full-width">
+              <mat-chip-list #chipList
+                             aria-label="Mail de la persona">
+                <mat-chip *ngFor="let mail of mailarray"
+                          [ngStyle]="{'background-color':mail.invalid ? '#ff0000' : ''}"
+                          [selectable]="selectable"
+                          [removable]="removable"
+                          (removed)="remove(mail)"
+                          required
+                          name="chips">
+                  {{mail.value}}
+                  <mat-icon matChipRemove
+                            *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Ingrese aquí correo electrónico ..."
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (keyup.enter)="add($event)"
+                       (keyup.Space)="add($event)"
+                       (keyup.spacebar)="add($event)"
+                       (matChipInputTokenEnd)="add($event)"
+                       [formControl]="itemForm.controls['emails']">
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+          <div fxFlex="5"></div>
+        </div>
+      </div>
+      <div fxLayout="row wrap"
+           fxLayoutAlign="center end"
+           style="height: 30px;">
+        <div fxFlex="100">
+          <div fxFlex="5"></div>
+          <div fxFlex="90">
+            <mat-error *ngIf="itemForm.controls['emails'].hasError('empty')">Es requerido al menos
+              un Mail</mat-error>
+            <mat-error *ngIf="itemForm.controls['emails'].hasError('incorrectEmail')">Existe un
+              email inválido
+            </mat-error>
+          </div>
+          <div fxFlex="5"></div>
+        </div>
+      </div>
+      <div class="footer"
+           fxLayout="row wrap"
+           fxLayoutAlign="center center">
+        <div fxLayout="row wrap"
+             fxLayoutAlign="center start"
+             class="div-botones">
+          <div fxFlex="100"
+               class="mt-1">
+            <div fxFlex="5"></div>
+            <div fxFlex="44"
+                 fxLayoutAlign="start center">
+              <button mat-raised-button
+                      style="background-color: black"
+                      type="button"
+                      (click)="submit(0)">
+                OMITIR
+              </button>
+            </div>
+            <!-- <div fxFlex="14"></div> -->
+            <div fxFlex="44"
+                 fxLayoutAlign="end center">
+              <button mat-raised-button
+                      style="background-color: rgb(23, 72, 145); width: 200px"
+                      [disabled]="!validateForm()"
+                      (click)="submit(1)">
+                ENVIAR
+              </button>
+            </div>
+            <div fxFlex="5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

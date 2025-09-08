@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th  class="col_capacidadTerminal">
+      <div >CAPACIDAD TERMINAL</div>
+    </th>
+    <th *ngFor="let item of despachos" class="row_tipoDespacho"><div><strong>{{item | uppercase }}</strong></div></th>
+    <th class="row_total"><div><strong>TOTAL</strong></div></th>
+  </tr>
+  <tr  *ngFor="let lista of listas">
+    <td><div style="text-align: left" [ngClass]="lista.class" >{{lista.nombre}}</div></td>
+    <td  *ngFor="let item of lista.item" [ngClass]="lista.class"><div style="text-align: center">{{ item }}</div></td>
+    <td><div class="col_total"><strong>{{ lista.total  }}</strong></div></td>
+  </tr>
+</table>

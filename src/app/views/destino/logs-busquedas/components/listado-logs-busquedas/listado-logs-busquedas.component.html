@@ -1,0 +1,8 @@
+<div class="margin-333">
+  <app-sin-logs [showTable]="variables.showTable"></app-sin-logs>
+
+  <app-filtros-logs [variables]="variables" (refresh)="getItems()" [dataSource]="dataSource"></app-filtros-logs>
+
+  <app-data-logs [variables]="variables" (refresh)="getItems()" [dataSource]="dataSource"></app-data-logs>
+
+</div>

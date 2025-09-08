@@ -1,0 +1,91 @@
+<mat-card style="padding: 15px;">
+    <div fxLayout="column wrap">
+        <div fxFlex="100" fxLayoutWrap="wrap" style="height: 55px;">
+            <div fxFlex="25">
+                <div fxLayout="row wrap" style="height: 55px;">
+                    <div fxFlex="100" fxFlex="row" style="background-color: rgb(181,225,245); color: rgb(128,132,135)">
+                        <div fxFlex="40" fxFlex="column">
+                            <h5 style="margin-left: 15px;margin-top: 5px;">Resumen</h5>
+                            <h5 style="margin-left: 15px;margin-top: -6px;">Operativo</h5>
+                        </div>
+                        <div fxFlex="60">
+                            Fecha:
+                            <mat-form-field style=" margin-top: 2px; height: 50px; width: 60%; padding: 0px;">
+
+                                <input matInput name="fechaFilter" [formControl]="configPuertoForm.controls['selectedFecha']" [matDatepicker]="appDatepicker" (dateChange)="aplicarSelectFecha($event)" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                                </mat-datepicker-toggle>
+                            </mat-form-field>
+                            <mat-datepicker #appDatepicker></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="75" fxFlex="row" style="background-color: #174693;color:rgb(128,132,135)">
+                <div fxFlex="100">
+                    <div fxFlex="30" fxFlex="row" style="background-color: #174693;color: #ffffff;">
+                        <div fxFlex="100">
+                            <div fxFlex="50" fxFlex="column">
+                                <div style="margin-left:70%;margin-top: 8px;"> <small>Total</small></div>
+                                <div style="margin-left:70%;margin-top: -8px;"><small>puertos</small></div>
+                            </div>
+                            <div fxFlex="50" fxLayoutAlign="start center">
+                                <button matTooltip="Por asignar" mat-mini-fab color="carga-publicada" style="box-shadow: none;font-size: 16px;" class="mr-2">
+                  {{cantPuertos}}
+                  <!-- {{row.cantidad -row.cantidadViajes +row.reduccion}} -->
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="40" fxFlex="row" style="background-color: #174693;color: #ffffff;">
+                        <div fxFlex="100">
+                            <div fxFlex="60" fxFlex="column">
+                                <div style="margin-left:70%;margin-top: 8px;"> <small>Total </small></div>
+                                <div style="margin-left:70%;margin-top: -8px;"><small>camiones</small></div>
+                            </div>
+                            <div fxFlex="40" fxLayoutAlign="start center">
+                                <button matTooltip="Por asignar" mat-mini-fab color="verflotacomp" style="box-shadow: none;font-size: 16px;" class="mr-2">
+                  {{cantCamiones}}
+                  <!-- {{row.cantidad -row.cantidadViajes +row.reduccion}} -->
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="30" fxFlex="row" style="background-color: #174693;color: #ffffff;">
+                        <div fxFlex="100">
+                            <div fxFlex="50" fxFlex="column">
+                                <div style="margin-left: 70%;margin-top: 8px;"> <small>Puertos</small></div>
+                                <div style="margin-left:70%;margin-top: -8px;"><small>Normal</small></div>
+                            </div>
+                            <div fxFlex="50" fxLayoutAlign="start center">
+                                <button matTooltip="Por asignar" mat-mini-fab color="observacion-cargada" style="box-shadow: none;font-size: 16px;" class="mr-2">
+                  {{puertosNormal}}
+                  <!-- {{row.cantidad -row.cantidadViajes +row.reduccion}} -->
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="100" fxLayoutWrap="wrap">
+            <table>
+                <tr>
+                    <th *ngFor="let headers of dynamicColumns" style="text-align: center;">
+                        {{headers.header.destino}}
+                        <br>
+                        <button matTooltip="Por asignar" mat-mini-fab color="verflotacomp" style="box-shadow: none;font-size: 16px;" class="mr-2">
+                  {{ headers.header.cam_ventana }}  
+                  <!-- {{row.cantidad -row.cantidadViajes +row.reduccion}} -->
+             </button>
+                    </th>
+                </tr>
+                <tr *ngFor="let items of turnos">
+                    <td *ngFor="let headers of dynamicColumns" style="text-align: center;">
+                        {{items[headers.columnDef]}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</mat-card>

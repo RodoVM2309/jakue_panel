@@ -1,0 +1,28 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="background-color: #87B1C6;"  >
+  <mat-tab style="margin-left: 20px;">
+    <ng-template mat-tab-label>
+      <div fxLayout="row wrap">
+        <div fxFlex="100"  [ngStyle]="{'margin-top':selectedTab === 0 ? '15px':'0px' }">
+          <strong>{{'panelDestino.gestion-planta.dashboard' | translate}}</strong>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="center center">
+           <mat-icon *ngIf="selectedTab === 0" style="margin-top:-10px;">arrow_drop_down</mat-icon>
+        </div>
+      </div>
+    </ng-template>
+    <app-posicion *ngIf="selectedTab === 0"></app-posicion>
+  </mat-tab>
+  <mat-tab >
+    <ng-template mat-tab-label>
+      <div fxLayout="row wrap">
+        <div fxFlex="100"  [ngStyle]="{'margin-top':selectedTab === 1 ? '15px':'0px' }">
+           <strong>{{'panelDestino.gestion-planta.pendientes' | translate}}</strong>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="center center">
+          <mat-icon *ngIf="selectedTab === 1" style="margin-top:-10px;">arrow_drop_down</mat-icon>
+        </div>
+      </div>
+    </ng-template>
+    <app-pendientes *ngIf="selectedTab === 1"></app-pendientes>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,261 @@
+<div class="encabezado" fxLayout="column wrap">
+  <div fxFlex="100">
+    <div fxFlex="60" fxLayoutAlign="start center" style="padding-left: 5em">
+      <h4>Línea Covid-19 <strong >MAGyP + BCR </strong></h4>
+      <img style="margin-left: 20px;height: 55px;" src="assets/images/muvin/logo-magyp.png" alt="" />
+    </div>
+    <div fxFlex="35" fxLayoutAlign="end center" >
+      <h4>NUEVO REGISTRO</h4>
+    </div>
+    <div fxFlex="5"></div>
+  </div>
+</div>
+<div class="cuerpo" fxLayout="column wrap">
+  <form [formGroup]="testForm" style="margin-top: 10px;">
+    <div fxFlex="100">
+      <div fxFlex="5"></div>
+      <div fxFlex="90" fxLayoutAlign="start center">
+        <div fxFlex="100" fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-xs="50" fxLayout="row wrap">
+            <div fxFlex="50" hidden style="padding-right: 5em">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="id" [formControl]="testForm.controls['id']" placeholder="Id de la Persona" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" style="padding-right: 5em" fxLayout="row wrap">
+              <div fxFlex="5"></div>
+              <div fxFlex="90" fxLayoutAlign="start center">
+                <h6><strong>TRANSPORTISTA</strong></h6>
+              </div>
+              <div fxFlex="5"></div>
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="cuit" type="text" [formControl]="testForm.controls['cuit']"
+                  [readonly]="encontradoTrans" (change)="buscarTransportistaCuit()" (keyup)="buscarTransportistaCuit()"
+                  placeholder="CUIT" #cuitcuil maxlength="11" class=" " />
+
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['cuit'].hasError('required') &&
+              testForm.controls['cuit'].dirty
+            " class="form-error-msg">
+                Es requerido el cuit
+              </small>
+              <small *ngIf="
+              testForm.controls['cuit'].hasError('minlength') &&
+              testForm.controls['cuit'].dirty
+            " class="form-error-msg">
+                Debe tener 11 digitos.
+              </small>
+              <small *ngIf="
+              testForm.controls['cuit'].hasError('maxlength') &&
+              testForm.controls['cuit'].dirty
+            " class="form-error-msg">
+                Debe tener 11 digitos.
+              </small>
+              <small *ngIf="
+              testForm.controls['cuit'].hasError('pattern') &&
+              testForm.controls['cuit'].dirty
+            " class="form-error-msg">
+                Sólo números
+              </small>
+              <small *ngIf="
+              testForm.controls['cuit'].hasError('validCuit') &&
+              testForm.controls['cuit'].dirty
+            " class="form-error-msg">
+                Debe ser un CUIT Válido
+              </small>
+
+
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="nombre" [formControl]="testForm.controls['nombre']" placeholder="Nombre"
+                  [readonly]="!isNew" #nombre maxlength="75" [readonly]="encontradoTrans" class=" " />
+
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['nombre'].hasError('required') &&
+              testForm.controls['nombre'].touched
+            " class="form-error-msg">
+                Es requerido el nombre
+              </small>
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="patente" [formControl]="testForm.controls['patente']" placeholder="Patente"
+                  [readonly]="!isNew" #patente maxlength="8" [readonly]="encontradoTrans" class=" " />
+
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['patente'].hasError('required') &&
+              testForm.controls['patente'].touched
+            " class="form-error-msg">
+                Es requerido la patente
+              </small>
+
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayoutAlign="center center">
+              <mat-form-field class="full-width  " appearance="outline">
+                <span matPrefix>+54 &nbsp;</span>
+                <input matInput name="telefono" [formControl]="testForm.controls['telefono']" placeholder="Teléfono"
+                  type="number" [readonly]="encontradoTrans" />
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['telefono'].hasError('min') &&
+              testForm.controls['telefono'].dirty
+            " class="form-error-msg">
+                Debe tener 10 digitos.
+              </small>
+              <small *ngIf="
+              testForm.controls['telefono'].hasError('max') &&
+              testForm.controls['telefono'].dirty
+            " class="form-error-msg">
+                Debe tener 10 digitos.
+              </small>
+              <small *ngIf="
+              testForm.controls['telefono'].hasError('required') &&
+              testForm.controls['telefono'].touched
+            " class="form-error-msg">
+                Es requerido el telefono
+              </small>
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="id_cadena" [formControl]="testForm.controls['id_cadena']"
+                [disabled]="encontradoTrans"
+                placeholder="Cadenas">
+                  <mat-option *ngFor="let cadena of cadenas" [value]="cadena.id" class=" ">
+                    {{ cadena.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['id_cadena'].hasError('required') &&
+              testForm.controls['id_cadena'].touched
+            " class="form-error-msg">
+                Es requerido la cadena
+              </small>
+            </div>
+            <div fxFlex="100" style="padding-right: 3em" fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <textarea matInput name="observaciones" placeholder="Observaciones"
+                  [formControl]="testForm.controls['observaciones']" rows="2" [readonly]="encontradoTrans" class=" ">
+            </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="50" fxLayout="row wrap">
+            <div fxFlex="100" style="padding-left: 3em; " fxLayout="row wrap" >
+              <div fxFlex="5"></div>
+              <div fxFlex="90" fxLayoutAlign="start center">
+                <h6><strong>TEST</strong></h6>
+              </div>
+              <div fxFlex="5"></div>
+            </div>
+            <div fxFlex="100" style="margin-top:-4px;padding-left: 3em; " fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="id_resultado" [formControl]="testForm.controls['id_resultado']"
+                  placeholder="Resultado">
+                  <mat-option *ngFor="let resultado of resultados" [value]="resultado.id">
+                    {{ resultado.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['id_resultado'].hasError('required') &&
+              testForm.controls['id_resultado'].touched
+            " class="form-error-msg">
+                Es requerido el resultado
+              </small>
+            </div>
+            <div fxFlex="100" style="margin-top:-1px;padding-left: 3em; "  fxLayout="row wrap" fxLayoutAlign="end center">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="fecha" [formControl]="testForm.controls['fecha']" placeholder="Fecha "
+                  [matDatepicker]="appDatepicker" />
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                </mat-datepicker-toggle>
+              </mat-form-field>
+              <mat-datepicker #appDatepicker></mat-datepicker>
+            </div>
+            <div fxFlex="100" style="margin-top:-4px;padding-left: 3em; "   fxLayout="row wrap" fxLayoutAlign="end center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="provincia" [formControl]="testForm.controls['provincia']" placeholder="Provincia"
+                  (selectionChange)="getLocalidades()">
+                  <mat-option *ngFor="let vprov of provincias" [value]="vprov.id">
+                    {{ vprov.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" style="margin-top:-4px;padding-left: 3em; "  fxLayout="row wrap" fxLayoutAlign="end center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="id_localidad" [formControl]="testForm.controls['id_localidad']"
+                  placeholder="Localidad">
+                  <mat-option *ngFor="let vlocalidad of localidades" [value]="vlocalidad.id">
+                    {{ vlocalidad.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['id_localidad'].hasError('required') &&
+              testForm.controls['id_localidad'].touched
+            " class="form-error-msg">
+                Es requerido la localidad
+              </small>
+            </div>
+            <div fxFlex="100" style="margin-top:-4px;padding-left: 3em; "   fxLayout="row wrap" fxLayoutAlign="end center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="id_autoridad" [formControl]="testForm.controls['id_autoridad']"
+                  placeholder="Autoridades de Salud">
+                  <mat-option *ngFor="let autoridad of autoridades" [value]="autoridad.id">
+                    {{ autoridad.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['id_autoridad'].hasError('required') &&
+              testForm.controls['id_autoridad'].touched
+            " class="form-error-msg">
+                Es requerido la autoridad de salud
+              </small>
+            </div>
+            <div fxFlex="100" style="margin-top:-4px;padding-left: 3em; " fxLayout="row wrap" fxLayoutAlign="end center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select name="id_seguimiento" [formControl]="testForm.controls['id_seguimiento']"
+                  placeholder="Seguimiento">
+                  <mat-option *ngFor="let seguimiento of seguimientos" [value]="seguimiento.id">
+                    {{ seguimiento.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <small *ngIf="
+              testForm.controls['id_seguimiento'].hasError('required') &&
+              testForm.controls['id_seguimiento'].touched
+            " class="form-error-msg">
+                Es requerido el seguimiento
+              </small>
+            </div>
+          </div>
+          <div fxFlex="100"  >
+            <div fxFlex="50">
+              <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+                Cancelar
+              </button>
+            </div>
+            <div fxFlex="50" fxLayoutAlign="end center">
+              <button mat-raised-button style="background-color: black;" [disabled]="testForm.invalid " (click)="submit()">
+                Guardar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div fxFlex="5"></div>
+    </div>
+  </form>
+</div>

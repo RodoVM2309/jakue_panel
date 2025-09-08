@@ -1,0 +1,201 @@
+<div class="margin-333 not-scroll">
+  <div fxFlex="100">
+    <mat-card
+      class="my-card "
+      [style.overflow]="'auto'" [style.width.px]="'100%'">
+
+      <mat-card
+        style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #53ccfc; padding: 0px; margin-top: -25px;"
+        [style.overflow]="'auto'" [style.width.px]="'100%'" [style.height.px]="'5'">
+      </mat-card>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-card style="padding: 10px; margin-top: -5px;" [style.width.px]="'100%'" [style.height.px]="'60'">
+            <div fxFlex="75" fxFlex.gt-xs="75">
+              <mat-form-field >
+                <input matInput  name="fechaFilter" placeholder="Fecha" [matDatepicker]="appDatepicker"
+                  (dateChange)="aplicarFiltro('fecha', $event)" [formControl]="filtrarForm.controls['selectedFecha']">
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                </mat-datepicker-toggle>
+              </mat-form-field>
+              <mat-datepicker #appDatepicker></mat-datepicker>
+              <button *ngIf="filtro.id_producto === 1" mat-button
+                style="color: #87B1C5; font-size: 15px; border-radius: 10px; border-color: #87B1C5; border-style: solid;  border-radius: 20px; height: 40px;"
+                (click)="aplicarFiltro('producto', 1)">
+                <b>SOJA</b>
+              </button>
+              <button *ngIf="filtro.id_producto !== 1" mat-button
+                style="color: #BBBABB; font-size: 15px; border-radius: 10px; height: 40px;"
+                (click)="aplicarFiltro('producto', 1)">
+                <b>SOJA</b>
+              </button>
+              <button *ngIf="filtro.id_producto === 2" mat-button
+                style="color: #87B1C5; font-size: 15px; border-radius: 10px; border-color: #87B1C5; border-style: solid;  border-radius: 20px; height: 40px;"
+                (click)="aplicarFiltro('producto', 2)">
+                <b>MAIZ</b>
+              </button>
+              <button *ngIf="filtro.id_producto !== 2" mat-button
+                style="color: #BBBABB; font-size: 15px; border-radius: 10px; height: 40px;"
+                (click)="aplicarFiltro('producto', 2)">
+                <b>MAIZ</b>
+              </button>
+              <button *ngIf="filtro.id_producto === 3" mat-button
+                style="color: #87B1C5; font-size: 15px; border-radius: 10px; border-color: #87B1C5; border-style: solid;  border-radius: 20px; height: 40px;"
+                (click)="aplicarFiltro('producto', 3)">
+                <b>TRIGO</b>
+              </button>
+              <button *ngIf="filtro.id_producto !== 3" mat-button
+                style="color: #BBBABB; font-size: 15px; border-radius: 10px; height: 40px;"
+                (click)="aplicarFiltro('producto', 3)">
+                <b>TRIGO</b>
+              </button>
+              <button *ngIf="filtro.id_producto === 5" mat-button
+                style="color: #87B1C5; font-size: 15px; border-radius: 10px; border-color: #87B1C5; border-style: solid;  border-radius: 20px; height: 40px;"
+                (click)="aplicarFiltro('producto', 5)">
+                <b>GIRASOL</b>
+              </button>
+              <button *ngIf="filtro.id_producto !== 5" mat-button
+                style="color: #BBBABB; font-size: 15px; border-radius: 10px; height: 40px;"
+                (click)="aplicarFiltro('producto', 5)">
+                <b>GIRASOL</b>
+              </button>
+              <mat-form-field>
+                <mat-select id="producto" placeholder="Otros Productos"
+                  style="margin-left: 15px; border-radius: 10px; width: 150px; height: 40px;"
+                  (selectionChange)="aplicarFiltro('producto', $event.value)" name="producto"
+                  [formControl]="filtrarForm.controls['selectedProducto']">
+                  <mat-option *ngFor="let otrosp of otrosproductos" [value]="otrosp.id">
+                    {{otrosp.descripcion}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="20" fxFlex.gt-xs="20">
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="example-container mat-elevation-z8" style="margin-left: 6px; margin-right: 6px;">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="first_color">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+              <td mat-cell *matCellDef="let cupo" style="width: 5px;height: 40px;">
+                <div style="background:#87B1C5; height: 100%; text-align: center;">
+                  <mat-icon style="color: #FCFDFF; ">chevron_right</mat-icon>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="receptor">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">RECEPTOR</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <div>{{cupo.nombre_receptor}}</div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">TOTAL</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button (click)="cargarAlfanumerico('total', cupo)" mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indicador-total"
+                  class="mr-2">
+                  {{ cupo.total_cupos}}
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ctg">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">CTG</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button (click)="cargarAlfanumerico('ctg', cupo)" mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indicador-ctg"
+                  class="mr-2">
+                  {{cupo.ctg}}
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="sin_ctg">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;color: #EB5700;">
+                SIN CTG
+              </th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center">
+                <button (click)="cargarAlfanumerico('sin_ctg', cupo)" mat-mini-fab
+                  style="box-shadow: none; width: 35px; height: 35px" color="indicador-sin-ctg" class="mr-2">
+                  {{ cupo.sin_ctg }}
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="en_destino">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">EN DESTINO</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button (click)="cargarAlfanumerico('en_destino', cupo)" mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indicador-en_destino"
+                  class="mr-2">
+                  {{cupo.en_destino}}
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="descargados">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">DESCARGADOS</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button (click)="cargarAlfanumerico('descargado', cupo)" mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indicador-descargados"
+                  class="mr-2">
+                  {{cupo.descargado}}
+                </button>
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="anulados">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Anulados</th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button (click)="cargarAlfanumerico('anulados', cupo)" mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="indicador-anulados"
+                  class="mr-2">
+                  {{cupo.anulados}}
+                </button>
+              </td>
+            </ng-container> -->
+            <ng-container matColumnDef="recuperar">
+              <th mat-header-cell *matHeaderCellDef style="color: #E2001A; text-align: center;">
+                <!-- <div>
+                  <mat-icon>rotate_right</mat-icon>Recuperar
+                </div> -->
+                Recuperar
+              </th>
+              <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+                <button mat-icon-button style="color: #E2001A; height: 30px; width:20px;"
+                 *ngIf="cupo.recuperar" (click)="accionRecuperar(cupo)">
+                  <mat-icon>rotate_right</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef style="width: 10px">
+                <p class="Rotate-90" style="margin: auto;">Acciones</p>
+              </th>
+              <td mat-cell *matCellDef="let cupo" style="width: 10px">
+                <button mat-icon-button [matMenuTriggerFor]="msgMenu" style="padding: 10px"
+                  (click)="$event.stopPropagation()" class="hidden-on-open">
+                  <mat-icon class="text-muted">more_vert</mat-icon>
+                </button>
+                <mat-menu #msgMenu="matMenu">
+                  <button mat-menu-item matTooltip="Recuperar" (click)="accionRecuperar(cupo)">
+                    <mat-icon>rotate_right</mat-icon> Recuperar
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator #paginator class="mat-paginator-sticky" [pageSize]="pageSize" [pageSizeOptions]="[20]"
+            [showFirstLastButtons]="true" [length]="totalSize">
+          </mat-paginator>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div id="filtro-dador">
+  <div class="handle" style="color: #ffffff">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" matTooltip="Filtrar Cupos">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+</div>

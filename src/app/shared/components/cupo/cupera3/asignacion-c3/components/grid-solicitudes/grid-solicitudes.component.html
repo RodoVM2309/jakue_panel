@@ -1,0 +1,44 @@
+<div class="content" >
+  <mat-card class="textarea" >
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <mat-card style="
+            box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0),
+              0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+            background: #e9e9ea;
+          " [style.width.px]="'100%'" style="
+            padding: 0px;
+            margin-left: 6px;
+            margin-right: 6px;
+            box-shadow: none;
+            margin-top: 7px;
+          ">
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div fxFlex="100" class="example-container mat-elevation-z8">
+              <div fxLayout="row wrap" class="textarea_handsontable" fxLayoutAlign="center start">
+                <div fxFlex="100" fxLayoutAlign="center center">
+                  <div style="width: 100%; " #tablaSolicitudes id="style-1">
+                    <hot-table #hot [afterInit]="afterInit" [afterSelectionEnd]="detectChanges"
+                      [afterGetColHeader]="pintarSolicitado" [afterRenderer]="renderRow"
+                      [beforeOnCellMouseDown]="limitarSeleccion" [beforeOnCellMouseOver]="limitarSeleccion2"
+                      [settings]="tableSettings" [colHeaders]="colHeaders" [data]="listSolicitudes"></hot-table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div *ngIf="agregarsolicitud " id="solicitar1" [style.top.px]='topaddSolicitad - 4'
+  [style.left.px]="leftaddSolicitad">
+  <button mat-icon-button color="m-0" class="m-0" (click)="addSolicitudPropia()" matTooltip="Asignar sin Solicitud "
+    [disabled]="!variables.validFecha" style="height: 40px; width: 40px;">
+    <mat-icon fxFlex="30%" [ngClass]="variables.validFecha ? 'icon-add-enable': 'icon-add-disabled'">
+      add_circle
+    </mat-icon>
+  </button>
+</div>

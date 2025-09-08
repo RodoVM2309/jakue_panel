@@ -1,0 +1,121 @@
+<div class="encabezado" fxLayout="column wrap" fxLayoutAlign="stretch" style="height: 10vh;">
+  <div fxFlex="100">
+    <div fxFlex="35" style="background-color: #154791; color: #ffffff" fxLayoutAlign="start center" >
+      <mat-icon style="margin-left: 10px; color: #ffffff;">account_circle</mat-icon>
+      <h5 style="margin-left: 10px;margin-top: 10px;">Transportistas</h5>
+    </div>
+    <div fxFlex="65" fxLayoutAlign="start center">
+      <div fxFlex="100">
+        <form [formGroup]="buscarForm">
+          <div fxLayout="row wrap">
+            <div fxFlex="100">
+              <div fxFlex="40" fxLayoutAlign="start center">
+                <input autofocus="true" placeholder="Ingresar CUIT" type="text" maxlength="11" minlength="11"
+                type="text" style="padding-left: 12px;" class="input-buscar" (keyup)="limpiarFiltro()"
+                [formControl]="buscarForm.controls['cuit']" >
+              </div>
+              <div fxFlex="20" fxLayoutAlign="start center">
+                <button mat-raised-button
+                   (click)="setPage(pageEvent)"
+                   [disabled]="buscarForm.invalid">
+                  Buscar
+                </button>
+              </div>
+              <div fxFlex="40"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cuerpo">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="transportista">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6; font-weight: 900;" fxLayoutAlign="center center"> Transportista </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }"> {{element.transportista.nombre_completo | titlecase}}  </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="patente">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6; font-weight: 900;" fxLayoutAlign="center center"> Patente </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" fxLayoutAlign="center center"> {{element.transportista.patente | uppercase }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cuit">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6; font-weight: 900;" fxLayoutAlign="center center"> Cuit </mat-header-cell>
+      <mat-cell *matCellDef="let element"[ngClass]="{'cell-positivo ':element.resultado ==2 }" fxLayoutAlign="center center" > {{element.transportista.cuit}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cadena">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6; font-weight: 900;" fxLayoutAlign="center center"> Cadena </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" fxLayoutAlign="center center"> {{element.transportista.nombreCadena | titlecase}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef style="color:#000000; font-weight: 900;" fxLayoutAlign="center center"> Fecha </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" style="background-color: rgb(234,246,252);" fxLayoutAlign="center center"> {{element.fecha | date: 'd/M/yy'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="test">
+      <mat-header-cell *matHeaderCellDef style="color:#000000; font-weight: 900;" fxLayoutAlign="center center"> Test </mat-header-cell>
+      <mat-cell *matCellDef="let element"  style="background-color: rgb(234,246,252);" fxLayoutAlign="center center">
+       <div  [ngClass]="{'div-resultado':element.resultado ==2  }">{{element.resultadoString}}</div>
+       </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="localidad">
+      <mat-header-cell *matHeaderCellDef style="color:#000000; font-weight: 900;" fxLayoutAlign="center center"> Localidad </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" style="background-color: rgb(234,246,252);" fxLayoutAlign="center center"> {{element.nombreLocalidad | titlecase}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="autoridad">
+      <mat-header-cell *matHeaderCellDef style="color:#000000; font-weight: 900;" fxLayoutAlign="center center"> Autoridad </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" style="background-color: rgb(234,246,252);" fxLayoutAlign="center center"> {{element.nombreAutoridadSalud | titlecase}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="seguimiento">
+      <mat-header-cell *matHeaderCellDef style="color:#000000; font-weight: 900;" fxLayoutAlign="center center">Seguimiento </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" style="background-color: rgb(234,246,252);" fxLayoutAlign="center center"> {{element.seguimientoString}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="app">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6; font-weight: 900;" fxLayoutAlign="center center"> App </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'cell-positivo ':element.resultado ==2 }" fxLayoutAlign="center center"> {{element.appString}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>
+        <div fxLayout="column wrap">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <span style="color:#3FB8E6; font-weight: 900;">Acciones</span>
+          </div>
+          <div fxFlex="100">
+            <small style="color:#000000">+ test &nbsp;&nbsp;&nbsp;&nbsp;Info&nbsp;&nbsp; Mensaje</small>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button mat-sm-button style="text-align: left;" (click)="openPopAddTest('Edit',element)">
+          <mat-icon matTooltip="Agregar Test" style="color:#39A539">add_circle
+          </mat-icon>
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-icon-button mat-sm-button style="text-align: left;" (click)="openPopUpInfoTest(element)">
+          <mat-icon matTooltip="Detalles del Test " style="color:#24A2D7">info
+          </mat-icon>
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-icon-button mat-sm-button style="text-align: left;" (click)="openPopUpSms(element)">
+          <mat-icon matTooltip="Enviar mensaje " style="color:#A8C402">send
+          </mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+</div>
+<div id="app-customizer1" style="z-index: 19999;">
+  <div class="handle" style="color: #fff; margin-right: 15px;">
+    <p style="margin: 4px 13px 4px; font-size: xx-small;">Nuevo</p>
+    <button mat-fab  style="
+      border-color: #ffffff;
+      border-style: solid;
+      background-color: #009DE0;
+      border-width: 2px;" (click)="openPopAddTest('Add',{})" matTooltip=" Agregar un nuevo Transportista/Test">
+      <mat-icon class="icon-customizer">add</mat-icon>
+    </button>
+  </div>
+</div>

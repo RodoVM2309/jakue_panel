@@ -1,0 +1,37 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1">
+      Motivo de Rechazo
+      <mat-select
+        placeholder="Seleccione el Motivo"
+        [formControl]="itemForm.controls['id_motivo']"
+        name="id_motivo"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let motivo of motivoCaladaRechazada"
+          [value]="motivo.id"
+          ngDefaultControl
+        >
+          {{ motivo.descripcion }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

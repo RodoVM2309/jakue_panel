@@ -1,0 +1,132 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="3"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong> NOTIFICAR INCONSISTENCIA CCPP</strong>
+      </div>
+      <div fxFlex="17"></div>
+
+    </div>
+  </div>
+  <form [formGroup]="notificarForm">
+    <div class="cuerpo" fxLayout="column wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <div fxFlex="100">
+          <div fxFlex="4"></div>
+          <div fxFlex="92" class="div-cuerpo">
+            <div fxFlex="100">
+              <div fxFlex="5"></div>
+              <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="start start">
+                <div fxFlex="100" fxLayout="column wrap">
+                  <div fxFlex="100" fxLayoutAlign="start center">
+                    <strong>CCPP N : {{data.payload.cartaPorte}}</strong>
+                  </div>
+                  <div fxFlex="100" fxLayout="row wrap">
+                    <div fxFlex="5" fxLayoutAlign="start center">
+                      <mat-icon style="color: #000000;">mail_outline</mat-icon>
+                    </div>
+                    <div fxFlex="15" fxLayoutAlign="start center">
+                      <strong>Mensaje para:</strong>
+                    </div>
+                    <div fxFlex="80" fxLayout="column wrap" fxLayoutAlign="start center">
+                      <!-- <mat-form-field class="full-width">
+                        <input matInput name="email" [formControl]="notificarForm.controls['email']" validMultipleEmails
+                          placeholder="(Ingrese dirección E-MAIL para notificar; utilice comas para sumar más de una dirección)  " />
+                      </mat-form-field> -->
+                      <mat-form-field class="full-width">
+                        <mat-chip-list #chipList aria-label="Mail de la persona">
+                          <mat-chip *ngFor="let mail of mailarray" [selectable]="selectable"
+                                   [removable]="removable" (removed)="remove(mail)">
+                            {{mail.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input 
+                            placeholder="Nuevo mail..."
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)"
+                            [formControl]="notificarForm.controls['email']"
+                          >
+                        </mat-chip-list>
+                      </mat-form-field>
+                      <small
+                          *ngIf="
+                            notificarForm.controls['email'].hasError('required') &&
+                            notificarForm.controls['email'].touched
+                          "
+                          class="form-error-msg"
+                        >
+                        Es requerido al menos un Mail.
+                      </small>
+                      <!-- <small *ngIf="notificarForm.controls['email'].hasError('required') &&  notificarForm.controls['email'].touched " class="error-msg">
+                        Debe introducir la dirección de correo para notificar
+                      </small> -->
+                      <!-- <small *ngIf=" (notificarForm.controls['email'].hasError('required') || notificarForm.controls['email'].hasError('validMultipleEmails')) &&  notificarForm.controls['email'].touched " class="error-msg">
+                        Debe introducir una o varias direcciones de correo correctas
+                      </small> -->
+                    </div>
+                  </div>
+                  <!-- <div fxFlex="100" fxLayout="row wrap"
+                    style="border-bottom-style: solid ; border-bottom-width: 1px; height: 50px;margin-top:30px;">
+                  </div> -->
+                  <div fxFlex="100" fxLayout="row wrap" style="border: thin solid #000000"  id="form-comentario">
+                    <mat-form-field class="full-width" style="margin-left:30px; margin-top:20px">
+                      <textarea matInput name="cuerpo" placeholder="Comentario"
+                        [formControl]="notificarForm.controls['cuerpo']" rows="10">
+                      </textarea>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="100" fxLayout="row wrap" style="margin-top:20px;">
+                    <div fxFlex="5" fxLayoutAlign="start center">
+                      <mat-icon style="color: #000000;">attach_file</mat-icon>
+                    </div>
+                    <div fxFlex="95" fxLayoutAlign="start center">
+                      <strong>Carta de Porte adjuntada</strong>
+                    </div>
+                  </div>
+                  <!-- <div fxFlex="100" fxLayout="row wrap" style="margin-top:20px;">
+                    <div fxFlex="5" fxLayoutAlign="start center">
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Adjuntar Carta de Porte" (click)="inputAdjuntarCartaPorte.click()" >
+                        <mat-icon style="color: #000000;">attach_file</mat-icon>
+                      </button>
+                    </div>
+                    <input #inputAdjuntarCartaPorte style="display: none" type="file" name="foto" (change)="onFileSelected($event)" />
+                    <div fxFlex="95" fxLayoutAlign="start center">
+                      <strong>{{msgAdjunto}}</strong>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div fxFlex="5"></div>
+            </div>
+          </div>
+          <div fxFlex="4"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" fxLayout="row wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="center start" class="div-botones">
+        <div fxFlex="100" >
+          <div fxFlex="9"></div>
+          <div fxFlex="41" fxLayoutAlign="start center">
+            <button mat-raised-button style="background-color: black; color: #ffffff" type="button"
+              (click)="dialogRef.close(false)">
+              CANCELAR
+            </button>
+          </div>
+          <!-- <div fxFlex="14"></div> -->
+          <div fxFlex="41" fxLayoutAlign="end center">
+            <button mat-raised-button style="background-color: rgb(23,72,145);color: #ffffff !important;"
+              [disabled]="notificarForm.invalid" (click)="submit()">
+              ENVIAR
+            </button>
+          </div>
+          <div fxFlex="9"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

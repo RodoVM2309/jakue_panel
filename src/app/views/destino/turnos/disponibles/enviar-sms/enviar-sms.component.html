@@ -1,0 +1,65 @@
+<form [formGroup]="itemForm">
+    <div fxLayout="column wrap" style="padding: 0px;margin-top: -30px;margin-left: -25px;width: 108%;">
+        <div fxLayout="row wrap">
+            <div fxFlex="100" style="background: darkblue; color: #E9E9EA;height: 50px;">
+                <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+                </div>
+                <div fxFlex="90" fxLayoutAlign="start start" style="margin-top:15px;">
+                    <h3>{{data.title}}</h3>
+                </div>
+                <span FxFlex></span>
+                <div fxFlex="5" style="margin-top:8px;margin-right: 17px;">
+                    <button mat-icon-button matTooltip="Cerrar mensajes" color="m-0" class="m-0" (click)="cancelar()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" style="height: 48vh; margin-top: 30px; padding-top: 0px; padding-bottom: 0px;">
+            <div fxFlex="100" fxLayoutAlign="center center">
+                <mat-form-field style="width: 80%; padding-top: 0px !important;">
+                    <textarea 
+                        matInput 
+                        name="body" 
+                        placeholder="Su mensaje" 
+                        [formControl]="itemForm.controls['body']" 
+                        style="background-color: rgb(240,240,240); height: 40vh;" 
+                        rows="10">
+                    </textarea>
+                    
+
+                </mat-form-field>
+
+
+            </div>
+            <div style="width: 100%;">
+                <div style="display: flex; justify-content: start;">
+
+                </div>
+                <small *ngIf="itemForm.controls['body'].hasError('required') && itemForm.controls['body'].touched" 
+                style="margin-left: 67px;" 
+                class="form-error-msg">
+             El cuerpo del mensaje es obligatorio
+         </small>
+    
+         <small *ngIf="itemForm.controls['body'].hasError('invalidCharacters') && itemForm.controls['body'].touched" 
+                style="margin-left: 67px;" 
+                class="form-error-msg">
+                El mensaje no debe contener caracteres especiales
+         </small>
+            </div>
+
+        </div>
+        
+        <div fxLayout="row wrap" fxFlex="100" class="mt-1" fxLayoutAlign="center start">
+            <button 
+                mat-raised-button 
+                color="carga-publicada" 
+                [disabled]="itemForm.invalid" 
+                (click)="submit()"
+                [ngClass]="{'deshabled-botton': itemForm.invalid}">
+                Enviar mensaje
+            </button>
+        </div>
+    </div>
+</form>

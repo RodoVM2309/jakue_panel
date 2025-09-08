@@ -1,0 +1,67 @@
+.component {
+  background-color: rgb(233, 233, 234);
+  margin-right: -24px;
+  margin-left: -24px;
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
+
+.encabezado {
+  background-color: rgb(255,255,0);
+  color: rgb(0, 0, 0);
+  height: 100px;
+  font-size: 24px;
+  width: 100%;
+  height: 200px;
+}
+.cuerpo {
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  height: 300px;
+  background-color: rgb(255,255,255);
+  font-size: 14px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  color: #ffffff !important;
+}
+.footer {
+  color: #fefefe;
+  height: 50px;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
+}
+.div-botones {
+  height: 50px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.select-acciones {
+  border-color: rgb(17, 17, 17);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 70px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 5px;
+  //background-color: #ffffff;
+  color: rgb(17, 17, 17);
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+.error-email {
+  background-color: #f10a0a;
+  color: #fff;
+}

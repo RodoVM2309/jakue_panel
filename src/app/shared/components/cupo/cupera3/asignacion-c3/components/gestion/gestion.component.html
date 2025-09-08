@@ -1,0 +1,91 @@
+<div fxLayout="row wrap" class="textarea_gestion" fxLayoutAlign="start start" >
+    <div fxFlex="100" fxLayoutAlign="center center" style="height: 50px;">
+      <div fxFlex="9" class="ml-3 mt-0">
+        <span>GESTION</span>
+        <button mat-icon-button mat-sm-button class="mr-1">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="25" fxLayoutAlign="center center">
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <div fxFlex="25"> 1 > Acción:</div>
+          <div fxFlex="3"></div>
+          <div fxFlex="65" fxLayoutAlign="start center" id="sele-acciones" class="select-acciones">
+            <mat-form-field class="full-width">
+              <mat-select name="accion" [formControl]="variables.gestionForm.controls['selectedAccion']"
+                (selectionChange)="selectAccion($event)" placeholder="{{variables.placeholderAccion}}"
+                [disabled]="variables.disabledAcciones">
+                <mat-option *ngFor="let accion of variables.acciones; trackBy: trackByFn" [value]="accion.id">
+                  {{accion.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex="8">
+          </div>
+        </div>
+      </div>
+      <div fxFlex="17">
+        <div fxFlex="100" fxLayoutAlign="center center">
+          <div fxFlex="70">2 > Cupos por Módulo</div>
+          <div fxFlex="30">
+            <input matInput name="cuposxModulos" #cuposModulos type="number" [readonly]="variables.disabledCuposXModulos" min=0
+              (keyup.enter)="validarInput($event)" (change)="validarInput($event)" matTooltip="{{variables.toolTipModulo}}"
+              [formControl]="variables.gestionForm.controls['cuposxModulos']"
+              [ngClass]="variables.disabledCuposXModulos ? 'input_cupos-disabled': 'input_cupos'" />
+          </div>
+        </div>
+      </div>
+      <div fxFlex="1"></div>
+      <div fxFlex="18" fxLayoutAlign="start center" id="sele-acciones2" class="select-acciones">
+        <div fxFlex="100" fxLayoutAlign="center center">
+          <div fxFlex="4"></div>
+          <div fxFlex="92">
+            <mat-form-field class="full-width">
+              <mat-select name="accion" [formControl]="variables.gestionForm.controls['selectedCabecera']"
+                (selectionChange)="selectCabecera($event)" [disabled]="variables.disabledSelectCabecera"
+                placeholder="{{variables.placeholderCabecera}}">
+                <mat-option *ngFor="let cabecera of variables.cabeceras; trackBy: trackByFn" [value]="cabecera.id">
+                  {{cabecera.titulo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex="4"></div>
+        </div>
+
+      </div>
+      <div fxFlex="3" fxLayoutAlign="center center">
+        <button mat-icon-button mat-sm-button class="mr-1" (click)="openPopUpVer({})"
+          [disabled]="variables.gestionForm.controls['selectedCabecera'].value== -1 ||variables.gestionForm.controls['selectedCabecera'].value==''">
+          <mat-icon>info</mat-icon>
+        </button>
+
+      </div>
+      <div fxFlex="12" fxLayoutAlign="start center">
+        <button mat-raised-button [ngStyle]="{'background-color':!variables.validatedForm ? '#97e4b1' : '#000000'}" type="button"
+          style="width: 95%;" (click)="confirmar_notificar()" [disabled]="!variables.validatedForm || !variables.validFecha">
+          <small style="margin-left: -12px;">CONFIRMAR Y NOTIFICAR</small>
+        </button>
+      </div>
+      <div fxFlex="7" fxLayoutAlign="center center">
+        <button mat-raised-button [ngStyle]="{'background-color':!variables.validatedForm ? '#97e4b1' : '#589529'}" type="button"
+        style="width: 95%;"
+          (click)="confirmar()" [disabled]="!variables.validatedForm || !variables.validFecha">
+          <small style="margin-left: -10px;">CONFIRMAR</small>
+        </button>
+      </div>
+      <div fxFlex="8" fxLayoutAlign="center center">
+        <button mat-raised-button matBadge="{{variables.cantNotificaciones}}"
+          [ngStyle]="{'background-color': !variables.validFecha || variables.cantNotificaciones==0 ? '#97e4b1' : '#83CBE8'}"
+          [matBadgeHidden]="!variables.validFecha || variables.cantNotificaciones===0" matBadgeColor="#ffffff" type="button"
+          (click)="notificar()" [disabled]=" !variables.validFecha || variables.cantNotificaciones==0">
+          <small>NOTIFICAR</small>
+          <!-- <strong class=" notifica" *ngIf="cantNotificaciones>0">{{cantNotificaciones}}</strong> -->
+        </button>
+      </div>
+      <!-- <div fxFlex="3" >
+        <div class="badge pulsate">{{cantNotificaciones}}</div>
+      </div> -->
+    </div>
+  </div>

@@ -1,0 +1,660 @@
+﻿<mat-card style="padding: 0px !important;  margin: 0 !important; zoom: 60%;">
+
+  <div fxLayout="row wrap" *ngIf="!esOperador && showDador && rolAdminMuvin">
+
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="choferes" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">{{'pedido.pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;{{'pedido.atrasados' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">{{'pedido.pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.atrasados' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData1"
+                  [options]="doughnutOptions" [labels]="doughnutLabels3" [colors]="doughnutChartColors3"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadPedidosEntiempo+cantidadPedidosEntiempo+cantidadPedidosatrasados+pedidosCancelados}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon> {{cantidadPedidosEntiempo}}
+                  {{'pedido.enTiempo' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon> {{cantidadPedidosatrasados}}
+                  {{'pedido.atrasados' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon> {{pedidosCancelados}}
+                  {{'pedido.bloqueados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="pedido" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'viajes.nav' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.xAsignar' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'viajes.nav' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.xAsignar' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px; height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="60" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData2"
+                  [options]="doughnutOptions" [labels]="doughnutLabels2" [colors]="doughnutChartColors2"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="40" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadPorAsignar+cantidadAsignados+totalviajes+viajesdesvios+viajesrechazos}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+
+                <span style="color:rgb(253, 255, 253);">
+                  <mat-icon [ngStyle]="{'color':'#ff6600'}">minimize</mat-icon>{{cantidadPorAsignar}}
+                  {{'pedido.xAsignar' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253);">
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon>{{cantidadAsignados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgb(210, 212, 41)'}">minimize</mat-icon>{{totalviajes}}
+                  {{'pedido.enCurso' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon>{{viajesdesvios}}
+                  {{'pedido.desviados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon>{{viajesrechazos}}
+                  {{'pedido.rechazados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" *ngIf="!esOperador && !showDador && rolAdminMuvin">
+    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="choferes" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.Pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;&nbsp;Atrasados</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">{{'pedido.Pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;&nbsp;Atrasados</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData1"
+                  [options]="doughnutOptions" [labels]="doughnutLabels3" [colors]="doughnutChartColors3"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadPedidosEntiempo+cantidadPedidosEntiempo+cantidadPedidosatrasados+pedidosCancelados}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon> {{cantidadPedidosEntiempo}} En tiempo
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon> {{cantidadPedidosatrasados}} Atrasados
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon> {{pedidosCancelados}}
+                  Bloqueados
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="pedido" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;Viajes</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;Por asignar</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;Viajes</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;Por asignar</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px; height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="60" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData2"
+                  [options]="doughnutOptions" [labels]="doughnutLabels2" [colors]="doughnutChartColors2"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="40" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadPorAsignar+cantidadAsignados+totalviajes+viajesdesvios+viajesrechazos}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span style="color:rgb(253, 255, 253); ">
+                  <mat-icon [ngStyle]="{'color':'#ff6600'}">minimize</mat-icon>{{cantidadPorAsignar}}
+                  Por asignar
+                </span>
+                <span style="color:rgb(253, 255, 253);">
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon>{{cantidadAsignados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgb(210, 212, 41)'}">minimize</mat-icon>{{totalviajes}}
+                  {{'pedido.enCurso' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon>{{viajesdesvios}}
+                  {{'pedido.desviados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon>{{viajesrechazos}}
+                  {{'pedido.rechazados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="camiones" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes-cantidadChoferesOcupados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes-cantidadChoferesOcupados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData3"
+                  [options]="doughnutOptions" [labels]="doughnutLabels1" [colors]="doughnutChartColors1"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadChoferes}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon>
+                  {{cantidadChoferes-cantidadChoferesOcupados}} {{'pedido.libres' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon> {{cantidadChoferesOcupados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="choferes" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text">
+                  <mat-icon>location_off</mat-icon>&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}
+                </div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidad_choferes_en_pos_00}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.sinUbicacion' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text">
+                  <mat-icon>location_off</mat-icon>&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}
+                </div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidad_choferes_en_pos_00}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.sinUbicacion' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;color:rgb(253, 255, 253);">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData5"
+                  [options]="doughnutOptions" [labels]="doughnutLabels5" [colors]="doughnutChartColors1"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                   <span>{{cantidadChoferes}}</span>
+                   <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon>
+                  {{cantidadChoferes-cantidad_choferes_en_pos_00}} {{'pedido.conUbicacion' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon> {{cantidad_choferes_en_pos_00}}
+                  {{'pedido.sinUbicacion' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" *ngIf="!esOperador && !showDador && !rolAdminMuvin">
+    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="choferes" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.Pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.atrasados' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-administracion-de-pedidos.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.Pedidos' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosatrasados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.atrasados' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData1"
+                  [options]="doughnutOptions" [labels]="doughnutLabels3" [colors]="doughnutChartColors3"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPedidosEntiempo+cantidadPedidosEntiempo+cantidadPedidosatrasados+pedidosCancelados}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon> {{cantidadPedidosEntiempo}}
+                  {{'pedido.enTiempo' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon> {{cantidadPedidosatrasados}}
+                  {{'pedido.atrasados' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon> {{pedidosCancelados}}
+                  {{'pedido.bloqueados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="pedido" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'viajes.nav' | translate}}</div>
+              </div>
+              <div fxFlex="40">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.xAsignar' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/transito-panel.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'viajes.nav' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadPorAsignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.xAsignar' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px; height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="60" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData2"
+                  [options]="doughnutOptions" [labels]="doughnutLabels2" [colors]="doughnutChartColors2"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="40" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{cantidadPorAsignar+cantidadAsignados+totalviajes+viajesdesvios+viajesrechazos}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+
+                <span style="color:rgb(253, 255, 253); ">
+                  <mat-icon [ngStyle]="{'color':'#ff6600'}">minimize</mat-icon>{{cantidadPorAsignar}}
+                  {{'pedido.xAsignar' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253); ">
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon>{{cantidadAsignados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgb(210, 212, 41)'}">minimize</mat-icon>{{totalviajes}}
+                  {{'pedido.enCurso' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'#D32D26'}">minimize</mat-icon>{{viajesdesvios}}
+                  {{'pedido.desviados' | translate}}
+                </span>
+                <span style="color:rgb(253, 255, 253)">
+                  <mat-icon [ngStyle]="{'color':'rgba(0, 0, 0, 0.87)'}">minimize</mat-icon>{{viajesrechazos}}
+                  {{'pedido.rechazados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="camiones" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes-cantidadChoferesOcupados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes-cantidadChoferesOcupados}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData3"
+                  [options]="doughnutOptions" [labels]="doughnutLabels1" [colors]="doughnutChartColors1"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon>
+                  {{cantidadChoferes-cantidadChoferesOcupados}} {{'pedido.libres' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon> {{cantidadChoferesOcupados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="intermediarios" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.intemediarios' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{viajesintermediariosporasignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text"><img src="assets/images/muvin/menu-choferes-de-muvin.png" alt=""
+                    style="height: 32px;">&nbsp;&nbsp;{{'pedido.intemediarios' | translate}}</div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{viajesintermediariosporasignar}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.libres' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData4"
+                  [options]="doughnutOptions" [labels]="doughnutLabels4" [colors]="doughnutChartColors1"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column">
+                <div>
+                  <span>{{viajesintermediariosporasignar + viajesintermediariosasignados}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon> {{viajesintermediariosporasignar}}
+                  {{'pedido.libres' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon> {{viajesintermediariosasignados}}
+                  {{'pedido.asignados' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="40">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-card class="choferes" style="margin: 0 !important;">
+            <mat-card-title class="" (click)="desplejarPanel()" *ngIf="!show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text">
+                  <mat-icon>location_off</mat-icon>&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}
+                </div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidad_choferes_en_pos_00}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.sinUbicacion' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-title class="" (click)="recogerPanel()" *ngIf="show" style="font-size: 1.2rem !important;">
+              <div fxFlex="60">
+                <div class="card-title-text">
+                  <mat-icon>location_off</mat-icon>&nbsp;&nbsp;{{'pedido.flotaAdministrada' | translate}}
+                </div>
+              </div>
+              <div fxFlex="40" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidad_choferes_en_pos_00}}</span>
+                  <span>&nbsp;&nbsp;{{'pedido.sinUbicacion' | translate}}</span>
+                </div>
+              </div>
+            </mat-card-title>
+            <mat-card-content *ngIf="show" style="font-size: 16px;height: 21vh;color:rgb(253, 255, 253);">
+              <mat-divider></mat-divider>
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <canvas style=" width:100%; height:100%;" baseChart class="chart" [data]="doughnutChartData5"
+                  [options]="doughnutOptions" [labels]="doughnutLabels5" [colors]="doughnutChartColors1"
+                  [chartType]="doughnutChartType"></canvas>
+              </div>
+              <div fxFlex="100" fxFlex.gt-sm="40" fxLayout="column" fxLayoutAlign="start start">
+                <div>
+                  <span>{{cantidadChoferes}}</span>
+                  <span>&nbsp;&nbsp;{{'global.Total' | translate}}</span>
+                </div>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'green'}">minimize</mat-icon>
+                  {{cantidadChoferes-cantidad_choferes_en_pos_00}} {{'pedido.conUbicacion' | translate}}
+                </span>
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#F89F5B'}">minimize</mat-icon> {{cantidad_choferes_en_pos_00}}
+                  {{'pedido.sinUbicacion' | translate}}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-card>

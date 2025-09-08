@@ -1,0 +1,43 @@
+table {
+  background-color: white;
+  border: 1px solid;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid black;
+}
+
+td:first-child {
+  padding-left: 10px;
+}
+
+.row_tipoDespacho {
+  background-color: #d9d9db;
+  text-align: center;
+  width: 12%;
+}
+
+.row_total {
+  text-align: center;
+  background-color: #6b6b6b;
+  color: white;
+}
+
+.col_capacidadTerminal {
+  text-align: left;
+  background-color: #16488f;
+  color: white;
+  padding-left: 10px;
+  width: 36%;
+}
+
+.col_total {
+  text-align: center;
+  background-color: #e9f4fa;
+}
+
+.strong {
+  font-weight: 700;
+}

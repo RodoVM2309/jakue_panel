@@ -1,0 +1,9 @@
+<mat-form-field class="fecha-bt" id="fecha-bt1" >
+  <input matInput
+    placeholder="Rango Fecha"
+    [satDatepicker]="picker"
+    (dateChange)="emitDates()">
+  <sat-datepicker #picker [rangeMode]="true">
+  </sat-datepicker>
+  <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+</mat-form-field>

@@ -1,0 +1,132 @@
+.component {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 93vh;
+  overflow: auto;
+}
+
+.encabezado {
+  background-color: #174793;
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+
+}
+.footer {
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 70vh;
+  width: 100%;
+  overflow: auto;
+}
+
+.sub-encabezado {
+  background: rgb(207, 207, 212);
+  color: rgb(8, 8, 8);
+  height: 6vh;
+}
+
+.add_cabecera {
+  background: rgb(255, 255, 255);
+  color: rgb(8, 8, 8);
+  height: 6vh;
+}
+table {
+  width: 100%;
+}
+
+td.mat-cell {
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  margin-left: 10px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-nueva-cabecera {
+  background-color: rgb(134,177,197) !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+.mat-aplicar-cabecera {
+  background-color: rgb(41,50,123) !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+.mat-editar-cabecera {
+  background-color: rgb(0,1,1) !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}

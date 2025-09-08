@@ -1,0 +1,177 @@
+<div class="margin-333">
+    <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA;" [style.overflow]="'auto'" [style.width.px]="">
+        <form [formGroup]="filtrarForm">
+            <div fxLayout="column wrap" class="body">
+                <div fxFlex="100" class="encabezado">
+                    <div fxFlex="15" fxFlex.gt-xs="15" class="pr-1">
+                        <mat-form-field class="full-width " style="margin-left: 10px;color: #fff;">
+                            <input matInput name="fechaFilter" [formControl]="filtrarForm.controls['selectedFecha']" placeholder="" [matDatepicker]="appDatepicker" (dateChange)="aplicarFiltro('fecha', $event)" />
+                            <mat-datepicker-toggle matSuffix [for]="appDatepicker" style="color: #fff;">
+                            </mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #appDatepicker></mat-datepicker>
+                    </div>
+                    <div fxFlex="25" fxFlex.gt-xs="25" class="pr-1" fxLayoutAlign="start center" style="margin-top: 15px;">
+                        <img src="assets/images/muvin/menu-estado-de-puertos.png" alt="" style="height: 32px; margin-top: -10px;">
+                        <mat-select id="select_bgBlanco" placeholder="Destino" (selectionChange)="aplicarFiltro('id_destino', $event)" [formControl]="filtrarForm.controls['selectedDestino']" name="destino" class="cp_select mb-1" style="margin-left: 11px;">
+                            <mat-option *ngFor="let destino of destinos" [value]="destino.id" ngDefaultControl>
+                                {{ destino.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div fxFlex="15" fxFlex.gt-xs="15" class="pr-1" fxLayoutAlign="start center" style="margin-top: 15px;">
+                        <mat-select id="select_bgBlanco" placeholder="Producto" (selectionChange)="aplicarFiltro('id_producto', $event)" [formControl]="filtrarForm.controls['selectedProducto']" name="producto" class="cp_select mb-1" style="margin-left: 11px;">
+                            <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+                                {{ producto.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <span fxFlex></span>
+                </div>
+                <div fxFlex="100" style="border-width: 2px; border-style: solid;border-color: rgb(135,177,197);margin-top: 10px;">
+                    <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="start start" style="border-right-style: solid;border-right-width: 2px;border-right-color: rgb(135,177,197);">
+                        <div fxFlex="100" fxLayoutAlign="start start" style="height: 35px;background-color: #ffffff;">
+                            <div fxFlex="5" fxLayoutAlign="start start">
+                                <button mat-icon-button aria-label="Atras" matTooltip="Fecha Anterior" style="margin-top: -5px;" (click)="fechaPrevia()">
+                                    <mat-icon>arrow_back</mat-icon>
+                                </button>
+                            </div>
+                            <div fxFlex="30" fxLayoutAlign="start center">
+                                <mat-icon>calendar_today</mat-icon>&nbsp;&nbsp;
+                                <strong *ngIf="fechaIzq===now" style="margin-top:10px;">HOY:&nbsp;</strong>
+                                <strong style="margin-top:10px;">{{fechaIzqString}}</strong>
+                            </div>
+                            <div fxFlex="30" fxLayoutAlign="start center"></div>
+                            <div fxFlex="35" fxLayoutAlign="end center" style="padding: 19px; margin-top: -14px; margin-left: 68px; padding-right: 30px;">
+                                <strong style="margin-top:10px;">TOTAL:&nbsp;</strong>
+                                <div fxFlex="50" fxLayoutAlign="start center">
+                                    <div fxFlex="100">
+                                        <div fxFlex="{{100 - totalporciento}}" fxLayout="row wrap" [ngStyle]="{'background':totalporciento == 100 ? 'rgb(139,188,64)' : 'rgb(214,217,204)' }" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 30px;" fxLayoutAlign="start center">
+                                            <p style="margin-left: 5px;margin-top:19px;">{{ totalTurnos - turnosDisponiblesDia }}</p>
+                                        </div>
+                                        <div fxFlex="{{totalporciento < 10 && turnosDisponiblesDia > 0 ? 20: totalporciento}}" fxLayoutAlign="center center" [ngStyle]="{'background':totalporciento == 0 && turnosDisponiblesDia == 0 ? 'rgb(214,217,204)' : 'rgb(139,188,64)' }" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: 30px;">
+                                            <button *ngIf="totalTurnos > 0 " mat-icon-button matTooltip="Total de turnos Sacados" style="height: 20px; margin-top:-17px;">
+                                                {{turnosDisponiblesDia }}
+                                             </button>
+                                            <p *ngIf="totalTurnos == 0 && turnosDisponiblesDia == 0" style="margin-top:20px;margin-right: 4px;">
+                                                {{totalTurnos}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxLayout="row wrap" style="background-color: white;">
+                            <hr class="newline">
+                        </div>
+                        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start start" class="panelIzq">
+                            <div fxFlex="33" fxLayout="row wrap" *ngFor="let item of panelIzq; let i=index" style="margin-top:10px;height: 30px;margin-bottom: 5px;">
+                                <div fxFlex="100">
+                                    <div fxFlex="50" fxLayoutAlign="end center">
+                                        <small style="margin-left: 5px;">{{item.inicio}} a {{item.fin}}</small>
+                                    </div>
+                                    <div fxFlex="2"></div>
+                                    <div fxFlex="38" fxLayoutAlign="start center">
+                                        <div fxFlex="100">
+                                            <div fxFlex="{{100 - item.porciento}}" fxLayout="row wrap" [ngStyle]="{'background':item.porciento == 100 ? 'rgb(139,188,64)' : 'rgb(214,217,204)' }" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 30px;" fxLayoutAlign="start center">
+                                                <p style="margin-left: 5px;margin-top:19px;">{{ item.cantidad - item.ocupados }}</p>
+                                            </div>
+                                            <div fxFlex="{{item.porciento < 10 && item.ocupados > 0 ? 20: item.porciento}}" fxLayoutAlign="center center" [ngStyle]="{'background':item.porciento == 0 && item.ocupados == 0 ? 'rgb(214,217,204)' : 'rgb(139,188,64)' }" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: 30px;">
+                                                <button *ngIf="item.ocupados > 0 " mat-icon-button matTooltip="Choferes con turnos ocupados" (click)="openPopUpInfoVentanilla(item,true)" style="height: 20px; margin-top:-17px;">
+                                                    {{item.ocupados }}
+                                                 </button>
+                                                <p *ngIf="item.ocupados == 0" style="margin-top:20px;margin-right: 4px;">
+                                                    {{item.ocupados}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="10" fxLayoutAlign="end center" fxLayout="row wrap" style="height: 30px;">
+                                        <mat-checkbox [checked]="item.checked" (change)="onCheckboxSendMessage($event, item,1)" style="margin-top:10px;">
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="start start">
+                        <div fxFlex="100" fxLayoutAlign="start start" style="height: 34px;background-color: #ffffff;">
+                            <div fxFlex="40" fxLayoutAlign="start center">
+                                <mat-icon style="margin-left: 10px;">calendar_today</mat-icon>&nbsp;&nbsp;
+                                <strong *ngIf="fechaDer===now" style="margin-top:10px;">HOY:&nbsp;</strong>
+                                <strong style="margin-top:10px;">{{fechaDerString}}</strong>
+                            </div>
+                            <div fxFlex="30" fxLayoutAlign="start center"></div>
+                            <div fxFlex="35" fxLayoutAlign="end center" style="padding: 19px; margin-top: -16px; margin-left: 68px; padding-right: 0px;">
+                                <strong style="margin-top:10px;">TOTAL:&nbsp;</strong>
+                                <div fxFlex="50" fxLayoutAlign="start center">
+                                    <div fxFlex="100">
+                                        <div fxFlex="{{100 - totalporcientoSiguiente}}" fxLayout="row wrap" [ngStyle]="{'background':totalporcientoSiguiente == 100 ? 'rgb(139,188,64)' : 'rgb(214,217,204)' }" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 30px;" fxLayoutAlign="start center">
+                                            <p style="margin-left: 5px;margin-top:19px;">{{ totalTurnosSiguiente - turnosDisponiblesDiaSiguiente }}</p>
+
+                                        </div>
+                                        <div fxFlex="{{totalporcientoSiguiente < 10 && turnosDisponiblesDiaSiguiente > 0 ? 20: totalporcientoSiguiente}}" fxLayoutAlign="center center" [ngStyle]="{'background':totalporcientoSiguiente == 0 && turnosDisponiblesDiaSiguiente == 0 ? 'rgb(214,217,204)' : 'rgb(139,188,64)' }"
+                                            style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: 30px;">
+                                            <button *ngIf="totalTurnosSiguiente > 0 " mat-icon-button matTooltip="Total de turnos Sacados" style="height: 20px; margin-top:-17px;margin-right: 4px;">
+                                                {{turnosDisponiblesDiaSiguiente }}
+
+                                             </button>
+                                            <p *ngIf="totalTurnosSiguiente == 0 && turnosDisponiblesDiaSiguiente == 0" style="margin-top:20px;margin-right: 4px;">
+                                                {{totalTurnosSiguiente}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="5" fxLayoutAlign="end start">
+                                <button mat-icon-button aria-label="Siguiente" matTooltip="Próxima Fecha" (click)="fechaNext()">
+                                    <mat-icon>arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div fxFlex="100" fxLayout="row wrap" style="background-color: white;">
+                            <hr class="newline">
+                        </div>
+                        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start start" class="panelIzq">
+                            <div fxFlex="33" fxLayout="row wrap" *ngFor="let item2 of panelDer; let i=index" style="margin-top:10px;height: 30px;margin-bottom: 5px;">
+                                <div fxFlex="100">
+                                    <div fxFlex="50" fxLayoutAlign="end center">
+                                        <small style="margin-left: 5px;">{{item2.inicio}} a {{item2.fin}}</small>
+                                    </div>
+                                    <div fxFlex="2"></div>
+                                    <div fxFlex="38" fxLayoutAlign="start center">
+                                        <div fxFlex="100">
+                                            <div fxFlex="{{100 - item2.porciento}}" fxLayout="row wrap" [ngStyle]="{'background':item2.porciento == 100 ? 'rgb(139,188,64)' : 'rgb(214,217,204)' }" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;height: 30px;" fxLayoutAlign="start center">
+                                                <p style="margin-left: 5px;margin-top:19px;">{{ item2.cantidad - item2.ocupados }}</p>
+                                            </div>
+                                            <div fxFlex="{{item2.porciento < 10 && item2.ocupados > 0 ? 20: item2.porciento}}" fxLayoutAlign="center center" [ngStyle]="{'background':item2.porciento == 0 && item2.ocupados == 0 ? 'rgb(214,217,204)' : 'rgb(139,188,64)' }" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: 30px;">
+                                                <button *ngIf="item2.ocupados > 0 " mat-icon-button matTooltip="Choferes con turnos ocupados" (click)="openPopUpInfoVentanilla(item2,true)" style="height: 20px; margin-top:-17px;">
+                                                    {{item2.ocupados }}
+                                                 </button>
+                                                <p *ngIf="item2.ocupados == 0" style="margin-top:20px;margin-right: 4px;">
+                                                    {{item2.ocupados}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="10" fxLayoutAlign="end center">
+                                        <mat-checkbox [checked]="item2.checked" (change)="onCheckboxSendMessage($event, item2,2)" style="margin-top:10px;">
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>
+<div id="app-customizer1" style="z-index: 19999;">
+    <div class="handle" style="color: #fff; margin-right: 15px;">
+        <p style="margin: 3px -5px 0px; font-size: small;">Contactar</p>
+        <button mat-fab color="warn" style="
+      border-color: #ffffff;
+      border-style: solid;
+      border-width: 2px;" (click)="openPopUpsms()" matTooltip="Enviar mensajes a los choferes">
+            <mat-icon style="margin-top: -7px;">comment</mat-icon>
+        </button>
+    </div>
+</div>

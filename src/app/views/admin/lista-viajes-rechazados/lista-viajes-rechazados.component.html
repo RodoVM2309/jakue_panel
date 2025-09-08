@@ -1,0 +1,44 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Lista Viajes Rechazados</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="viajes_rechazados" [columnMode]="'flex'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+      [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+      <ngx-datatable-column name="Pedido" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id_pedido }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Lista" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreLista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreChofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Motivo Rechazo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.motivo_rechaso }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" matTooltip="Penalizar"
+            (click)="accionPenalizar(row,1)">
+            <mat-icon>thumb_down</mat-icon>
+          </button>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="No Penalizar"
+            (click)="accionPenalizar(row,0)">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

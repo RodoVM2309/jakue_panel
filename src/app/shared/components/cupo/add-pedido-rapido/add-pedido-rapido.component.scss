@@ -1,0 +1,101 @@
+.scrollbar {
+  height: 100%;
+  //overflow: auto;
+  overflow-x: hidden;
+}
+
+.component {
+  padding: 19px;
+  margin: -12px;
+}
+
+.height-50 {
+  height: 50px;
+}
+
+.mat-column-id {
+  width: 10%;
+  text-align: center;
+}
+
+.mat-column-id {
+  width: 10%;
+  text-align: center;
+}
+
+.mat-column-descripcion {
+  width: 80%;
+  text-align: center;
+}
+
+.mat-column-acciones {
+  width: 10%;
+  text-align: center;
+}
+
+.mat-blue {
+  background-color: #247ba0;
+  color: #FEFEFE !important;
+}
+
+.button-row {
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 14px;
+}
+
+.button-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: -41px;
+}
+
+#form-add-cupo {
+
+  ::ng-deep .mat-form-field-infix {
+    margin-top: 0px !important;
+    border-top: 0.84375em solid transparent !important;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #247ba0;
+  }
+
+}
+
+.my-card {
+  border-radius: 15px;
+  box-shadow: 0px 0px 1px 1px #85AFC4;
+  margin: 15px -5px -5px -5px;
+  padding: 10px;
+}
+
+.my-button-small {
+  background: #C9BC5E;
+  color: white;
+  border-radius: 20px;
+  padding: 0px 10px;
+  font-size: 13px;
+  height: 85%;
+}
+
+.my-mat-icon {
+  font-size: 18px;
+}
+
+.button-close{
+  height: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+::ng-deep.mat-select .mat-select-value-text{
+  color:  black !important;
+}

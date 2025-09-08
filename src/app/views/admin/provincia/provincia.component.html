@@ -1,0 +1,56 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Provincias y Localidades</h4>
+</div>
+<mat-card class="p-0">  
+  <mat-card-content>    
+    <form [formGroup]="itemForm" class="pt-1">
+        <mat-form-field>
+            <mat-select (selectionChange)="getProvincias()" [formControl]="itemForm.controls['pais']">              
+              <mat-option value="1">Argentina</mat-option>
+              <mat-option value="3">Chile</mat-option>              
+            </mat-select>
+          </mat-form-field>      
+    </form>
+    <button mat-raised-button class="mr-1" color="primary" (click)="openPopUp({}, true)">Agregar Provincia</button> 
+  </mat-card-content>
+</mat-card>
+<mat-card class="p-0">    
+  <mat-card-content class="p-0"> 
+      <div class="pb-1">
+          <input
+          type='text'
+          style='padding:8px;margin:15px auto;width:30%;'
+          placeholder='Buscar Provincia'
+          (keyup)='updateFilter($event)'
+          class="mr-1"
+        />                 
+      </div>     
+    <ngx-datatable
+          class="material ml-0 mr-0"
+          [rows]="provincias"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [limit]="10"
+          [rowHeight]="'auto'">
+          <!-- <ngx-datatable-column name="No." [flexGrow]="1" >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.id }}
+              </ng-template>
+          </ngx-datatable-column> -->          
+          <ngx-datatable-column name="Descripción" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.descripcion }}
+            </ng-template>
+          </ngx-datatable-column>  
+          <ngx-datatable-column name="Acciones" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-icon-button class="mr-1" color="primary" matTooltip="Agregar" (click)="openPopUp_localidades(row?.id)"><mat-icon>add</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Actualizar" (click)="openPopUp(row)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="warn" matTooltip="Eliminar" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,22 @@
+﻿<nav mat-tab-nav-bar
+     class="mat-tab-group">
+  <a mat-tab-link
+     *ngFor="let link of navLinks"
+     [routerLink]="link.ruta"
+     routerLinkActive
+     #rla="routerLinkActive"
+     [active]="rla.isActive"
+     [ngClass]="rla.isActive && rol == '14' ? 'negro' : ''">
+    <div fxLayout="row wrap">
+      <div style="display: block;"
+           *ngIf="rla.isActive">
+        <p style="margin: 21px 0 -13px;">{{link.name}}</p>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </div>
+      <div style="display: block;"
+           *ngIf="!rla.isActive">
+        <p style="margin: -2px 0 0px;">{{link.name}}</p>
+      </div>
+    </div>
+  </a>
+</nav>

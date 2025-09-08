@@ -1,0 +1,30 @@
+.center-captcha {
+  text-align: center;
+}
+
+.center-captcha re-captcha {
+  display: inline-block;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: #00020a;
+  /*  border-top: 0.84375em solid transparent; */
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(18, 74, 153);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00020a;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #3F51B5 !important;
+}

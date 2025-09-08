@@ -1,0 +1,289 @@
+.component {
+  background-color: rgb(233, 233, 234);
+  width: 100%;
+  height: 100%;
+}
+
+.encabezado {
+  background-color: rgb(23, 72, 145);
+  color: #FEFEFE;
+  height: 40px;
+  font-size: 24px;
+}
+
+.emisor {
+  margin-top: 5px;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+}
+
+.inca {
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin-top: 1px;
+}
+
+.mi-tr{
+  border-style: solid;
+  border-width: 0.4px;
+  border-color: lightgray;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 83vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.div-cuerpo {
+  background-color: rgb(255, 255, 255);
+  margin-top: 10px;
+  height: 140vh;
+  border-radius: 5px;
+}
+
+.footer {
+  color: #FEFEFE;
+  height: 8vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+
+}
+
+.div-botones {
+  width: 100%;
+  height: 50px;
+}
+
+// ::ng-deep .mat-form-field {
+//   height: 40px;
+// }
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.full-80 {
+  width: 80%;
+}
+
+.full-90 {
+  width: 90%;
+}
+
+.full-70 {
+  width: 70%;
+}
+
+.full-60 {
+  width: 60%;
+}
+
+.form-span-cosecha {
+  color: #c9c5c5
+}
+
+.mat-cabecera {
+  background-color: #29327B !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+
+.mat-guardar-cabecera {
+  background-color: rgb(134, 177, 197) !important;
+  color: #fff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+.rotate90 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  font-size: 12px;
+  // background: #ffffff;
+  // width: 50px;
+  position: relative;
+  top: 1px;
+  white-space: nowrap;
+  margin: 2 0 16px;
+}
+
+.td rotate {
+  height: 5%;
+  white-space: nowrap;
+}
+
+.rotate {
+  white-space: nowrap;
+  border-width: 2px;
+  border-radius: 10px;
+  border-style: solid;
+}
+
+.class-border1px {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.class-border2px {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.class-radius {
+  border-radius: 10px;
+}
+
+.border-izq {
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+.border-der {
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.border-arriba {
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+.border-abajo {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.border-todo {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.margen-izq {
+  margin-left: 3px;
+}
+
+.border-centro {
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.input-personal {
+  width: 100% !important;
+  height: 25px;
+  margin-top: -10px;
+}
+
+.circulo {
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  border-color: #353333;
+  border-style: solid;
+  border-width: 2px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+#btn-ver {
+  width: 100px;
+  height: 30px;
+  position: fixed;
+  z-index: 20000;
+  bottom: 70px;
+  right: 220px;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: rgb(235, 236, 236);
+  max-width: 300px;
+  .handle {
+    float: right;
+    width: 100%;
+    height: 100%;
+  }
+  .mat-card-content  {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+#btn-cabecera {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  z-index: 30000;
+  top: 90px;
+  //right: 150px;
+  right: 220px;
+  max-width: 300px;
+  .handle {
+    float: right;
+  }
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.btn-aplicar{
+  width: 40px;
+  height: 40px;
+}
+
+#div-leyenda {
+  position: fixed;
+  width: 120px;
+  height: 150px;
+  z-index: 40000;
+  top: 200px;
+  background-color: rgb(238, 236, 236);
+  //right: 150px;
+  right: 220px;
+  max-width: 300px;
+  text-align: left;
+  line-height: 30pt;
+  .handle {
+    float: right;
+  }
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.rectangulo {
+  width: 40px; 
+  height: 20px; 
+  border: 1px solid rgb(151, 150, 150);
+  margin-left:5px;
+}
+
+
+

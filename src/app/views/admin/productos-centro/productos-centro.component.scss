@@ -1,0 +1,34 @@
+.buscador {
+  border-color: #fff;
+  border-style: solid;
+  border-radius: 8px;
+  height: 24px;
+  border-width: thin;
+  background: white;
+  color: #000;
+  margin-top: 5px;
+}
+
+.buscador1 {
+  border-color: #000;
+  border-style: solid;
+  border-radius: 8px;
+  height: 24px;
+  border-width: thin;
+  background: white;
+  color: #000;
+  margin-top: 5px;
+}
+
+:host /deep/ .mat-form-field-label {
+  margin-top: 9px;
+  margin-left: 10px;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #f2f4f700 !important;
+}
+
+:host /deep/ .mat-form-field-underline {
+  background-color: #f2f4f700 !important;
+}

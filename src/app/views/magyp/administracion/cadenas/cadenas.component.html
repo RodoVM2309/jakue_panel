@@ -1,0 +1,48 @@
+<div class="encabezado" fxLayout="column wrap">
+  <div fxFlex="100">
+    <div fxFlex="40"></div>
+    <div fxFlex="30" fxLayoutAlign="start center">
+      <button mat-raised-button style="background-color:rgb(0, 0, 0); color: #ffffff;" (click)="openDialog('Add',{})">
+        Agregar Cadena
+      </button>
+    </div>
+    <div fxFlex="65">
+    </div>
+
+  </div>
+</div>
+<div class="cuerpo">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef style="color:#3FB8E6"> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>
+        <div fxLayout="column wrap">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <span style="color:#3FB8E6">Acciones</span>
+          </div>
+          <div fxFlex="100">
+            <span>Editar &nbsp;&nbsp;&nbsp; Borrar</span>
+          </div>
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button mat-sm-button style="text-align: left;" (click)="openDialog('Update',element)">
+          <mat-icon  matTooltip="Editar">edit
+          </mat-icon>
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-icon-button mat-sm-button style="text-align: left;" (click)="openDialog('Delete',element)">
+          <mat-icon matTooltip="Eliminar ">delete_forever
+          </mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

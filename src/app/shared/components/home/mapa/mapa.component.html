@@ -1,0 +1,191 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Mapa Pedidos</h4>
+  <!-- <div class="card-title-text">
+    Choferes Activos: {{cantidadchoferesActivos}} / Ultima actualización: {{now | date:'yyyy-MM-dd HH:mm:ss'}}
+  </div> -->
+</div>
+<form id="form-mapa" [formGroup]="mapaForm">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" class="row_encabezado">
+      <div fxFlex="15" fxLayoutAlign="start start" id="sele-pedido" class="select-pedido">
+        <div fxFlex="100">
+          <div fxFlex="55">
+            <span style="margin-left:10px;">PEDIDOS:</span>
+          </div>
+          <div fxFlex="45" fxLayoutAlign="start start">
+            <mat-form-field class="full-width" style="margin-top: -15px;">
+              <mat-select name="pedido" (selectionChange)="chanceSelectTipo()"
+                [formControl]="mapaForm.controls['selectedPedido']">
+                <mat-option *ngFor="let pedido of pedidos " [value]="pedido.id">
+                  {{pedido.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="2"></div>
+      <div fxFlex="15" fxLayoutAlign="start start" id="sele-pedido" Class="select-pedido">
+        <div fxFlex="100">
+          <div fxFlex="45">
+            <span style="margin-left:10px;">ESTADOS:</span>
+          </div>
+          <div fxFlex="55" fxLayoutAlign="end start">
+            <mat-form-field class="full-width" style="margin-top: -15px;">
+              <mat-select name="estados" (selectionChange)="chanceSelectTipo()"
+                [formControl]="mapaForm.controls['selectedEstado']">
+                <mat-option *ngFor="let estado of filterEstados " [value]="estado.id">
+                  {{estado.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="2"></div>
+      <div fxFlex="15">
+        <button mat-raised-button type="button" style="background-color: #0064A4;height: 37px;" (click)="notificar()"
+          [disabled]="mapaForm.controls['selectedEstado'].value!==1 || choferesViajes.length==0">
+          <mat-icon>chat</mat-icon>&nbsp;&nbsp;
+          <small>NOTIFICAR</small>
+          <!-- <strong class=" notifica" *ngIf="cantNotificaciones>0">{{cantNotificaciones}}</strong> -->
+        </button>
+      </div>
+      <div fxFlex="31"></div>
+      <div fxFlex="15" fxLayoutAlign="end end">
+        <h3> CHOFERES: {{choferesViajes.length + choferesDisponibles.length}}</h3>
+      </div>
+      <div fxFlex="5" fxLayoutAlign="start center">
+        <div id="app-customizer">
+          <div class="handle" *ngIf="!isCustomizerOpen">
+            <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" (click)="limpiarinfowind()"
+              matTooltip="Filtrar Mapa">
+              <mat-icon>filter_list</mat-icon>
+            </button>
+          </div>
+          <mat-card class="p-0" *ngIf="isCustomizerOpen">
+            <mat-card-title class="mat-bg-warn">
+              <div class="card-title-text" fxLayoutAlign="start center">
+                <button mat-icon-button (click)="limpiarFiltros()">
+                  <mat-icon matTooltip="Limpiar filtros">delete</mat-icon>
+                </button>
+                <span fxFlex></span>
+                <span>Filtrar Mapa Pedidos</span>
+                <span fxFlex></span>
+                <button class="card-control" mat-icon-button matTooltip="Cerrar" (click)="isCustomizerOpen = false">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </mat-card-title>
+            <mat-card-content [style.overflow]="'auto'" [style.height.vh]="'75'" style="background-color: #043e63;">
+              <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <mat-form-field class="full-width">
+                  <mat-select id="filterMapa" placeholder="Filtrar Mapa" name="filterMapa" class="mb-1"
+                    [(value)]="selectedEstadoCamiones" style="color:#000" (selectionChange)="chanceSelectTipo()">
+                    <mat-option value=0>Todos los Camiones</mat-option>
+                    <mat-option value=1>Camiones Disponibles</mat-option>
+                    <mat-option value=2>Camiones Asignados</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterEstadoViaje" placeholder="Estado de viaje" name="filterEstadoViaje" class="mb-1"
+                    [(value)]="selectedFilterEstadoViaje" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let estado of estados" [value]="estado.id" ngDefaultControl>
+                      {{estado?.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field class="full-width" *ngIf="!rolCargador">
+          <mat-select id="filterPedido" placeholder="Pedido" name="filterPedido" class="mb-1"
+            [(value)]="selectedFilterPedido" (selectionChange)="chanceSelectTipo()">
+            <mat-option *ngFor="let pedido of pedidos" [value]="pedido.id" ngDefaultControl>
+              {{pedido?.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+                <mat-form-field class="full-width">
+                  <mat-select id="filterTipoCamion" placeholder="Tipo Acoplado" name="filterTipoCamion" class="mb-1"
+                    [(value)]="selectedFilterTipoCamion" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let tipo of tiposCamiones" [value]="tipo.id" ngDefaultControl>
+                      {{tipo?.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterZona" placeholder="Zona de chofer" name="filterZona" class="mb-1"
+                    [(value)]="selectedFilterZona" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let zona of zonas" [value]="zona.id" ngDefaultControl>
+                      {{zona?.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterGeneradorPedido" placeholder="Generador de pedido" name="filterGeneradorPedido"
+                    class="mb-1" [(value)]="selectedFilterGeneradorPedido" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let generador of generadores" [value]="generador.descripcion" ngDefaultControl>
+                      {{generador?.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterEmpTrans" placeholder="Empresa transportista" name="filterEmpTrans" class="mb-1"
+                    [(value)]="selectedFilterEmpTrans" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let centro of centrosTrans" [value]="centro.id_centro" ngDefaultControl>
+                      {{centro?.nombre_transporte}} {{centro?.nombre_intermediario}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterIntermediario" placeholder="Intermediario" name="filterIntermediario"
+                    class="mb-1" [(value)]="selectedFilterIntermediario" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let interm of centrosIntermediario" [value]="interm.id_centro" ngDefaultControl>
+                      {{interm?.nombre_centro}} {{interm?.nombre_intermediario}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <mat-select id="filterProductoC" placeholder="Productos" name="filterProductoC" class="mb-1"
+                    [(value)]="selectedFilterProducto" (selectionChange)="chanceSelectTipo()">
+                    <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+                      {{producto?.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        </div>
+      </div>
+    </div>
+</form>
+<mat-card style="height: 80vh; padding: 0px; background: rgb(43, 196, 243);">
+  <div class="map">
+    <mat-card-content class="p-0">
+      <agm-map [ngStyle]="{height: '78vh'}" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"
+        [mapTypeId]="'hybrid'" [mapTypeControl]="true">
+        <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.latitud" [longitude]="marcador.longitud"
+          [iconUrl]="marcador.icon" (markerClick)="clickedMarker(infoWindow)">
+          <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+            <p>
+              <strong>Patente:</strong> {{marcador.patente}}
+            </p>
+            <p>
+              <strong>Chofer:</strong> {{marcador.nombreChofer}}
+            </p>
+            <p>
+              <strong>Transportista:</strong> {{marcador.nombreTransportista}}
+            </p>
+            <p>
+              <strong>Celular:</strong> {{marcador.telefono}}
+            </p>
+            <p>
+              <strong>Última actualización:</strong> {{marcador.updateAt}}
+            </p>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </mat-card-content>
+  </div>
+</mat-card>

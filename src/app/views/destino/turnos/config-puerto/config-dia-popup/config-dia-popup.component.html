@@ -1,0 +1,163 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="background:#85AFC4">{{data.title}}</div>
+  </mat-card-title>
+  <mat-card-content [style.overflow]="'auto'">
+    <form [formGroup]="itemForm" (ngSubmit)="submit()">
+      <div fxLayout="column wrap">
+        <div fxFlex="100" class="pr-0" style="height: 60vh;">
+          <div fxLayout="row wrap">
+            <div fxFlex="30" class="pr-1" class="full-width" hidden>
+              <mat-form-field>
+                <input matInput placeholder="Puerto" [formControl]="itemForm.controls['id']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="71" class="pr-1">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Puerto</mat-label>
+                <input matInput placeholder="Puerto"  maxlength="255" [formControl]="itemForm.controls['descripcion']" readonly>
+                <mat-error *ngIf="itemForm.controls['descripcion'].hasError('required')">
+                  El puerto es <strong>Requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="pr-1">
+              <div fxFlex="70">
+                <!-- <mat-form-field class="full-width" appearance="outline">-->
+                  <small style=" position:relative;
+                  z-index: 20000;
+                  top: -9px;    
+                  left: 10px; 
+                  background-color: #ffffff; color:rgb(120,120,120);
+                  max-width: 300px;">{{'config-puerto.tam_ventana' | translate }}</small> 
+                      <div fxLayout="row wrap" appearance="outline">
+                        <div fxFlex="100" class="pr-1" style="border: solid;
+                        border-radius: 5px;
+                        border-color: rgb(224,224,224);
+                        border-width: 0.5px; margin-top:-18px;
+                        padding:10px;">
+                          <div fxFlex="45" class="pr-1">
+                            <mat-form-field class="full-width" appearance="outline">
+                              <mat-label>Horas</mat-label>
+                              <input matInput type="number"  [min]="0" [max]="24"  [formControl]="itemForm.controls['hora']"
+                              (keyup)="validateHoraMinutos($event.target.value,'hora')"  (change)="validateHoraMinutos($event.target.value,'hora')"
+                                placeholder="{{'config-puerto.horas' | translate }}">
+                            </mat-form-field>
+                            <small *ngIf="itemForm.controls['hora'].hasError('required') && itemForm.controls['hora'].touched"
+                              class="form-error-msg">
+                              La cantidad es obligatoria
+                            </small>
+                          </div>
+                          <div fxFlex="10" class="pr-1" fxLayoutAlign="center center">:</div>
+                          <div fxFlex="45" class="pr-1" fxLayoutAlign="end center">
+                            <mat-form-field class="full-width" appearance="outline">
+                              <mat-label>Minutos</mat-label>
+                              <input matInput type="number" min="0" max="60" name="min" [formControl]="itemForm.controls['min']"
+                              (keyup)="validateHoraMinutos($event.target.value,'min')"  (change)="validateHoraMinutos($event.target.value,'min')"
+                                placeholder="{{'config-puerto.minutos' | translate }}">
+                            </mat-form-field>
+                            <small *ngIf="itemForm.controls['min'].hasError('required') && itemForm.controls['min'].touched"
+                              class="form-error-msg">
+                              La cantidad es obligatoria
+                            </small>
+                          </div>
+                        </div>
+                      </div>        
+                <!-- </mat-form-field> -->
+              </div>
+              <div fxFlex="5" class="pr-1"></div>
+              <div fxFlex="25" class="pr-1">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>{{'config-puerto.cam_ventana' | translate }}</mat-label>
+                  <input matInput type="number" name="cam_ventana" min="0"
+                    [formControl]="itemForm.controls['cam_ventana']"
+                    (keyup)="validateCamiones($event.target.value)"  (change)="validateCamiones($event.target.value)" 
+                    placeholder="{{'config-puerto.cam_ventana' | translate }}">
+                </mat-form-field>
+                <small
+                  *ngIf="itemForm.controls['cam_ventana'].hasError('required') && itemForm.controls['cam_ventana'].touched"
+                  class="form-error-msg">
+                  La cantidad es obligatoria
+                </small>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="pr-1"> 
+              <div fxFlex="70" style="margin-top:30px;">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Hora inicio y cierre</mat-label>
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100" class="pr-1">
+                          <div fxFlex="46" class="pr-1">
+                            <mat-form-field class="full-width" appearance="outline">
+                              <mat-label>Inicio</mat-label>
+                              <input matInput value="{{selectedTimeInicio}}" type="time" (click)="openInicio($event)"
+                              [formControl]="itemForm.controls['hora_inicio']" />
+                            </mat-form-field>
+                          </div>
+                          <div fxFlex="10" class="pr-1"></div>
+                          <div fxFlex="44" class="pr-1">
+                            <mat-form-field class="full-width" appearance="outline">
+                              <mat-label>Cierre</mat-label>
+                              <input matInput value="{{selectedTimeFin}}" type="time" (click)="openFin($event)"
+                              [formControl]="itemForm.controls['hora_fin']" />
+                            </mat-form-field>                
+                          </div>
+                        </div>
+                      </div>
+                </mat-form-field>
+              </div>
+              <div fxFlex="5" class="pr-1"></div>                
+              <div fxFlex="25" class="pr-1" fxLayoutAlign="start center">
+                <mat-checkbox class="example-radio-button" [formControl]="itemForm.controls['todoDia']"
+                 (change)="onChangeTodoDia($event)">
+                  24 horas &nbsp;
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="pr-1">
+              <div fxFlex="70">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Productos</mat-label>
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100" class="pr-1">
+                        <mat-select id="producto_ids" [formControl]="itemForm.controls['producto_ids']"
+                          placeholder="Seleccione los productos" name="producto_ids" class="mb-1" multiple
+                          (selectionChange)="onChangeAcoplado()">
+                          <mat-option *ngFor="let tipo of productos" [value]="tipo.id" ngDefaultControl>
+                            {{tipo?.descripcion}}
+                          </mat-option>
+                        </mat-select>
+                        <small
+                          *ngIf="itemForm.controls['producto_ids'].hasError('required') && itemForm.controls['producto_ids'].touched"
+                          class="form-error-msg"> Es requerido el producto</small>                    
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div fxFlex="5" class="pr-1"></div> 
+              <div fxFlex="25" class="pr-1" fxLayoutAlign="start center">
+                <mat-checkbox class="example-radio-button" [formControl]="itemForm.controls['todosproductos']"
+                        (change)="onChangeTodosProductos($event)">
+                        Todos los productos &nbsp;
+                      </mat-checkbox>
+              </div>      
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="pr-1">
+              <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+              <span fxFlex></span>
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,59 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<mat-progress-bar mode="determinate"  [value]="porciento" [bufferValue]="bufferValue"></mat-progress-bar>
+<mat-card class="p-0">
+  <div class="mb-1">
+    <div
+      ng2FileDrop
+      style="cursor: pointer"
+      class="fileupload-drop-zone"
+      (click)="inputsubir.click()"
+    >
+      <div *ngIf="mostrar_img" class="mostrar_img">
+        <img [src]="imagenTemp" alt="Vista Previa" />
+      </div>
+      <p *ngIf="error_val" class="error">{{ msg }}</p>
+     
+
+      <p style="cursor: pointer" *ngIf="!error_val" class="success">
+        {{ msg }}
+      </p>
+      <input
+        #inputsubir
+        style="display: none"
+        type="file"
+        name="foto"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  </div>
+  <div class="profile-actions mb-1 p-1" fxLayoutAlign="center center">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="btn_disabled"
+      (click)="onUpload()"
+      matTooltip="Subir"
+    >
+      <mat-icon>cloud_upload</mat-icon>
+    </button>
+    <span fxFlex="8px"></span>
+    <button
+      mat-raised-button
+      color="warn"
+      [disabled]="!btn_borrar_disabled"
+      (click)="limpiarimagenTemp()"
+      matTooltip="Remover Imagen"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+    <span fxFlex="8px"></span>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="cancelar()"
+      matTooltip="Cancelar"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</mat-card>

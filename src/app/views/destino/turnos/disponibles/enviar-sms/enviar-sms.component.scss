@@ -1,0 +1,8 @@
+.deshabled-botton{
+    background-color: rgba(131, 183, 25, 0.3) !important; /* 30% de opacidad */
+    color: #fff !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    border-bottom: 0px !important;
+}

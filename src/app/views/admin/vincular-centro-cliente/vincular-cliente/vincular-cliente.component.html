@@ -1,0 +1,61 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="cuit_cuil"
+          type="text"
+          [formControl]="itemForm.controls['cuit_cuil']"
+          placeholder="RUC"
+          (change)="comprobarCUIT()"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('required') &&
+          itemForm.controls['cuit_cuil'].dirty
+        "
+        class="form-error-msg"
+      >
+        Es requerido el RUC
+      </small>
+
+      <small
+        *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('maxlength') &&
+          itemForm.controls['cuit_cuil'].dirty
+        "
+        class="form-error-msg"
+      >
+        Debe tener 11 digitos.
+      </small>
+
+    </div>
+    <!--<div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Cliente" [formControl]="itemForm.controls['id_cliente']">
+          <mat-option *ngFor="let vcliente of clientesList" [value]="vcliente.id">{{vcliente.nombre_persona}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['id_cliente'].hasError('required') && itemForm.controls['id_cliente'].touched" class="form-error-msg">
+      Es requerido el cliente.
+      </small>
+    </div>-->
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="incorrectcuit">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

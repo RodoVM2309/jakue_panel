@@ -1,0 +1,175 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Órdenes de Retiro de Combustible</h4>
+</div>
+<!-- <div class="m-333">
+  <button mat-raised-button style="color:rgb(78, 216, 240);" [matMenuTriggerFor]="btnFiltrar">
+    Filtrar Ordenes de Retiro
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  <mat-menu #btnFiltrar="matMenu">
+    <button mat-menu-item class="myButton">
+      <mat-select id="showFiltro" placeholder="Filtrar las órdenes"
+        name="showFiltro" class="mb-1" [(value)]="selectedFilter"
+        (selectionChange)="chanceFiltro()">
+        <mat-option *ngFor="let filtro of mostrarFiltro" [value]="filtro.value">
+          {{ filtro.viewValue }}
+        </mat-option>
+      </mat-select>
+    </button>
+  </mat-menu>
+</div> -->
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Nombre
+      </mat-label>
+      <input matInput name="nombre" [value]="filtro.nombre" (keyup)="updateFilter($event,'nombre')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Patente Camion
+      </mat-label>
+      <input matInput name="patente" [value]="filtro.patente" (keyup)="updateFilter($event,'patente')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Cuit
+      </mat-label>
+      <input matInput name="cuit" [value]="filtro.cuit" (keyup)="updateFilter($event,'cuit')">
+    </mat-form-field>
+
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:20%;' class="example-full-width">
+      <mat-label>
+        <mat-icon matPrefix>search</mat-icon> Buscar por Transportista
+      </mat-label>
+      <input matInput name="transportista" [value]="filtro.transportista"
+        (keyup)="updateFilter($event,'transportista')">
+    </mat-form-field>
+
+    <ngx-datatable class="material ml-0 mr-0" [rows]="ordenesRetiro" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [limit]="page.size"
+      (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+
+      <ngx-datatable-column name="Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreChofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente de Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patenteCamion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuitChofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Transportista" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreTransportista }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Estado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="row?.estado == 0" style="color:#f1ee0a;">{{ row?.nombreEstado }}</span>
+          <span *ngIf="row?.estado == 1" style="color:#24c42c;">{{ row?.nombreEstado }}</span>
+          <span *ngIf="row?.estado === 2" style="color:red;">{{ row?.nombreEstado }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Combustible" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.tipo_combustible }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cantidad" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cantidad }} Litros
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Estación de servicio" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombreGasolinera }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Observaciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.obs }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="25" fxLayout="column">
+                <button mat-icon-button mat-sm-button matTooltip="Enviar Whatsapp">
+                  <img src="assets/images/muvin/whatsapp.png" alt="" (click)="openPopUpwhatsapp(row)">
+                </button>
+            </div>
+            <div fxFlex="25" fxLayout="column">
+              <button mat-icon-button mat-sm-button color="primary" *ngIf="row?.estado != 1" class="mr-0"
+                matTooltip="Aprobar" (click)="aprobarCombustible(row,1)">
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="25" fxLayout="column">
+              <button mat-icon-button mat-sm-button color="primary" *ngIf="row?.estado != 2" class="m-0"
+                matTooltip="Rechazar" (click)="aprobarCombustible(row,2)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="25" fxLayout="column">
+              <!-- <button mat-icon-button mat-sm-button color="warn" class="m-0" matTooltip="Eliminar"
+                (click)="deleteCombustible(row)">
+                <mat-icon>delete</mat-icon>
+              </button> -->
+               <button mat-icon-button mat-sm-button color="primary" *ngIf="row?.estado != 1" class="m-0" matTooltip="Modificar cantidad de combustible"
+                (click)="openPopUp(row)">
+                <mat-icon>edit</mat-icon>
+              </button> 
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen" style="color: #00AEEF; margin-right:28px;">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" matTooltip="Filtrar Órdenes de Retiro">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Ordenes de Retiro</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="limpiarFiltros()">
+        <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select id="showFiltro" placeholder="Filtrar por estado" name="showFiltro" class="mb-1"
+            [(value)]="selectedFilter" (selectionChange)="chanceFiltro()">
+            <mat-option *ngFor="let filtro of mostrarFiltro" [value]="filtro.value">
+              {{ filtro.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

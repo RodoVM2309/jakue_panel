@@ -1,0 +1,62 @@
+<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Lugares de Carga</h4>
+</div>
+<div  *ngIf="tipocentro!=='2'" class="m-333">
+
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Agregar Lugar de Carga</button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <mat-form-field  class="p-5"  style='padding:8px;margin:15px auto;width:30%;'  class = "example-full-width">
+      <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar Lugar de Carga</mat-label>
+      <input  matInput (keyup)='updateFilter($event)'>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Remitente Column -->
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+        <td mat-cell *matCellDef="let row">{{row?.descripcion}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- tipo_pedido Column -->
+      <ng-container matColumnDef="nombre_localidad">
+        <th mat-header-cell *matHeaderCellDef> Localidad </th>
+        <td mat-cell *matCellDef="let row"> {{row?.nombre_localidad}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- producto Column -->
+      <ng-container matColumnDef="desc_bloqueado">
+        <th mat-header-cell *matHeaderCellDef> Bloqueado </th>
+        <td mat-cell *matCellDef="let row"> {{row?.desc_bloqueado}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- cant_camiones Column -->
+      <ng-container matColumnDef="imagenC">
+        <th mat-header-cell *matHeaderCellDef> Imagen cargada </th>
+        <td mat-cell *matCellDef="let row"> {{row?.imagenC}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" *ngIf="!row.bloqueado" (click)="bloqueoDesbloqueo(row)"><mat-icon>lock_open</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" *ngIf="row.bloqueado" (click)="bloqueoDesbloqueo(row)"><mat-icon>lock_outline</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="subirImagen(row)" matTooltip="Subir imagen"><mat-icon>panorama</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+        [ngStyle]="(row.disponibilidad=='1' || row?.estado === 'Ocupado') && {'background-color': '#efefef'}"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator class="mat-paginator-sticky" [pageSize]="page.size" [pageSizeOptions]="[10]"
+      [showFirstLastButtons]="true" [length]="page.totalElements" (page)="setPage($event)">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

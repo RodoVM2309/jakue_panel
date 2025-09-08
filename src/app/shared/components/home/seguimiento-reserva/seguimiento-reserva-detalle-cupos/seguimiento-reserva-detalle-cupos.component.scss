@@ -1,0 +1,87 @@
+h5 {
+  color: white;
+  margin-left: 0px;
+}
+.estilo_card {
+  margin-top: -24px !important;
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  box-shadow: none !important;
+}
+.titulo-fondo {
+  background: #00498E;
+  height: 50px;
+}
+.subtitulo-fondo {
+  background: #E0E0E0;
+  height: 55px;
+  padding-top: 21px;
+}
+.cerrar_popup {
+  cursor: pointer
+}
+table {
+  width: 97%;
+  margin-left: 14px;
+}
+
+#id-detalle-cupo{
+  td.mat-cell:first-of-type, th.mat-header-cell:first-of-type{
+  padding-left: 0% !important;
+  }
+
+  td.mat-cell:last-of-type, th.mat-header-cell:last-of-type{
+    padding-right: 0% !important;
+  }
+
+  .mat-column-fecha, .mat-column-terminal, .mat-column-composicion {
+    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 8% !important;
+    overflow-wrap: break-Word;
+    Word-wrap: break-Word;
+  
+    Word-break: break-Word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-reserva {
+    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 6% !important;
+    overflow-wrap: break-Word;
+    Word-wrap: break-Word;
+  
+    Word-break: break-Word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  .mat-column-st_oc, .mat-column-cantidad {
+    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 5% !important;
+    overflow-wrap: break-Word;
+    Word-wrap: break-Word;
+  
+    Word-break: break-Word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-cell{
+    font-size: 12px;
+  }
+}

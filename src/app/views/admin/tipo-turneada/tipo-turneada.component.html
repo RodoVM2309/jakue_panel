@@ -1,0 +1,70 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{'tipo-turneado.title' | translate}}</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 70vh">
+    <br>
+    <form [formGroup]="itemForm">
+      <div fxLayout="column wrap" fxLayout.lt-sm="column" fxFlexAlign="center center">
+        <div fxLayout="row wrap" style="margin-top: 17vh;">
+          <div fxFlex="100" class="pr-1">
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="end center">
+              <button mat-raised-button
+                [ngStyle]="{'background-color':tipoTurneada1 ? '#A3DDF2' : 'rgb(236, 239, 240)'}"
+                style="width:  80vh; height: 80px;border-radius: 20px;font-size:x-large; "
+                (click)=" onChangeTipoTurneada(1)">
+                <mat-icon *ngIf="tipoTurneada1">done</mat-icon>&nbsp;&nbsp;
+                <strong
+                  [ngStyle]="{'color':tipoTurneada1 ? '#304AA3' : '#787676'}">{{'tipo-turneado.tipo1' | translate}}</strong>
+              </button>
+            </div>
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="start center">
+              <div fxLayout="column wrap">
+                <button mat-raised-button
+                  [ngStyle]="{'background-color':tipoTurneada2 ? '#A3DDF2' : 'rgb(236, 239, 240)'}"
+                  style="width:  80vh; height: 80px;border-radius: 20px;font-size: x-large; "
+                  (click)=" onChangeTipoTurneada(2)">
+                  <mat-icon *ngIf="tipoTurneada2">done</mat-icon>&nbsp;&nbsp;
+                  <strong [ngStyle]="{'color':tipoTurneada2 ? '#304AA3' : '#787676'}">
+                    {{'tipo-turneado.tipo2' | translate}}
+                  </strong>
+                </button>           
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="pr-1">
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="end center">               
+            </div>
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="start center">
+                <div fxLayout="column wrap"  *ngIf="tipoTurneada2">                    
+                    <h5 class="mt-0">Tipo de acción ante rechazo de viajes</h5>
+                    <mat-radio-group fxLayout="column" class="tp-radio-group"
+                      [formControl]="itemForm.controls['tipoAccionSeleccionado']">
+                      <mat-radio-button class="tp-radio-button" *ngFor="let tipo of tipoAccion" [value]="tipo.id" (change)="onChangeModo($event.value)">
+                        {{tipo.descripcion}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" style="margin-top: 5vh;">
+          <div fxFlex="100" class="pr-1" *ngIf="tipoTurneada2">
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="end center"></div>
+            <div fxFlex="50" class="pr-1" fxLayoutAlign="start center">
+
+            </div>
+          </div>
+        </div>
+
+        <div fxFlex="100" class="pr-1" style="height: 30vh;margin-top:50px;" fxLayoutAlign="center center">
+          <button mat-raised-button color="primary" fxFlexAlign="center center" [disabled]="!chanceValue"
+            (click)="submit()">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,25 @@
+.textarea {
+    min-height: 150px;
+    border:1px solid #ddd;
+    position:relative;
+    width: 99%;
+    box-shadow: none;
+    background: #86B1C5;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .circulo {
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #F8AC00;
+}
+
+::ng-deep .datatable-header-cell{
+  background-color: #86b1c5 !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+}

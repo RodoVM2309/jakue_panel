@@ -1,0 +1,225 @@
+<div style="background-color: #E9E9EA; margin-top: 8px; margin-left: 10px; margin-right: 10px;">
+    <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA; padding:0px;" [style.overflow]="'auto'" [style.width.px]="">
+
+        <div fxLayout="column wrap">
+            <div fxLayout="100">
+                <div fxFlex="34" fxLayout="row wrap" fxLayoutAlign="start center" style="  background-color:#B5E0F4">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" color="primary" style="margin-left: 10px;">
+                        arrow_drop_down</mat-icon>
+                    <h4><span style="font-weight: 600; color:rgb(24,71,145); font-size: 1.1rem;">Destinos</span>
+                    </h4>
+                </div>
+                <div fxFlex="33" fxLayout="row wrap" fxLayoutAlign="start center" style="  color:#ffffff" [ngStyle]="{'background-color':selectedPuerto.colorSituacionPuerto!=='' ? '#'+selectedPuerto.colorSituacionPuerto :'rgb(212, 207, 207)'  }">
+                    <div fxFlex="100" style="padding: 10px;">
+                        <div fxFlex="72" fxLayoutAlign="start center">
+                            <div fxFlex="100" fxLayout="column wrap">
+                                <div fxFlex="100" fxLayout="row wrap">
+                                    <span style="font-weight: 600;font-size: small;">{{selectedPuerto.descripcion | uppercase }}&nbsp; </span>
+                                </div>
+                                <div fxFlex="100" fxLayout="row wrap">
+                                    <span style="font-weight: 400;font-size:small;">ESTADO:&nbsp;</span>
+                                    <span style="font-weight: 600;font-size:small;">{{selectedPuerto.nombreSituacionPuerto}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxFlex="28" fxLayoutAlign="start center">
+                            <button mat-button style=" min-width: 90px;" mat-raised-button (click)="openPopAdminEstado()">
+                Administrar
+              </button>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="33" fxLayout="row wrap" fxLayoutAlign="start center" style="  background-color:rgb(24,71,145);color:#ffffff">
+                    <div fxFlex="80" fxLayoutAlign="start center">
+                        <div fxFlex="100" fxLayout="column wrap">
+                            <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start end">
+                                <div fxFlex="5"></div>
+                                <div fxFlex="10" fxLayoutAlign="start center">
+                                    <mat-icon aria-hidden="false" aria-label="Example home icon">access_time</mat-icon>
+                                </div>
+                                <div fxFlex="85" fxLayout="row wrap">
+                                    <span style="font-weight: 300;font-size: small;">Horario de corte:</span>
+                                    <span style="font-weight: 300;font-size: small;"> {{selectedPuerto.hora_corte}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start center">
+                                <div fxFlex="5"></div>
+                                <div fxFlex="10">
+                                    <mat-icon aria-hidden="false" aria-label="Example home icon">access_time</mat-icon>
+                                </div>
+                                <div fxFlex="85">
+                                    <span style="font-weight: 300;font-size: small;margin-top: 4px;">Tiempo para demorado:</span>
+                                    <span style="font-weight: 300;font-size: small;margin-right: 10px;margin-top: 4px;"> {{selectedPuerto.tiempo_para_demorado}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="20" fxLayout="column wrap">
+                        <div fxFlex="100" fxLayoutAlign="center center" class="div-button">
+                            <button mat-button mat-raised-button (click)="open()">
+                Administrar
+              </button>
+                        </div>
+                        <div fxFlex="100" fxLayoutAlign="center center" class="div-button">
+                            <button mat-button mat-raised-button (click)="openPopUpTime(selectedPuerto.id,selectedPuerto.tiempo_para_demorado)">
+                Administrar
+              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <mat-divider style="height: 2px;"></mat-divider>
+            <div fxLayout="100" style="height: 85vh; background-color: #ebe8e8;">
+                <div fxFlex="34" style=" padding-bottom: 15px;">
+                    <div fxLayout="row wrap" fxLayoutAlign="start start" style="height: 70vh; overflow-y: scroll; background-color: white;">
+                        <div fxFlex="100" *ngFor="let row of destinos; let i = index; " style="height: 190px; cursor: pointer;" [ngStyle]="{'background-color':row.selected ? 'rgb(97,106,113)' :'rgb(255,255,255)'}">
+                            <div fxFlex="88" fxLayoutAlign="start center">
+                                <mat-card class="default" style="margin-left: 20px; border-radius: 6px;border: 3px;width: 100%;" [ngStyle]="{'background-color':row.selected ? 'rgb(251,233,26)' :'rgb(255,255,255)'  }">
+                                    <mat-card-title style="height: 20px;">
+                                        <div fxLayout="row wrap" (click)="seleccionarPuerto(i,row)">
+                                            <div fxFlex="100" style=" width: 100%;height: 20px;">
+                                                <div fxFlex="10" fxLayout="column" fxLayoutAlign="start start">
+                                                    <div fxFlex style="background:rgb(36,155,210)!important; margin-left:-16px; margin-top:-16px; width: 28px !important;">
+                                                        <mat-icon style="color: #FCFDFF;">arrow_forward</mat-icon>
+                                                    </div>
+                                                </div>
+                                                <div fxFlex="90" fxLayout="column" style="align-items: left; margin-left: 5px;">
+                                                    <span style="font-size: 12px;">{{ row.descripcion | uppercase }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-title>
+                                    <mat-card-content style="margin-top: 0px; padding: 0px;" [ngStyle]="{'background-color':row.selected ? 'rgb(251,233,26)' :'rgb(255,255,255)'  }">
+                                        <div fxLayout="column wrap">
+                                            <mat-divider style="height: 2px;"></mat-divider>
+                                            <div fxLayout="row wrap" style="padding: 0.4rem;margin-left: -6px; margin-right: -6px; height: 80px;">
+                                                <div fxFlex="100" fxLayoutAlign="start center" style=" width: 100%;" (click)="seleccionarPuerto(i,row)">
+                                                    <div fxFlex="35" fxLayout="column" style="align-items: left;color:#848587;">
+                                                        <span style="font-weight: 600;margin-left: 5px;">Domicilio:</span>
+                                                        <span style="font-weight: 600;margin-left: 5px;">Zona Destino:</span>
+                                                        <span style="font-weight: 600;margin-left: 5px;">Tipo Destino:</span>
+                                                    </div>
+                                                    <div fxFlex="65" fxLayout="column" style="align-items: left;">
+                                                        <span [title]="row.domicilio" style="font-weight: 600;">
+                                                        {{ row.domicilio | slice:0:25 }}{{ (row.domicilio.length > 25) ? '...': '' }}
+                                                      </span>
+                                                        <span [title]="row.nombreZonaDestino" style="font-weight: 600;">
+                                                       {{ row.nombreZonaDestino | slice:0:25 }}{{ (row.nombreZonaDestino.length > 25) ? '...': '' }}
+                                                      </span>
+                                                        <span [title]="row.nombreTipoDestino" style="font-weight: 600; ">
+                                                           {{ row.nombreTipoDestino | slice:0:25 }}{{ (row.nombreTipoDestino.length > 25) ? '...': '' }}
+                                                      </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <mat-divider style="height: 2px;"></mat-divider>
+                                            <div fxLayout="row wrap" style="padding: 0; margin-left: 0px; margin-right: 0px; height: 40px;
+                        margin-bottom: -6px; color: #ffffff" [ngStyle]="{'background-color':row.colorSituacionPuerto!=='' ? '#'+row.colorSituacionPuerto :'rgb(212, 207, 207)'  }">
+                                                <div fxFlex="100" fxLayoutAlign="start center" style=" width: 100%; margin-top: -2%;">
+                                                    <div fxFlex="35" fxLayoutAlign="center center"> <span style="font-weight: 400;font-size: small;text-align: center;">ESTADO:</span></div>
+                                                    <div fxFlex="65" fxLayoutAlign="start center"><span style="font-weight: 400;font-size: medium;text-align: center;">{{row.nombreSituacionPuerto}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div fxFlex="10" fxLayoutAlign="start center">
+                                <mat-icon *ngIf="row.selected" style="color: #FCFDFF;height:48px !important;
+                width:48px !important;
+                font-size:48px !important;">arrow_right</mat-icon>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="66" fxLayout="column wrap" fxLayoutAlign="start center">
+                    <div fxFlex="100" style="width: 100%;">
+                        <div fxLayout="100" fxLayoutAlign="start start" style="height: 30px;background-color: #ffffff; border-top-style: solid; margin-top: 13px; border-top-color: #616a71;">
+
+                            <div fxFlex="100" style="background-color: #616a71; color: #ffffff; text-align:center; padding: 3px; font-size: 12px;">
+                                Operatoria Semanal
+                            </div>
+
+                        </div>
+                        <div fxLayout="100" fxLayoutAlign="start start">
+                            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+                                <ng-container matColumnDef="diaSemana">
+                                    <th mat-header-cell *matHeaderCellDef><strong>DIA</strong></th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.dia_semana}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="horaInicio">
+                                    <th mat-header-cell *matHeaderCellDef>DESDE</th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.hora_inicio}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="horaFin">
+                                    <th mat-header-cell *matHeaderCellDef> HASTA</th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.hora_fin}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="tamVentana">
+                                    <th mat-header-cell *matHeaderCellDef style="color:rgb(108,176,33);text-align:center;">INTERVALO</th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.tam_ventanaHora}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="camVentana">
+                                    <th mat-header-cell *matHeaderCellDef style="color:rgb(108,176,33);text-align:center;">TURNOS</th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.cam_ventana}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="listProductos">
+                                    <th mat-header-cell *matHeaderCellDef> Productos</th>
+                                    <td mat-cell *matCellDef="let item; let i = index">
+                                        {{item.list_productosShort}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">
+                                    <th mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;
+                                    </th>
+                                    <td mat-cell *matCellDef="let item">
+                                        <div fxLayout="row wrap" fxLayoutAlign="end center">
+                                            <button mat-icon-button mat-sm-button color="primary" class="mr-0" *ngIf="list_productos && item.list_productosShort.length>46" (click)="expanded(expandedElement,item)">
+                          <mat-icon style="height:30px !important;
+                        width:30px !important;
+                        font-size:30px !important;">arrow_drop_down</mat-icon>
+                        </button> &nbsp;&nbsp;&nbsp;
+                                            <button mat-icon-button mat-sm-button color="warn" matTooltip="Modificar configuración del día" (click)="openPopConfigDia(item)">
+                          <mat-icon>settings</mat-icon>
+                        </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </ng-container>
+                                <ng-container matColumnDef="expandedDetail">
+                                    <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+                                        <div class="example-element-detail" [@detailExpand]="item == expandedElement ? 'expanded' : 'collapsed'">
+                                            <div fxLayout="row wrap">
+                                                {{item.list_productos | slice:46: item.list_productos.length }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let item; columns: displayedColumns" class="example-element-row" [class.example-expanded-row]="expandedElement === item" (click)="expandedElement = expandedElement === item ? null : item">
+                                </tr>
+                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

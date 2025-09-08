@@ -1,0 +1,176 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title class="">
+    <div  fxLayout="row wrap" class="card-title-text titulo-fondo">
+      <div fxFlex="95">
+        <h5>SELECCIONAR RESERVA </h5>
+        <!-- {{data.title}} -->
+      </div>
+      <div fxFlex="5" fxLayoutAlign="end center">
+        <h5 class="cerrar_popup" (click)="gotoHome()"> x </h5>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center" class="subtitulo-fondo">
+        <div fxFlex="5"></div>
+        <!-- cliente -->
+        <div fxFlex="25" >
+          <div fxLayout="column" fxLayoutAlign="space-around stretch"  >
+            <span class="destinoColor" >Cliente:</span>
+            <span class="destino"> {{cliente | uppercase }}</span>
+          </div>
+        </div>
+        <div fxFlex="5" ></div>
+        <!-- Terminal -->
+        <div fxFlex="25" >
+          <div fxLayout="column" fxLayoutAlign="space-around stretch"  >
+            <span class="destinoColor" >Terminal de Carga:</span>
+            <span class="destino">{{destino | uppercase }} </span>
+          </div>
+        </div>
+    </div>
+
+  </mat-card-title>
+  <mat-card-content >
+    <mat-card class="p-0 estilo_card_item">
+      <div fxLayout="row wrap">
+        <div  fxFlex="100" class="detalle" >
+          <p ><strong>Detalle de Cargas</strong></p>
+        </div>
+      </div>
+      <hr>
+      <div fxLayout="row wrap" style="margin-bottom: -17px;">
+        <div  fxFlex="100" fxFlex.gt-xs="20">
+          <div fxLayout="column"  fxLayoutAlign="space-around stretch" >
+            <span class="solicitanteColor">Solicitante:</span>
+            <span class="solicitanteDestino">{{solicitante | uppercase }}</span>
+          </div>
+        </div>
+        <div  fxFlex="100" fxFlex.gt-xs="20">
+          <div fxLayout="column" fxLayoutAlign="space-around stretch"  >
+            <span class="destinoColor" >Destino:</span>
+            <span class="destino">{{destino | uppercase }}</span>
+          </div>
+        </div>
+      </div>
+      <mat-card-content class="p-0" *ngFor="let reserva of reservaslista">
+        <div fxLayout="row wrap">
+          <div  fxFlex="100" class="pt-1" >
+            <div fxFlex="98" class="contenedor-card" >
+              <mat-card   class="p-0 estilo_card_item" *ngIf="!reserva.id_chofer" >
+                <mat-card-title class="black-500" >
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <!-- id -->
+                    <div fxFlex="100" fxFlex.gt-xs="20"  fxLayoutAlign="start stretch">
+                      <div fxFlex="100" class="btn_copiar" fxFlex.gt-xs="45" >
+                        <span class="centrar_cant">{{ reserva.id_reserva }}</span>
+                      </div>
+                      <div fxFlex="1"></div>
+
+                    </div>
+                    <!-- Fecha -->
+                    <div  fxFlex="100" fxFlex.gt-xs="10" fxLayoutAlign="start stretch"  >
+                      <div fxLayoutAlign="start center" fxFlex="100">
+                        <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                          <span class="input-color"  >Fecha:</span>
+                          <span class="color-white" #fecha >{{reserva.fecha_pedido | date: 'dd/MM/yyyy' }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div fxFlex="1"></div>
+                    <!-- Nombre chofer -->
+                    <div fxFlex="100" fxFlex.gt-xs="20"  fxLayoutAlign="start stretch" >
+                      <div  fxFlex="100"  fxFlex.gt-xs="13"  *ngIf="reserva.id_chofer">
+                        <mat-icon style="color: #fff; margin-top: 15px;" aria-hidden="false" aria-label="{2:label} icon">perm_identity</mat-icon>
+                      </div>
+                      <div fxLayoutAlign="start center" fxFlex="100">
+                          <div fxLayout="column" fxLayoutAlign="center center"  *ngIf="reserva.id_chofer">
+                            <span class="input-color" style="margin-right: 34px;" >Nombre:</span>
+                              <span class="color-white" #nombre_chofer >{{ reserva.chofer | uppercase }}</span>
+                          </div>
+                      </div>
+                    </div>
+                    <!-- Patente chofer -->
+                    <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch"  >
+                      <div fxLayoutAlign="start center" fxFlex="100" *ngIf="reserva.id_chofer">
+                        <div fxLayout="column" fxLayoutAlign="start center" >
+                        <span class="input-color" style="margin-right: 51px;" >Patente:</span>
+                          <span class="color-white" #patente >{{ reserva.patente_camion }} / {{ reserva.patente_acoplado }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div  fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch"  >
+                      <div fxLayoutAlign="start center" fxFlex="100">
+                        <div fxLayout="column"fxLayoutAlign="space-around stretch" >
+                          <span class="input-color" style="margin-right: 10px;" >ST OC </span>
+                          <span class="stoc">{{reserva.stoc}}</span>
+                        </div>
+                        <div fxFlex="1"></div>
+                      </div>
+                    </div>
+                    <!-- BOTON ASIGNAR CHOFER -->
+                    <div fxFlex="100" fxFlex.gt-xs="13" *ngIf="!reserva.id_chofer" >
+                      <button mattooltip="Asignar Chofer" type="button" #btn_asingarChofer
+                      (click)="asignarReserva(reserva)"
+                      class="btn_asignarchofer"   mat-stroked-button>SELECCIONAR</button>
+                    </div>
+                </div>
+                </mat-card-title>
+                <mat-card-content class="card-content" >
+                 <!-- Item de productos  -->
+                  <div fxLayout="row wrap" *ngFor="let producto of reserva.productos">
+                    <div  fxFlex="100">
+                      <!-- Tipo de Despacho -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1"  >
+                        <div fxLayoutAlign="start center" fxFlex="95">
+                          <div fxLayout="column"  fxLayoutAlign="start stretch" >
+                            <span class="item" >Tipo Despacho</span>
+                            <span class="item"><strong>{{producto.tipo_despacho}}</strong></span>
+                          </div>
+                        </div>
+                      </div>
+                       <!-- Contrato -->
+                      <div  fxFlex="100" fxFlex.gt-xs="20" class="pr-1"  >
+                       <div fxLayout="column"  fxLayoutAlign="start stretch" >
+                          <span class="item" >Contrato/Fijación</span>
+                          <span class="item"><strong>{{producto.contrato}}</strong></span>
+                        </div>
+                      </div>
+                      <!-- Producto -->
+                      <div  fxFlex="100" fxFlex.gt-xs="20" class="pr-1"   >
+                        <div fxLayout="column"  fxLayoutAlign="start stretch" >
+                          <span class="item" >Producto</span>
+                          <span class="item"><strong>{{producto.producto}}</strong></span>
+                        </div>
+                      </div>
+                      <!-- Composicion -->
+                      <div  fxFlex="100" fxFlex.gt-xs="20" class="pr-1"  >
+                          <div fxLayout="column"  fxLayoutAlign="start stretch" >
+                            <span class="item">Composicion</span>
+                            <span class="item"><strong>{{producto.composicion}}</strong></span>
+                          </div>
+                      </div>
+                      <!-- Cantidad -->
+                      <div  fxFlex="100" fxFlex.gt-xs="19"  class="pr-1" >
+                        <div fxLayout="column"  fxLayoutAlign="start stretch" >
+                          <span class="item">&nbsp;</span>
+                         <span class="item">Cantidad (Tn): <strong> {{producto.cantidad}}</strong></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    <!-- <mat-card-content *ngIf="expression">
+      <mat-card class="mat-card mat-focus-indicator mat-bg-primary p-24 d-flex align-items-center">
+        No Hay reservas a mostrar
+      </mat-card>
+    </mat-card-content> -->
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+

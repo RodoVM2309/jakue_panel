@@ -1,0 +1,69 @@
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004a90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #000;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}
+
+.mat-card.p-0 .mat-card-content {  
+  overflow: auto; 
+ /*  
+ padding: 0px !important;
+  margin-top: -18px;
+ display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  max-height: 100%;
+  position: absolute;
+  */
+}
+.my-card {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0),
+    0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+  background: #e9e9ea;
+  margin-left: -10px;
+  margin-right: -10px;
+  max-height: 85vh !important;
+  /* height: 90% !important;
+  position: relative;*/
+}
+
+#style-1::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+}
+
+// Estilo a la barra de desplazamiento
+.scrollbar {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.component {
+  padding: 19px;
+  margin: -12px;
+}

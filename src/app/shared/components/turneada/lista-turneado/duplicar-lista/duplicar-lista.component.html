@@ -1,0 +1,23 @@
+<div><h1 matDialogTitle>{{data.title}}</h1><span fxFlex></span><mat-icon>account_circle</mat-icon></div>
+<form [formGroup]="itemFormLista" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemFormLista.controls['id']" placeholder="">
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1"  >
+      <mat-form-field class="full-width">
+        <input matInput name="nombre" maxlength="50" [formControl]="itemFormLista.controls['nombre']" placeholder="Nombre" >
+      </mat-form-field>
+      <small *ngIf="itemFormLista.controls['nombre'].hasError('required') && itemFormLista.controls['nombre'].touched"
+        class="form-error-msg"> Es requerido el nombre
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemFormLista.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

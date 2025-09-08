@@ -1,0 +1,256 @@
+﻿-- <h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" [style.overflow]="'auto'" [style.height.px]="'450'">
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id del destino" />
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="cuit_cuil" type="number" [formControl]="itemForm.controls['cuit_cuil']" placeholder="CUIT/CUIL" (change)="comprobarCUIT()" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('required') &&
+          itemForm.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Es requerido el cuit
+      </small>
+            <small *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('minlength') &&
+          itemForm.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Debe tener 11 digitos.
+      </small>
+            <small *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('maxlength') &&
+          itemForm.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        Debe tener 11 digitos.
+      </small>
+            <small *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('min') &&
+          itemForm.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        CUIT incorrecto.
+      </small>
+            <small *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('max') &&
+          itemForm.controls['cuit_cuil'].dirty
+        " class="form-error-msg">
+        CUIT incorrecto.
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select name="id_zona_destino" [formControl]="itemForm.controls['id_zona_destino']" placeholder="Zona">
+                    <mat-option *ngFor="let vzona of zonasdestino" [value]="vzona.id">
+                        {{ vzona.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['id_zona_destino'].hasError('required') &&
+          itemForm.controls['id_zona_destino'].touched
+        " class="form-error-msg">
+        Es requerida la zona
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="descripcion" [formControl]="itemForm.controls['descripcion']" placeholder="Descripción" #descripcion maxlength="200" />
+                <mat-hint align="end">{{ descripcion.value.length }} / 200</mat-hint>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['descripcion'].hasError('required') &&
+          itemForm.controls['descripcion'].touched
+        " class="form-error-msg">
+        Es requerido la descripcion
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select name="pais" [formControl]="itemForm.controls['pais']" placeholder="Pais" (selectionChange)="getProvincias()">
+                    <mat-option *ngFor="let vpais of paises" [value]="vpais.id">
+                        {{ vpais.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select name="provincia" [formControl]="itemForm.controls['provincia']" placeholder="Provincia" (selectionChange)="getLocalidades()">
+                    <mat-option *ngFor="let vprov of provincias" [value]="vprov.id">
+                        {{ vprov.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select name="id_localidad" [formControl]="itemForm.controls['id_localidad']" placeholder="Localidad">
+                    <mat-option *ngFor="let vlocalidad of localidades" [value]="vlocalidad.id">
+                        {{ vlocalidad.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['id_localidad'].hasError('required') &&
+          itemForm.controls['id_localidad'].touched
+        " class="form-error-msg">
+        Es requerida la localidad
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="domicilio" [formControl]="itemForm.controls['domicilio']" placeholder="Domicilio" #domicilio maxlength="200" />
+                <mat-hint align="end">{{ domicilio.value.length }} / 200</mat-hint>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['domicilio'].hasError('required') &&
+          itemForm.controls['domicilio'].touched
+        " class="form-error-msg">
+        Es requerido el domicilio
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <mat-select name="id_tipo_destino" [formControl]="itemForm.controls['id_tipo_destino']" placeholder="Tipo">
+                    <mat-option *ngFor="let vtipo of tiposdestinos" [value]="vtipo.id">
+                        {{ vtipo.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['id_tipo_destino'].hasError('required') &&
+          itemForm.controls['id_tipo_destino'].touched
+        " class="form-error-msg">
+        Es requerido el tipo
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <span matPrefix>+54 &nbsp;</span>
+                <input matInput name="telefono" [formControl]="itemForm.controls['telefono']" placeholder="Telefono" type="tel" />
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['telefono'].hasError('required') &&
+          itemForm.controls['telefono'].touched
+        " class="form-error-msg">
+        Es requerido el telefono
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="email" type="email" [formControl]="itemForm.controls['email']" placeholder="E-mail" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['email'].hasError('required') &&
+          itemForm.controls['email'].touched
+        " class="form-error-msg">
+        Es requerido el email
+      </small>
+            <small *ngIf="
+          itemForm.controls['email'].hasError('email') &&
+          itemForm.controls['email'].touched
+        " class="form-error-msg">
+        Email incorrecto
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="CodigoPlantaOncca" type="number" [formControl]="itemForm.controls['CodigoPlantaOncca']" placeholder="Código Planta Oncca" (change)="comprobarCodigoPlantaOncca()" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['CodigoPlantaOncca'].hasError('required') &&
+          itemForm.controls['CodigoPlantaOncca'].dirty
+        " class="form-error-msg">
+        Es requerido el Código Planta Oncca
+      </small>
+            <small *ngIf="
+          itemForm.controls['CodigoPlantaOncca'].hasError('min') &&
+          itemForm.controls['CodigoPlantaOncca'].dirty
+        " class="form-error-msg">
+        Código Planta Oncca incorrecto.
+      </small>
+            <small *ngIf="!incorrect_codigo_planta_oncca" class="form-error-msg">
+        Código Planta Oncca existe. Introduzca otro.
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-checkbox class="example-radio-button" name="solucion_muvin" color="primary" [checked]="itemForm.controls['solucion_muvin']" [formControl]="itemForm.controls['solucion_muvin']">
+                Solución Muvin
+            </mat-checkbox>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="latitud" type="number" [formControl]="itemForm.controls['latitud']" placeholder="Latitud" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['latitud'].hasError('required') &&
+          itemForm.controls['latitud'].dirty
+        " class="form-error-msg">
+        Es requerida la latitud
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="longitud" type="number" [formControl]="itemForm.controls['longitud']" placeholder="Longitud" />
+            </mat-form-field>
+            <small *ngIf="
+          itemForm.controls['longitud'].hasError('required') &&
+          itemForm.controls['longitud'].dirty
+        " class="form-error-msg">
+        Es requerida la longitud
+      </small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+              <mat-select name="id_playa_intermedia" [formControl]="itemForm.controls['id_playa_intermedia']" placeholder="Playas Intermedias">
+                  <mat-option *ngFor="let vplayasintermedias of playasintermedias" [value]="vplayasintermedias.id">
+                      {{ vplayasintermedias.descripcion }}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+
+      </div>
+        <mat-accordion class="full-width">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Vista del mapa
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Localización del destino
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <!-- <div fxFlex="100" fxFlex.gt-sm="30" fxLayout="column"> -->
+                <!--<div class="map">-->
+                <mat-card-content class="p-0"> -->
+                    <agm-map [ngStyle]="{ height: '300px' }" [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)" [mapTypeId]="'hybrid'" [mapTypeControl]="true">
+                        <agm-marker *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.lat" [longitude]="marcador.lng" [title]="marcador.titulo" [markerDraggable]="marcador.draggable" (markerClick)="clickMarcador(marcador, i)" (dragEnd)="dragEndMarcador(marcador, $event)">
+                            <agm-info-window>
+                                <strong>{{ marcador.titulo }}</strong>
+                                <p *ngIf="marcador.desc">
+                                    {{ marcador.desc }}
+                                </p>
+                              </agm-info-window>
+                            </agm-marker>
+                          </agm-map>
+                 </mat-card-content>
+                <!-- </div>-->
+                <!--</div>-->
+            </mat-expansion-panel>
+        </mat-accordion>
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+        Cancelar
+      </button>
+            <span fxFlex></span>
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+        </div>
+    </div>
+</form>

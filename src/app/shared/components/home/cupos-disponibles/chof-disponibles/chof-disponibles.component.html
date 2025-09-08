@@ -1,0 +1,49 @@
+<div class="flex items-center" mat-dialog-title>
+  <h5>Asignar chofer disponible</h5>
+</div>
+
+<mat-divider class="-mx-6 text-border"></mat-divider>
+
+<div fxLayout="column" fxLayoutAlign="space-around end">
+  <p>Fecha actual: {{ today | date : 'dd/MM/yyyy' }}</p>
+  <p>Cantidad de cupos disponibles: {{ data.cuposDisponibles }}</p>
+</div>
+
+<mat-dialog-content class="flex flex-col pb-2">
+
+  <div class="overflow-auto">
+    <table [dataSource]="dataSource" mat-table matSort style="width: 100%;">
+
+      <ng-container *ngFor="let column of columns">
+        <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+            {{column.evaluate?column.evaluate(row):row[column.property] }}</td>
+        </ng-container>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          <button [disabled]="data.cuposDisponibles < data.choferesDiponibles" mat-raised-button color="primary">
+            Asignar todos
+          </button>
+        </th>
+        <td *matCellDef="let row" mat-cell>
+          <button [disabled]="data.cuposDisponibles == 0" mat-raised-button color="primary" (click)="asignar(row)">
+            Asignar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="visibleColumns" mat-header-row class="header"></tr>
+      <tr *matRowDef="let row; columns: visibleColumns;" mat-row></tr>
+    </table>
+  </div>
+
+</mat-dialog-content>
+
+<div align="end" style="margin-top: 28px;">
+  <button mat-raised-button color="warn" type="button" mat-dialog-close>
+    Cancelar
+  </button>
+</div>

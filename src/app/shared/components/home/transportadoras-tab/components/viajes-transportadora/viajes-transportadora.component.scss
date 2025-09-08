@@ -1,0 +1,368 @@
+.btn-h30 {
+  border-radius: 10px;
+  height: 30px;
+}
+
+.btn-rd-15 {
+  border-radius: 15px;
+  color: white;
+  height: 33px;
+}
+
+#app-customizer2 {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 12px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+td.mat-cell:first-of-type {
+  padding: 0px;
+}
+
+.mat-fab {
+  border: solid !important;
+}
+
+/*----------Poner fijo--------------*/
+.example-container {
+  height: 60vh;
+  overflow: auto;
+}
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(186, 209, 141) !important;
+}
+
+/*  .mat-raised-button .mat-button-wrapper {
+    position: relative !important;
+    bottom: 2px;
+  } */
+span .mat-button-wrapper {
+  position: relative !important;
+  bottom: 8px !important;
+}
+
+/*------------------*/
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  //overflow: hidden;
+  display: flex;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(8, 0, 0);
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+.mat-column-copiar {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-idCupoTerminal {
+  text-align: left;
+  width: 14%;
+}
+
+.mat-column-destino {
+  text-align: left;
+  width: 16%;
+}
+
+.mat-column-producto {
+  text-align: left;
+  width: 10%;
+}
+
+.mat-column-proveedor {
+  text-align: left;
+  width: 16%;
+}
+
+.mat-column-chofer {
+  text-align: left;
+  width: 14%;
+}
+
+.mat-column-acciones {
+  text-align: center;
+  width: 14%;
+}
+
+.mat-column-voucher {
+  text-align: left;
+  width: 8%;
+}
+
+
+.example-element-description[_ngcontent-c12] {
+  padding: 10px;
+  background: #00AEEF;
+}
+
+.example-element-detail[_ngcontent-c17] {
+  background: #00AEEF;
+}
+
+.example-expanded-row {
+  background: #00AEEF;
+}
+
+.example-element-detail[_ngcontent-c12] {
+  background: #00AEEF;
+}
+
+.example-element-row {
+  height: 64px;
+}
+
+
+
+.example-element-detail[_ngcontent-c6] {
+  background: #00aeef;
+}
+
+.mat-column-nombre_cliente {
+  width: 10%;
+}
+
+.mat-column-origen {
+  width: 10%;
+}
+
+.mat-column-nombre_centro {
+  width: 10%;
+}
+
+.cursor {
+  cursor: url(https://img.icons8.com/color/48/000000/idea.png), auto;
+}
+
+
+
+::ng-deep .app-admin-container .rightside-content-hold {
+  padding: 0px !important;
+}
+
+/* label style */
+.mat-tab-label {
+  background: green;
+  color: white;
+}
+
+/* focus style */
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus {
+  background: red;
+}
+
+/* ink bar style */
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background: yellow;
+  height: 10px;
+}
+
+::ng-deep .mat-tab-labels {
+  height: 48px;
+  margin-top: 0px;
+  margin-left: 56px;
+}
+
+.egret-indigo .mat-tab-group.mat-background-primary .mat-tab-header {
+  background-color: #87B1C6 !important;
+}
+
+.mat-tab-link {
+  color: white !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  color: white;
+}
+
+::ng-deep .mat-tab-header {
+  border-bottom: 0px !important;
+  background-color: #87B1C6 !important;
+}
+
+::ng-deep .mat-tab-label-active .mat-tab-label-content {
+  color: #87B1C6;
+  background-color: #E9E9EA;
+}
+
+::ng-deep .mat-tab-label-active {
+  color: #87B1C6;
+  background-color: #E9E9EA;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: #E9E9EA;
+}
+
+::ng-deep .mat-tab-body-content {
+  background-color: #E9E9EA;
+}
+
+.mat-fab {
+  border: solid !important;
+}
+
+.mat-card.default .mat-card-title {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0px;
+}
+
+.mat-select-panel {
+  max-width: 280px;
+  overflow: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(8, 0, 0);
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: #3F51B5;
+  /*  border-top: 0.84375em solid transparent; */
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(18, 74, 153);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #3F51B5;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #000107 !important;
+}
+
+
+:host /deep/.egret-indigo .mat-input-element {
+  color: rgb(0, 1, 7);
+}
+
+.fecha-bt {
+  color: #070000;
+
+}
+
+#fecha-bt1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #070000 !important;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: 5px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #070000;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #070000 !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background-color: #000107 !important;
+  }
+}
+
+.actions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.state-1-button {
+  background-color: #C9BC5E;
+  width: 150px;
+}
+
+.state-2-button {
+  background-color: #009DE0;
+  width: 150px;
+}
+
+.state-3-button {
+  background-color: #006CB1 !important;
+  width: 150px;
+}
+
+.state-4-button {
+  background-color: rgb(0, 124, 216) !important;
+  width: 150px;
+}
+
+.state-default-button {
+  width: 150px;
+}

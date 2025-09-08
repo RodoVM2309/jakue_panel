@@ -1,0 +1,58 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Reportes turneadas</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <br>
+    <div style="margin-left: 20px;" fxLayout="row">
+      <mat-radio-group fxLayout="row">
+        <mat-radio-button [style.marginBottom]="'.5rem'" [value]="0" (change)="onChangeModo($event.value)"
+          checked="true"> Centro &nbsp;</mat-radio-button>
+        <mat-radio-button [style.marginBottom]="'.5rem'" [value]="1" (change)="onChangeModo($event.value)"> Listas de
+          turneadas &nbsp;</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field class="p-5" *ngIf="!modoCentro" style='margin-left:15px' class="example-full-width">
+        <mat-select id="id_lista" placeholder="Lista de turneadas" (selectionChange)="aplicarFiltro($event.value)"
+          name="id_lista" [formControl]="filtrarForm.controls['selectedLista']">
+          <mat-option *ngFor="let listav of listas" [value]="listav.id">
+            {{listav.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ngx-datatable matSort class="material ml-0 mr-0" [rows]="lista_chofer" [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="'auto'">
+    <ngx-datatable-column name="Chofer" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.nombreChofer }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Estado" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.estado }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Observaciones" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.observaciones }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column *ngIf="!modoCentro" name="Viajes" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.viajes }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column *ngIf="!modoCentro" name="Premios" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.premio }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column *ngIf="!modoCentro" name="Sanciones" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.sancion }}
+      </ng-template>
+    </ngx-datatable-column>    
+  </ngx-datatable>
+  </mat-card-content>
+</mat-card>

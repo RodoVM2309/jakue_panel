@@ -1,0 +1,275 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title class="">
+    <div fxLayout="row wrap" class="card-title-text titulo-fondo">
+      <div fxFlex="100">
+        <h5> EDITAR SOLICITUD DE RESERVA </h5>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="addPedidoForm" (ngSubmit)="submit()">
+      <div fxLayout="row wrap">
+        <div fxFlex="92" style="margin-left: 65px;" class="mt-0">
+          <!-- Solicitar a-->
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <mat-form-field>
+              <mat-label>Solicitar a</mat-label>
+              <mat-select name="id_cliente" formControlName="id_cliente"
+                (selectionChange)="onChangeSolicitar_a($event)">
+                <mat-option *ngFor="let persona of personasRolFetilizantes" [value]="persona.id" ngDefaultControl>
+                  {{ persona.razon_social }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Solicitante -->
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="solicitante" formControlName="solicitante" placeholder="Solicitante">
+            </mat-form-field>
+          </div>
+          <!-- Terminal -->
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <mat-form-field>
+              <mat-label>Terminal de Carga</mat-label>
+              <mat-select name="id_origen" formControlName="id_origen">
+                <mat-option *ngFor="let origen of origenes" [value]="origen.id" ngDefaultControl>
+                  {{ origen.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Destino -->
+          <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+            <mat-form-field class="destino">
+              <mat-label>Destino</mat-label>
+              <mat-select name="id_destino" formControlName="id_destino">
+                <mat-option *ngFor="let destino of filteredOptions " [value]="destino.id" ngDefaultControl>
+                  {{ destino.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- ADD Destinos-->
+          <div fxFlex="100" fxFlex.gt-xs="5" fxLayoutAlign="end center" class="pr-1">
+            <button (click)="openPopAgregarOrigen()" type="button" mat-icon-button mat-sm-button color="default"
+              class="mr-24">
+              <mat-icon>add_box</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="93" style="margin-left: 48px;" class="mt-0">
+          <div fxLayoutAlign="start end" fxFlex="100" fxFlex.gt-xs="21">
+            <span><strong style="font-size: 16px">Detalle de Cargas</strong> </span>
+          </div>
+          <div fxLayoutAlign="start end" fxFlex="100" fxFlex.gt-xs="13">
+            <section class="example-section pt-1">
+              <mat-checkbox formControlName="contrata" class="example-margin">Contrata: {{contrataProveedor}}
+              </mat-checkbox>
+            </section>
+          </div>
+          <div fxLayoutAlign="start end" fxFlex="100" fxFlex.gt-xs="44">
+
+          </div>
+          <div fxLayoutAlign="space-between end" fxFlex="100" fxFlex.gt-xs="12">
+            <button type="button" (click)="descargarArchivo()" mattooltip="Descargar plantilla actualizada en Excel"
+              class="btn_importar" mat-stroked-button>
+              <mat-icon>cloud_download</mat-icon> Descargar
+            </button>
+          </div>
+          <div fxLayoutAlign="space-between end" fxFlex="100" fxFlex.gt-xs="10">
+            <input #fileInput accept=".xlsx" type="file" (change)="importarXcl($event)" style="display:none;" />
+            <button type="button" (click)="fileInput.click()" class="btn_importar" mat-stroked-button>
+              <mat-icon>cloud_upload</mat-icon> Importar
+            </button>
+          </div>
+        </div>
+        <!-- TARJETAS  -->
+        <div fxFlex="100" formArrayName="camiones" *ngFor="let item of camionesArray.controls; let i = index"
+          fxLayout="row wrap" fxLayoutAlign="center center">
+          <div fxFlex="100" [formGroupName]="i" style=" margin-left: -79px;">
+            <!-- Botones flotantes -->
+            <div fxFlex="2" fxLayout="column" fxLayoutAlign="start start" class="bt_salientes">
+              <button mattooltip="Duplicar Camión" title="Duplicar Camión" type="button" mat-icon-button mat-sm-button
+                color="primary" (click)="duplicarCamion(i,item)" class="mr-16">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+              <button *ngIf="!item.controls.cupo.value" mattooltip="Eliminar Camión" title="Eliminar Camión"
+                [disabled]="camionesArray.controls.length  == 1" type="button" mat-icon-button mat-sm-button
+                color="warn" (click)="eliminarCamion(i, item)" class="mr-16">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+              <button mattooltip="Agregar Camión" title="Agregar Camión" *ngIf="camionesArray.controls.length == i+1"
+                type="button" mat-icon-button mat-sm-button color="default" style="padding-top: 10px;"
+                (click)="agregarNewCamion(i)" class="mr-16">
+                <mat-icon>add_circle_outline</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="95" class="contenedor-card">
+              <mat-card class="p-0 estilo_card_tbl">
+                <mat-card-title class="black-500">
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex="100" fxFlex.gt-xs="5">
+                      <span class="centrar_cant text-center">{{i + 1 }}</span>
+                    </div>
+                    <!-- Fecha -->
+                    <div fxFlex="100" fxFlex.gt-xs="14" class="input_personalizado">
+                      <mat-form-field class="fechap">
+                        <input matInput [matDatepicker]="picker" placeholder="Fecha" name="fecha_pedido"
+                          [min]="tomorrow" formControlName="fecha_pedido">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <br>
+                    <div fxFlex="100" fxFlex.gt-xs="13">
+                      <button [disabled]="item.controls.cupo.value" mattooltip="Asignar Chofer" type="button"
+                        #btn_asingarChofer [disabled]="btn_asignar_chofer" (click)="openPopListadoChofer(i)"
+                        class="btn_asignarchofer" mat-stroked-button> {{nombreBtnChofer[i]}}</button>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-xs="20">
+                      <div fxFlex="100" fxFlex.gt-xs="13" *ngIf="mostrarDatosChofer[i]">
+                        <mat-icon style="color: #fff; margin-top: 15px;" aria-hidden="false"
+                          aria-label="{2:label} icon">perm_identity</mat-icon>
+                      </div>
+                      <div fxLayoutAlign="start center" fxFlex="100">
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                          <span class="input-color" *ngIf="mostrarDatosChofer[i]">Nombre</span>
+                          <span class="color-white" #nombre_chofer></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-xs="20">
+                      <div fxLayoutAlign="start center" fxFlex="100">
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                          <span class="input-color" *ngIf="mostrarDatosChofer[i]">Patente:</span>
+                          <span class="color-white" #patente></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-xs="22" class="input_personalizado">
+                      <mat-form-field class="stoc">
+                        <input matInput placeholder="ST OC" name="stoc" formControlName="stoc">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card-title>
+                <mat-card-content class="card-content">
+                  <!-- Item de productos  -->
+                  <div fxLayout="row wrap" formArrayName="productos"
+                    *ngFor="let itemprod of itemProductos(i); let j = index">
+                    <div fxFlex="100" [formGroupName]="j">
+                      <!-- Tipo de Despacho -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1" style="margin-left: -11px;">
+                        <mat-form-field>
+                          <mat-label>Tipo de Despacho</mat-label>
+                          <mat-select name="id_tipo_despacho" formControlName="id_tipo_despacho"
+                            (ngModelChange)="onChange(i,$event)" (selectionChange)="obtenerProductos(i, j, itemprod)">
+                            <mat-option *ngFor="let tipo of tiposDespacho[i]" [value]="tipo.id" ngDefaultControl>
+                              {{ tipo.descripcion }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <!-- Contrato -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                        <mat-form-field class="full-width">
+                          <input matInput name="contrato" maxlength="12" formControlName="contrato"
+                            placeholder="Contrato">
+                        </mat-form-field>
+                      </div>
+                      <!-- Producto -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+                        <mat-form-field>
+                          <mat-label>Producto</mat-label>
+                          <mat-select name="id_producto" formControlName="id_producto" #id_producto
+                            (selectionChange)="observarCambios(i,j, itemprod)">
+                            <mat-option *ngFor="let producto of posicionProductos[i]" [value]="producto.id"
+                              ngDefaultControl>
+                              {{ producto.descripcion }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <!-- Composicion -->
+                      <div fxFlex="100" fxFlex.gt-xs="15" class="pr-1">
+                        <mat-form-field class="full-width">
+                          <input matInput placeholder="Composicion" name="composicion" formControlName="composicion">
+                        </mat-form-field>
+                      </div>
+                      <!-- Cantidad -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="end center" class="pr-1">
+                        <span>Cantidad (Tn) </span>
+                        <input class="input_cantidad" type="number" name="cantidad" min="1" step="0.01"
+                          [class.errorcantidad]="cantidadTn[i] > 45" (ngModelChange)="onChangeCantidad(i,j)"
+                          formControlName="cantidad" appTwoDigitDecimaNumber>
+
+                        <!--<input class="input_cantidad" type="number" name="cantidad" min="1" #cantidad
+                          [class.errorcantidad]="cantidadTn[i] > 45" (ngModelChange)="onChangeCantidad(i,j)"
+                          oninput="validity.valid||(value='');" formControlName="cantidad">-->
+
+                      </div>
+                      <!-- Botones -->
+                      <div fxFlex="100" fxFlex.gt-xs="5" fxLayoutAlign="end center" class="pr-1">
+                        <button *ngIf="!item.controls.cupo.value" mattooltip="Eliminar Producto"
+                          [disabled]="(itemProductos(i).length == 1) ? true : false" type="button" mat-icon-button
+                          mat-sm-button color="default" (click)="eliminarProducto(i, j)" class="mr-20">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        <button *ngIf="!item.controls.cupo.value" mattooltip="Agregar Producto"
+                          [disabled]="(cantidadTn[i] >= 45 ) ? true  : false " type="button" mat-icon-button
+                          mat-sm-button color="default" (click)="agregarProducto(i,j)" class="mr-24">
+                          <mat-icon>add_box</mat-icon>
+                        </button>
+                        <!-- (id_producto.value) ?  (cantidadTn[i] >= 45 ) ? true  : false : true  -->
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <!--/TARJETAS  -->
+      </div>
+      <!-- Observaciones -->
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="95" style="margin-left: 18px;" class="mt-0">
+          <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+            <span class="p-1"><strong style="font-size: 16px">Observaciones:</strong> </span>
+            <textarea class="full-width" maxlength="255" name="observaciones" formControlName="observaciones" rows="4">
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <!-- BOTONES -->
+      <div fxLayout="row wrap">
+        <div fxFlex="95" style="margin-left: 41px;" class="mt-0">
+          <div fxFlex="30"> </div>
+          <div fxFlex="40">
+            <button (click)="gotoHome()" type="button" class="btn_asignarchofer btn_cancelar m-1" mat-stroked-button>
+              CANCELAR</button>
+            <span fxFlex></span>
+            <button type="submit" *ngIf="addPedidoForm.valid" class="btn_confirmar m-1" color="primary"
+              mat-stroked-button> CONFIRMAR</button>
+            <button type="submit" *ngIf="addPedidoForm.invalid" class="btn_invalid m-1" color="default"
+              mat-stroked-button> CONFIRMAR</button>
+          </div>
+          <div fxFlex="30"> </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<!--
+<hr>
+<pre>
+  Estado del formulario {{addPedidoForm.valid}}
+  <br>
+  Status: {{addPedidoForm.status}}
+</pre>
+<pre>
+  {{addPedidoForm.getRawValue() | json }}
+</pre> -->

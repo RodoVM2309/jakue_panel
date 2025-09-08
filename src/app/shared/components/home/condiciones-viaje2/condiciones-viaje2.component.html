@@ -1,0 +1,155 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="background:#85AFC4">CONDICIONES DEL PEDIDO</div>
+  </mat-card-title>
+  <mat-card-content [style.overflow]="'auto'" [style.height.px]="'85vh'">
+    <form [formGroup]="condicionesViajeForm">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['difusion1']">
+                Choferes libres &nbsp;
+              </mat-checkbox>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['difusion2']">
+                Mis intermediarios/Transportes &nbsp;
+              </mat-checkbox>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['difusion3']">
+                Otros intermediarios/Transportes &nbsp;
+              </mat-checkbox>            
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Acoplados" [formControl]="condicionesViajeForm.controls['tipo_acoplado']" multiple>
+              <mat-option *ngFor="let acoplado of pedidotipoacoplados" [disabled]="true" [value]="acoplado.no">
+                {{acoplado.acoplado}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!--<div fxFlex="100" class="pr-1">
+          <ngx-datatable class="material ml-0 mr-0" [rows]="pedidotipoacoplados" [columnMode]="'force'" [headerHeight]="40"
+            [footerHeight]="40"  [limit]="3" [rowHeight]="40" >
+            <ngx-datatable-column name="No." [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.no }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Acoplado" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.acoplado }}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>-->
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input readonly matInput name="tipo_precio" [formControl]="condicionesViajeForm.controls['tipo_precio']"
+              placeholder="Tipo de tarifa">
+          </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+          Tarifa:
+          <input readonly class="quantity-input default-bg" min="0" name="quantity" type="number"
+            [formControl]="condicionesViajeForm.controls['precio_viaje']" style="width: 75px !important;">/
+          <input readonly class="quantity-input default-bg" min="0" name="quantity2" type="number"
+            [formControl]="condicionesViajeForm.controls['precio_viaje2']"
+            style="width: 75px !important;">$/{{unidadtipotarifa}}
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Zona Ideal" [formControl]="condicionesViajeForm.controls['zona_ideales']" multiple>
+              <mat-option *ngFor="let zona of pedidoZonasIdeales" [disabled]="true" [value]="zona.id">
+                {{zona.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input readonly matInput name="condiciones_pago"
+              [formControl]="condicionesViajeForm.controls['condiciones_pago']"
+              placeholder="Condiciones de pago en Días" #condiciones_pago maxlength="3">
+            <mat-hint align="end">{{condiciones_pago.value.length}} / 3</mat-hint>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input readonly matInput name="medio_pago" [formControl]="condicionesViajeForm.controls['medio_pago']"
+              placeholder="Medio de pago">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['da_gasoil']">
+            Adelanto Gas Oil &nbsp;
+          </mat-checkbox>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['da_efectivo']">
+            Adelanto Efectivo &nbsp;
+          </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['carga_peligrosa']">
+            Carga peligrosa &nbsp;
+          </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <textarea readonly matInput name="observaciones"
+              [formControl]="condicionesViajeForm.controls['observaciones']" placeholder="Observaciones" #observaciones
+              maxlength="250"></textarea>
+            <mat-hint align="end">{{observaciones.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+          <div fxFlex="30" class="pr-1">
+            <mat-checkbox class="example-radio-button" [formControl]="condicionesViajeForm.controls['km']">
+                Especificar Kil&oacute;metros            
+            </mat-checkbox>
+          </div>
+          <div fxFlex="70" class="pr-1" >
+            <input readonly matInput class="quantity-input default-bg" name="kilometros" type="number" [formControl]="condicionesViajeForm.controls['kilometros']"
+            style="width: 75px !important;">
+          </div>        
+      </div>        
+      <br>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input readonly matInput name="localidad_carga"
+              [formControl]="condicionesViajeForm.controls['localidad_carga']" placeholder="Localidad de Carga">
+          </mat-form-field>
+        </div>
+        <div *ngIf="mostrarzona" fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input readonly matInput name="zona_destino" [formControl]="condicionesViajeForm.controls['zona_destino']"
+              placeholder="Zona de Destino">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="mt-1">
+          <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cerrar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

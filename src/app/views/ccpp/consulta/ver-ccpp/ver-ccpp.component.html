@@ -1,0 +1,700 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="3"></div>
+      <div fxFlex="90" fxLayoutAlign="start center">
+        <strong>CCPP {{ccpp.cartaPorte}} </strong>
+      </div>
+      <div fxFlex="7">
+        <button mat-icon-button matTooltip="Cerrar ver cabecera" color="m-0" class="m-0" (click)="cerrar()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="cuerpo" fxLayout="column wrap" fxLayoutAlign="center center">
+    <div fxFlex="100" [style.width]="styleWidth" [style.font-size]="fontSize">
+      <div fxLayout="row wrap" class="emisor" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height4Row">
+          <div fxFlex="33" class="border-der">
+            <img src="assets/images/carta-porte/header1.png" alt="" style="height: 90px;width: 100%;margin-top: 10px;">
+          </div>
+          <div fxFlex="67">
+            <div fxLayout="100" class=" border-abajo" fxLayout="row wrap" [style.height]="height2Row"
+              fxLayoutAlign="start start">
+              <div fxFlex="50">
+                <img src="assets/images/carta-porte/header2.png" style="height: 48px;width: 100%;">
+              </div>
+              <div fxFlex="50">
+                <img src="assets/images/carta-porte/header3.png" style="height: 48px;width: 100%;">
+              </div>
+            </div>
+            <div fxLayout="100" fxLayout="row wrap" fxLayoutAlign="start center" [style.height]="height2Row">
+              <div fxFlex="50" class=" border-der" [style.height]="height2Row" fxLayoutAlign="start start">
+                <strong class="margen-izq">CTG:</strong>
+              </div>
+              <div fxFlex="50" fxLayout="row wrap">
+                <div fxFlex="100" class="border-abajo" fxLayoutAlign="start center">
+                  <span class="margen-izq">Fecha Carga:</span>
+                  <span class="margen-izq" *ngIf="ccpp.fechaCarga">{{ccpp.fechaCarga.substring(0,10)}}</span>
+                </div>
+                <div fxFlex="100" fxLayoutAlign="start center">
+                  <span class="margen-izq">Fecha Vencimiento:</span>
+                  <span class="margen-izq"
+                    *ngIf="ccpp.fechaVencimiento">{{ccpp.fechaVencimiento.substring(0,10)}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="inca" fxLayoutAlign="center center">
+        <div fxFlex="100" fxLayoutAlign="center center">
+          <strong>CARTA DE PORTE PARA EL TRANSPORTE AUTOMOTOR DE GRANOS- PRODUCTOR (Inc.a) </strong>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+          <div fxFlex="3" [style.height]="heightInter"
+            style="border-style: solid; border-width: 1px; border-radius: 10px;margin-top:1px;"
+            fxLayoutAlign="center center">
+            <strong class="rotate90">1 - INTERVENIENTES</strong>
+          </div>
+          <div fxFlex="97" style="margin-top:1px;">
+            <table width="100%" border="1" cellspacing="0" cellpadding="0" style="margin-left: 3px;">
+              <tbody style="margin-top: 2px;">
+                <tr>
+                  <td style="width: 30%;margin-left:2px; ">
+                    <strong>Titular Carta Porte</strong>
+                  </td>
+                  <td style="width: 35%;" [ngStyle]="{'background':estadoAplicar.nombreTitular}">
+                    <span *ngIf="ccpp.nombreTitular"> {{ccpp.nombreTitular}}</span>
+
+                  </td>
+                  <td style="width: 10%;"> <strong>CUIT Nro</strong> </td>
+                  <td style="width: 20%;" [ngStyle]="{'background':estadoAplicar.idCuitTitula}">
+                    <span *ngIf="ccpp.idCuitTitula"> {{ccpp.idCuitTitula}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Intermediario</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreIntermediario}">
+                    <span *ngIf="ccpp.nombreIntermediario">{{ccpp.nombreIntermediario}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitIntermediario}">
+                    <span *ngIf="ccpp.idCuitIntermediario">{{ccpp.idCuitIntermediario}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Remitente Comercial</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreRemitente}">
+                    <span *ngIf="ccpp.nombreRemitente">{{ccpp.nombreRemitente}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitRemComercial}">
+                    <span *ngIf="ccpp.idCuitRemComercial">{{ccpp.idCuitRemComercial}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Corredor comprador</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreCorredorComprador}">
+                    <span *ngIf="ccpp.nombreCorredorComprador">{{ccpp.nombreCorredorComprador}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitCorredorC}">
+                    <span *ngIf="ccpp.idCuitCorredorC">{{ccpp.idCuitCorredorC}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Mercado a término</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreMercadoATermino}">
+                    <span *ngIf="ccpp.nombreMercadoATermino"> {{ccpp.nombreMercadoATermino}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitMercadoATermino}">
+                    <span *ngIf="ccpp.idCuitMercadoATermino">{{ccpp.idCuitMercadoATermino}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Corredor vendedor</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreCorredorVendedor}">
+                    <span *ngIf="ccpp.nombreCorredorVendedor">{{ccpp.nombreCorredorVendedor}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitCorredorV}">
+                    <span *ngIf="ccpp.idCuitCorredorV"> {{ccpp.idCuitCorredorV}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Representante/Entregador</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreEntregador}">
+                    <span *ngIf="ccpp.nombreEntregador">{{ccpp.nombreEntregador}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitRepresentanteEntregador}">
+                    <span *ngIf="ccpp.idCuitRepresentanteEntregador">{{ccpp.idCuitRepresentanteEntregador}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Destinatario</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreDestinatario}">
+                    <span *ngIf="ccpp.nombreDestinatario">{{ccpp.nombreDestinatario}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitDestinatario}">
+                    <span *ngIf="ccpp.idCuitDestinatario">{{ccpp.idCuitDestinatario}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Destino</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreDestino}">
+                    <span *ngIf="ccpp.nombreDestino">{{ccpp.nombreDestino}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitDestino}">
+                    <span *ngIf="ccpp.idCuitDestino">{{ccpp.idCuitDestino}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Intermediario del Flete</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreIntermediarioFlete}">
+                    <span *ngIf="ccpp.nombreIntermediarioFlete">{{ccpp.nombreIntermediarioFlete}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitIntermediarioFlete}">
+                    <span *ngIf="ccpp.idCuitIntermediarioFlete">{{ccpp.idCuitIntermediarioFlete}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Transportista</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreTransportista}">
+                    <span *ngIf="ccpp.nombreTransportista">{{ccpp.nombreTransportista}}</span>
+                  </td>
+                  <td>CUIT Nro </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitTransportista}">
+                    <span *ngIf="ccpp.idCuitTransportista">{{ccpp.idCuitTransportista}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Chofer</td>
+                  <td [ngStyle]="{'background':estadoAplicar.nombreChofer}">
+                    <span *ngIf="ccpp.nombreChofer">{{ccpp.nombreChofer}}</span>
+                  </td>
+                  <td>CUIT/CUIL </td>
+                  <td [ngStyle]="{'background':estadoAplicar.idCuitChofer}">
+                    <span *ngIf="ccpp.idCuitChofer">{{ccpp.idCuitChofer}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+          <div fxFlex="3" [style.height]="heightGranos"
+            style="border-style: solid; border-width: 1px; border-radius: 10px;margin-top:1px;"
+            fxLayoutAlign="center center">
+            <strong class="rotate90">2 - GRANOS / ESPECIES</strong>
+          </div>
+          <div fxFlex="97" fxLayout="row wrap" fxLayoutAlign="start start" style="margin-top:2px; ">
+            <div fxFlex="100" style="height: 25px;">
+              <div fxFlex="15" class="margen-izq border-todo"> <span class="margen-izq">Grano/Especie</span></div>
+              <div fxFlex="13" class="border-abajo border-arriba border-der"><span
+                  class="margen-izq">{{ccpp.granoNombre}}</span> </div>
+              <div fxFlex="7" class="border-abajo border-arriba border-der"><span class="margen-izq">Tipo</span></div>
+              <div fxFlex="15" class="border-abajo border-arriba border-der"><span
+                  class="margen-izq">{{ccpp.tipoGrano}}</span></div>
+              <div fxFlex="10" class="border-abajo border-arriba border-der"><span class="margen-izq">Cosecha</span>
+              </div>
+              <div fxFlex="15" class=" border-abajo border-arriba border-der"><span
+                  class="margen-izq">{{ccpp.cosecha}}</span></div>
+              <div fxFlex="12" class=" border-abajo border-arriba border-der"><span class="margen-izq">Contrato/Fijación
+                  Nro</span></div>
+              <div fxFlex="13" class=" border-abajo border-arriba border-der"><span
+                  class="margen-izq">{{ccpp.nroContrato}}</span></div>
+            </div>
+            <div fxFlex="100" fxLayoutAlign="center center" class="border-izq border-der"
+              style="margin-left: 3px; height: 75px;">
+              <div fxFlex="75">
+                <div fxFlex="100">
+                  <div fxFlex="28" fxLayout="row wrap" style="height: 75px;" class="border-abajo border-der">
+                    <div fxFlex="100" style="height: 50px;" fxLayout="row wrap">
+                      <div fxFlex="100"> <span class="margen-izq"> La carga será pesada </span></div>
+                      <div fxFlex="100">
+                        <div fxFlex="70"><span class="margen-izq">en el destino </span></div>
+                        <div fxFlex="13" fxLayoutAlign="center center">
+                          <div class="circulo"><span *ngIf="ccpp.granoPesadaDestino==1"
+                              style="margin-left:3px;">X</span></div>
+                        </div>
+                        <div fxFlex="17"></div>
+                      </div>
+                    </div>
+                    <div fxFlex="100" style="height: 25px;" class=" border-abajo" fxLayout="row wrap">
+                      <div fxFlex="75" class="border-der border-arriba">
+                        <span class="margen-izq">Kgs. Estimados</span>
+                      </div>
+                      <div fxFlex="25" class="border-arriba"><span class="margen-izq">{{ccpp.granoKgEstimado}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="35" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                    <div fxFlex="100" fxLayoutAlign="center center">
+                      <span fxFlex="85" class="margen-izq"> Declaración de Calidad </span>
+                      <div fxFlex="10">
+                        <div class="circulo"><span *ngIf="ccpp.granoCalidad==1" style="margin-left:3px;">X</span></div>
+                      </div>
+
+                      <div fxFlex="5"></div>
+                    </div>
+                    <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                      <span fxFlex="85" class="margen-izq">Conforme</span>
+                      <div fxFlex="10">
+                        <div class="circulo"><span *ngIf="ccpp.granoConforme==1" style="margin-left:3px;">X</span></div>
+                      </div>
+                      <div fxFlex="5"></div>
+                    </div>
+                    <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                      <span fxFlex="85" class="margen-izq ">Condicional</span>
+                      <div fxFlex="10">
+                        <div class="circulo"><span *ngIf="ccpp.granoCondicional==1" style="margin-left:3px;">X</span>
+                        </div>
+                      </div>
+                      <div fxFlex="5"></div>
+                    </div>
+                  </div>
+                  <div fxFlex="25" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                    <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                      <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+                    </div>
+                    <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                      <span class="margen-izq">Peso Tara (Kgrs.)</span>
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="center center">
+                      <span class="margen-izq">Peso Neto (Kgrs.)</span>
+                    </div>
+                  </div>
+                  <div fxFlex="12" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                    <div fxFlex="100" class="border-abajo ">
+                      <span class="margen-izq">{{ccpp.granoPesoBruto}}</span>
+                    </div>
+                    <div fxFlex="100" class="border-abajo ">
+                      <span class="margen-izq">{{ccpp.granoPesoTara}}</span>
+                    </div>
+                    <div fxFlex="100">
+                      <span class="margen-izq">{{ccpp.granoPesoNeto}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="25">
+                <div fxFlex="100">
+                  <div fxFlex="100" fxLayout="row wrap" style="height: 75px;" class="border-abajo">
+                    <div fxFlex="100" style="height: 50px;" fxLayout="row wrap">
+                      <div fxFlex="100">
+                        <span class="margen-izq">Observaciones:</span>
+                      </div>
+                      <div fxFlex="100">
+                        <span class="margen-izq"
+                          *ngIf="ccpp.nombreIntermediario1">{{ccpp.nombreIntermediario1.substr(0,25)}}</span>
+                      </div>
+                      <div fxFlex="100">
+                        <span class="margen-izq"
+                          *ngIf="ccpp.nombreIntermediario2">{{ccpp.nombreIntermediario2.substr(0,25)}}</span>
+                      </div>
+                      <div fxFlex="100">
+                        <span class="margen-izq"
+                          *ngIf="ccpp.caratulaMercadoATermino">{{ccpp.caratulaMercadoATermino.substr(0,17) + ', '}}</span>
+                        <span class="margen-izq" *ngIf="ccpp.comentario">{{ccpp.comentario.substr(0,17)}}</span>
+                      </div>
+                      <div fxFlex="100">
+                        <p class="margen-izq" style="line-height: 10pt;">{{ccpp.granoObservaciones}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="100" style="height: 25x;">
+              <div fxFlex="60" fxLayoutAlign="center center" class="margen-izq border-izq border-abajo border-der">
+                <strong>PROCEDENCIA DE LA MERCADERÍA</strong></div>
+              <div fxFlex="17" class=" border-abajo border-der"><span class="margen-izq">Establecimiento</span></div>
+              <div fxFlex="23" class=" border-abajo border-der"><span
+                  class="margen-izq">{{ccpp.procedenciaEstablecimiento}}</span></div>
+            </div>
+            <div fxFlex="100" style="height: 50px;">
+              <div fxFlex="10" fxLayoutAlign="center center" class="margen-izq border-izq border-abajo"> <span
+                  class="margen-izq">Dirección</span></div>
+              <div fxFlex="50" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+                <p class="margen-izq" style="line-height: 10pt;">{{ccpp.procedenciaDireccion}}</p>
+              </div>
+              <div fxFlex="17" fxLayout="row wrap" class="border-der">
+                <div fxFlex="100" class="border-abajo ">
+                  <span class="margen-izq">Localidad</span>
+                </div>
+                <div fxFlex="100" class="border-abajo ">
+                  <span class="margen-izq">Provincia</span>
+                </div>
+              </div>
+              <div fxFlex="23" fxLayout="row wrap">
+                <div fxFlex="100" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.procedenciaLocalidad}}</span>
+                </div>
+                <div fxFlex="100" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.procedenciaProvincia}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height2Row" style="background-color: #ffffff;margin-top:2px;"
+          class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+          <div fxFlex="100" [style.height]="heightRow">
+            <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+              <strong class="margen-izq">3</strong></div>
+            <div fxFlex="45" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+              <strong class="margen-izq">DESTINO</strong>
+            </div>
+            <div fxFlex="20" class="border-abajo border-der">
+              <span class="margen-izq">Localidad</span>
+            </div>
+            <div fxFlex="30" class="border-abajo">
+              <span class="margen-izq">{{ccpp.destinoGranoLocalidad}}</span>
+            </div>
+          </div>
+          <div fxFlex="100" [style.height]="heightRow">
+            <div fxFlex="10" fxLayoutAlign="start center"> <span class="margen-izq ">Dirección</span></div>
+            <div fxFlex="40" fxLayoutAlign="start center" class="border-izq border-der">
+              <p class="margen-izq mt-1" style="line-height: 10pt;">{{ccpp.destinoGranoDireccion}}</p>
+            </div>
+            <div fxFlex="20" class="border-der">
+              <span class="margen-izq">Provincia</span>
+            </div>
+            <div fxFlex="30">
+              <span class="margen-izq">{{ccpp.destinoGranoProvincia}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height4Row" style="background-color: #ffffff;margin-top:2px;"
+          class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+          <div fxFlex="100" [style.height]="heightRow">
+            <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+              <strong class="margen-izq">4</strong></div>
+            <div fxFlex="40" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+              <strong class="margen-izq">DATOS DEL TRANSPORTE</strong>
+            </div>
+            <div fxFlex="20" class="border-abajo border-der">
+              <span class="margen-izq">Pagador del Flete</span>
+            </div>
+            <div fxFlex="35" class="border-abajo">
+              <span class="margen-izq">{{ccpp.transportePagadorFlete}}</span>
+            </div>
+          </div>
+          <div fxFlex="100" [style.height]="height3Row">
+            <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="19" class="border-abajo border-der">
+                  <span class="margen-izq">Camión</span>
+                </div>
+                <div fxFlex="27" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.transporteCamion}}</span>
+                </div>
+                <div fxFlex="27" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.transporteCamion2}}</span>
+                </div>
+                <div fxFlex="27" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.transporteCamion3}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="19" class="border-abajo border-der">
+                  <span class="margen-izq">Acoplado</span>
+                </div>
+                <div fxFlex="25" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.transporteAcoplado}}</span>
+                </div>
+                <div fxFlex="31" class="border-abajo border-der">
+                  <span class="margen-izq">Tarifa de Referencia</span>
+                </div>
+                <div fxFlex="25" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.transporteTarifaReferencia}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="25" class="border-der">
+                  <span class="margen-izq">Km a recorrer</span>
+                </div>
+                <div fxFlex="19" class="border-der">
+                  <span class="margen-izq">{{ccpp.kmRecorrer}}</span>
+                </div>
+                <div fxFlex="31" class="border-der">
+                  <span class="margen-izq">Tarifa </span>
+                </div>
+                <div fxFlex="25">
+                  <span class="margen-izq">{{ccpp.transporteTarifa}}</span>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="center center">
+              <div fxFlex="100" [style.height]="height3Row">
+                <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                  fxLayoutAlign="center end">
+                  <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                    <small>Firma del Remitente </small>
+                  </div>
+                </div>
+                <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                  fxLayoutAlign="center end">
+                  <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                    <small>Firma del Chofer</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height4Row" style="margin-top:2px;"
+          class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+          <div fxFlex="100" [style.height]="heightRow">
+            <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+              <strong class="margen-izq">5</strong></div>
+            <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+              <strong class="margen-izq">DATOS A COMPLETAR EN EL LUGAR DE DESTINO Y DESCARGA</strong>
+            </div>
+          </div>
+          <div fxFlex="100" [style.height]="height3Row">
+            <div fxFlex="70" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="25" class="border-abajo border-der">
+                  <span class="margen-izq">Fecha Arribo</span>
+                </div>
+                <div fxFlex="15" class="border-abajo border-der">
+                  <span class="margen-izq"
+                    *ngIf="ccpp.destinoFechaArribo">{{ccpp.destinoFechaArribo.substring(0,10)}}</span>
+                </div>
+                <div fxFlex="10" class="border-abajo border-der">
+                  <span class="margen-izq">Hora</span>
+                </div>
+                <div fxFlex="10" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.destinoHoraArribo}}</span>
+                </div>
+                <div fxFlex="25" class="border-abajo border-der">
+                  <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+                </div>
+                <div fxFlex="15" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.destinoPesoBruto}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="25" class="border-abajo border-der">
+                  <span class="margen-izq">Fecha Descarga</span>
+                </div>
+                <div fxFlex="15" class="border-abajo border-der">
+                  <span class="margen-izq"
+                    *ngIf="ccpp.destinoFechaDescarga">{{ccpp.destinoFechaDescarga.substring(0,10)}}</span>
+                </div>
+                <div fxFlex="10" class="border-abajo border-der">
+                  <span class="margen-izq">Hora</span>
+                </div>
+                <div fxFlex="10" class="border-abajo border-der">
+                  <span class="margen-izq">{{ccpp.destinoHoraDescarga}}</span>
+                </div>
+                <div fxFlex="25" class="border-abajo border-der">
+                  <span class="margen-izq">Peso Tara (Kgrs.)</span>
+                </div>
+                <div fxFlex="15" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.destinoPesoTara}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="25" class="border-der">
+                  <span class="margen-izq">Turno Nro</span>
+                </div>
+                <div fxFlex="35" class="border-der">
+                  <span class="margen-izq">{{ccpp.destinoNumeroTurno}}</span>
+                </div>
+                <div fxFlex="25" class="border-der">
+                  <span class="margen-izq">Peso Neto (Kgrs.) </span>
+                </div>
+                <div fxFlex="15">
+                  <span class="margen-izq">{{ccpp.destinoPesoNeto}}</span>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="30" fxLayout="row wrap" fxLayoutAlign="start center">
+              <div fxFlex="100" [style.height]="height3Row" fxLayout="row wrap" fxLayoutAlign="start start">
+                <div fxFlex="100"><span class="margen-izq">Observaciones:</span></div>
+                <div fxFlex="100" fxLayoutAlign="start start">
+                  <p class="margen-izq" style="line-height: 10pt;">{{ccpp.destinoObservaciones}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height5Row" style="margin-top:2px;"
+          class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+          <div fxFlex="100" [style.height]="heightRow">
+            <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+              <strong class="margen-izq">6</strong></div>
+            <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+              <strong class="margen-izq">CAMBIO DEL DOMICILIO DE DESCARGA / DESVIO</strong>
+            </div>
+          </div>
+          <div fxFlex="100" [style.height]="height4Row">
+            <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+              <div fxFlex="100" style="height: 30px;">
+                <div fxFlex="70" class="border-abajo border-der">
+                  <span class="margen-izq">CUIT Destino y Denominación</span>
+                </div>
+                <div fxFlex="30" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.desvioCuitDestino}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="20" class="border-abajo border-der">
+                  <span class="margen-izq">Domicilio</span>
+                </div>
+                <div fxFlex="80" class="border-abajo">
+                  <p class="margen-izq" style="line-height: 10pt;">{{ccpp.desvioDomicilio}}</p>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="37" class="border-der">
+                  <span class="margen-izq">Nro Planta RUCA</span>
+                </div>
+                <div fxFlex="23" class="border-der">
+                  <span class="margen-izq">{{ccpp.nroPlantaRuca}}</span>
+                </div>
+                <div fxFlex="15" class="border-der">
+                  <span class="margen-izq">Fecha </span>
+                </div>
+                <div fxFlex="25">
+                  <span class="margen-izq" *ngIf="ccpp.desvioFecha">{{ccpp.desvioFecha.substring(0,10)}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="50" class="border-arriba border-der">
+                  <span class="margen-izq">Traslado ordenado por</span>
+                </div>
+                <div fxFlex="50" class="border-arriba">
+                  <span class="margen-izq">{{ccpp.desvioOrdenadoPor}}</span>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="start center">
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="70" class="border-abajo border-der">
+                  <span class="margen-izq">CUIT Destino y Denominación</span>
+                </div>
+                <div fxFlex="30" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.desvioCuitDestinatario}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="heightRow">
+                <div fxFlex="20" class="border-abajo border-der">
+                  <span class="margen-izq">Localidad</span>
+                </div>
+                <div fxFlex="80" class="border-abajo">
+                  <span class="margen-izq">{{ccpp.desvioLocalidad}}</span>
+                </div>
+              </div>
+              <div fxFlex="100" [style.height]="height2Row" fxLayoutAlign="center end">
+                <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                  <small>Firma del Remitente </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxFlex="100" [style.height]="height3Row" style="margin-top:2px;" fxLayoutAlign="start center"
+          fxLayout="row wrap">
+          <div fxFlex="100">
+            <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+              style="margin: 3px;" fxLayoutAlign="center end">
+              <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+                <small>Firma del Perito Recibidor </small>
+              </div>
+              <div fxFlex="8"></div>
+              <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+                <small>Matrícula Nro </small>
+              </div>
+            </div>
+            <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+              style="margin: 3px;" fxLayoutAlign="center end">
+              <div fxFlex="56" class="border-arriba" fxLayoutAlign="center end">
+                <small>Firma del Destinatario Entregador </small>
+              </div>
+              <div fxFlex="4"></div>
+              <div fxFlex="36" class="border-arriba" fxLayoutAlign="center end">
+                <small>Matrícula Nro </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center center" [style.height]="heightRow">
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="btn-ver">
+  <div class="handle" fxLayout="row wrap" fxLayoutAlign="center center">
+    <div fxFlex="100">
+      <div fxFlex="50" class="border-der" fxLayoutAlign="center center">
+        <button mat-icon-button mat-sm-button (click)="aumentarVer()" matTooltip="Aumentar">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+      <!-- <div fxFlex="10" fxLayoutAlign="center center"> | </div> -->
+      <div fxFlex="50" fxLayoutAlign="center center">
+        <button mat-icon-button mat-sm-button (click)="disminuirVer()" matTooltip="Disminuir">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="btn-cabecera" *ngIf="mostrarBtnAplicar">
+  <div class="handle">
+    <p style="margin: 0px 20px 2px 5px; font-size: xx-small;">{{accion}} Cabecera</p>
+    <button mat-fab class="mat-cupo-solicitar btn-aplicar" *ngIf="!stateAplicar" (click)="aplicarCabecera()"
+      matTooltip="Aplicar Cabecera">
+      <mat-icon style="margin-top: -15px;">assignment</mat-icon>
+    </button>
+    <button mat-fab class="mat-rechazo btn-aplicar" *ngIf="stateAplicar" (click)="noAplicarCabecera()"
+      matTooltip="Deshacer Cabecera">
+      <mat-icon style="margin-top: -15px;">undo</mat-icon>
+    </button>
+  </div>
+</div>
+<div id="div-leyenda" *ngIf="stateAplicar">
+  <div class="handle" fxLayout="row wrap" fxLayoutAlign="start center">
+    <strong>Leyenda</strong>
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="20" class="rectangulo" [ngStyle]="{'background':'#4df14d'}"></div>
+      <div fxFlex="80"><span class="margen-izq">Aplicable</span> </div>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="20" class="rectangulo" [ngStyle]="{'background':'#e5e75e'}"></div>
+      <div fxFlex="80"><span class="margen-izq">Valor Igual</span></div>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="20" class="rectangulo" [ngStyle]="{'background':'#e75e5e'}"></div>
+      <div fxFlex="80"><span class="margen-izq">Error</span></div>
+    </div>
+  </div>
+</div>

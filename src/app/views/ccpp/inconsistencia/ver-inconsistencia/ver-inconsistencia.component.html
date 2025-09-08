@@ -1,0 +1,1174 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="3"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong> INCONSISTENCIA: CCPP N {{inconsistencia.cartaPorte}}</strong>
+      </div>
+      <div fxFlex="10"></div>
+      <div fxFlex="7">
+        <button mat-icon-button matTooltip="Cerrar ver inconsistencia" color="m-0" class="m-0" (click)="cerrar()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="cuerpo">
+    <div class="body" fxLayout="column wrap">
+      <div fxFlex="100">
+        <div fxLayout="row wrap" class="header-body" fxLayoutAlign="start start">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <div fxFlex="75" class="data-activo" fxLayoutAlign="start center"><strong style="margin-left: 30px;">DATOS
+                CTG ACTIVO </strong></div>
+            <div fxFlex="25" class="data-muvin" fxLayoutAlign="start center">
+              <div fxLayout="column wrap">
+                <div fxFlex="100">
+                  <div fxLayout="row wrap" fxLayoutAlign="start start">
+                    <div fxFlex="100" fxLayoutAlign="center center">
+                      <strong style="margin-left: 30px;">DATOS CCPP MUVIN</strong>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="start start">
+                    <div fxFlex="100" fxLayoutAlign="center center">
+                      <strong style="margin-left: 30px;">(cabecera + datos propios)</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" id="contentToConvert" class="rest-body" fxLayoutAlign="center start">
+          <div fxFlex="100" fxLayoutAlign="center start" style="background-color: #ffffff;">
+            <div fxFlex="75" [style.width]="styleWidth" [style.font-size]="fontSize" style="padding: 10px;">
+              <div fxLayout="row wrap" id="emisor" #emisor class="emisor" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height4Row">
+                  <div fxFlex="33" class="border-der">
+                    <img src="assets/images/carta-porte/header1.png" #img1 id="img1" alt=""
+                      style="height: 90px;width: 100%;margin-top: 10px;">
+                  </div>
+                  <div fxFlex="67">
+                    <div fxLayout="100" class=" border-abajo" fxLayout="row wrap" [style.height]="height2Row"
+                      fxLayoutAlign="start start">
+                      <div fxFlex="50">
+                        <img src="assets/images/carta-porte/header2.png" style="height: 48px;width: 100%;">
+                      </div>
+                      <div fxFlex="50">
+                        <img src="assets/images/carta-porte/header3.png" style="height: 48px;width: 100%;">
+                      </div>
+                    </div>
+                    <div fxLayout="100" fxLayout="row wrap" fxLayoutAlign="start center" [style.height]="height2Row">
+                      <div fxFlex="50" class=" border-der" [style.height]="height2Row" fxLayoutAlign="start start">
+                        <strong class="margen-izq">CTG:</strong>
+                      </div>
+                      <div fxFlex="50" fxLayout="row wrap">
+                        <div fxFlex="100" class="border-abajo" fxLayoutAlign="start center">
+                          <span class="margen-izq">Fecha Carga: {{inconsistencia.fechaCarga}}</span>
+                        </div>
+                        <div fxFlex="100" fxLayoutAlign="start center">
+                          <span class="margen-izq">Fecha Vencimiento:</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" class="inca" fxLayoutAlign="center center">
+                <div fxFlex="100" fxLayoutAlign="center center">
+                  <strong>CARTA DE PORTE PARA EL TRANSPORTE AUTOMOTOR DE GRANOS- PRODUCTOR (Inc.a) </strong>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center" style="margin-right: -34%;">
+                <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+                  <div fxFlex="2.3" class="div-inter div-rotate" fxLayoutAlign="center center">
+                    <strong class="rotate90">1 - INTERVENIENTES</strong>
+                  </div>
+                  <div fxFlex="97" style="margin-top:1px;">
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="tabla-intervinientes">
+                      <tbody style="margin-top: 2px;">
+                        <tr>
+                          <td style="width: 10%; margin-left:2px;">
+                            <strong>Titular Carta Porte</strong>
+                          </td>
+                          <td style="width: 24%;">
+                            <span *ngIf="inconsistencia.nombreTitular"> {{inconsistencia.nombreTitular}}</span>
+
+                          </td>
+                          <td style="width: 10%;"> <strong>CUIT Nro</strong> </td>
+                          <td style="width: 10%;">
+                            <span *ngIf="inconsistencia.idCuitTitula"> {{inconsistencia.idCuitTitula}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediario'].isChance ? '#f7b718' : ''}">
+                            Intermediario</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediario'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.nombreIntermediario">{{inconsistencia.nombreIntermediario}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediario'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediario'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.idCuitIntermediario">{{inconsistencia.idCuitIntermediario}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitIntermediario'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitIntermediario'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitIntermediario'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitIntermediario'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRemComercial'].isChance ? '#f7b718' : ''}">
+                            Remitente Comercial</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRemComercial'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreRemitente">{{inconsistencia.nombreRemitente}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRemComercial'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRemComercial'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitRemComercial">{{inconsistencia.idCuitRemComercial}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitRemComercial'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitRemComercial'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitRemComercial'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitRemComercial'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorC'].isChance ? '#f7b718' : ''}">
+                            Corredor comprador</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorC'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.nombreCorredorComprador">{{inconsistencia.nombreCorredorComprador}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorC'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorC'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitCorredorC">{{inconsistencia.idCuitCorredorC}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitCorredorC'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitCorredorC'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitCorredorC'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitCorredorC'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitMercadoATermino'].isChance ? '#f7b718' : ''}">
+                            Mercado a término</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitMercadoATermino'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreMercadoATermino">
+                              {{inconsistencia.nombreMercadoATermino}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitMercadoATermino'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitMercadoATermino'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.idCuitMercadoATermino">{{inconsistencia.idCuitMercadoATermino}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitMercadoATermino'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitMercadoATermino'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitMercadoATermino'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitMercadoATermino'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorV'].isChance ? '#f7b718' : ''}">
+                            Corredor vendedor</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorV'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.nombreCorredorVendedor">{{inconsistencia.nombreCorredorVendedor}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorV'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitCorredorV'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitCorredorV"> {{inconsistencia.idCuitCorredorV}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitCorredorV'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitCorredorV'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitCorredorV'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitCorredorV'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRepresentanteEntregador'].isChance ? '#f7b718' : ''}">
+                            Representante/Entregador</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRepresentanteEntregador'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreEntregador">{{inconsistencia.nombreEntregador}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRepresentanteEntregador'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitRepresentanteEntregador'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.idCuitRepresentanteEntregador">{{inconsistencia.idCuitRepresentanteEntregador}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitRepresentanteEntregador'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitRepresentanteEntregador'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestinatario'].isChance ? '#f7b718' : ''}">
+                            Destinatario</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestinatario'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreDestinatario">{{inconsistencia.nombreDestinatario}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestinatario'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestinatario'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitDestinatario">{{inconsistencia.idCuitDestinatario}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitDestinatario'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitDestinatario'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitDestinatario'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitDestinatario'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestino'].isChance ? '#f7b718' : ''}">
+                            Destino</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestino'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreDestino">{{inconsistencia.nombreDestino}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestino'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitDestino'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitDestino">{{inconsistencia.idCuitDestino}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitDestino'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitDestino'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitDestino'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT {{errorInconsistencia['idCuitDestino'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediarioFlete'].isChance ? '#f7b718' : ''}">
+                            Intermediario del Flete</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediarioFlete'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.nombreIntermediarioFlete">{{inconsistencia.nombreIntermediarioFlete}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediarioFlete'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitIntermediarioFlete'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.idCuitIntermediarioFlete">{{inconsistencia.idCuitIntermediarioFlete}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitIntermediarioFlete'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitIntermediarioFlete'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitTransportista'].isChance ? '#f7b718' : ''}">
+                            Transportista</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitTransportista'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.nombreTransportista">{{inconsistencia.nombreTransportista}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitTransportista'].isChance ? '#f7b718' : ''}">
+                            CUIT Nro </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitTransportista'].isChance ? '#f7b718' : ''}">
+                            <span
+                              *ngIf="inconsistencia.idCuitTransportista">{{inconsistencia.idCuitTransportista}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitTransportista'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitTransportista'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitTransportista'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT
+                                {{errorInconsistencia['idCuitTransportista'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitChofer'].isChance ? '#f7b718' : ''}">
+                            Chofer</td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitChofer'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.nombreChofer">{{inconsistencia.nombreChofer}}</span>
+                          </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitChofer'].isChance ? '#f7b718' : ''}">
+                            CUIT/CUIL </td>
+                          <td
+                            [ngStyle]="{'background-color': errorInconsistencia['idCuitChofer'].isChance ? '#f7b718' : ''}">
+                            <span *ngIf="inconsistencia.idCuitChofer">{{inconsistencia.idCuitChofer}}</span>
+                          </td>
+                          <td style="width: 1%; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div class="triangulo" *ngIf="errorInconsistencia['idCuitChofer'].isChance"
+                              fxLayoutAlign="end center"> </div>
+                          </td>
+                          <td
+                            style="width: 18%; height: 20px; border: none; border-top-style: hidden; border-right-style: hidden;">
+                            <div *ngIf="errorInconsistencia['idCuitChofer'].isChance"
+                              style="width: 100%;background-color: #f7b718;font-size: 10px;">
+                              <span
+                                style="font-weight: 600;">{{errorInconsistencia['idCuitChofer'].nombreAnterior}}</span>
+                              <div fxFlex="3"></div>
+                              <span style="font-weight: 600;">CUIT {{errorInconsistencia['idCuitChofer'].value}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+                  <div fxFlex="3" class="div-inter div-granos" fxLayoutAlign="center center">
+                    <strong class="rotate90">2 - GRANOS / ESPECIES</strong>
+                  </div>
+                  <div fxFlex="97" fxLayout="row wrap" fxLayoutAlign="start start" style="margin-top:2px; ">
+                    <div fxFlex="100" style="height: 25px;">
+                      <div fxFlex="15" class="margen-izq border-todo"> <span class="margen-izq">Grano/Especie</span>
+                      </div>
+                      <div fxFlex="13" class="border-abajo border-arriba border-der"></div>
+                      <div fxFlex="7" class="border-abajo border-arriba border-der"><span class="margen-izq">Tipo</span>
+                      </div>
+                      <div fxFlex="15" class="border-abajo border-arriba border-der"></div>
+                      <div fxFlex="10" class="border-abajo border-arriba border-der"><span
+                          class="margen-izq">Cosecha</span>
+                      </div>
+                      <div fxFlex="15" class=" border-abajo border-arriba border-der"></div>
+                      <div fxFlex="15" class=" border-abajo border-arriba border-der"><span class="margen-izq">Contrato/Fijación
+                          Nro</span></div>
+                      <div fxFlex="10" class=" border-abajo border-arriba border-der"></div>
+                    </div>
+                    <div fxFlex="100" fxLayoutAlign="center center" class="border-izq border-der"
+                      style="margin-left: 3px; height: 75px;">
+                      <div fxFlex="75">
+                        <div fxFlex="100">
+                          <div fxFlex="28" fxLayout="row wrap" style="height: 75px;" class="border-abajo border-der">
+                            <div fxFlex="100" style="height: 50px;" fxLayout="row wrap">
+                              <div fxFlex="100"> <span class="margen-izq"> La carga será pesada </span></div>
+                              <div fxFlex="100">
+                                <div fxFlex="70"><span class="margen-izq">en el destino </span></div>
+                                <div fxFlex="13" fxLayoutAlign="center center">
+                                  <div class="circulo"></div>
+                                </div>
+                                <div fxFlex="17"></div>
+                              </div>
+                            </div>
+                            <div fxFlex="100" style="height: 25px;" class=" border-abajo" fxLayout="row wrap">
+                              <div fxFlex="75" class="border-der border-arriba">
+                                <span class="margen-izq">Kgs. Estimados</span>
+                              </div>
+                              <div fxFlex="25" class="border-arriba"></div>
+                            </div>
+                          </div>
+                          <div fxFlex="35" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                            <div fxFlex="100" fxLayoutAlign="center center">
+                              <span fxFlex="85" class="margen-izq"> Declaración de Calidad </span>
+                              <div fxFlex="10">
+                                <div class="circulo"></div>
+                              </div>
+
+                              <div fxFlex="5"></div>
+                            </div>
+                            <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                              <span fxFlex="85" class="margen-izq">Conforme</span>
+                              <div fxFlex="10">
+                                <div class="circulo"></div>
+                              </div>
+                              <div fxFlex="5"></div>
+                            </div>
+                            <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                              <span fxFlex="85" class="margen-izq ">Condicional</span>
+                              <div fxFlex="10">
+                                <div class="circulo"></div>
+                              </div>
+                              <div fxFlex="5"></div>
+                            </div>
+                          </div>
+                          <div fxFlex="25" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                            <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                              <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+                            </div>
+                            <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                              <span class="margen-izq">Peso Tara (Kgrs.)</span>
+                            </div>
+                            <div fxFlex="100" fxLayoutAlign="center center">
+                              <span class="margen-izq">Peso Neto (Kgrs.)</span>
+                            </div>
+                          </div>
+                          <div fxFlex="12" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                            <div fxFlex="100" class="border-abajo ">
+                            </div>
+                            <div fxFlex="100" class="border-abajo ">
+                            </div>
+                            <div fxFlex="100">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div fxFlex="25" style="height: 75px;" class="border-abajo" fxLayoutAlign="start start">
+                        <span class="margen-izq">Observaciones:</span>
+                      </div>
+                    </div>
+                    <div fxFlex="100" style="height: 25x;">
+                      <div fxFlex="60" fxLayoutAlign="center center"
+                        class="margen-izq border-izq border-abajo border-der">
+                        <strong>PROCEDENCIA DE LA MERCADERÍA</strong></div>
+                      <div fxFlex="17" class=" border-abajo border-der"><span class="margen-izq">Establecimiento</span>
+                      </div>
+                      <div fxFlex="23" class=" border-abajo border-der"></div>
+                    </div>
+                    <div fxFlex="100" style="height: 50px;">
+                      <div fxFlex="10" fxLayoutAlign="center center" class="margen-izq border-izq border-abajo"> <span
+                          class="margen-izq">Dirección</span></div>
+                      <div fxFlex="50" fxLayoutAlign="center center" class="border-izq border-abajo border-der"> </div>
+                      <div fxFlex="17" fxLayout="row wrap" class="border-der">
+                        <div fxFlex="100" class="border-abajo ">
+                          <span class="margen-izq">Localidad</span>
+                        </div>
+                        <div fxFlex="100" class="border-abajo ">
+                          <span class="margen-izq">Provincia</span>
+                        </div>
+                      </div>
+                      <div fxFlex="23" fxLayout="row wrap">
+                        <div fxFlex="100" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="100" class="border-abajo border-der">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height2Row" style="background-color: #ffffff;margin-top:2px;"
+                  class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+                  <div fxFlex="100" [style.height]="heightRow">
+                    <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+                      <strong class="margen-izq">3</strong></div>
+                    <div fxFlex="45" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+                      <strong class="margen-izq">DESTINO</strong>
+                    </div>
+                    <div fxFlex="20" class="border-abajo border-der">
+                      <span class="margen-izq">Localidad</span>
+                    </div>
+                    <div fxFlex="30" class="border-abajo">
+
+                    </div>
+                  </div>
+                  <div fxFlex="100" [style.height]="heightRow">
+                    <div fxFlex="10" fxLayoutAlign="start center"> <span class="margen-izq ">Dirección</span></div>
+                    <div fxFlex="40" fxLayoutAlign="center center" class="border-izq border-der"> </div>
+                    <div fxFlex="20" class="border-der">
+                      <span class="margen-izq">Provincia</span>
+                    </div>
+                    <div fxFlex="30">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height4Row" style="background-color: #ffffff;margin-top:2px;"
+                  class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+                  <div fxFlex="100" [style.height]="heightRow">
+                    <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+                      <strong class="margen-izq">4</strong></div>
+                    <div fxFlex="40" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+                      <strong class="margen-izq">DATOS DEL TRANSPORTE</strong>
+                    </div>
+                    <div fxFlex="20" class="border-abajo border-der">
+                      <span class="margen-izq">Pagador del Flete</span>
+                    </div>
+                    <div fxFlex="35" class="border-abajo">
+                    </div>
+                  </div>
+                  <div fxFlex="100" [style.height]="height3Row">
+                    <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Camión</span>
+                        </div>
+                        <div fxFlex="25" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="25" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="25" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Acoplado</span>
+                        </div>
+                        <div fxFlex="10" class="border-abajo border-der">
+
+                        </div>
+                        <div fxFlex="40" class="border-abajo border-der">
+                          <span class="margen-izq">Tarifa de Referencia</span>
+                        </div>
+                        <div fxFlex="25" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="35" class="border-der">
+                          <span class="margen-izq">Km a recorrer</span>
+                        </div>
+                        <div fxFlex="10" class="border-der">
+
+                        </div>
+                        <div fxFlex="30" class="border-der">
+                          <span class="margen-izq">Tarifa </span>
+                        </div>
+                        <div fxFlex="25">
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="center center">
+                      <div fxFlex="100" [style.height]="height3Row">
+                        <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                          fxLayoutAlign="center end">
+                          <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                            <small>Firma del Remitente </small>
+                          </div>
+                        </div>
+                        <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                          fxLayoutAlign="center end">
+                          <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                            <small>Firma del Chofer</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height4Row" style="margin-top:2px;"
+                  class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+                  <div fxFlex="100" [style.height]="heightRow">
+                    <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+                      <strong class="margen-izq">5</strong></div>
+                    <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+                      <strong class="margen-izq">DATOS A COMPLETAR EN EL LUGAR DE DESTINO Y DESCARGA</strong>
+                    </div>
+                  </div>
+                  <div fxFlex="100" [style.height]="height3Row">
+                    <div fxFlex="70" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Fecha Arribo</span>
+                        </div>
+                        <div fxFlex="15" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="10" class="border-abajo border-der">
+                          <span class="margen-izq">Hora</span>
+                        </div>
+                        <div fxFlex="10" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+                        </div>
+                        <div fxFlex="15" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Fecha Descarga</span>
+                        </div>
+                        <div fxFlex="15" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="10" class="border-abajo border-der">
+                          <span class="margen-izq">Hora</span>
+                        </div>
+                        <div fxFlex="10" class="border-abajo border-der">
+                        </div>
+                        <div fxFlex="25" class="border-abajo border-der">
+                          <span class="margen-izq">Peso Tara (Kgrs.)</span>
+                        </div>
+                        <div fxFlex="15" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="25" class="border-der">
+                          <span class="margen-izq">Turno Nro</span>
+                        </div>
+                        <div fxFlex="35" class="border-der">
+                        </div>
+                        <div fxFlex="25" class="border-der">
+                          <span class="margen-izq">Tarifa </span>
+                        </div>
+                        <div fxFlex="15">
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="30" fxLayout="row wrap" fxLayoutAlign="start center">
+                      <div fxFlex="100" [style.height]="height3Row">
+                        <span class="margen-izq">Observaciones:</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height5Row" style="margin-top:2px;"
+                  class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+                  <div fxFlex="100" [style.height]="heightRow">
+                    <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+                      <strong class="margen-izq">6</strong></div>
+                    <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+                      <strong class="margen-izq">CAMBIO DEL DOMICILIO DE DESCARGA / DESVIO</strong>
+                    </div>
+                  </div>
+                  <div fxFlex="100" [style.height]="height4Row">
+                    <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+                      <div fxFlex="100" style="height: 30px;">
+                        <div fxFlex="70" class="border-abajo border-der">
+                          <span class="margen-izq">CUIT Destino y Denominación</span>
+                        </div>
+                        <div fxFlex="30" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="20" class="border-abajo border-der">
+                          <span class="margen-izq">Domicilio</span>
+                        </div>
+                        <div fxFlex="80" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="37" class="border-der">
+                          <span class="margen-izq">Nro Planta RUCA</span>
+                        </div>
+                        <div fxFlex="23" class="border-der">
+                        </div>
+                        <div fxFlex="15" class="border-der">
+                          <span class="margen-izq">Fecha </span>
+                        </div>
+                        <div fxFlex="25">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="50" class="border-arriba border-der">
+                          <span class="margen-izq">Traslado ordenado por</span>
+                        </div>
+                        <div fxFlex="50" class="border-arriba">
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="start center">
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="70" class="border-abajo border-der">
+                          <span class="margen-izq">CUIT Destino y Denominación</span>
+                        </div>
+                        <div fxFlex="30" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="heightRow">
+                        <div fxFlex="20" class="border-abajo border-der">
+                          <span class="margen-izq">Localidad</span>
+                        </div>
+                        <div fxFlex="80" class="border-abajo">
+                        </div>
+                      </div>
+                      <div fxFlex="100" [style.height]="height2Row" fxLayoutAlign="center end">
+                        <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                          <small>Firma del Remitente </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height3Row" style="margin-top:2px;" fxLayoutAlign="start center"
+                  fxLayout="row wrap">
+                  <div fxFlex="100">
+                    <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+                      style="margin: 3px;" fxLayoutAlign="center end">
+                      <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+                        <small>Firma del Perito Recibidor </small>
+                      </div>
+                      <div fxFlex="8"></div>
+                      <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+                        <small>Matrícula Nro </small>
+                      </div>
+                    </div>
+                    <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+                      style="margin: 3px;" fxLayoutAlign="center end">
+                      <div fxFlex="56" class="border-arriba" fxLayoutAlign="center end">
+                        <small>Firma del Destinatario Entregador </small>
+                      </div>
+                      <div fxFlex="4"></div>
+                      <div fxFlex="36" class="border-arriba" fxLayoutAlign="center end">
+                        <small>Matrícula Nro </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row wrap" fxLayoutAlign="center center" [style.height]="heightRow">
+
+              </div>
+            </div>
+            <div fxFlex="1"></div>
+            <div fxFlex="24">
+              <div fxLayout="row wrap" class="emisor-derecho" fxLayoutAlign="center center">
+                <div fxFlex="100" [style.height]="height4Row"></div>
+              </div>
+              <div fxLayout="row wrap" class="inca-derecho" fxLayoutAlign="center center"></div>
+              <div style="display: none;">
+                <div fxLayout="row wrap" fxLayoutAlign="center center">
+                  <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+                    <div fxFlex="100" style="margin-top:1px;">
+                      <table width="100%" cellspacing="0" cellpadding="0" style="margin-left: 3px;">
+                        <tbody style="margin-top: 2px;">
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div style="width: 100%;background-color: #ffffff; color:#ffffff;">CUIT </div>
+                            </td>
+                            <td style="width:2%;height: 20px;">
+                              <div style="width: 100%;background-color: #ffffff; color:#ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitIntermediarioFlete'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitRemComercial'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitRemComercial'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitRemComercial'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitRemComercial'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitRemComercial'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitRemComercial'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitRemComercial'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitCorredorC'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitCorredorC'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorC'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitMercadoATermino'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitMercadoATermino'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitCorredorV'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorV'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorV'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitCorredorV'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitCorredorV'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitCorredorV'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitCorredorV'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo"
+                                *ngIf="errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitRepresentanteEntregador'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitRepresentanteEntregador'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitDestinatario'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitDestinatario'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitDestinatario'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitDestinatario'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitDestinatario'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitDestinatario'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitDestinatario'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitDestino'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitDestino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitDestino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitDestino'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitDestino'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitDestino'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitDestino'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitIntermediarioFlete'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitIntermediarioFlete'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitTransportista'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitTransportista'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitTransportista'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitTransportista'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitTransportista'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitTransportista'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitTransportista'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 5%;margin-left:2px;height: 20px; ">
+                              <div class="triangulo" *ngIf="errorInconsistencia['idCuitChofer'].isChance"
+                                fxLayoutAlign="end center"> </div>
+                              <div *ngIf="!errorInconsistencia['idCuitChofer'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                            </td>
+                            <td style="width: 45%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitChofer'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitChofer'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;"> Razón social</div>
+                            </td>
+                            <td style="width:48%;height: 20px;">
+                              <div *ngIf="!errorInconsistencia['idCuitChofer'].isChance"
+                                style="width: 100%;background-color: #ffffff; color:#ffffff;"> R</div>
+                              <div *ngIf="errorInconsistencia['idCuitChofer'].isChance"
+                                style="width: 100%;background-color: #f7b718;font-size: 10px;">CUIT
+                                {{errorInconsistencia['idCuitChofer'].value}}</div>
+                            </td>
+                            <td style="width:2%;height: 20px;font-size: 10px;">
+                              <div style="width: 100%;background-color: #ffffff;"> </div>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="btn-ver" style="z-index: 19999;">
+  <div class="handle" fxLayout="row wrap" fxLayoutAlign="center center">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <button mat-raised-button style="background-color: rgb(16, 156, 216);width: 220px;color: #ffffff !important;"
+        (click)="captureScreen()">
+        <mat-icon>mail_outline</mat-icon>
+        NOTIFICAR
+      </button>
+
+    </div>
+  </div>
+</div>

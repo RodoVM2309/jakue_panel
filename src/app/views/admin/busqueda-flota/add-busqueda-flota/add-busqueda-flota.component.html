@@ -1,0 +1,375 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="background: #2bc4f3;">
+      ADICIONAR BUSQUEDA DE FLOTA
+    </div>
+  </mat-card-title>
+  <mat-card-content [style.overflow]="'auto'" [style.height.px]="'450'">
+    <form [formGroup]="addBusquedaForm" (ngSubmit)="submit()">
+      <div fxLayout="row wrap">
+        <br />
+        <mat-accordion class="full-width">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Vista del mapa
+              </mat-panel-title>
+              <mat-panel-description>
+                Localidad de Origen
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card-content class="p-0">
+              <div class="form-group">
+                <!-- <input ngx-google-places-autocomplete #placesRef="ngx-places"
+                                    (onAddressChange)="handleAddressChange($event)" /> -->
+                <input
+                  placeholder="Buscar Localidad de Origen"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  class="form-control"
+                  #search
+                  [formControl]="searchControl"
+                />
+              </div>
+              <agm-map
+                [ngStyle]="{ height: '300px' }"
+                [latitude]="latitud_localidad"
+                [longitude]="longitud_localidad"
+                [zoom]="zoom"
+                [mapTypeId]="'hybrid'"
+                [mapTypeControl]="true"
+              >
+                <agm-marker
+                  [latitude]="latitud_localidad"
+                  [longitude]="longitud_localidad"
+                >
+                </agm-marker>
+              </agm-map>
+            </mat-card-content>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br />
+        <div fxLayout="row wrap">
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="localidad_carga"
+                [formControl]="addBusquedaForm.controls['localidad_carga']"
+                placeholder="Localidad de Carga"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="longitud_localidad"
+                [formControl]="addBusquedaForm.controls['longitud_localidad']"
+                placeholder="Longitud de Localidad"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="latitud_localidad"
+                [formControl]="addBusquedaForm.controls['latitud_localidad']"
+                placeholder="Latitud de Localidad"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <br />
+        <mat-accordion class="full-width">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Vista del mapa
+              </mat-panel-title>
+              <mat-panel-description>
+                Zona de Destino
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card-content class="p-0">
+              <div class="form-group">
+                <input
+                  placeholder="Buscar Zona de Destino"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  class="form-control"
+                  #search1
+                  [formControl]="searchControl1"
+                />
+                <!-- <input ngx-google-places-autocomplete #placesRef1="ngx-places"
+                                    (onAddressChange)="handleAddressChange1($event)" /> -->
+              </div>
+              <agm-map
+                [ngStyle]="{ height: '300px' }"
+                [latitude]="latitud_zona_destino"
+                [longitude]="longitud_zona_destino"
+                [zoom]="zoom"
+                [mapTypeId]="'hybrid'"
+                [mapTypeControl]="true"
+              >
+                <agm-marker
+                  [latitude]="latitud_zona_destino"
+                  [longitude]="longitud_zona_destino"
+                >
+                </agm-marker>
+              </agm-map>
+            </mat-card-content>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br />
+        <div fxLayout="row wrap">
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="zona_destino"
+                [formControl]="addBusquedaForm.controls['zona_destino']"
+                placeholder="Zona de Destino"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="Longitud"
+                [formControl]="
+                  addBusquedaForm.controls['longitud_zona_destino']
+                "
+                placeholder="Longitud Zona Destino"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width" hidden="true">
+              <input
+                readonly
+                matInput
+                name="Latitud"
+                [formControl]="addBusquedaForm.controls['latitud_zona_destino']"
+                placeholder="Latitud Zona Destino"
+              />
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.gt-xs="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-select
+              name="Producto"
+              [formControl]="addBusquedaForm.controls['selectedProducto']"
+              placeholder="Producto"
+            >
+              <mat-option
+                *ngFor="let producto of productos"
+                [value]="producto.id"
+              >
+                {{ producto.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.gt-xs="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              name="fecha"
+              formControlName="fecha"
+              placeholder="Fecha"
+              [matDatepicker]="appDatepicker"
+              [max]="maxDate"
+              (dateInput)="addEvent('input', $event, 'desde')"
+              (dateChange)="addEvent('change', $event, 'desde')"
+            />
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+            </mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.gt-xs="70" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-select
+              id="tipo_acoplado"
+              name="tipo_acoplado"
+              [formControl]="addBusquedaForm.controls['tipo_acoplado']"
+              placeholder="Tipo Acoplado"
+              multiple
+              (selectionChange)="onChangeAcoplado()"
+            >
+              <mat-option *ngFor="let tipo of tiposAcoplados" [value]="tipo.id">
+                {{ tipo?.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <small
+            *ngIf="
+              addBusquedaForm.controls['tipo_acoplado'].hasError('required') &&
+              addBusquedaForm.controls['tipo_acoplado'].touched
+            "
+            class="form-error-msg"
+          >
+            Es requerido el tipo de acoplado</small
+          >
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+          <mat-checkbox
+            class="example-radio-button"
+            [formControl]="addBusquedaForm.controls['todosacoplados']"
+            (change)="onChangeTodosAcoplados($event)"
+          >
+            Todos los acoplados &nbsp;
+          </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.gt-xs="50" class="pr-1">
+          Tarifa:
+          <input
+            class="quantity-input default-bg"
+            min="0"
+            name="quantity"
+            type="number"
+            [formControl]="addBusquedaForm.controls['precio_viaje']"
+            style="width: 75px !important;"
+          />$/Tn
+          <small
+            *ngIf="
+              addBusquedaForm.controls['precio_viaje'].hasError('required') &&
+              addBusquedaForm.controls['precio_viaje'].touched
+            "
+            class="form-error-msg"
+          >
+            Debe introducir la Tarifa</small
+          >
+        </div>
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              name="condiciones_pago"
+              type="number"
+              min="0"
+              [formControl]="addBusquedaForm.controls['condiciones_pago']"
+              placeholder="Condiciones de pago en Días"
+              #condiciones_pago
+              max="999"
+            />
+            <mat-hint align="end">{{ condiciones_pago.value.max }}</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-select
+              name="Medio de pago"
+              [formControl]="addBusquedaForm.controls['id_medio_pago']"
+              placeholder="Medio de pago"
+            >
+              <mat-option *ngFor="let medio of medios" [value]="medio.id">
+                {{ medio.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox
+            class="example-radio-button"
+            [formControl]="addBusquedaForm.controls['da_gasoil']"
+          >
+            Adelanto Gas Oil &nbsp;
+          </mat-checkbox>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-checkbox
+            class="example-radio-button"
+            [formControl]="addBusquedaForm.controls['da_efectivo']"
+          >
+            Adelanto Efectivo &nbsp;
+          </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="50" class="pr-1">
+          <mat-checkbox
+            class="example-radio-button"
+            [formControl]="addBusquedaForm.controls['carga_peligrosa']"
+          >
+            Carga peligrosa &nbsp;
+          </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              name="observaciones"
+              [formControl]="addBusquedaForm.controls['observaciones']"
+              placeholder="Observaciones"
+              #observaciones
+              maxlength="250"
+            ></textarea>
+            <mat-hint align="end"
+              >{{ observaciones.value.length }} / 250</mat-hint
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="mt-1">
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="dialogRef.close(false)"
+          >
+            Cancelar
+          </button>
+          <span fxFlex></span>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="addBusquedaForm.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

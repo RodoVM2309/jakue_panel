@@ -1,0 +1,90 @@
+::ng-deep .mat-tab-labels {
+  height: 48px;
+  margin-top: 0px;
+  margin-left: 56px;
+}
+
+.egret-indigo .mat-tab-group.mat-background-primary .mat-tab-header{
+  background-color:#86B1C5 !important;
+}
+
+.mat-tab-link{
+  color:white !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content{
+  color:#ffffff ;
+
+}
+
+::ng-deep .mat-tab-header {
+  border-bottom: 0px !important;
+  background-color:#86B1C5 !important;
+  color: white;
+}
+
+::ng-deep .mat-tab-label-active .mat-tab-label-content{
+  color: #3FB8E6;
+  background-color: #E9E9EA;
+ }
+ ::ng-deep .mat-tab-label-active{
+  color: #87B1C6;
+  background-color: #E9E9EA;
+  opacity: 1 !important;
+ }
+
+ ::ng-deep .mat-ink-bar {
+  background-color:#E9E9EA;}
+
+  ::ng-deep .mat-tab-body-content {
+    background-color: #E9E9EA;
+  }
+
+  ::ng-deep .app-admin-container .rightside-content-hold {
+    padding: 0px !important;
+  }
+
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+
+  .mi-mini-btn{
+    background-color: #F8AC00;
+    color:#ffffff;
+    width: 25px;
+    height: 25px;
+    box-shadow: none;
+    font-size: 16px;
+  }
+
+  .my-fab {
+    width: 25px;
+    height: 25px;
+    line-height: 16px;
+    background-color: #F8AC00;
+    color:#ffffff;
+    box-shadow: none;
+
+    &::ng-deep .mat-button-wrapper {
+         padding: 2px 0 !important;
+         line-height: 16px !important;
+         width: 16px !important;
+         height: 16px !important;
+         color:#ffffff;
+
+         .mat-icon {
+              font-size: 16px;
+              padding-right: 4px;
+              line-height: 16px;
+          }
+    }
+}
+
+
+
+
+
+
+

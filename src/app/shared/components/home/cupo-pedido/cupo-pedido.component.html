@@ -1,0 +1,547 @@
+<div fxLayout="column wrap">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="background: darkblue; color: #E9E9EA;height: 50px;">
+      <div fxFlex="5" style="margin-top:15px;margin-left:15px;"></div>
+      <div fxFlex="90" fxLayoutAlign="start start" style="margin-top:15px;">
+        <h3>LIBERAR CUPOS PEDIDO</h3>
+      </div>
+      <span FxFlex></span>
+      <div fxFlex="5" style="margin-top:8px;margin-left:15px;">
+        <button mat-icon-button matTooltip="Cerrar devolver cupos cupos" color="m-0" class="m-0" (click)="submit()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" style="height: 13vw">
+    <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 12vw;">
+      <div fxFlex="30"></div>
+      <div fxFlex="40">
+        <mat-card class="default" style="background: #FCFDFF; border-radius: 6px;">
+          <mat-card-title>
+            <div fxLayout="row wrap">
+              <div fxFlex="100" style=" width: 100%">
+                <div fxFlex="7" fxLayout="column">
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados == 0 &&
+                    pedido.reduccion == 0
+                  " style="background:#2BC4F3; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Pedido Largo">arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Pedido Retorno">arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Pedido Corto">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Desvíos">arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Desvíos">arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip=" Tiene Desvíos">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#1E1E21; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido">arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido">arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados">arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados">arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Rechazados">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Rechazados">
+                        arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Rechazados">
+                        redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Desvíos y Viajes Rechazados">arrow_forward
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Desvíos y Viajes Rechazados">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Desvíos y Viajes Rechazados">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Desvíos">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Desvíos">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Desvíos">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados == 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Desvíos, está Bloqueado el Pedido y tiene Viajes Rechazados">arrow_forward
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Desvíos, está Bloqueado el Pedido y tiene Viajes Rechazados">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Desvíos, está Bloqueado el Pedido y tiene Viajes Rechazados">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados">arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados">arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados">redo</mat-icon>
+                    </div>
+                  </div>
+
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados y con Desvíos">arrow_forward
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados y con Desvíos">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados y con Desvíos">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Cancelados">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Cancelados">
+                        arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Está Bloqueado el Pedido y tiene Viajes Cancelados">
+                        redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados y Cancelados">arrow_forward
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados y Cancelados">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Rechazados y Cancelados">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios == 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes Rechazados y Cancelados">arrow_forward
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes Rechazados y Cancelados">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes Rechazados y Cancelados">redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 0 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados, con Desvíos y Rechazados">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados, con Desvíos y Rechazados">
+                        arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Tiene Viajes Cancelados, con Desvíos y Rechazados">
+                        redo</mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado == 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes con Desvíos y Viajes Cancelados">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes con Desvíos y Viajes Cancelados">arrow_back
+                      </mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Está Bloqueado el Pedido, tiene Viajes con Desvíos y Viajes Cancelados">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="
+                    pedido.desvios > 0 &&
+                    pedido.bloqueado == 1 &&
+                    pedido.estados.Rechazado > 0 &&
+                    pedido.viajes_bloqueados > 0
+                  " style="background:#D32D26; width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Viajes con Desvíos, Rechazados y Cancelados , está Bloqueado el Pedido">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Viajes con Desvíos, Rechazados y Cancelados , está Bloqueado el Pedido">
+                        arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;"
+                        matTooltip="Tiene Viajes con Desvíos, Rechazados y Cancelados , está Bloqueado el Pedido">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                  <div fxFlex *ngIf="pedido.reduccion != 0 && pedido.bloqueado == 0"
+                    style="background:rgb(255, 102, 0); width: 28px !important;  height: 64px !important;">
+                    <div *ngIf="pedido.tipo_pedido == 'Cereal'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Fue modificada la cantidad de este Pedido">
+                        arrow_forward</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Retorno'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Fue modificada la cantidad de este Pedido">
+                        arrow_back</mat-icon>
+                    </div>
+                    <div *ngIf="pedido.tipo_pedido == 'Corto'">
+                      <mat-icon style="color: #FCFDFF;" matTooltip="Fue modificada la cantidad de este Pedido">redo
+                      </mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex="53" fxLayout="column" style="margin-top: 13px;">
+                  &nbsp;&nbsp;ID {{ pedido.id }}
+                </div>
+                <div fxFlex="10" fxLayout="column" style="margin-top: 8px; margin-left: 22px; align-items: flex-end;">
+                  <mat-icon fxFlex="50%">access_time</mat-icon>
+                </div>
+                <div fxFlex="30" fxLayout="column" style="margin-top: 13px; align-items: center;">
+                  {{ pedido._fecha_desde }} > {{ pedido._fecha_hasta }}
+                </div>
+              </div>
+            </div>
+          </mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content style="padding: 0.4rem;">
+            <div fxLayout="row wrap">
+              <div fxFlex="100" style=" width: 100%">
+                <div fxFlex="10" fxLayout="column">
+                  <span>Gen:</span>
+                  <span>Carg:</span>
+                  <span>Prod:</span>
+                  <span>Lugar:</span>
+                  <span>Dest:</span>
+                </div>
+                <div fxFlex="47" fxLayout="column">
+                  <span style="font-weight: 600; color:#848587;">{{
+                  pedido.nombre_generador
+                }}</span>
+                  <span style="font-weight: 600; color:#848587;">{{
+                  pedido.nombre_cliente
+                }}</span>
+                  <span style="font-weight: 600; color:#848587;">{{
+                  pedido.producto.descripcion
+                }}</span>
+                  <span style="font-weight: 600; color:#848587;">{{
+                  pedido.origen.descripcion
+                }}</span>
+                  <span style="font-weight: 600; color:#848587;">{{
+                  pedido.zonaDestino.descripcion
+                }}</span>
+                </div>
+                <div fxFlex="40" fxLayout="column">
+                  <div fxLayout="row" layout-align="center" style="height: 80%;" style="margin-top: 12px;">
+                    <div fxFlex="50">
+                      <button matTooltip="Por asignar" mat-mini-fab color="xasig" style="box-shadow: none;width: 40px;"
+                        class="mr-2">
+                        {{
+                        pedido.cantidad -
+                          pedido.viajes_asignados +
+                          pedido.reduccion
+                      }}
+                      </button>
+                    </div>
+                    <div fxFlex="50">
+                      <button matTooltip="Calada rechazada" mat-mini-fab color="rechazo" style="box-shadow: none;"
+                        class="mr-2">
+                        {{ pedido.estados.Rechazado }}
+                      </button>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex="30"></div>
+
+      <!--  <div fxFlex="3" style="margin-top:15px;margin-left:15px;"></div>
+      <div fxFlex="30" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Datos del Pedido:</strong>
+        <strong style="font-size: 14px;"> Gen:</strong>
+        {{pedido.nombre_generador}}
+        <strong style="font-size: 14px;"> Carg:</strong>
+        {{pedido.nombre_cliente}}
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;"> </strong>
+        <strong style="font-size: 14px;"></strong>
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Producto: </strong>
+        <strong style="font-size: 14px;">.</strong>
+      </div>
+      <div fxFlex="20"></div> -->
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="alfanumericoCupo">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            N Cupo
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.alfanumericoCupo }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">
+              {{ cupo.alfanumericoCupo }}
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="destino">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Destino
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.nombreDestino }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">{{ cupo.nombreDestino }}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="dador">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Dador
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.nombreDador }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">{{ cupo.nombreDador }}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="cosecha">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Cosecha
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.codigoCosecha }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">{{ cupo.codigoCosecha }}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="contrato">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Contrato/Fijación
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.numeroContrato }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">{{ cupo.numeroContrato }}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="producto">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Producto
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.nombreProducto }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">{{ cupo.nombreProducto }}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">
+            Fecha
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+            <div *ngIf="cupo.estado == 1" style="color:#B9BABC;">
+              {{ cupo.fechaCupoFormateada }}
+            </div>
+            <div *ngIf="cupo.estado !== 1">
+              {{ cupo.fechaCupoFormateada }}
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef style="width: 10px">
+            <p class="Rotate-90" style="margin: auto;">Acciones</p>
+          </th>
+          <td mat-cell *matCellDef="let cupo" style="width: 10px">
+            <button mat-icon-button [matMenuTriggerFor]="msgMenu" style="padding: 10px"
+              (click)="$event.stopPropagation()" class="hidden-on-open">
+              <mat-icon class="text-muted">more_vert</mat-icon>
+            </button>
+            <mat-menu #msgMenu="matMenu">
+              <button mat-menu-item matTooltip="Devolver Cupo" (click)="devolverCupo(cupo)" *ngIf="cupo.estado == 0">
+                <mat-icon>undo</mat-icon> Devolver
+              </button>
+              <button mat-menu-item matTooltip="Liberar Cupo" (click)="liberarCupo(cupo)" *ngIf="cupo.estado == 1">
+                <mat-icon>low_priority</mat-icon> Liberar cupo
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+  </div>
+  <div fxLayout="row wrap" style="height:20px;"></div>
+  <!--div fxLayout="row wrap">
+      <mat-paginator
+        #paginator
+        class="mat-paginator-sticky"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+      >
+      </mat-paginator>
+    </div-->
+</div>

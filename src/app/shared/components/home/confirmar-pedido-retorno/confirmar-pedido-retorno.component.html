@@ -1,0 +1,82 @@
+﻿<mat-card-title class="">
+  <div class="card-title-text">Modificar los viajes asignados</div>
+  <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-checkbox
+      class="example-radio-button"
+      (change)="onChange2($event)"
+      [formControl]="itemForm.controls['ckOperador']"
+    >
+      Permitir que un Operador administre viajes: &nbsp;
+    </mat-checkbox>
+    <div fxFlex="50" class="pr-1" *ngIf="mostrarOperador">
+      Operador:
+      <span fxFlex></span>
+      <mat-select
+        placeholder="Seleccione el Operador"
+        [formControl]="itemForm.controls['selectedOperador']"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let operador of operadores"
+          [value]="operador.id"
+          ngDefaultControl
+        >
+          {{ operador.nombre_persona }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-checkbox
+      class="example-radio-button"
+      (change)="onChange($event)"
+      [formControl]="itemForm.controls['ckIntermediario']"
+    >
+      Permitir que un Intermediario asigne Viajes al Pedido
+    </mat-checkbox>
+    <div
+      fxFlex="100"
+      fxFlex.gt-xs="100"
+      class="pr-1"
+      *ngIf="mostrarIntermediario"
+    >
+      Intermediario:
+      <span fxFlex></span>
+      <mat-select
+        style="width: 35%;"
+        id="intermediario"
+        placeholder="Seleccione el Intermediario"
+        [formControl]="itemForm.controls['selectedIntermediario']"
+        name="intermediario"
+        class="mb-1"
+      >
+        <mat-option
+          *ngFor="let intermediario of intermediarios"
+          [value]="intermediario.id"
+          ngDefaultControl
+        >
+          {{ intermediario.nombre_intermediario }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

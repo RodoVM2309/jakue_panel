@@ -1,0 +1,16 @@
+.padding-cel-table {
+    text-align: left;
+    padding: 12px;
+}
+
+@media screen and (max-width: 1030px) {
+    .padding-cel-table {
+        padding: 3px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .padding-cel-table {
+        padding: 0px;
+    }
+}

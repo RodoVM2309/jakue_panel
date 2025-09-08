@@ -1,0 +1,34 @@
+::ng-deep #hot-display-license-info {
+    display: none !important;
+}
+
+::ng-deep .handsontable .htDimmed {
+    color: #101010 !important;
+}
+
+::ng-deep .handsontable td {
+    border-right: 1px solid #080808 !important;
+    border-bottom: 1px solid #060606 !important;
+}
+
+::ng-deep .handsontable td:first-of-type {
+    border-left: 1px solid #0a0a0a !important;
+}
+
+::ng-deep .handsontable th,
+.handsontable td {
+    border-right: 1px solid #080808 !important;
+    border-bottom: 1px solid #060606 !important;
+}
+
+::ng-deep .handsontable th:first-child {
+    border-left: 1px solid #0a0a0a !important;
+}
+
+::ng-deep .handsontable th:last-child {
+    border-right: 1px solid #0c0c0c !important;
+}
+
+/* ::ng-deep .handsontable col.rowHeader {
+    width: 150px !important;
+} */

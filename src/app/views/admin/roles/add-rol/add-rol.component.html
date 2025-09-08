@@ -1,0 +1,65 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del Rol"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="name"
+          [formControl]="itemForm.controls['name']"
+          placeholder="Nombre"
+          #name
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <small
+          *ngIf="
+            itemForm.controls['name'].hasError('required') &&
+            itemForm.controls['name'].touched
+          "
+          class="form-error-msg"
+        >
+          El nombre es obligatorio
+        </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="description"
+          [formControl]="itemForm.controls['description']"
+          placeholder="Descripción"
+          #description
+          maxlength="100"
+        />
+        <mat-hint align="end">{{ description.value.length }} / 100</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,24 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">     
+      <div fxFlex="50" class="pr-1" hidden>
+          <mat-form-field class="full-width">
+            <input matInput name="celular" maxlength="15" [formControl]="itemForm.controls['celular']" placeholder="celular">
+          </mat-form-field>
+        </div> 
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="mensaje" [formControl]="itemForm.controls['mensaje']" placeholder="Mensaje" #mensaje maxlength="150">
+        <mat-hint align="end">{{mensaje.value.length}} / 150</mat-hint>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['mensaje'].hasError('required') && itemForm.controls['mensaje'].touched" class="form-error-msg">
+        El mensaje es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Enviar</button>
+    </div>
+  </div>
+</form>

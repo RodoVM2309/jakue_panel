@@ -1,0 +1,37 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{'configuracion-stop.title' | translate}}</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 70vh">
+    <br>
+    <form [formGroup]="itemFormStop" (ngSubmit)="submitStop()">
+      <div fxLayout="column wrap" fxLayout.lt-sm="column">
+        <div fxFlex="100" class="pr-1" style="height: 20vh; margin-left:30px; ">
+          <div fxFlex="50" class="pr-1">
+            <div fxLayout="column wrap">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>{{'configuracion-stop.api_key' | translate}}</mat-label>
+                <input matInput type="text" placeholder="{{'configuracion-notificaciones.api_key' | translate}}"
+                  [formControl]="itemFormStop.controls['api_key']" >                
+              </mat-form-field>
+              <small *ngIf="itemFormStop.controls['api_key'].hasError('required') && itemFormStop.controls['api_key'].touched">
+                {{'configuracion-stop.errorApiKeyRequired' | translate}}</small>
+            </div>
+          </div>
+
+        </div>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" style="margin-left:30px; ">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary"
+              [disabled]="itemFormStop.invalid">
+              {{'SAVE' | translate}}
+            </button>
+            <small fxFlex></small>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

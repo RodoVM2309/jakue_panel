@@ -1,0 +1,136 @@
+my-card {
+  margin: -10px;
+  background-color: yellow;
+}
+
+#sele-producto {
+  :host /deep/ .mat-form-field-infix {
+    margin-top: -10px;
+  }
+}
+
+.select_producto {
+  color: #000;
+  background-color: #ffffff;
+}
+
+.not-empty-select.mat-selected {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004a90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #837f7f;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}
+
+.asignado {
+  background: #6bb022;
+  height: 40px;
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+}
+
+/*estilo scroll negro*/
+#style-1::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+}
+
+// Estilo a la barra de desplazamiento
+.scrollbar {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.component {
+  padding: 19px;
+  margin: -12px;
+}
+
+.tb-cantidad {
+  border-color: #afadad;
+  border-style: solid;
+  border-radius: 5px;
+  margin-top: 2px;
+  height: 30px;
+  width: 80%;
+  padding: 0px;
+  border-width: 0.5px;
+  background-color: #ffffff;
+  text-align: center;
+  //width: 55px !important;
+}
+#input-cant {
+  :host /deep/ .mat-form-field-infix {
+    margin-top: -16px;
+    color: #070000;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  :host /deep/ .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #070000;
+  }
+
+  :host /deep/ .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #ffffff !important;
+  }
+  :host /deep/ .mat-form-field-underline {
+    background-color: #ffffff !important;
+  }
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(20,71,144) !important;
+  font-size: x-large;
+}
+
+:host /deep/ .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color:#f9fafc;//Your color
+}
+:host /deep/ .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #0056ff;//Your color
+}
+
+:host /deep/ .egret-indigo .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgb(20,71,144) !important;
+}
+
+:host /deep/ .egret-indigo .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: rgb(20,71,144) !important;
+}
+
+::ng-deep .egret-indigo .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgb(20,71,144) !important;
+}
+
+::ng-deep .egret-indigo .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: rgb(20,71,144) !important;
+}

@@ -1,0 +1,89 @@
+<div class="encabezado" fxLayout="column wrap">
+  <div fxFlex="100">
+    <div fxFlex="65" fxLayoutAlign="start center">
+      <strong style="margin-left: 20px;">Línea Magyp Covid 19</strong>
+      <img style="margin-left: 10px;" src="assets/images/muvin/logo-magyp.png" alt="" style="height: 40px;" />
+    </div>
+    <div fxFlex="35" fxLayoutAlign="start center">
+      <h4 style="font-size: 1rem;">DETALLES TRANSPORTISTA</h4>
+    </div>
+  </div>
+</div>
+<div class="cuerpo" fxLayout="column wrap">
+  <form [formGroup]="testForm">
+      <div fxFlex="100">
+        <div fxFlex="5"></div>
+        <div fxFlex="90" fxLayoutAlign="start center">
+          <div fxFlex="100" fxLayout="row wrap">
+
+            <div fxFlex="50" class="pr-1  " hidden>
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput name="id" [formControl]="testForm.controls['id']" placeholder="Id de la Persona" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayout="row wrap" fxLayoutAlign="start center" style="margin-top: 20px;">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="cuit" type="text" [formControl]="testForm.controls['cuit']" readonly
+                  placeholder="CUIT" #cuitcuil maxlength="11" class=" " />
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Razón Social</mat-label>
+                <input matInput name="nombre" [formControl]="testForm.controls['nombre']" placeholder="Nombre" readonly
+                  #nombre maxlength="75" class=" " />
+
+              </mat-form-field>
+
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Patente</mat-label>
+                <input matInput name="patente" [formControl]="testForm.controls['patente']" placeholder="Patente"
+                  readonly #patente maxlength="8" class=" " />
+
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayoutAlign="center center">
+              <mat-form-field class="full-width  " appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <span matPrefix>+54 &nbsp;</span>
+                <input matInput name="telefono" [formControl]="testForm.controls['telefono']" placeholder="Teléfono"
+                  type="number" readonly />
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Cadena</mat-label>
+                <mat-select name="id_cadena" [formControl]="testForm.controls['id_cadena']" [disabled]="encontradoTrans"
+                  placeholder="Cadenas">
+                  <mat-option *ngFor="let cadena of cadenas" [value]="cadena.id" class=" ">
+                    {{ cadena.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div fxFlex="100" class="pr-1  " fxLayout="row wrap" fxLayoutAlign="start center">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput name="observaciones" placeholder="Observaciones"
+                  [formControl]="testForm.controls['observaciones']" rows="2" [readonly]="encontradoTrans" class=" ">
+            </textarea>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" class="mt-1" fxLayoutAlign="center center">
+              <button mat-raised-button color="primary" type="button" (click)="dialogRef.close(false)">
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+
+

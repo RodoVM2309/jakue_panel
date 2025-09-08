@@ -1,0 +1,100 @@
+.mi-row {
+  height: 45px;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: #00020a;
+  /*  border-top: 0.84375em solid transparent; */
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: #00020a;
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00020a;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #00020a !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(8, 0, 0);
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+.estilo_card-box {
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  box-shadow: none !important;
+}
+
+
+
+.box-card {
+  height: 75%;
+  overflow: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.container-card {
+  height: 90vh;
+  max-height: 570px;
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.estilo_card {
+  margin-top: -24px !important;
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  box-shadow: none !important;
+}
+
+.padding-form {
+  padding: 0px 24px;
+}
+
+:host /deep/ .mat-slide-toggle-content {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.mat-column-intermediario {
+  text-align: left;
+  width: 55%;
+}
+
+.mat-column-cantidad {
+  text-align: left;
+  width: 32%;
+}
+
+.mat-column-id {
+  text-align: left;
+  width: 13%;
+}
+
+table {
+  width: 100%;
+}
+
+.button-close{
+  height: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  margin: -1px;
+}

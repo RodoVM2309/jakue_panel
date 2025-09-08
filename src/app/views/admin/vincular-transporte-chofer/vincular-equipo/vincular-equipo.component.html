@@ -1,0 +1,36 @@
+﻿<div>
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <span fxFlex></span><mat-icon>contacts</mat-icon>
+</div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          name="equipos"
+          [formControl]="itemForm.controls['id_equipo']"
+          placeholder="Equipo"
+        >
+          <mat-option *ngFor="let vequipo of equipos" [value]="vequipo.id">
+            {{ vequipo.nombre_marca_camion }} {{ vequipo.patente_camion }} -
+            {{ vequipo.nombre_marca_acoplado }} {{ vequipo.patente_acoplado }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,25 @@
+.scrollbar {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.component {
+  padding: 19px;
+  margin: -12px;
+}
+
+#style-1::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+}

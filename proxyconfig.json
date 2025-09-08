@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target":"localhost:8080/rest/backend/web/1/authorize",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

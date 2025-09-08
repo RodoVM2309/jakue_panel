@@ -1,0 +1,95 @@
+.selecionadas {
+  background-color: #c8d675 !important;
+  text-align: center !important;
+}
+
+.seleccionDemanda {
+  background-color: #83daf3 !important;
+  color: #83daf3 !important;
+  text-align: center !important;
+}
+
+.un_selecionadas {
+  background-color: #fff !important;
+  text-align: center !important;
+}
+
+.myButton {
+  background-color: #f0f0f0;
+  border-radius: 28px;
+  border: 0px solid #f0f0f0;
+  display: inline-block;
+  cursor: pointer;
+  color: #174891;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 2px 2px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #174891;
+}
+
+.myButton:hover {
+  background-color: #f0f0f0;
+}
+
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.obs {
+  cursor: help;
+}
+
+.obs:hover {
+  color: #174891;
+}
+
+.handsontable th {
+  background-color: #f0f0f0;
+  color: #222;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.handsontable THEAD TH.header_color {
+  background: #FF6138;
+  border-color: #D4441F;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.handsontable THEAD TH.totalsolicitados {
+  background: rgb(235, 110, 32);
+  border-color: rgb(235, 110, 32);
+  color: #fff !important;
+  font-weight: 400 !important;
+}
+
+.handsontable th,
+.handsontable td {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  height: 33px;
+  empty-cells: show;
+  line-height: 21px !important;
+  padding: 0 0px 0 0px;
+  /* top, bottom padding different than 0 is handled poorly by FF with HTML5 doctype */
+  background-color: #FFF;
+  vertical-align: inherit;
+  overflow: hidden;
+  outline-width: 0;
+  white-space: pre-line;
+  /* preserve new line character in cell */
+  background-clip: padding-box;
+  font-size: 11px;
+}
+
+.handsontable span.colHeader {
+  display: inline-block;
+  line-height: 1.1;
+  font-size: 12px !important;
+}

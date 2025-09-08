@@ -1,0 +1,92 @@
+.egret-indigo .mat-card {
+    background: #22647d;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-card {    
+    border-radius: 17px !important;
+}
+
+.mat-bg-accent{
+    background-color: #fffce4 !important;
+}
+
+::ng-deep .agm-map-container-inner {    
+    height: 100% !important;
+    position: unset !important;
+}
+
+.scrollbar
+{
+    // margin-left: 30px;
+    // float: left;
+    // height: 300px;
+    // width: 65px;
+    // background: #F5F5F5;
+    // overflow-y: scroll;
+    // margin-bottom: 25px;
+    height: 75%; 
+    overflow: auto; 
+}
+
+/*estilo scroll negro*/
+
+#style-1::-webkit-scrollbar-track
+{
+    //-webkit-box-shadow: inset 0 0 6px rgba(82, 80, 80, 0.26);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    //-webkit-box-shadow: inset 0 0 6px rgba(82, 80, 80, 0.26);
+    background-color: #555;
+}
+
+/* estilo scroll blanco*/
+
+#style-2::-webkit-scrollbar-track
+{
+    // -webkit-box-shadow: inset 0 0 6px rgb(252, 249, 249);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+#style-2::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: transparent;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    // -webkit-box-shadow: inset 0 0 6px rgb(252, 249, 249);
+    background-color: #fff;
+}
+
+::ng-deep .egret-indigo .mat-progress-bar.mat-warn .mat-progress-bar-buffer {
+    background-color: #dad5d5;
+}
+
+::ng-deep .egret-indigo .mat-progress-bar.mat-warn  .mat-progress-bar-fill::after {
+    background-color: #e64524;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+    height: 7px !important;
+}
+
+.mat-card-title {
+    margin-bottom: 0px !important;
+}
+

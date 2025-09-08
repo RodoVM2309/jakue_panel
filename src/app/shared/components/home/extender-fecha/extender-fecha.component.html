@@ -1,0 +1,34 @@
+﻿<mat-card-title class="">
+  <div class="card-title-text">FECHA A MODIFICAR</div>
+  <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1" >
+      <mat-form-field class="full-width">
+        <input matInput name="fecha hasta" [formControl]="itemForm.controls['fecha_hasta']"
+        placeholder="Fecha Hasta" [matDatepicker]="appDatepicker" [min]="minDate"  >
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+        </mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+
+    <mat-divider></mat-divider>
+    <!-- <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        Aumente o Disminuya la cantidad a modificar:
+        <input  matInput class="quantity-input default-bg" name="quantity" type="number" [formControl]="itemForm.controls['quantity']">
+        <small *ngIf="itemForm.controls['quantity'].hasError('required') && itemForm.controls['quantity'].touched" class="form-error-msg">
+        Es requerido la cantidad a modificar</small>
+      </mat-form-field>
+    </div> -->
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" >Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

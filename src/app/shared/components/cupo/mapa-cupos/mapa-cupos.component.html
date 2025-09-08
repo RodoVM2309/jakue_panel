@@ -1,0 +1,97 @@
+<br>
+<div class="m-333">
+  <mat-card style="height: 80vh; padding: 0px; background: rgb(43, 196, 243);">
+    <div class="map">
+      <mat-card-content class="p-0">
+        <agm-map [ngStyle]="{height: '78vh'}" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"
+          [mapTypeId]="'hybrid'" [mapTypeControl]="true">
+          <!-- <div *ngIf="(selected==0 || selected==2) && !rolDador"> -->
+            <agm-marker *ngFor="let cupo of cupos" [latitude]="cupo.coordenadas.latitud" [longitude]="cupo.coordenadas.longitud"
+              [iconUrl]="cupo.iconUrl" (markerClick)="clickedMarker(infoWindow)">
+              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                <p>
+                  <strong>Cupo:</strong> {{cupo.idCupoTerminal}}
+                </p>
+                <p>
+                  <strong>Producto:</strong> {{cupo.nombreProducto}}
+                </p>
+                <p>
+                  <strong>Destino:</strong> {{cupo.nombreDestino}}
+                </p>
+                <p>
+                  <strong>Receptor:</strong> {{cupo.nombreReceptor}}
+                </p>
+                <p>
+                  <strong>Chofer:</strong> {{cupo.nombreChofer}}
+                </p>
+              </agm-info-window>
+            </agm-marker>
+<!--           </div> -->
+        </agm-map>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen" style="color: #fff; margin-right:28px;">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" matTooltip="Filtrar">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Mapa de Cupos</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="limpiarFiltros()">
+        <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select id="filterProducto" placeholder="Producto" name="filterProducto" class="mb-1"
+            [(value)]="filtro.id_producto" (selectionChange)="aplicarFiltro($event,'producto')">
+            <mat-option [value]="null">
+              Sin Filtro
+            </mat-option>
+            <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+              {{producto.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="appDatepicker" [formControl]="filtrarForm.controls['selectedFecha1']" placeholder="Fecha Desde"
+            [max]="maxDate" (dateChange)="aplicarFiltro($event, 'fecha_desde')" readonly />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+          <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="appDatepicker2" [formControl]="filtrarForm.controls['selectedFecha2']" placeholder="Fecha Hasta"
+            [min]="minDate" (dateChange)="aplicarFiltro($event, 'fecha_hasta')" readonly />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker2"></mat-datepicker-toggle>
+          <mat-datepicker #appDatepicker2></mat-datepicker>
+          <mat-datepicker #appDatepicker2 disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="full-width">
+          <mat-select id="filterDestino" placeholder="Destino" name="filterDestino" class="mb-1"
+            [(value)]="filtro.id_destino" (selectionChange)="aplicarFiltro($event,'destino')">
+            <mat-option [value]="null">
+              Sin Filtro
+            </mat-option>
+            <mat-option *ngFor="let destino of destinos" [value]="destino.id" ngDefaultControl>
+              {{destino.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>   -->
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,669 @@
+<div class="margin-333">
+  <mat-card
+    style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA; height: 84vh;"
+    [style.overflow]="'auto'"
+    [style.width.px]=""
+  >
+    <mat-card
+      style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #174793; padding: 0px; margin-top: 5px;"
+      [style.overflow]="'auto'"
+      [style.width.px]="'100%'"
+      [style.height.px]="'5'"
+    >
+      <mat-card-content> </mat-card-content>
+    </mat-card>
+    <div fxLayout="row wrap" style="height: 70px;">
+      <div fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxLayout="row">
+            <div fxFlex="50">
+              <mat-card class="choferes" style="margin: 0 !important;">
+                <mat-card-title class="" style="font-size: 1.2rem !important;">
+                  <div fxFlex="50">
+                    <div class="card-title-text">
+                      <img
+                        src="assets/images/muvin/menu-choferes-de-muvin.png"
+                        alt=""
+                        style="height: 32px;"
+                      />Destinos
+                    </div>
+                  </div>
+                  <div fxFlex="50">
+                    <div class="text-right">
+                      <span>{{ resumenDestinatario.length }} </span>
+                    </div>
+                  </div>
+                </mat-card-title>
+              </mat-card>
+            </div>
+            <div fxFlex="50">
+              <mat-card class="camiones" style="margin: 0 !important;">
+                <mat-card-title class="" style="font-size: 1.2rem !important;">
+                  <div fxFlex="50">
+                    <div class="card-title-text">
+                      <img
+                        src="assets/images/muvin/transito-panel.png"
+                        alt=""
+                        style="height: 32px;"
+                      />Viajes
+                    </div>
+                  </div>
+                  <div fxFlex="50">
+                    <div class="text-right" style="margin-right: 30px;">
+                      <span>{{ todosChoferes.length }}</span>
+                    </div>
+                  </div>
+                </mat-card-title>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-header-views></app-header-views> -->
+    <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div> -->
+    <mat-sidenav-container>
+      <!-- Left sidebar -->
+      <mat-sidenav
+        EgretSideNavToggle
+        class="shop-sidebar default-light-bg"
+        [opened]="isSidenavOpen"
+        mode="side"
+        style="height: 70vh;  visibility: visible;"
+      >
+        <div
+          fxLayout="row wrap"
+          style="margin-top: 10px; margin-left: 10px; margin-bottom: 8px;"
+        ></div>
+        <div fxLayout="row wrap" *ngIf="!showDetalles">
+          <div fxFlex="100" style="width: 100%; margin-left: 10px;">
+            <button
+              style="border-radius: 100px !important;"
+              mat-raised-button
+              color="verflotacomp"
+              (click)="agregarMarcadoresTodosChoferes()"
+            >
+              VER FLOTA COMPLETA
+            </button>
+            <span fxFlex></span>
+            <button
+              mat-icon-button
+              matTooltip="Refrescar"
+              color="mr-1"
+              class="mr-1"
+              (click)="gotoRefresh()"
+            >
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <br />
+          <div fxLayout="row wrap" style="width: 100%;">
+            <div
+              fxFlex="100"
+              style="margin-left: 10px; width: 100%; margin-top: 20px;"
+              *ngIf="sinpedido"
+            >
+              <mat-card
+                class="default"
+                style="background: #FCFDFF;border-radius: 6px;"
+              >
+                <mat-card-title
+                  style="padding: 19px; background-color: blanchedalmond;"
+                >
+                  ¡Alerta!
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding: 0.4rem;">
+                  No hay resumen de viajes para mostrar.
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div
+              fxFlex="100"
+              *ngFor="let row of resumenDestinatario"
+              style="margin-left: 10px; width: 100%;"
+            >
+              <mat-card
+                class="default"
+                style="background: #FCFDFF;border-radius: 6px;"
+              >
+                <mat-card-title>
+                  <div fxLayout="row wrap" (click)="showMapaDestino()">
+                    <div fxFlex="100" style=" width: 100%">
+                      <div fxFlex="7" fxLayout="column">
+                        <div
+                          fxFlex
+                          style="background:#2BC4F3; width: 28px !important;  height: 64px !important;"
+                        >
+                          <mat-icon style="color: #FCFDFF;" matTooltip="Pedido"
+                            >album</mat-icon
+                          >
+                        </div>
+                      </div>
+                      <div
+                        fxFlex="33"
+                        fxLayout="column"
+                        style="margin-top: 13px;"
+                      >
+                        &nbsp;&nbsp;
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content style="padding: 0.4rem;">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100" style=" width: 100%">
+                      <div
+                        fxFlex="15"
+                        fxLayout="column"
+                        (click)="showMapaPedido(row)"
+                      >
+                        <span>Destino:</span>
+                        <span>Producto:</span>
+                      </div>
+                      <div
+                        fxFlex="45"
+                        fxLayout="column"
+                        (click)="showMapaPedido()"
+                      >
+                        <span style="font-weight: 600; color:#848587;">{{
+                          row.nombre_destino
+                        }}</span>
+                        <span style="font-weight: 600; color:#848587;">{{
+                          row.nombre_producto
+                        }}</span>
+                      </div>
+                      <div
+                        fxFlex="40"
+                        fxLayout="row"
+                        layout-align="center center"
+                      >
+                        <div fxFlex="100">
+                          <div fxFlex="20">
+                            <button
+                              matTooltip="Cantidad de viajes"
+                              mat-mini-fab
+                              color="xasig"
+                              style="box-shadow: none;"
+                              class="mr-2"
+                            >
+                              {{ row.cantidad }}
+                            </button>
+                          </div>
+                          <div fxFlex="10"></div>
+                          <div fxFlex="25">
+                            <button
+                              matTooltip="Ver detalle de los viajes al destino"
+                              mat-button
+                              class="mr-1"
+                              (click)="showDetalle(row)"
+                              style="padding: 0 0px"
+                            >
+                              <small
+                                style="font-size: 17px; font-weight: 600; color:#848587;"
+                                >VER DETALLE</small
+                              >
+                            </button>
+                          </div>
+                          <div fxFlex="35"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <!-- DETALLES DEL PEDIDO -->
+        <div fxLayout="row wrap" *ngIf="showDetalles">
+          <h4 style="color: #87B1C6; margin-left: 22px;">
+            Detalles del destino
+          </h4>
+          <span fxFlex></span>
+          <button
+            mat-icon-button
+            matTooltip="Refrescar"
+            color="mr-1"
+            class="mr-1"
+            (click)="refreshDetalle()"
+          >
+            <mat-icon>refresh</mat-icon>
+          </button>
+          <span fxFlex></span>
+          <div
+            class="pb-0"
+            style=" align-items:center;justify-content: flex-end;"
+          >
+            <button mat-button class="mr-0" (click)="hideDetalle()">
+              <h5><mat-icon>reply</mat-icon>Volver</h5>
+            </button>
+          </div>
+          <br />
+          <div fxFlex="100" style="margin-left: 10px;">
+            <mat-card
+              class="default"
+              style="background: #FCFDFF;border-radius: 6px;"
+            >
+              <mat-card-title>
+                <div fxLayout="row wrap" (click)="showMapaPedido()">
+                  <div fxFlex="100" style=" width: 100%">
+                    <div fxFlex="7" fxLayout="column">
+                      <div
+                        fxFlex
+                        style="background:#2BC4F3; width: 28px !important;  height: 64px !important;"
+                      >
+                        <mat-icon style="color: #FCFDFF;" matTooltip="Pedido"
+                          >album</mat-icon
+                        >
+                      </div>
+                    </div>
+                    <div
+                      fxFlex="33"
+                      fxLayout="column"
+                      style="margin-top: 13px;"
+                    >
+                      &nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
+              </mat-card-title>
+              <mat-divider></mat-divider>
+              <mat-card-content style="padding: 0.4rem;">
+                <div fxLayout="row wrap">
+                  <div fxFlex="100" style=" width: 100%">
+                    <div
+                      fxFlex="15"
+                      fxLayout="column"
+                      (click)="showMapaPedido()"
+                    >
+                      <span>Destino:</span>
+                      <span>Producto:</span>
+                    </div>
+                    <div
+                      fxFlex="45"
+                      fxLayout="column"
+                      (click)="showMapaPedido()"
+                    >
+                      <span style="font-weight: 600; color:#848587;">{{
+                        resumen.nombre_destino
+                      }}</span>
+                      <span style="font-weight: 600; color:#848587;">{{
+                        resumen.nombre_producto
+                      }}</span>
+                    </div>
+                    <div
+                      fxFlex="40"
+                      fxLayout="row"
+                      layout-align="center center"
+                    >
+                      <div fxFlex="100">
+                        <div fxFlex="20">
+                          <button
+                            matTooltip="Cantidad de viajes"
+                            mat-mini-fab
+                            color="xasig"
+                            style="box-shadow: none;"
+                            class="mr-2"
+                          >
+                            {{ resumen.cantidad }}
+                          </button>
+                        </div>
+                        <div fxFlex="10"></div>
+                        <div fxFlex="25"></div>
+                        <div fxFlex="35"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div fxLayout="row wrap" style="width: 22%">
+            <div fxFlex="95">
+              <h5>
+                <mat-icon
+                  style="color: #87B1C6; margin-top: 11px; margin-left: 10px;"
+                  >person</mat-icon
+                >
+                <div style="color: #87B1C6; margin-top: 13px; float: right;">
+                  Choferes
+                </div>
+              </h5>
+            </div>
+          </div>
+
+          <div
+            fxLayout="row wrap"
+            style="width: 95%"
+            *ngFor="let viaje of viajesDestinatario"
+          >
+            <mat-divider style="width: 95%;"></mat-divider>
+            <div fxFlex="100" style="width: 100%">
+              <div fxFlex="6" fxLayout="column" style="padding: 8px;">
+                <div
+                  *ngIf="
+                    viaje.calada_rechazada.length > 0 || viaje.id_estado == 7
+                  "
+                  style="background:#D32D26; width: 4px !important; height: 24px !important; margin-left: -7px;"
+                  matTooltip="Calada Rechazada o Viaje Rechazado"
+                ></div>
+                <div
+                  *ngIf="viaje.bloqueado == 1"
+                  style="background:#1E1E21; width: 4px !important; height: 24px !important; margin-left: -7px;"
+                  matTooltip="Viaje Cancelado"
+                ></div>
+                <div
+                  *ngIf="viaje.id_estado == 9"
+                  style="background:#2FB34A; width: 4px !important; height: 24px !important; margin-left: -7px;"
+                  matTooltip="Viaje Terminado"
+                ></div>
+                <div
+                  *ngIf="viaje.bloqueado == 0 "
+                  style="background:rgb(210, 212, 41); width: 4px !important; height: 24px !important; margin-left: -7px;"
+                  matTooltip="Viaje con Desvío"
+                ></div>
+                <div
+                  *ngIf="
+                    viaje.bloqueado == 0 &&
+                    viaje.id_estado != 9 &&
+                    viaje.id_estado != 7 
+                  "
+                  style="background:#FCFDFF; width: 4px !important; height: 24px !important; margin-left: -7px;"
+                  matTooltip="Viaje Normal"
+                ></div>
+              </div>
+              <div fxFlex="25" fxLayout="column">
+                <small style="margin-top: 18px; color:#848587;"
+                  >Centro:{{ viaje.nombreCentro }}</small
+                >
+              </div>
+              <div fxFlex="25" fxLayout="column">
+                <small style="margin-top: 18px; color:#848587;">{{
+                  viaje.chofer.razon_social
+                }}</small>
+              </div>
+              <div fxFlex="15" fxLayout="column">
+                <small style="margin-top: 16px; color:#848587;">
+                  <mat-icon>directions_bus</mat-icon
+                  >{{ viaje.chofer.camion_patente }}
+                </small>
+              </div>
+              <div fxFlex="25" fxLayout="column">
+                <small style="margin-top: 16px; color:#848587;">
+                  <mat-icon [ngStyle]="{ color: viaje.color_estado }"
+                    >brightness_1</mat-icon
+                  >
+                  {{ viaje.nombreEstado }}
+                </small>
+              </div>
+
+              <!--  <div fxFlex="10" fxLayout="row">
+                <button mat-icon-button (click)="openPopUpInfoPersona(viaje)" matTooltip="Información">
+                  <mat-icon style="color:#00A6E8 !important;margin-top: 16px;">info_outline</mat-icon>
+                </button>
+              
+              </div> -->
+              <div fxFlex="10" fxLayout="row wrap"></div>
+            </div>
+          </div>
+        </div>
+      </mat-sidenav>
+      <!-- Right side  div del  MAPA -->
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div class="full-width">
+          <div fxLayout="row wrap">
+            <div fxFlex="100%">
+              <mat-card
+                style="height: 645px; width:98%; padding: 0px; background: rgb(43, 196, 243);"
+              >
+                <agm-map
+                  [ngStyle]="{ height: '645px' }"
+                  [zoom]="zoom"
+                  [latitude]="mapCenter.lat"
+                  [longitude]="mapCenter.lng"
+                  [mapTypeId]="'roadmap'"
+                  [mapTypeControl]="true"
+                >
+                  <div *ngIf="showAllChoferes">
+                    <div *ngFor="let viaje of todosChoferes">
+                      <agm-marker
+                        [latitude]="viaje.chofer.latitud"
+                        [longitude]="viaje.chofer.longitud"
+                        [iconUrl]="iconUrlGreen"
+                        (markerClick)="clickedMarker(infoWindow)"
+                      >
+                        <agm-info-window
+                          [disableAutoPan]="true"
+                          [isOpen]="false"
+                          #infoWindow
+                        >
+                          <p>
+                            <strong>Patente:</strong>
+                            {{ viaje.chofer.camion_patente }}
+                          </p>
+
+                          <p>
+                            <strong>Chofer:</strong>
+                            {{ viaje.chofer.razon_social }}
+                          </p>
+                          <p>
+                            <strong>Celular:</strong>
+                            {{ viaje.chofer.telefono }}
+                          </p>
+                        </agm-info-window>
+                      </agm-marker>
+                    </div>
+                  </div>
+                  <div *ngIf="showAllChoferes">
+                    <div *ngFor="let destino of resumenDestinatario">
+                      <agm-marker
+                        [longitude]="destino.longitud"
+                        [latitude]="destino.latitud"
+                        [iconUrl]="iconUrlRed"
+                        (markerClick)="clickedMarker(infoWindow)"
+                      >
+                        <agm-info-window
+                          [disableAutoPan]="true"
+                          [isOpen]="false"
+                          #infoWindow
+                        >
+                          <p>
+                            <strong>Destino</strong>
+                          </p>
+                          <p>
+                            {{ destino.nombre_destino }}
+                          </p>
+                        </agm-info-window>
+                      </agm-marker>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!showAllChoferes">
+                    <agm-marker *ngIf="destinoDetalle!=null"
+                      [latitude]="destinoDetalle.latitud"
+                      [longitude]="destinoDetalle.longitud"
+                      [iconUrl]="iconUrlRed"
+                      (markerClick)="clickedMarker(infoWindow)"
+                    >
+                      <agm-info-window
+                        [disableAutoPan]="true"
+                        [isOpen]="false"
+                        #infoWindow
+                      >
+                        <p>
+                          <strong>Destino del viaje</strong>
+                        </p>
+                        <p>
+                          {{ destinoDetalle.descripcion }}
+                        </p>
+                        <p>
+                          <strong>Domicilio</strong>
+                        </p>
+                        <p>
+                          {{ destinoDetalle.domicilio }}
+                        </p>
+                        <p
+                          *ngIf="
+                            destinoDetalle.direccion != null ||
+                            destinoDetalle.direccion != undefined
+                          "
+                        >
+                          <strong>Dirección</strong>
+                        </p>
+                        <p
+                          *ngIf="
+                            destinoDetalle.direccion != null ||
+                            destinoDetalle.direccion != undefined
+                          "
+                        >
+                          {{ destinoDetalle.direccion }}
+                        </p>
+                        <p>
+                          <strong>Teléfono</strong>
+                        </p>
+                        <p>
+                          {{ destinoDetalle.telefono }}
+                        </p>
+                        <!--p>
+                              <strong>Chofer:</strong> {{ viaje.nombre_chofer }}
+                            </p> -->
+                      </agm-info-window>
+                    </agm-marker>
+                    <div *ngFor="let viaje of viajesDestinatario">                     
+                      <agm-marker
+                      [latitude]="viaje.latitudOrigen"
+                      [longitude]="viaje.longitudOrigen"
+                      [iconUrl]="iconUrlcargaYellow"
+                      (markerClick)="clickedMarker(infoWindow)"
+                    >                   
+                      <agm-info-window
+                        [disableAutoPan]="true"
+                        [isOpen]="false"
+                        #infoWindow
+                      >
+                        <p>
+                          <strong>Lugar de carga del viaje</strong>
+                        </p>
+                        <p>
+                          {{ viaje.nombreOrigen }}
+                        </p>
+                        
+                      </agm-info-window>
+                    </agm-marker>
+                    <agm-marker
+                        [latitude]="viaje.chofer.latitud"
+                        [longitude]="viaje.chofer.longitud"
+                        [iconUrl]="iconUrlGreen"
+                        (markerClick)="clickedMarker(infoWindow)"
+                      >
+                        <agm-info-window
+                          [disableAutoPan]="true"
+                          [isOpen]="false"
+                          #infoWindow
+                        >
+                          <p>
+                            <strong>Patente:</strong>
+                            {{ viaje.chofer.camion_patente }}
+                          </p>
+
+                          <p>
+                            <strong>Chofer:</strong>
+                            {{ viaje.chofer.razon_social }}
+                          </p>
+                          <p>
+                            <strong>Celular:</strong>
+                            {{ viaje.chofer.telefono }}
+                          </p>
+                        </agm-info-window>
+                      </agm-marker>
+                    </div>
+                  </div>
+                </agm-map>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-container>
+  </mat-card>
+</div>
+<div id="app-customizer">
+  <div
+    class="handle"
+    *ngIf="!isCustomizerOpen"
+    style="color: #124a99; margin-right:28px;"
+  >
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button
+      mat-fab
+      class="mat-rojo-filtrar"
+      (click)="isCustomizerOpen = true"
+      matTooltip="Filtrar Pedidos"
+    >
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Panel Destinatario</span>
+        <span fxFlex></span>
+        <button
+          class="card-control"
+          mat-icon-button
+          (click)="isCustomizerOpen = false"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button (click)="limpiarFiltros()">
+        <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select
+            placeholder="Destino"
+            [value]="filtro.destino"
+            name="destino"
+            class="mb-1"
+            (selectionChange)="updateFilter($event, 'destino')"
+          >
+            <mat-option
+              *ngFor="let destino of destinos"
+              [value]="destino.id"
+              ngDefaultControl
+            >
+              {{ destino.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select
+            placeholder="Producto"
+            [value]="filtro.producto"
+            name="producto"
+            class="mb-1"
+            (selectionChange)="updateFilter($event, 'producto')"
+          >
+            <mat-option
+              *ngFor="let producto of productos"
+              [value]="producto.id"
+              ngDefaultControl
+            >
+              {{ producto.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- <app-customizer></app-customizer> -->

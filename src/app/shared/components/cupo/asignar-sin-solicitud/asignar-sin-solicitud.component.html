@@ -1,0 +1,205 @@
+<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="
+        background: #004a90;
+        color: white;
+        font-weight: 400;
+        font-size: larger;
+      ">
+      ASIGNAR SIN SOLICITUD
+    </div>
+  </mat-card-title>
+  <mat-card-content style="overflow-y: auto">
+    <form [formGroup]="asignarSinSolicitudForm" (ngSubmit)="submit()">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <mat-radio-group aria-label="Select an option"
+            [formControl]="asignarSinSolicitudForm.controls['select_corredor']">
+            <mat-radio-button value="0" (change)="changeOptionCorredor($event)" [disabled]="disabledCorredor">Corredor
+            </mat-radio-button>
+            <mat-radio-button value="1" (change)="changeOptionCorredor($event)">{{labelRbselect_corredor}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input matInput name="nombredemandado" #nombredemandado
+                [formControl]="asignarSinSolicitudForm.controls['nombredemandado']" placeholder="Razón social"
+                [readonly]="readonlyDemandadoCuit" [matAutocomplete]="auto" uppercase>
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngIf="isLoading" class="is-loading">
+                  <mat-spinner diameter="50"></mat-spinner>
+                </mat-option>
+                <ng-container *ngIf="!isLoading">
+                  <mat-option (onSelectionChange)="llenarCuit(option,'demandadoCuit')"
+                    *ngFor="let option of filteredOptionsCorredores" [value]="option">
+                    {{option.razon_social | uppercase}}
+                  </mat-option>
+                </ng-container>
+              </mat-autocomplete>
+              <small *ngIf="noEsCorredorDemandando && asignarSinSolicitudForm.controls['nombredemandado'].dirty && asignarSinSolicitudForm.controls['nombredemandado'].touched" class="form-error-msg">
+                La razón Social no es un Corredor.
+              </small>
+              <small *ngIf="esCorredorDemandando && asignarSinSolicitudForm.controls['nombredemandado'].dirty && asignarSinSolicitudForm.controls['nombredemandado'].touched && asignarSinSolicitudForm.controls['nombredemandado'].value.length==0 " class="form-error-msg">
+                Debe indicar la razón Social del Corredor.
+              </small>
+
+            </mat-form-field>
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input type="text" placeholder="CUIT" aria-label="Number" matInput [formControl]="
+                  asignarSinSolicitudForm.controls['demandadoCuit']
+                " [readonly]="readonlyDemandadoCuit" #demandadoCuit maxlength="11" minlength="11"
+                (change)="comprobarDemandadoCuit($event.target.value)"
+                (keyup)="comprobarDemandadoCuit($event.target.value)" />
+              <mat-hint align="end">{{ demandadoCuit.value.length }} / 11</mat-hint>
+              <small *ngIf="
+                  asignarSinSolicitudForm.controls['demandadoCuit'].hasError(
+                    'pattern'
+                  ) && asignarSinSolicitudForm.controls['demandadoCuit'].dirty && asignarSinSolicitudForm.controls['demandadoCuit'].touched
+                " class="form-error-msg">
+                Solo debe introducir números
+              </small>
+              <small *ngIf="
+                  !mismo_cuit &&
+                  incorrect_demandado_cuit &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].dirty &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].touched
+                " class="form-error-msg">
+                El CUIT no corresponde a un Dador de Cupos.
+              </small>
+              <small *ngIf="
+                  !mismo_cuit &&
+                  incorrect_corredor_cuit &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].dirty &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].touched
+                " class="form-error-msg">
+                El CUIT no es un Corredor.
+              </small>
+              <small *ngIf="
+                  mismo_cuit &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].dirty &&
+                  asignarSinSolicitudForm.controls['demandadoCuit'].touched
+                " class="form-error-msg">
+                No puedes realizar una solicitud de cupos a tu propio CUIT.
+              </small>
+              <small *ngIf="noEsCorredorDemandando &&
+              asignarSinSolicitudForm.controls['demandadoCuit'].dirty &&
+              asignarSinSolicitudForm.controls['demandadoCuit'].touched" class="form-error-msg">
+                El CUIT no es un Corredor.
+                </small>
+              <small class="form-error-msg"
+                *ngIf="esNecesarioCorredor &&
+                asignarSinSolicitudForm.controls['demandadoCuit'].dirty &&
+                asignarSinSolicitudForm.controls['demandadoCuit'].touched && asignarSinSolicitudForm.controls['demandadoCuit'].value.length==0">
+                Debe indicar el CUIT de un Corredor.
+              </small>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <mat-radio-group aria-label="Select an option"
+            [formControl]="asignarSinSolicitudForm.controls['select_contraparte']">
+            <mat-radio-button value="0" (change)="changeOptionContraparte($event)">Contraparte</mat-radio-button>
+            <mat-radio-button value="1" (change)="changeOptionContraparte($event)" [disabled]="disabledContraparte">Sin
+              contraparte</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input matInput name="nombrecontraparte" #nombrecontraparte
+                [formControl]="asignarSinSolicitudForm.controls['nombrecontraparte']"
+                [readonly]="readonlyContraparteCuit" placeholder="Razón social"[matAutocomplete]="otro">
+                <mat-autocomplete autoActiveFirstOption #otro="matAutocomplete" [displayWith]="displayFn2">
+                  <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                  <ng-container *ngIf="!isLoading">
+                    <mat-option (onSelectionChange)="llenarCuit(option_c,'contraparte')" *ngFor="let option_c of filteredOptionsContrapartes " [value]="option_c">
+                      {{option_c.razon_social | uppercase}}
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+
+              <small class="form-error-msg"
+              *ngIf="esNecesarioContraparte &&
+              asignarSinSolicitudForm.controls['nombrecontraparte'].dirty &&
+              asignarSinSolicitudForm.controls['nombrecontraparte'].touched && asignarSinSolicitudForm.controls['contraparte'].value.length==0">Debe
+              indicar una contraparte</small>
+            </mat-form-field>
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input type="text" placeholder="CUIT" aria-label="Number" matInput
+                [formControl]="asignarSinSolicitudForm.controls['contraparte']" [readonly]="readonlyContraparteCuit"
+                #contraparte maxlength="11" minlength="11" />
+
+              <mat-hint align="end">{{ contraparte.value.length }} / 11</mat-hint>
+              <small *ngIf="
+                  asignarSinSolicitudForm.controls['contraparte'].hasError(
+                    'pattern'
+                  )
+                " class="form-error-msg">
+                Solo debe introducir números
+              </small>
+              <small *ngIf="
+                  asignarSinSolicitudForm.controls['contraparte'].hasError(
+                    'minlength'
+                  ) &&
+                  asignarSinSolicitudForm.controls['contraparte'].dirty &&
+                  asignarSinSolicitudForm.controls['contraparte'].touched
+                " class="form-error-msg">
+                Debe introducir 11 números
+              </small>
+              <small class="form-error-msg"
+                *ngIf="esNecesarioContraparte &&
+                asignarSinSolicitudForm.controls['contraparte'].dirty &&
+                asignarSinSolicitudForm.controls['contraparte'].touched && asignarSinSolicitudForm.controls['contraparte'].value.length==0">Debe
+                indicar una contraparte</small>
+              <small class="form-error-msg" *ngIf="incorrect_contraparte_cuit">Debe indicar una contraparte
+                válida</small>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input matInput maxlength="40" name="contrato"
+                [formControl]="asignarSinSolicitudForm.controls['contrato']" placeholder="Contrato/Fijación" #contrato />
+            </mat-form-field>
+            <small *ngIf="
+                asignarSinSolicitudForm.controls['contrato'].hasError('maxlength') &&
+                asignarSinSolicitudForm.controls['contrato'].touched" class="form-error-msg">
+              Ha excedido la longitud max de caracterers</small>
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input matInput maxlength="6" name="caratula"
+                [formControl]="asignarSinSolicitudForm.controls['caratula']" placeholder="Carátula" #caratula />
+            </mat-form-field>
+            <small *ngIf="
+                asignarSinSolicitudForm.controls['caratula'].hasError('maxlength') &&
+                asignarSinSolicitudForm.controls['caratula'].touched" class="form-error-msg">
+              Ha excedido la longitud max de caracterers</small>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="mt-1">
+          <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+            Cancelar
+          </button>
+          <span fxFlex></span>
+          <button mat-raised-button color="primary" [disabled]="asignarSinSolicitudForm.invalid || !validForm">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

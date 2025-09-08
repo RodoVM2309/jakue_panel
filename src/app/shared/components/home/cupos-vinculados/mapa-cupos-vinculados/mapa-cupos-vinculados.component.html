@@ -1,0 +1,120 @@
+<div style="padding: 0px;margin-left:0px">
+  <div fxLayout="row wrap" class="card-title-text" style="background:#00587C;color: #ffffff">
+    <div fxFlex="100">
+      <h2>
+        <mat-icon>map</mat-icon>&nbsp;&nbsp; MAPA
+      </h2>
+      <span fxFlex></span>
+      <div>
+        <button mat-button class="topbar-button-right white-icon" (click)="closeForm()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="card-title-text" style="background:rgb(195, 206, 207);color: #000000">
+    <div fxFlex="100">
+      <div fxFlex="20" fxLayout="column" style="background:#EEEEEC; padding: 5px;">
+        <h5>Datos del Cupo</h5>
+          <strong> N Cupo:</strong>
+          <div class="text-muted; padding:5px;margin-left:5px;"> {{cupo.alfanumericoCupo}}</div>
+          <strong> Fecha:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.fechaCupo}}</div>
+          <strong>Producto: </strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreProducto}}</div>
+          <strong> Chofer:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreChofer}}</div>
+          <strong>Destino: </strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreDestino}}</div>
+          <strong> Destinatario:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.destinatarioCuit}}</div>
+          <strong> Carta Porte:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.cartaPorte}}</div>
+          <strong> Corredor:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreCorredor}}</div>
+          <strong>Entregador: </strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreEntregador}}</div>
+          <!-- <strong> Intermediario:</strong>
+          <div class="text-muted">{{cupo.nombreIntermediarioFlete
+}}</div> style="color:rgb(11, 168, 216)"-->
+          <strong >Estado: </strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;">{{cupo.nombreEstadoCupo}}</div>
+          <strong> Km:</strong>
+          <div class="text-muted;  padding:5px;margin-left:5px;"> {{cupo.distancia}}</div>
+      </div>
+      <div fxFlex="80">
+        <div fxLayout="row" fxLayoutWrap="wrap" style="height: 80vh;">
+          <div class="full-width">
+            <div fxLayout="row wrap">
+              <div fxFlex="100%">
+                <agm-map [ngStyle]="{ height: '70vh' }" [zoom]="8" [latitude]="mapCenter.lat"
+                  [longitude]="mapCenter.lng" [mapTypeId]="'roadmap'" [mapTypeControl]="true">
+                  <agm-marker *ngFor="let viaje of viajesPedido" [latitude]="viaje.latitud" [longitude]="viaje.longitud"
+                    [iconUrl]="iconUrlRed" (markerClick)="clickedMarker(infoWindow)">
+                    <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                      <p>
+                        <strong>Patente:</strong> {{ viaje.patente_acoplado }}
+                      </p>
+                      <p><strong>Chofer:</strong> {{ viaje.nombre_chofer }}</p>
+                      <p>
+                        <strong>Transportista:</strong>
+                        {{ viaje.nombre_transportista }}
+                      </p>
+                      <p><strong>Celular:</strong> {{ viaje.telefono }}</p>
+                      <p>
+                        <strong>Última actualización:</strong>
+                        {{ viaje.update_at }}
+                      </p>
+                    </agm-info-window>
+                  </agm-marker>
+                  <!-- <agm-marker [latitude]="pedido.origen.latitud" [longitude]="pedido.origen.longitud"
+                              [iconUrl]="iconUrlcarga" (markerClick)="clickedMarker(infoWindow)">
+                              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                                <p>
+                                  <strong>Lugar de Carga</strong></p>
+                              </agm-info-window>
+                            </agm-marker> -->
+                </agm-map>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- <div fxLayout="row wrap" class="card-title-text" style="background:rgb(195, 206, 207);color: #000000">
+    <div fxFlex="100">
+
+      <div fxFlex="10" fxLayout="column">N Cupo</div>
+      <div fxFlex="3" fxLayout="column">Fecha</div>
+      <div fxFlex="10" fxLayout="column">Producto</div>
+      <div fxFlex="10" fxLayout="column">Chofer</div>
+      <div fxFlex="10" fxLayout="column">Destino</div>
+      <div fxFlex="10" fxLayout="column">Destinatario</div>
+      <div fxFlex="4" fxLayout="column">Carta Porte</div>
+      <div fxFlex="10" fxLayout="column">Corredor</div>
+      <div fxFlex="10" fxLayout="column">Entregador</div>
+      <div fxFlex="10" fxLayout="column">Intermediario</div>
+      <div fxFlex="10" fxLayout="column" style="color:rgb(11, 168, 216)">Estado</div>
+      <div fxFlex="3" fxLayout="column" style="color:rgb(11, 168, 216)">Km</div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="card-title-text" style="background:#ffffff;color: #000000">
+    <div fxFlex="100">
+      <div fxFlex="10" fxLayout="column">{{cupo.alfanumericoCupo}}</div>
+      <div fxFlex="3" fxLayout="column">{{cupo.fechaCupo}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.productoDescripcion}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreChofer}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreDestino}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreDestinatario}}</div>
+      <div fxFlex="4" fxLayout="column">{{cupo.cartaPorte}} </div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreCorredor}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreEntregador}}</div>
+      <div fxFlex="10" fxLayout="column">{{cupo.nombreIntermediarioFlete
+}}</div>
+      <div fxFlex="10" fxLayout="column" style="color:rgb(11, 168, 216)">{{cupo.estadoDescripcion}}</div>
+      <div fxFlex="3" fxLayout="column" style="color:rgb(11, 168, 216)">{{cupo.distancia}}</div>
+    </div>
+  </div>
+</div> -->

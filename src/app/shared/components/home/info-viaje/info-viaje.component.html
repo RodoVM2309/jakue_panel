@@ -1,0 +1,50 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre_destinatario" [formControl]="itemForm.controls['nombre_destinatario']" placeholder="Destinatario"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre_corredor" [formControl]="itemForm.controls['nombre_corredor']" placeholder="Corredor"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre_entregador" [formControl]="itemForm.controls['nombre_entregador']" placeholder="Entregador"
+          readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre_intermediario" [formControl]="itemForm.controls['nombre_intermediario']"
+          placeholder="Intermediario" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre_transportista" [formControl]="itemForm.controls['nombre_transportista']"
+          placeholder="Transportista" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="Distancia" [formControl]="itemForm.controls['distance']"
+          placeholder="Distancia recorrida" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="motivo_rechazo" [formControl]="itemForm.controls['motivo_rechazo']"
+          placeholder="Motivo de rechazo" readonly>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+    </div>
+  </div>
+</form>

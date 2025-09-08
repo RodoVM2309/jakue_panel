@@ -1,0 +1,393 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Configuración del Centro</h4>
+</div>
+<mat-sidenav-container>
+  <!-- Inbox left side bar -->
+  <mat-sidenav #sidenav [opened]="isSidenavOpen" mode="side" class="inbox-sidenav">
+    <!-- Compose button -->
+    <button mat-raised-button class="mat-warn full-width" (click)="closeForm()">Cancelar</button>
+    <!-- left side buttons -->
+    <mat-nav-list class="inbox-nav-list" role="list">
+      <mat-list-item class="primary-imenu-item" role="listitem" routerLinkActive="open" (click)="activeInteligencia()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">inbox</mat-icon>
+          <span>Inteligencia Logística</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item class="primary-imenu-item" role="listitem" routerLinkActive="open" (click)="activeNotificacion()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">notifications</mat-icon>
+          <span>Notificaciones</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item class="primary-imenu-item" role="listitem" routerLinkActive="open" (click)="activeOtrasConfig()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">settings</mat-icon>
+          <span>Otras configuraciones</span>
+        </a>
+      </mat-list-item>
+
+      <mat-list-item class="primary-imenu-item" role="listitem" routerLinkActive="open" (click)="activeStop()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">stop</mat-icon>
+          <span>Stop</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item class="" role="listitem" routerLinkActive="open" (click)="activeProductos()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">chrome_reader_mode</mat-icon>
+          <span>Productos del centro</span>
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="mostrarTurneado" class="primary-imenu-item" role="listitem" routerLinkActive="open"
+        (click)="activeTurneado()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">list</mat-icon>
+          <span>Listas de Turneadas</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item class="" role="listitem" *ngIf="esDador || esClienteFinal" routerLinkActive="open"
+        (click)="activeDadorCupo()">
+        <a fxLayout="row">
+          <mat-icon class="text-muted">tab</mat-icon>
+          <span>Dadores de Cupo</span>
+        </a>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="messages-wrap">
+    <mat-toolbar color="primary" class="inbox-toolbar">
+      <!-- Left sidebar toggle button -->
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow [fxShow.gt-sm]="isMobile">
+        <mat-icon>short_text</mat-icon>
+      </button>
+      <!-- multiple email select and control -->
+      <mat-icon *ngIf="isInteligencia" color="blanco">inbox</mat-icon>
+      <small *ngIf="isInteligencia">&nbsp; Inteligencia Logistica</small>
+      <mat-icon *ngIf="isNotificaciones" color="blanco">notifications</mat-icon>
+      <small *ngIf="isNotificaciones">&nbsp; Notificaciones</small>
+      <mat-icon *ngIf="isOtrasConfig" color="blanco">settings</mat-icon>
+      <small *ngIf="isOtrasConfig"> &nbsp;Otras configuraciones</small>
+      <mat-icon *ngIf="isStop" color="blanco">stop</mat-icon>
+      <small *ngIf="isStop">&nbsp; Stop</small>
+      <!--  <small  *ngIf="isTurneado">Turneado</small> -->
+      <mat-icon *ngIf="isProducto" color="blanco">chrome_reader_mode</mat-icon>
+      <small *ngIf="isProducto">&nbsp; Productos del centro</small>
+      <mat-icon *ngIf="isDadorCupo" color="blanco">tab</mat-icon>
+      <small *ngIf="isDadorCupo">&nbsp; Dadores de Cupo</small>
+    </mat-toolbar>
+
+    <mat-accordion>
+      <mat-card-content class="mt-1" *ngIf="isInteligencia">
+        <form [formGroup]="itemForm" (ngSubmit)="submit()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100" class="pr-1" style="height: 10px;"></div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput type="number" placeholder="Horas de Reporte GPS" formControlName="horas">
+                <mat-error>
+                  <span *ngIf="!itemForm.get('horas').valid && itemForm.get('horas').touched">Por favor error en las
+                    horas.</span>
+                  <span *ngIf="!itemForm.get('horas').hasError('required') && itemForm.get('horas').touched">Por favor
+                    entre las horas. Es requerido las horas</span>
+                </mat-error>
+              </mat-form-field>
+              <!-- <mat-form-field class="full-width">
+                <input matInput type="number" name="horas" [formControl]="horas" placeholder="Horas" >
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['horas'].hasError('required') && itemForm.controls['horas'].touched"
+                class="form-error-msg"> Es requerido las horas
+              </small>
+              <small *ngIf="itemForm.controls['horas'].hasError('invalidNumber') && itemForm.controls['horas'].touched"
+              class="form-error-msg">
+                 Las horas no son válida, revíselo.
+              </small> -->
+            </div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput type="number" formControlName="km" class="form-control" placeholder="Radio de km"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['km'].hasError('required') && itemForm.controls['km'].touched"
+                class="form-error-msg">Por favor entre los km. Es requerido el valor
+              </small>
+              <small *ngIf="itemForm.controls['km'].hasError('max') && itemForm.controls['km'].touched"
+                class="form-error-msg">
+                Se admiten hasta 200 km.
+              </small>
+            </div>
+            <div fxFlex="50" class="pr-1" hidden>
+              <mat-form-field class="full-width">
+                <input matInput name="condiciones_viaje" [formControl]="itemForm.controls['condiciones_viaje']"
+                  placeholder="Id del producto">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <!-- <div fxFlex="50" class="pr-1">
+              <mat-checkbox class="example-radio-button" [formControl]="itemForm.controls['condiciones_viaje']">
+                Condiciones de Viaje&nbsp;
+              </mat-checkbox>
+            </div> -->
+            <div fxFlex="100" class="mt-1">
+              <!-- <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button> -->
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+                Guardar
+              </button>
+              <span fxFlex></span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isNotificaciones">
+        <form [formGroup]="itemFormNotificaciones" (ngSubmit)="submitNotificaciones()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100" class="pr-1" style="height: 10px;"></div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="email" [formControl]="itemFormNotificaciones.controls['email']"
+                  placeholder="E-mail para notificar postulaciones" (change)="comprobarEmails()"
+                  (keyup)="comprobarEmails()">
+              </mat-form-field>
+              <small
+                *ngIf="incorrect_emails && itemFormNotificaciones.controls['email'].dirty && itemFormNotificaciones.controls['email'].touched"
+                class="form-error-msg">
+                Email incorrecto. Si hay mas de uno separelo por ";"
+              </small>
+            </div>
+            <div fxFlex="100" class="mt-1">
+              <!--  <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button>
+               -->
+              <button mat-raised-button color="primary"
+                [disabled]="itemFormNotificaciones.invalid  || incorrect_emails">Guardar</button>
+              <span fxFlex></span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isOtrasConfig">
+        <form [formGroup]="itemFormOtrasConfiguraciones" (ngSubmit)="submitOtrasConfiguraciones()">
+          <div fxLayout="column wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100" class="pr-1" style="height: 10px;margin-top:20px;">
+              <!-- <div fxFlex="50" class="pr-1" *ngIf="itemFormOtrasConfiguraciones.controls['id_tipo_turneada'].value===2">
+                <h6 class="mt-0">Tipo de acción ante rechazo de viajes</h6>
+                <mat-radio-group fxLayout="column" class="tp-radio-group"
+                [formControl]="itemFormOtrasConfiguraciones.controls['turneada']">
+                  <mat-radio-button [style.marginBottom]="'.5rem'" [value]="0"> Si &nbsp;</mat-radio-button>
+                  <mat-radio-button [style.marginBottom]="'.5rem'" [value]="1"> No &nbsp;</mat-radio-button>
+                </mat-radio-group>
+              </div> -->
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Tipo de turneado" (selectionChange)="onChangeTipoTurneada($event.value)"
+                    [formControl]="itemFormOtrasConfiguraciones.controls['id_tipo_turneada']">
+                    <mat-option *ngFor="let vtipo of tipoTurneados" [value]="vtipo.id">{{vtipo.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex="50" class="pr-1" *ngIf="itemFormOtrasConfiguraciones.controls['id_tipo_turneada'].value===2">
+                <h6 class="mt-0">Tipo de acción ante rechazo de viajes</h6>
+                <mat-radio-group fxLayout="column" class="tp-radio-group"
+                  [formControl]="itemFormOtrasConfiguraciones.controls['tipoAccionSeleccionado']">
+                  <mat-radio-button class="tp-radio-button" *ngFor="let tipo of tipoAccion" [value]="tipo.id">
+                    {{tipo.descripcion}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div fxFlex="100" class="mt-1">
+              <!-- <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button> -->
+              <button mat-raised-button color="primary">Guardar</button>
+
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isStop">
+        <form [formGroup]="itemFormStop" (ngSubmit)="submitStop()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100" class="pr-1" style="height: 10px;"></div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput name="api_key" [formControl]="itemFormStop.controls['api_key']" placeholder="API Key">
+              </mat-form-field>
+              <mat-error>
+                <span *ngIf="!itemFormStop.get('api_key').valid && itemFormStop.get('api_key').touched">Por favor
+                  introduzca la Api Key.
+                  Es requerido.</span>
+              </mat-error>
+            </div>
+            <div fxFlex="100" class="mt-1">
+              <!--  <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button> -->
+              <button mat-raised-button color="primary" [disabled]="itemFormStop.invalid">Guardar</button>
+              <span fxFlex></span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isProducto">
+        <!--         <div class="m-333">
+          <button mat-raised-button class="mb-05" color="primary" (click)="addProducto()">Agregar Productos</button>
+        </div> -->
+        <div fxLayout="row wrap">
+          <div fxFlex="50">
+            <mat-card class="default" [@animate]="{value:'*',params:{delay:'300ms',y:'50px'}}">
+              <mat-card-title><strong style="font-size: 16px;">Productos del centro </strong></mat-card-title>
+              <mat-nav-list class="compact-list mb-1 example-container">
+                <mat-list-item *ngFor="let producto of restProductos">
+                  <h5 matLine>{{producto.descripcion}}</h5>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1"
+                    (click)="excluirProductoCentro(producto)" matTooltip="Excluir producto en el centro">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </mat-list-item>
+              </mat-nav-list>
+            </mat-card>
+          </div>
+          <div fxFlex="50">
+            <mat-card class="p-0  producto-excluido">
+              <mat-card-content class="p-0">
+                <ngx-datatable matSort class="material ml-0 mr-0" [rows]="centroProducto" [columnMode]="'force'"
+                  [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'">
+                  <ngx-datatable-column name="Producto excluido" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.descripcion }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Acciones" [flexGrow]="10">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <button mat-icon-button mat-sm-button color="primary" class="mr-1"
+                        (click)="incluirProductoCentro(row)" matTooltip="Incluir producto en el centro">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isDadorCupo">
+        <!--         <div class="m-333">
+          <button mat-raised-button class="mb-05" color="primary" (click)="addProducto()">Agregar Productos</button>
+        </div> -->
+        <div fxLayout="row wrap">
+          <div fxFlex="50">
+            <mat-card class="default" style="height: 70vh;" [@animate]="{value:'*',params:{delay:'300ms',y:'50px'}}">
+              <mat-card-title style="padding: 10px;"><strong style="font-size: 16px;">Dadores de Cupo </strong>
+              </mat-card-title>
+              <mat-nav-list class="compact-list mb-1 example-container" style="height: 100%;">
+                <mat-list-item *ngFor="let dador of centroDadores">
+                  <h4 matLine>{{dador.cuit}}</h4>
+                  <p matLine style="margin-left: 10px;">{{dador.nombre_persona}}</p>
+
+                  <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="warn" class="mr-2"
+                     matTooltip="Excluir dadores de cupo en el centro">
+                    <mat-icon style="margin-top: -3px;">delete</mat-icon>
+                  </button>
+                  <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="excluirDadorCupo(dador)"
+                    matTooltip="Excluir dadores de cupo en el centro"> (click)="excluirDadorCentro(dador)"
+                    <mat-icon>remove</mat-icon>
+                  </button> -->
+                </mat-list-item>
+              </mat-nav-list>
+            </mat-card>
+          </div>
+          <div fxFlex="50">
+            <mat-card class="p-0  producto-excluido" style="height: 70vh;">
+              <mat-card-title style="padding: 10px;"><strong style="font-size: 16px;">Dadores excluidos </strong>
+              </mat-card-title>
+              <mat-card-content class="p-0">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                  <!-- CUIT Column -->
+                  <ng-container matColumnDef="cuit">
+                    <th mat-header-cell *matHeaderCellDef> Cuit </th>
+                    <td mat-cell *matCellDef="let row"> {{row.cuit}} </td>
+                    <td mat-footer-cell *matFooterCellDef> Total </td>
+                  </ng-container>
+
+                  <!-- razon_social Column -->
+                  <ng-container matColumnDef="razon_social">
+                    <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+                    <td mat-cell *matCellDef="let row"> {{row.razon_social}} </td>
+                    <td mat-footer-cell *matFooterCellDef> {{restDadores.length}} </td>
+                  </ng-container>
+                  <!-- Acciones Column -->
+                  <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let row">
+                      <!-- <button mat-raised-button color="primary" class="mr-1" (click)="incluirDadorCentro(row)" matTooltip="Incluir dadores de cupo en el centro">
+                                <mat-icon>add</mat-icon> 
+                              </button> -->
+                      <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="primary"
+                        class="mr-2" 
+                        matTooltip="Incluir dadores de cupo en el centro">
+                        <mat-icon style="margin-top: -3px;">add</mat-icon>
+                      </button>
+                      <!-- <button mat-icon-button mat-sm-button color="primary" 
+                            (click)="incluirDadorCentro(row)" matTooltip="Incluir dadores de cupo en el centro">
+                            <mat-icon>add</mat-icon>
+                          </button> -->
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="mt-1" *ngIf="isTurneado">
+        <div class="m-333">
+          <h4 style="color:#124A99;">Listas de Turneadas</h4>
+        </div>
+        <div class="m-333">
+          <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Agregar Lista</button>
+        </div>
+        <mat-card class="p-0">
+          <mat-card-content class="p-0">
+            <ngx-datatable matSort class="material ml-0 mr-0" [rows]="listas" [columnMode]="'force'" [headerHeight]="50"
+              [footerHeight]="50" [rowHeight]="'auto'">
+              <ngx-datatable-column name="ID" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.id }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Nombre" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Acciones" [flexGrow]="10">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)"
+                    matTooltip="Modificar Lista">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp2(row)"
+                    matTooltip="Lista de choferes">
+                    <mat-icon>list</mat-icon>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+
+    </mat-accordion>
+  </div>
+
+</mat-sidenav-container>

@@ -1,0 +1,23 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm">
+  <div fxLayout="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea matInput name="json_entrada" placeholder="Entrada" [formControl]="itemForm.controls['json_entrada']"
+          rows="5">
+                  </textarea>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea matInput name="json_salida" placeholder="Salida" [formControl]="itemForm.controls['json_salida']"
+          rows="5">
+                  </textarea>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cerrar</button>
+    </div>
+  </div>
+
+</form>

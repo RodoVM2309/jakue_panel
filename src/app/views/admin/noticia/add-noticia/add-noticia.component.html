@@ -1,0 +1,134 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del producto"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="titulo"
+          [formControl]="itemForm.controls['titulo']"
+          placeholder="Título"
+          #titulo
+          maxlength="100"
+        />
+        <mat-hint align="end">{{ titulo.value.length }} / 100</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['titulo'].hasError('required') &&
+          itemForm.controls['titulo'].touched
+        "
+        class="form-error-msg"
+      >
+        El título es obligatorio
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="bajada"
+          [formControl]="itemForm.controls['bajada']"
+          placeholder="Bajada"
+          #bajada
+          maxlength="500"
+        ></textarea>
+        <mat-hint align="end">{{ bajada.value.length }} / 500</mat-hint>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['bajada'].hasError('required') &&
+          itemForm.controls['bajada'].touched
+        "
+        class="form-error-msg"
+      >
+        La bajada es obligatoria
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="contenido"
+          [formControl]="itemForm.controls['contenido']"
+          placeholder="Contenido"
+          #contenido
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- <mat-card-content class="p-0">
+      <quill-editor 
+      theme="snow" 
+      [(ngModel)]="editorData" 
+      (onContentChanged)="onContentChanged()" 
+      onSelectionChanged="onSelectionChanged()"></quill-editor>
+    </mat-card-content> -->
+
+    <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="fecha"
+          formControlName="fecha"
+          placeholder="Fecha"
+          [matDatepicker]="appDatepicker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+        </mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="fuente"
+          [formControl]="itemForm.controls['fuente']"
+          placeholder="Fuente"
+          #fuente
+          maxlength="250"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="link_noticia_original"
+          [formControl]="itemForm.controls['link_noticia_original']"
+          placeholder="Link noticia original"
+          #link_noticia_original
+          maxlength="50"
+        />
+        <mat-hint align="end"
+          >{{ link_noticia_original.value.length }} / 50</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

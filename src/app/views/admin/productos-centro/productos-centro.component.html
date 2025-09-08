@@ -1,0 +1,79 @@
+<div fxLayout="row wrap">
+  <div fxFlex="100" style="background: #84aec2; height: 45px; align-items: center;">
+    <div>
+      <h1 style="font-size: 15px; color: white; margin-top: 15px; margin-left: 53px;">
+        PRODUCTOS DEL CENTRO
+      </h1>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap">
+  &nbsp;
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 70vh; background: #84aec2;">
+    <br>
+    <div fxLayout="row wrap">
+      <div fxFlex="50">
+        <mat-card class="default">
+          <mat-card-title
+          style="box-shadow: 0 9px 8px 1px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+          height: 36px;
+          padding-top: 0 !important;">
+            <div fxLayout="row" fxLayoutAlign="space-around center" >
+              <div>
+                <strong style="font-size: 16px; color: #84aec2;">PRODUCTOS </strong>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width">
+                    <input matInput  maxlength="256" class="buscador1"
+                      placeholder="Buscar producto" (keyup)='filterDisponibles($event)' >
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-title>
+          <mat-nav-list class="compact-list mb-1 example-container" style="padding-top: 0px; height: 59vh; overflow-y: auto;">
+            <mat-list-item *ngFor="let producto of centroProducto">
+              <h5 matLine>{{producto.descripcion}}</h5>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1"
+                (click)="incluirProductoCentro(producto)" matTooltip="Incluir producto en el centro">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+      </div>
+      <div fxFlex="50">
+        <mat-card class="default">
+          <mat-card-title
+          style="box-shadow: 0 9px 8px 1px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+          height: 36px;
+          background: #15488f;
+          color: white;
+          padding-top: 0 !important;">
+            <div fxLayout="row" fxLayoutAlign="space-around center" >
+              <div>
+                <strong style="font-size: 16px;">MIS PRODUCTOS </strong>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width">
+                    <input matInput maxlength="256" class="buscador"
+                      placeholder="Buscar producto" (keyup)='filteDelCentro($event)' >
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-title>
+          <mat-nav-list class="compact-list mb-1 example-container" style="padding-top: 0px; height: 59vh; overflow-y: auto;">
+            <mat-list-item *ngFor="let prod of restProductos">
+              <h5 matLine>{{prod.descripcion}}</h5>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1"
+                (click)="excluirProductoCentro(prod)" matTooltip="Excluir producto del centro">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

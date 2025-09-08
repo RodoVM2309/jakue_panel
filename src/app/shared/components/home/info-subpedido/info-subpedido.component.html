@@ -1,0 +1,65 @@
+﻿<mat-card>
+  <mat-card-title class="" style="background:#2BC4F3">
+    <div class="card-title-text" style="background:#2BC4F3">Camiones por Administrar: {{viajes_x_asignar}}</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="height: 40vh; overflow-y: scroll; ">
+        <mat-table #table [dataSource]="dataSource">
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <ng-container matColumnDef="nombre_centro">
+            <mat-header-cell *matHeaderCellDef> Centro / Intermediario </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombre_centro}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell *matHeaderCellDef> Total Camiones ({{pedido.cantidad + pedido.reduccion}})
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="cuantos_faltan">
+            <mat-header-cell *matHeaderCellDef> Por Asignar
+              ({{pedido.cantidad + pedido.reduccion - pedido.viajes_asignados}})</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cantidad - element.viajes_asignados}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="viajes_asignados">
+            <mat-header-cell *matHeaderCellDef> Asignados ({{pedido.viajes_asignados}})</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.viajes_asignados}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef> Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button *ngIf="element.id" mat-icon-button color="primary"
+                (click)="modificarcant(element, viajes_x_asignar )">
+                <mat-icon matTooltip="+/- Camiones">import_export</mat-icon>
+              </button>
+              <button *ngIf="!element.id" mat-icon-button color="primary" (click)="asignar()">
+                <mat-icon matTooltip="Agregar intermediario" color="asignarviaje" style="font-size: 32px;">computer
+                </mat-icon>
+                <span class="notification-number mat-bg-primary"
+                  style="background: #38BEEB!important; margin-left: 5px;">
+                  {{pedido.intermediarios_postulados}}
+                </span>
+              </button>
+              <button *ngIf="!element.id" mat-icon-button color="primary" (click)="goAsignarViaje()"
+                style="margin-left: 16px;">
+                <mat-icon matTooltip="Asignar Viajes" color="asignarviaje" style="font-size: 32px;">local_shipping
+                </mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+        </mat-table>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-content>
+    <div fxFlex="100" class="mt-1">
+      <!--  <button mat-raised-button color="primary">Guardar</button> -->
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="submit()">Cerrar</button>
+    </div>
+    <!--</div>-->
+  </mat-card-content>
+
+</mat-card>

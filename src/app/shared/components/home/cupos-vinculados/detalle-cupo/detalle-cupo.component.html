@@ -1,0 +1,113 @@
+<div>
+    <h1 matDialogTitle>{{data.title}}</h1><span fxFlex></span>
+    <mat-icon>assignment_late</mat-icon>
+</div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+        <div fxFlex="50" class="pr-1" hidden>
+            <mat-form-field class="full-width">
+                <input matInput name="id" [formControl]="itemForm.controls['cupo.id']" placeholder="Id del Cupo">
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="alfanumericoCupo" [formControl]="itemForm.controls['alfanumericoCupo']" placeholder="No. Cupo" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="cartaPorte" [formControl]="itemForm.controls['cartaPorte']" placeholder="Carta Porte" #cartaPorte readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="fechaCupoFormateada" [formControl]="itemForm.controls['fechaCupoFormateada']" placeholder="Fecha" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreEstadoCupo" [formControl]="itemForm.controls['nombreEstadoCupo']" placeholder="Estado" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="codigoCosecha" [formControl]="itemForm.controls['codigoCosecha']" placeholder="Codigo Cosecha" readonly>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="choferCuit" [formControl]="itemForm.controls['choferCuit']" placeholder="Cuit Chofer" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreChofer" [formControl]="itemForm.controls['nombreChofer']" placeholder=" Chofer" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreProducto" [formControl]="itemForm.controls['nombreProducto']" placeholder="Producto " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="destinatarioCuit" [formControl]="itemForm.controls['destinatarioCuit']" placeholder=" Destinatario CUIT" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreDestino" [formControl]="itemForm.controls['nombreDestino']" placeholder="Destino " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="destinoCodigoPlantaOncca" [formControl]="itemForm.controls['destinoCodigoPlantaOncca']" placeholder="Destino Planta Oca " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreCorredor" [formControl]="itemForm.controls['nombreCorredor']" placeholder="Corredor" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="corredorCuit" [formControl]="itemForm.controls['corredorCuit']" placeholder="Corredor CUIT" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="entregadorCuit" [formControl]="itemForm.controls['entregadorCuit']" placeholder="Entregador CUIT " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="nombreEntregador" [formControl]="itemForm.controls['nombreEntregador']" placeholder="Entregador " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="receptorCuit" [formControl]="itemForm.controls['receptorCuit']" placeholder="Receptor CUIT " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="dadorCuit" [formControl]="itemForm.controls['dadorCuit']" placeholder="Dador CUIT " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="dadorCuit" [formControl]="itemForm.controls['dadorCuit']" placeholder="Dador " readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="observaciones" [formControl]="itemForm.controls['observaciones']" placeholder="Observaciones" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+        </div>
+    </div>
+</form>

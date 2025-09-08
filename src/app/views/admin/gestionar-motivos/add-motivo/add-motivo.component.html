@@ -1,0 +1,32 @@
+<div><h1 matDialogTitle>{{data.title}}</h1><span fxFlex></span><mat-icon>account_circle</mat-icon></div>
+<form [formGroup]="itemFormMotivo" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemFormMotivo.controls['id']" placeholder="">
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1"  >
+      <mat-form-field class="full-width">
+        <input matInput name="descripcion"  maxlength="100" [formControl]="itemFormMotivo.controls['descripcion']" placeholder="Descripción" >
+      </mat-form-field>
+      <small *ngIf="itemFormMotivo.controls['descripcion'].hasError('required') && itemFormMotivo.controls['descripcion'].touched"
+        class="form-error-msg"> Es requerida la descripción
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1" *ngIf="tipo_turneada!=2">
+      <mat-form-field class="full-width">
+       <mat-select name="afecta_lugar" [formControl]="itemFormMotivo.controls['afecta_lugar']" placeholder="Afecta el lugar">
+          <mat-option *ngFor="let vd of data2" [value]="vd.id">
+            {{vd.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemFormMotivo.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

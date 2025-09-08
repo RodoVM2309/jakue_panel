@@ -1,0 +1,105 @@
+<!-- <div class="circulo"></div> -->
+<div class="margin-333" style="height: 85vh;">
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxLayout="row wrap"
+        style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px; height: 55px;">
+        <div fxFlex="20">
+          <div fxLayout="row wrap" style="background: #184892; padding: 15px; ">
+            <p style="margin: 0px 30px 0px; font-size: 15px; color: white;">Consulta CCPP</p>
+          </div>
+        </div>
+        <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top:-10px;">
+            <span style="font-size: 12px; color: black;">Criterio de Búsqueda</span>
+        </div>
+        <div fxFlex="15" fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top:-4px;">
+            <div id="criterio">
+              <mat-form-field style="width: 90%;">
+                <mat-select class="criterio"
+                  (selectionChange)="aplicarFiltroProducto($event)" name="criterio"
+                  [formControl]="buscarForm.controls['criterio']">
+                  <mat-option *ngFor="let criteriob of criteriosBusqueda" [value]="criteriob.id">
+                    {{criteriob.descripcion}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </div>
+        <div fxFlex="15" fxLayout="row wrap">
+          <div  style="margin-top: 15px; width: 250px;">
+            <input autofocus="true" placeholder="" type="text" [formControl]="buscarForm.controls['valorbusqueda']"
+              class="input-buscar">
+          </div>
+        </div>
+        <div fxFlex="5"></div>
+        <div fxFlex="2">
+          <button mat-raised-button style="background-color: #174891; margin-top: 15px; width: 30px;" type="button" (click)="buscarConsulta()">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    &nbsp;
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div class="textarea">
+        <!-- <div fxLayout="row wrap">
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Cupo</div>
+          </div>
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">CCPP</div>
+          </div>
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">CTG</div>
+          </div>
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Fecha</div>
+          </div> -->
+
+          <!-- <div fxFlex="20">
+            <div style="margin-top: 20px; color: #ffffff;">Acciones</div>
+          </div> -->
+        <!-- </div> -->
+        <div style="margin-top: 20px; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;">
+          <ngx-datatable  matSort class="material ml-0 mr-0" [rows]="lista_consulta" [columnMode]="'force'"
+            [headerHeight]="50" [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements"
+            [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages"
+            [sorts]="[{prop: 'fecha', dir: 'asc'}]">
+            <ngx-datatable-column name="Cupo" [flexGrow]="1" [maxWidth]="250" prop="cupo" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.idCupoTerminal }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="CCPP" [flexGrow]="1" [maxWidth]="250" [resizeable]="false" >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.cartaPorte }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="CTG" [flexGrow]="1" [maxWidth]="300" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.ctg }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Fecha" [flexGrow]="1" prop="fecha" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.fecha }}
+              </ng-template>
+            </ngx-datatable-column>
+             <ngx-datatable-column name="" [flexGrow]="1" [maxWidth]="120"  [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUpVer(row)" matTooltip="Ver">
+                  <mat-icon style="color: #93BD26;">visibility</mat-icon>
+                </button>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

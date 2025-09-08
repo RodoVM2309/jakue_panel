@@ -1,0 +1,119 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Estadísticas de Centros</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <br>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+        <mat-card >
+          <mat-card-title fxLayoutAlign="start center">
+           <small>Total de Centros </small>
+            <span fxFlex></span>
+          </mat-card-title>
+          <mat-card-content>
+              <h3 class="m-0 font-normal">{{totalCentros}}</h3>             
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+        <mat-card >
+          <mat-card-title fxLayoutAlign="start center">
+            <small>Total de Choferes</small>
+            <span fxFlex></span>            
+          </mat-card-title>
+          <mat-card-content>
+              <h3 class="m-0 font-normal">{{totalChoferes}}</h3>              
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+        <mat-card >
+          <mat-card-title fxLayoutAlign="start center">
+            <small >Choferes con la App descargada</small>
+            <span fxFlex></span>           
+          </mat-card-title>
+          <mat-card-content>   
+              <h3 class="m-0 font-normal">{{totalApp}}</h3>                     
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+        <mat-card>
+          <mat-card-title fxLayoutAlign="start center">
+            <small >Choferes Ocupados</small>                 
+          </mat-card-title>
+          <mat-card-content>    
+              <h3 class="m-0 font-normal">{{choferes_ocupados}}</h3>                             
+          </mat-card-content>          
+        </mat-card>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
+          <mat-card>
+            <mat-card-title fxLayoutAlign="start center">             
+              <small >Choferes Sin transportistas</small>       
+            </mat-card-title>
+            <mat-card-content>               
+                <h3 class="m-0 font-normal">{{choferes_sin_transportista}}</h3>                
+            </mat-card-content>          
+          </mat-card>
+        </div>
+    </div>
+<div fxLayout="row wrap">
+   <div fxFlex="100" fxLayout="column wrap">
+        <mat-card class="p-0" [@animate]="{value:'*',params:{scale:'.9',delay:'300ms'}}">
+          <mat-card-title class="">
+            <div class="card-title-text">
+              <span>Centros </span>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content class="p-0">
+              <input
+              type='text'
+              style='padding:8px;margin:15px auto;width:30%;'
+              placeholder='Buscar centro'
+              (keyup)='updateFilter($event)'
+             />
+            <ngx-datatable
+                  class="material ml-0 mr-0"
+                  [rows]="centros"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [externalPaging]="true" 
+                  [count]="page.totalElements" 
+                  [offset]="page.pageNumber"
+                  [limit]="page.size" 
+                  (page)='setPage($event)' 
+                  [rowHeight]="'auto'">
+                  <ngx-datatable-column name="Razón Social" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.nombre_persona }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="CUIT" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row?.cuit_persona }}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Cantidad de Choferes" [flexGrow]="1">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row?.cargarTotalizadorChofer.total_choferes }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Cantidad de Choferes App Instalada" [flexGrow]="1">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{ row?.cargarTotalizadorChofer.choferes_app_instalada }}
+                        </ng-template>
+                      </ngx-datatable-column>
+          
+                  
+                </ngx-datatable>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

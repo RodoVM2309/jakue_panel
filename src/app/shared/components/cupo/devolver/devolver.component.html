@@ -1,0 +1,113 @@
+<div fxLayout="column wrap" style="padding: 0px">
+
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style=" color: #E9E9EA;height: 50px;background: #48494B">
+      <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+        <mat-icon>keyboard_return</mat-icon>
+      </div>
+      <div fxFlex="95" fxLayoutAlign="start start" style="margin-top:15px;">
+        <h3>DEVOLVER CUPOS</h3>
+      </div>
+      <span FxFlex></span>
+      <div fxFlex="5" style="margin-top:8px;margin-left:15px;">
+          <button mat-icon-button matTooltip="Cerrar devolver cupos" color="m-0" class="m-0" (click)="submit()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
+
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 50px;">
+      <div fxFlex="3" style="margin-top:15px;margin-left:15px;">
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Fecha:</strong>
+        <strong style="font-size: 14px;"> {{data.payload.fecha}}</strong>
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Producto: </strong>
+        <strong style="font-size: 14px;">{{producto}}.</strong>
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Cupos Disponibles: </strong>
+        <strong style="font-size: 14px;">{{countCuposDisponibles}}</strong>
+      </div>
+      <div fxFlex="17">
+      </div>
+      <div fxFlex="20" style="margin-top:15px;margin-left:15px;">
+        <strong style="font-size: 16px;">Seleccionados: </strong>
+        <strong style="font-size: 14px;">{{countCuposSeleccionados}}</strong>
+      </div>
+
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="height: 60vh; overflow-y: scroll;">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="dadorCuit">
+          <tr>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dador</th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              {{cupo.nombreDador}}
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container matColumnDef="alfanumericoCupo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cupo</th>
+          <td mat-cell *matCellDef="let cupo; let i = index">
+            <div> {{cupo.alfanumericoCupo}}</div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="nombreDestino">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Destino
+          </th>
+          <td mat-cell *matCellDef="let cupo; let i = index">
+            <div>{{cupo.nombreDestino}}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="selectedCupo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right;margin-right: 10px;">
+            Seleccionar
+            cupos a asignar</th>
+          <td mat-cell *matCellDef="let cupo; let i = index">
+            <div style="text-align: right;margin-right: 10px;">
+              <mat-checkbox class="example-radio-button" [checked]="cupo.asignado"
+                (change)="onCheckboxChange($event, cupo,i)">
+              </mat-checkbox>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+  </div>
+  <div fxLayout="row wrap" style="height:100px;">
+    <div fxFlex="100" style="background: rgb(207, 207, 212); color: rgb(8, 8, 8);height: 100px;">
+      <div fxFlex="10" fxLayoutAlign="center center">
+        
+      </div>
+      <div fxFlex="50" fxLayoutAlign="start center">
+        <button mat-raised-button color="teal" [disabled]="countCuposSeleccionados==0"
+          (click)="devolverCupos()">DEVOLVER
+          {{countCuposSeleccionados}} CUPOS</button>
+      </div>
+      <div fxFlex="20" fxLayoutAlign="end center">
+        Contactar dador        
+      </div>
+      <div fxFlex="15" fxLayoutAlign="center center">
+        <button mat-menu-item matTooltip="Enviar WhatsApp al dador" (click)="openPopUpsms()">
+          <mat-icon>message</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="5" fxLayoutAlign="center center">
+        <button mat-icon-button  class="hidden-on-open">
+          <mat-icon class="text-muted">more_vert</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

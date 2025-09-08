@@ -1,0 +1,86 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Transportadoras</h4>
+</div>
+<div *ngIf="tipocentro!=='2'"
+     class="m-333">
+  <!-- <span fxFlex></span> -->
+  <button mat-raised-button
+          class="mb-05"
+          color="primary"
+          (click)="openPopUpVincular()">Agregar Transportadora</button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <mat-form-field class="p-5"
+                    style='padding:8px;margin:15px auto;width:30%;'
+                    class="example-full-width">
+      <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar Transportadora</mat-label>
+      <input matInput
+             (keyup)='updateFilter($event)'>
+    </mat-form-field>
+    <ngx-datatable class="material ml-0 mr-0"
+                   [rows]="intermediarios"
+                   [columnMode]="'force'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'
+                   [rowHeight]="'auto'"
+                   [messages]="messages">
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.id_intermediario }}
+              </ng-template>
+           </ngx-datatable-column> -->
+      <ngx-datatable-column name="Transportadora"
+                            [flexGrow]="1">
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{ row?.nombre_intermediario }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Bloqueado"
+                            [flexGrow]="1">
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          {{ row?.desc_bloqueado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones"
+                            [flexGrow]="1">
+        <ng-template let-row="row"
+                     ngx-datatable-cell-template>
+          <button mat-icon-button
+                  mat-sm-button
+                  color="primary"
+                  class="mr-1"
+                  *ngIf="!row.bloqueado"
+                  matTooltip="Bloquear"
+                  (click)="bloqueoDesbloqueo(row)"><mat-icon>lock_open</mat-icon></button>
+          <button mat-icon-button
+                  mat-sm-button
+                  color="primary"
+                  class="mr-1"
+                  *ngIf="row.bloqueado"
+                  matTooltip="Desbloquear"
+                  (click)="bloqueoDesbloqueo(row)"><mat-icon>lock_outline</mat-icon></button>
+          <button mat-icon-button
+                  mat-sm-button
+                  color="primary"
+                  class="m-0"
+                  (click)="openPopUpInfoPersona(row)"
+                  matTooltip="Información Perfil"><mat-icon>account_circle</mat-icon></button>
+          <button mat-icon-button
+                  mat-sm-button
+                  color="warn"
+                  matTooltip="Eliminar"
+                  (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

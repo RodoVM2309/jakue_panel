@@ -1,0 +1,41 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{'configuracion-notificaciones.title' | translate}}</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0" style="height: 70vh">
+    <br>
+    <form [formGroup]="itemFormNotificaciones" (ngSubmit)="submitNotificaciones()">
+      <div fxLayout="column wrap" fxLayout.lt-sm="column">
+        <div fxFlex="100" class="pr-1" style="height: 20vh; margin-left:30px; ">
+          <div fxFlex="50" class="pr-1">
+            <div fxLayout="column wrap">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>{{'configuracion-notificaciones.emailTitle' | translate}}</mat-label>
+                <input matInput type="email" placeholder="{{'configuracion-notificaciones.emailTitle' | translate}}"
+                  [formControl]="itemFormNotificaciones.controls['email']" (change)="comprobarEmails()"
+                  (keyup)="comprobarEmails()">                
+              </mat-form-field>
+              <small
+                    *ngIf="incorrect_emails"
+                    class="form-error-msg">
+                    {{'configuracion-notificaciones.errorEmail' | translate}}
+                  </small>
+            </div>
+          </div>
+
+        </div>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" style="margin-left:30px; ">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary"
+              [disabled]="incorrect_emails ">
+              {{'SAVE' | translate}}
+            </button>
+            <small fxFlex></small>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

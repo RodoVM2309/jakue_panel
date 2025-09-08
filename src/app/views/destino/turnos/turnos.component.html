@@ -1,0 +1,12 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+    <mat-tab label="{{'panelDestino.admin' | translate}}">
+        <!-- <app-config-puerto *ngIf="selectedTab === 0"></app-config-puerto> -->
+        <app-admin-bandas-horarias *ngIf="selectedTab === 0"></app-admin-bandas-horarias>
+    </mat-tab>
+    <mat-tab label="{{'panelDestino.turnos-disponibles.default' | translate}}">
+        <app-turnos-disponibles *ngIf="selectedTab === 1"></app-turnos-disponibles>
+    </mat-tab>
+    <mat-tab label="Buscar">
+        <app-buscar *ngIf="selectedTab === 2"></app-buscar>
+    </mat-tab>
+</mat-tab-group>

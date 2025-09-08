@@ -1,0 +1,413 @@
+#form-caratulas {
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #fff;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(23, 71, 144) !important;
+    background-color: #fff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused
+      background-color: rgb(23, 71, 144) !important;*/
+    background-color: #fff !important;
+  }
+
+  ::ng-deep.mat-form-field-infix {
+    margin-top: 7px;
+    color: #ffffff;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #17479000 !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #17479000 !important;
+  }
+
+  ::ng-deep.mat-select-value {
+    color: #fff;
+  }
+
+  ::ng-deep.mat-select-arrow {
+    color: #fff;
+  }
+
+  ::ng-deep.mat-input-element {
+    caret-color: #fff;
+  }
+  ::ng-deep.mat-autocomplete-panel {
+    min-width: 250px;
+  }
+}
+#mat-autocomplete-panel-mtr {
+  min-width: 250px;
+}
+.filtros {
+  border-color: #17498F;
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: #17498F;
+  color: #ffffff;
+  line-height: 15px;
+}
+
+.encabezado {
+  background: #fefefe;
+  color: #0c0c0c;
+  height: 160px;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.row_encabezado {
+  height: 50px;
+  padding: 3px;
+}
+
+.div-table {
+  background: rgb(255, 255, 255);
+  color: #0c0c0c;
+  font-size: 14px;
+  margin: 0px 10px 0px 10px;
+  //overflow-x: hidden;
+  //margin: 10px;
+  //width: 100%;
+  //height: 60vh;
+}
+
+.row-table {
+  background-color: #ffffff;
+  margin: 0px 1px 0px 6px;
+}
+
+.hot {
+  width: 99%;
+  //margin-top:20px;
+  background-color: #ffffff;
+  margin: 0px 1px 0px 6px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  border-radius: 10px;
+  height: 30px;
+  width: 50%;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+.div-error {
+  line-height: 10px;
+  margin-top: -6px;
+}
+
+.ng-invalid:not(form) {
+  border: 3px solid red;
+}
+
+.mat-fab {
+  border: solid !important;
+}
+
+#solicitar {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  right: 30px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+  width: 100%;
+}
+
+:host /deep/ .mat-radio-label-content {
+  color: grey !important;
+  padding-right: 3px !important;
+  font-size: 11px !important;
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+.mat-radio-outer-circle {
+  border-color: black !important;
+}
+
+::ng-deep.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: black !important;
+}
+
+::ng-deep .egret-indigo .mat-paginator,
+.egret-indigo .mat-paginator-page-size .mat-select-trigge {
+  background-color: #e9e9ea;
+}
+
+.mat-sort-header-arrow {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-sort-header-arrow[style] {
+
+  // Hide default arrow stem
+  .mat-sort-header-stem {
+    color: black;
+    display: none !important;
+  }
+
+  .mat-sort-header-indicator {
+    opacity: 1;
+    color: black;
+    font-weight: bold;
+
+    // Hide default arrow as its composed of left, right and middle
+    .mat-sort-header-pointer-left,
+    .mat-sort-header-pointer-right,
+    .mat-sort-header-pointer-middle {
+      display: none !important;
+    }
+
+    .mat-sort-header-pointer-middle {
+      width: 0px !important;
+      height: 0px !important;
+    }
+
+    /* show two carets on top of each other when not sorted takes place: */
+    .mat-sort-header-arrow {
+      .mat-sort-header-indicator {
+        &::before {
+          content: "<>";
+          position: absolute;
+          opacity: 1 !important;
+          color: blue !important;
+          font-size: 1.2em;
+          font-weight: bold;
+          transform: translate(-10%, 20%) rotate(90deg) !important;
+        }
+      }
+    }
+  }
+}
+
+.mat-sort-header-indicator {
+  &::before {
+    content: url("../../../../../assets//images/drop_down.png");
+    top: 0.1em;
+    position: absolute;
+    color: black;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 0 4px;
+    transform: rotate(180deg);
+    opacity: 0.6;
+  }
+}
+
+// My custom ascending arrow
+[aria-sort="ascending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        content: url("../../../../../assets/images/drop_up.png");
+        top: -0em;
+        position: absolute;
+      }
+    }
+  }
+}
+
+// My custom descending arrow
+[aria-sort="descending"] {
+  ::ng-deep .mat-sort-header-arrow {
+    .mat-sort-header-indicator {
+      &::before {
+        content: url("../../../../../assets/images/drop_down.png");
+        top: -1em;
+        position: absolute;
+      }
+    }
+  }
+}
+
+::ng-deep.mat-sort-header-button {
+  width: 80%;
+}
+
+::ng-deep.input.mat-input-element {
+  margin-top: -3.3em;
+}
+
+.mat-radio-label-content {
+  white-space: normal;
+}
+
+.mat-radio-button {
+  width: 10vw;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 40vh;
+  min-width: 300px;
+  overflow-y: scroll;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+  border-bottom: 1px solid #0a0a0a;
+}
+table {
+  width: 100%;
+}
+tr.mat-row {
+  height: 38px;
+}
+tr.detail-row {
+  height: 0;
+  overflow: hidden;
+}
+
+tr.element-row:not(.example-expanded-row):hover {
+  background: rgb(136, 134, 134);
+}
+
+tr.element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+.mat-column-caratula {
+  width: 8%;
+}
+.mat-column-mesEntrega {
+  width: 8%;
+}
+.mat-column-cuitComprador{
+  width: 14%;
+}
+.mat-column-cuitCorredorComprador{
+  width: 14%;
+}
+.mat-column-cuitCorredorVendedor {
+  width: 14%;
+}
+.mat-column-cuitVendedor {
+  width: 14%;
+}
+.mat-column-kilosIniciales {
+  width: 14%;
+}
+.mat-column-kilosRecibidosWink {
+  width: 13%;
+}
+.mat-column-lastColumn {
+  width: 1%;
+}
+
+.element-row {
+  position: relative;
+}
+
+.element-row:not(.expanded) {
+  cursor: pointer;
+}
+
+.element-row:not(.expanded):hover {
+  background: #f5f5f5;
+}
+
+.element-row.expanded {
+  border-bottom-color: transparent;
+  color: #e9e9ea;
+}
+
+.spinner-container {
+  margin: 0px 10px 0px 10px;
+}
+
+.spinner-container mat-spinner {
+  margin: 130px auto 0 auto;
+}
+
+.expanded {
+  background: #86B0C8;
+  color:#e9e9ea;
+}
+
+.mat-column-expandedDetail {
+  background: #86B0C8;
+  color:#e9e9ea;
+}
+
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
+
+::ng-deep .mat-datepicker-toggle-default-icon {
+  color: #fff;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+.header-cell-custom{
+  color: #2E4692;
+  font-weight:bold;
+}
+
+::ng-deep .k-grid-header, .k-grouping-header, .k-grid-add-row, .k-grid-footer {
+  background-color: #CCDEE8;
+  color: #1E1718;
+  font-weight:bold;
+}
+
+
+

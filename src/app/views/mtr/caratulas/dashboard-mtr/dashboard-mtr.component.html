@@ -1,0 +1,439 @@
+<div class="margin-333">
+  <div fxLayout="column wrap">
+    <div fxLayout="row wrap" style="width: 100%">
+      <div fxFlex="100">
+        <form id="form-caratulas" [formGroup]="caratulasForm">
+          <div fxLayout="row wrap" class="encabezado">
+            <div fxFlex="100" class="row_encabezado">
+              <div fxFlex="1"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="25" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">Carátulas:</span>
+                  </div>
+                  <div fxFlex="75" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="caratula" [formControl]="caratulasForm.controls['caratula']" placeholder=""
+                        #caratula [matAutocomplete]="autoCaratula" />
+                      <mat-autocomplete autoActiveFirstOption #autoCaratula="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarInput(option, 'caratula')
+                            " *ngFor="let option of filteredOptionsCaratulas" [value]="option">
+                            {{ option | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="35" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">Mes Entrega:</span>
+                  </div>
+                  <div fxFlex="55" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width" style="text-align: start">
+                      <input matInput [matDatepicker]="dp" [formControl]="caratulasForm.controls['fechaEntrega']" />
+                      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                      <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                        (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                      </mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="10"></div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="25" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">Vendedor:</span>
+                  </div>
+                  <div fxFlex="75" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="vendedor" [formControl]="caratulasForm.controls['vendedor']" placeholder=""
+                        #vendedor [matAutocomplete]="autoVendedor" />
+                      <mat-autocomplete autoActiveFirstOption #autoVendedor="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn2">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarCuit(option, 'vendedor', 'cuitVendedor')
+                            " *ngFor="let option of filteredOptionsVendedor" [value]="option">
+                            {{ option.razon_social | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="11"></div>
+            </div>
+            <div fxFlex="100" class="row_encabezado">
+              <div fxFlex="1"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="42" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px; margin-top: -4px">Corredor Vendedor:</span>
+                  </div>
+                  <div fxFlex="58" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="corredorVendedor" [formControl]="
+                          caratulasForm.controls['corredorVendedor']
+                        " placeholder="" #corredorVendedor [matAutocomplete]="autocorredorVendedor" />
+                      <mat-autocomplete autoActiveFirstOption #autocorredorVendedor="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn2">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarCuit(
+                                option,
+                                'corredorVendedor',
+                                'cuitCorredorVendedor'
+                              )
+                            " *ngFor="
+                              let option of filteredOptionsCorredorVendedor
+                            " [value]="option">
+                            {{ option.razon_social | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="45" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px; margin-top: -4px">Corredor Comprador:</span>
+                  </div>
+                  <div fxFlex="55" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="corredorComprador" [formControl]="
+                          caratulasForm.controls['corredorComprador']
+                        " placeholder="" #corredorComprador [matAutocomplete]="autocorredorComprador" />
+                      <mat-autocomplete autoActiveFirstOption #autocorredorComprador="matAutocomplete"
+                        [panelWidth]="300" [displayWith]="displayFn2">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarCuit(
+                                option,
+                                'corredorComprador',
+                                'cuitCorredorComprador'
+                              )
+                            " *ngFor="
+                              let option of filteredOptionsCorredorComprador
+                            " [value]="option">
+                            {{ option.razon_social | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="27" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">Comprador:</span>
+                  </div>
+                  <div fxFlex="73" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="comprador" [formControl]="caratulasForm.controls['comprador']"
+                        placeholder="" #comprador [matAutocomplete]="autocomprador" />
+                      <mat-autocomplete autoActiveFirstOption #autocomprador="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn2">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarCuit(option, 'comprador', 'cuitComprador')
+                            " *ngFor="let option of filteredOptionsComprador" [value]="option">
+                            {{ option.razon_social | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="11"></div>
+            </div>
+            <div fxFlex="100" class="row_encabezado">
+              <div fxFlex="1"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="18" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">Cupo:</span>
+                  </div>
+                  <div fxFlex="82" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="cupo" [formControl]="caratulasForm.controls['cupo']" placeholder="" #cupo
+                        [matAutocomplete]="autocupo" />
+                      <mat-autocomplete autoActiveFirstOption #autocupo="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="llenarInput(option, 'cupo')"
+                            *ngFor="let option of filteredOptionsCupo" [value]="option">
+                            {{ option | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center" class="filtros">
+                <div fxFlex="100">
+                  <div fxFlex="18" fxLayoutAlign="start center">
+                    <span style="margin-left: 10px">CCPP:</span>
+                  </div>
+                  <div fxFlex="82" fxLayoutAlign="start center">
+                    <mat-form-field class="full-width">
+                      <input matInput name="cartaPorte" [formControl]="caratulasForm.controls['cartaPorte']"
+                        placeholder="" #cartaPorte [matAutocomplete]="autocartaPorte" />
+                      <mat-autocomplete autoActiveFirstOption #autocartaPorte="matAutocomplete" [panelWidth]="300"
+                        [displayWith]="displayFn">
+                        <mat-option *ngIf="isLoading" class="is-loading">
+                          <mat-spinner diameter="50"></mat-spinner>
+                        </mat-option>
+                        <ng-container *ngIf="!isLoading">
+                          <mat-option (onSelectionChange)="
+                              llenarInput(option, 'cartaPorte')
+                            " *ngFor="let option of filteredOptionsCartaPorte" [value]="option">
+                            {{ option | uppercase }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="2"></div>
+              <div fxFlex="28" fxLayoutAlign="start center">
+                <div fxFlex="100">
+                  <div fxFlex="45" fxLayoutAlign="start center">
+                    <div fxFlex="100">
+                      <div fxFlex="40"><strong>Activas:</strong></div>
+                      <div fxFlex="30">
+                        <mat-checkbox [formControl]="caratulasForm.controls['activa']">Sí</mat-checkbox>
+                      </div>
+                      <div fxFlex="30">
+                        <mat-checkbox [formControl]="caratulasForm.controls['noActiva']">No</mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="2" fxLayoutAlign="center start">
+                    <strong style="font-size: 1.5rem; margin-top: -8px;">|</strong>
+                  </div>
+                  <div fxFlex="53" fxLayoutAlign="end center">
+                    <div fxFlex="100">
+                      <div fxFlex="56" style="text-align: center;"><strong>Descargadas:</strong></div>
+                      <div fxFlex="22">
+                        <mat-checkbox [formControl]="caratulasForm.controls['descargado']">Sí</mat-checkbox>
+                      </div>
+                      <div fxFlex="22">
+                        <mat-checkbox [formControl]="caratulasForm.controls['noDescargado']">No</mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxFlex="2"></div>
+              <div fxFlex="9" fxLayoutAlign="start center">
+                <button mat-raised-button style="background-color: #174891" type="button" (click)="buscar()">
+                  <small>BUSCAR</small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Aqui debajo viene la parte de la tabla -->
+    <div fxLayout="row wrap" style="width: 100%" style="background-color: #fefefe;">
+      <div fxFlex="100">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="row_encabezado">
+            <div fxFlex="89" style="background: rgb(133, 175, 195)"></div>
+            <div fxFlex="10" fxLayoutAlign="end center" style="background: rgb(133, 175, 195)">
+              <button mat-raised-button style="background-color: #007ac3;margin-right: 13px;" type="button" (click)="exportAsXLSX()">
+                <small>EXPORTAR</small>
+              </button>
+            </div>
+            <div fxFlex="1" style="background: rgb(133, 175, 195)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spinner-container" style="width: 100%" *ngIf="dataSource.loading$ | async">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div class="example-container mat-elevation-z8" >
+      <table mat-table #table [dataSource]="dataSource" matSort matSortActive="caratula" matSortDirection="asc"
+        matSortDisableClear>
+        <ng-container matColumnDef="caratula">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Carátula
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.caratula }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mesEntrega">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Mes Entrega
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.mesEntrega }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cuitComprador">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Comprador
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.razonSocialComprador }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cuitCorredorComprador">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Corredor Comprador
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.razonSocialCorredorComprador }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cuitCorredorVendedor">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Corredor Vendedor
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.razonSocialCorredorVendedor }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cuitVendedor">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Vendedor
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.razonSocialVendedor }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="kilosIniciales">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Kilos iniciales
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            {{ element.kilosIniciales }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="kilosRecibidosWink">
+          <mat-header-cell *matHeaderCellDef class="header-cell-custom">
+            Kilos recibidos Wink
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngStyle]="{
+            color: element == expandedElement ? '#efefef' : '#0a0a0a'
+          }">
+            <div fxLayout="row wrap" fxFlex="100">
+              <div fxFlex="90" fxLayoutAlign="center center">
+                {{ element.kilosRecibidosWink }}
+              </div>
+              <div fxFlex="10">
+                <mat-icon *ngIf="element == expandedElement" style="color: #f2f6f8">keyboard_arrow_up
+                </mat-icon>
+                <mat-icon *ngIf="element !== expandedElement" style="color: #91b7cd">keyboard_arrow_down
+                </mat-icon>
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <mat-cell *matCellDef="let detail">
+            <kendo-grid [data]="detail.element.cupos" [groupable]="false" style="width: 100%">
+              <kendo-grid-messages noRecords="No existen cupos para la carátula." pagerPage="Página" pagerOf="de"
+                pagerItems="cupo" pagerItemsPerPage="Cupos por página">
+              </kendo-grid-messages>
+              <kendo-grid-column field="alfanumerico" title="Alfanumérico" width="10">
+              </kendo-grid-column>
+              <kendo-grid-column field="idCupoEstado" title="Estado" width="10">
+              </kendo-grid-column>
+              <kendo-grid-column field="fecha" title="Fecha Cupo" width="10">
+              </kendo-grid-column>
+              <kendo-grid-column field="fechaArribado" title="Fecha Arribado" width="10">
+              </kendo-grid-column>
+              <kendo-grid-column field="fechaDescargado" title="Fecha Descargado" width="10">
+              </kendo-grid-column>
+              <kendo-grid-column field="lo_posee" title="Cuit" width="10">
+              </kendo-grid-column>
+            </kendo-grid>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" matRipple class="element-row"
+          [class.expanded]="expandedElement == row" (click)="expandedElement = expandedElement === row ? null : row">
+        </mat-row>
+        <mat-row *matRowDef="
+          let row;
+          columns: ['expandedDetail'];
+          when: isExpansionDetailRow
+        " [@detailExpand]="
+          row.element == expandedElement ? 'expanded' : 'collapsed'
+        " style="overflow: hidden">
+        </mat-row>
+      </table>
+
+    </div>
+     <!-- Aqui debajo viene el pagination -->
+     <div fxLayout="row wrap"  class="row_encabezado" style="width: 100%;">
+      <div fxFlex="100">
+        <mat-paginator [length]="page.totalElements" [pageSize]="page.size" (page)="setPage($event)"
+          [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>

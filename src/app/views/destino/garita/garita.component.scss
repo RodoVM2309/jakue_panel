@@ -1,0 +1,51 @@
+:host /deep/ .mat-tab-labels {
+  height: 48px;
+  margin-top: 0px;
+  margin-left: 56px;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(242, 250, 242) !important;
+}
+
+.egret-indigo .mat-tab-group.mat-background-primary .mat-tab-header {
+  background-color: #87B1C6 !important;
+  color: #87B1C6;
+}
+
+.mat-tab-link {
+  color: white !important;
+}
+
+:host /deep/ .mat-tab-label .mat-tab-label-content {
+  color: white;
+}
+
+:host /deep/ .mat-tab-header {
+  border-bottom: 0px !important;
+  background-color: #87B1C6 !important;
+}
+
+:host /deep/ .mat-tab-label-active .mat-tab-label-content {
+  color: #87B1C6;
+  background-color: #E9E9EA !important;
+}
+
+:host /deep/ .mat-tab-label-active {
+  color: #87B1C6;
+  background-color: #E9E9EA !important;
+  opacity: 1 !important;
+}
+
+:host /deep/ .mat-ink-bar {
+  background-color: #E9E9EA !important;
+  color: #87B1C6;
+}
+
+:host /deep/ .mat-tab-body-content {
+  background-color: #E9E9EA !important;
+}
+
+::ng-deep .app-admin-container .rightside-content-hold {
+  padding: 0 !important;
+}

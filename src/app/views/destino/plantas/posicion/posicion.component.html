@@ -1,0 +1,657 @@
+<mat-card class="card-page" id="style-1">
+    <form [formGroup]="posicionForm">
+        <div fxLayout="column wrap" style=" width: 100%;">
+            <div fxFlex="100" style="height: 50px; background-color: #ffffff;" fxLayoutAlign="center center">
+                <div fxFlex="12" class="pr-1">
+                    <mat-form-field class="full-width" style="margin-left: 10px; margin-top: 7px;">
+                        <input matInput name="fechaFilter" [formControl]="posicionForm.controls['selectedFecha']"
+                            placeholder="Fecha" [matDatepicker]="appDatepicker"
+                            (dateChange)="aplicarFiltro('fecha', $event)" />
+                        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+                        </mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #appDatepicker></mat-datepicker>
+                </div>
+                <div fxFlex="21" fxLayoutAlign="start center"
+                    style="height: 40px; margin-right: 0px; margin-left: 62px;">
+                    <span style="font-size: 12px; color: #87B1C5;"> <strong>ACTUALIZACIÓN STOP
+                            EN:</strong></span>
+                    <div fxLayoutAlign="center center" class="clock_kt">
+                        <div *ngIf="horas<10">0{{horas}}:</div>
+                        <div *ngIf="horas>10">{{horas}}:</div>
+                        <div *ngIf="minutes<10">0{{minutes}}:</div>
+                        <div *ngIf="minutes>=10">{{minutes}}:</div>
+                        <div *ngIf="seconds<10">0{{seconds}}</div>
+                        <div *ngIf="seconds>=10">{{seconds}}</div>
+                    </div>
+                </div>
+                <div fxFlex="63" fxFlex.gt-xs="70" fxLayout="row wrap">
+                    <div fxFlex="100">
+                        <div fxFlex="100">
+                            <mat-tab-group (selectedTabChange)="selectBotonDestinos($event)" [selectedIndex]="tabindex"
+                                class="purtos" style="width: 59vw;">
+                                <mat-tab *ngFor="let tab of navTabs;">
+                                    <ng-template mat-tab-label>
+                                        <img class="tab-icon" src="assets/images/muvin/menu-estado-de-puertos-azul.png"
+                                            alt="" style="height: 32px; margin-top: -10px;margin-left:-10px;">
+                                        {{tab.labelShort}}
+                                    </ng-template>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="100" style="margin-top:10px; height: 80vh; background-color: rgb(135,177,197)">
+                <div fxLayout="row wrap">
+                    <div fxFlex="35" style=" background-color: rgb(135,177,197);padding: 10px;">
+                        <div fxLayout="column wrap">
+                            <div fxFlex="100" style="height: 60px; color: #ffffff;">
+                                <div fxFlex="23" class="cuerpo azul" fxLayoutAlign="start center">
+                                    <div fxFlex="100" fxLayout="column wrap">
+                                        <div fxFlex="100" fxLayoutAlign="center end" style="margin-top:10px;">Total
+                                            Cupos:</div>
+                                        <div fxFlex="100" fxLayoutAlign="center start" style="margin-top:-10px;"><strong
+                                                style="font-size: 28px;">{{totalEnPlaya.cantidad+totalPendientes.conTurnos+totalPendientes.sinTurnos+descargadosFecha}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="30" class="cuerpo azul-descargado lado-izquierdo-arriba"
+                                    fxLayoutAlign="start center">
+                                    <div fxFlex="100" fxLayout="column wrap">
+                                        <div *ngIf="!esPlaya" fxFlex="100" fxLayoutAlign="center end"
+                                            style="margin-top:10px;">Descargados:</div>
+                                        <div *ngIf="esPlaya" fxFlex="100" fxLayoutAlign="center end"
+                                            style="margin-top:10px;">Despachados:</div>
+                                        <div fxFlex="100" fxLayoutAlign="center start" style="margin-top:-10px;"><strong
+                                                style="font-size: 28px;">{{descargadosFecha}}</strong></div>
+                                    </div>
+                                </div>
+                                <div fxFlex="22" class="cuerpo azul-en-playa" fxLayoutAlign="start center">
+                                    <div fxFlex="100" fxLayout="column wrap">
+                                        <div fxFlex="100" fxLayoutAlign="center end" style="margin-top:10px;">En Playa:
+                                        </div>
+                                        <div fxFlex="100" fxLayoutAlign="center start" style="margin-top:-10px;"><strong
+                                                style="font-size: 28px;">{{totalEnPlaya.cantidad}}</strong></div>
+                                    </div>
+                                </div>
+                                <div fxFlex="25" class="cuerpo naranja" fxLayoutAlign="start center">
+                                    <div fxFlex="100" fxLayout="column wrap">
+                                        <div fxFlex="100" fxLayoutAlign="center end" style="margin-top:10px;">
+                                            Pendientes:</div>
+                                        <div fxFlex="100" fxLayoutAlign="center start" style="margin-top:-10px;"><strong
+                                                style="font-size: 28px;">{{totalPendientes.conTurnos+totalPendientes.sinTurnos}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="100" style="height: 40px; color: #ffffff;">
+                                <div fxFlex="23" style="height: 100%;" fxLayoutAlign="start center"></div>
+                                <div fxFlex="30" class="cuerpo azul-descargado-border">
+                                    <div fxLayout="column wrap">
+                                        <div fxFlex="100" fxLayoutAlign="center center">
+                                            Desc.Cupos día anterior:&nbsp;<strong>{{descargadosAnterior}}</strong>
+                                        </div>
+                                        <div fxFlex="100" style="margin-top:-15px;">
+                                            <hr />
+                                        </div>
+                                        <div fxFlex="100" style="margin-top:-15px;" fxLayoutAlign="center center">
+                                            Total
+                                            descargados:&nbsp;<strong>{{descargadosFecha+descargadosAnterior}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxFlex="22" style="height: 100%;" fxLayoutAlign="center center"></div>
+                                <div fxFlex="25" style="height: 100%;" fxLayoutAlign="center center"></div>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-sm="33">
+                                <mat-card class="p-0" style="margin-top: 43px;">
+                                    <mat-card-title class="">
+                                        <div class="card-title-text">
+                                            <div fxLayout="row wrap">
+                                                <div fxFlex="100">
+                                                    <div fxFlex="60" fxLayoutAlign="start center"> <strong>Arribo de
+                                                            camiones por hora</strong>
+                                                    </div>
+                                                    <div fxFlex="20" fxLayout="row wrap" fxLayoutAlign="start center">
+                                                        <div fxFlex="20">
+                                                            <div class="con-turno"></div>
+                                                        </div>
+                                                        <div fxFlex="80"><small>con turno</small></div>
+                                                    </div>
+                                                    <div fxFlex="20" fxLayout="row wrap" fxLayoutAlign="start center">
+                                                        <div fxFlex="20">
+                                                            <div class="sin-turno"></div>
+                                                        </div>
+                                                        <div fxFlex="80"><small>sin turno</small></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <mat-divider></mat-divider>
+                                    </mat-card-title>
+                                    <mat-card-content style="height: 30vh;">
+                                        <canvas baseChart *ngIf="fechaBuscadaEsHoy" [datasets]="lineChartDataHoy"
+                                            [labels]="lineChartLabelsHoy" [options]="lineChartOptions"
+                                            [colors]="chartColors" [legend]="lineChartLegend"
+                                            [chartType]="lineChartType">
+                                        </canvas>
+                                        <canvas *ngIf="!fechaBuscadaEsHoy" baseChart class="chart"
+                                            [datasets]="lineChartData" [labels]="lineChartLabels"
+                                            [options]="lineChartOptions" [colors]="chartColors"
+                                            [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="65">
+                        <div fxFlex="100">
+                            <div fxLayout="column wrap">
+                                <!-- Div de encabezado En Playa -->
+                                <div fxFlex="100"
+                                    style="padding: 10px; color: #ffffff;background-color: rgb(255, 255, 255);height: 10%;">
+                                    <div fxLayout="row wrap">
+                                        <div fxFlex="100" style="height: 60px;">
+                                            <div fxFlex="25" class="cuerpo azul-en-playa" fxLayoutAlign="start center">
+                                                <div fxFlex="100">
+                                                    <div fxFlex="10" fxLayoutAlign="start center"
+                                                        style="margin-left: 5px;">
+                                                        <mat-icon class="mi-icon"> local_shipping</mat-icon>
+                                                    </div>
+                                                    <div fxFlex="50" fxLayoutAlign="center center">
+                                                        <div class="card-title-text">En Playa :</div>
+                                                    </div>
+                                                    <div fxFlex="40">
+                                                        <strong
+                                                            style="font-size: 28px;">{{totalEnPlaya.cantidad}}</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="25"
+                                                class="cuerpo azul-claro lado-izquierdo-arriba-claro font-azul">
+                                                <div fxFlex="100">
+                                                    <div fxLayout="row wrap" fxLayoutAlign="center center"
+                                                        style="height: 100%;">
+                                                        <div fxFlex="100" fxLayoutAlign="center center"
+                                                            style="color:rgb( 14, 72, 89)!important; height: 40%;">
+                                                            <div fxFlex="60" fxLayoutAlign="end center">
+                                                                <mat-icon class="mi-icon"> access_alarm</mat-icon>
+                                                                &nbsp;Con turno:
+                                                            </div>
+                                                            <div fxFlex="40" fxLayoutAlign="start center">
+                                                                <strong>{{totalEnPlaya.enTiempo+totalEnPlaya.tarde+totalEnPlaya.demorado}}</strong>
+                                                            </div>
+                                                        </div>
+                                                        <mat-divider style="height: 1%"></mat-divider>
+                                                        <div fxFlex="100" fxLayoutAlign="center center"
+                                                            style="color: rgb(148,150,152)!important;height: 40%;">
+                                                            <div fxFlex="60" fxLayoutAlign="end center">
+                                                                <mat-icon class="mi-icon"> timer_off</mat-icon>
+                                                                &nbsp;&nbsp;&nbsp;Sin turno:
+                                                            </div>
+                                                            <div fxFlex="40" fxLayoutAlign="start center">
+                                                                <strong>{{totalEnPlaya.sinTurno}}</strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="50">
+                                                <div fxLayout="row wrap">
+                                                    <div fxFlex="100"
+                                                        class="cuerpo tiempo-tarde-demorado lado-izquierdo-arriba-fuerte"
+                                                        fxLayoutAlign="center center" style="height: 30px;">
+                                                        <div fxFlex="8" fxLayout="row wrap" fxLayoutAlign="end center">
+                                                            <div class="circulo-verde"></div>
+                                                        </div>
+                                                        <div fxFlex="20" fxLayout="row wrap"
+                                                            fxLayoutAlign="center center">
+                                                            Tiempo: <strong>{{totalEnPlaya.enTiempo}}</strong>
+                                                        </div>
+                                                        <div fxFlex="5" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="6" fxLayout="row wrap" fxLayoutAlign="end center">
+                                                            <div class="circulo-amarillo"></div>
+                                                        </div>
+                                                        <div fxFlex="29" fxLayout="row wrap"
+                                                            fxLayoutAlign="center center">
+                                                            Fuera de Horario: <strong>{{totalEnPlaya.tarde}}</strong>
+                                                        </div>
+                                                        <div fxFlex="4" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="6" fxLayout="row wrap" fxLayoutAlign="end center">
+                                                            <div class="circulo-rojo"></div>
+                                                        </div>
+                                                        <div fxFlex="22" fxLayout="row wrap"
+                                                            fxLayoutAlign="center center">
+                                                            Demorado: <strong>{{totalEnPlaya.demorado}}</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div fxFlex="100" class="cuerpo tiempo-tarde-demorado-nublado"
+                                                        style="height: 30px;" fxLayoutAlign="start center">
+                                                        <div fxFlex="8" fxLayout="row wrap" fxLayoutAlign="end center">
+                                                            <mat-icon class="mi-icon"> timelapse</mat-icon>
+                                                        </div>
+                                                        <div fxFlex="92" fxLayout="row wrap"
+                                                            fxLayoutAlign="start center" style="margin-left: 10px;">
+                                                            Demora promedio en: <strong
+                                                                style="color:rgb( 255, 236, 0);font-size: 16px;">&nbsp;&nbsp;{{promedioEnPlaya}}
+                                                                hs.</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carrusel de arriba -->
+                                <div fxFlex="100"
+                                    style="background-color: rgb(255,255,255);padding: 10px;margin-top:-20px; padding-bottom: 3px;">
+                                    <div fxLayout="row wrap">
+                                        <div fxFlex="100">
+                                            <div fxFlex="10" fxLayoutAlign="start center">
+                                                <button *ngIf="indexEnPlaya>0" mat-icon-button matTooltip="Anterior"
+                                                    color="m-0" class="m-0" (click)="actualizarEnPlaya('previos')">
+                                                    <mat-icon style="width: 24px;height: 24px;font-size: 24px;">
+                                                        arrow_back</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div fxFlex="80" fxLayoutAlign="center center" style="height: 15px;">
+                                                <div *ngFor="let row of navEnPlaya" fxFlex="5">
+                                                    <button mat-icon-button matTooltip="" color="m-0" class="m-0"
+                                                        (click)="gotoPlayaNav(row)">
+                                                        <ng-container *ngIf="row==indexNavPlaya; else elseTemplate">
+                                                            <div class="circulo-gris"></div>
+                                                        </ng-container>
+                                                        <ng-template #elseTemplate>
+                                                            <div class="circulo-gris-disabled"></div>
+                                                        </ng-template>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="10" fxLayoutAlign="end center">
+                                                <button *ngIf="indexEnPlaya<enPlayaAll.length-3" mat-icon-button
+                                                    matTooltip="Próximo" color="m-0" class="m-0"
+                                                    (click)="actualizarEnPlaya('next')">
+                                                    <mat-icon style="width: 24px;height: 24px;font-size: 24px;">
+                                                        arrow_forward</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card en Playa -->
+                                <div fxFlex="100"
+                                    style="background-color: rgb(255,255,255); height: 143px; overflow-y: auto;">
+                                    <div fxLayout="row wrap" style="height: 23vh; margin-left:23px;"
+                                        fxLayoutAlign="start center">
+                                        <div *ngFor="let row of enPlaya" fxFlex="33" style="height: 100%;">
+                                            <div class="mi-card">
+                                                <div fxLayout="row wrap" style="height: 100%;">
+                                                    <div fxFlex="100" fxLayoutAlign="start center"
+                                                        style=" width: 100%;height: 79%;">
+                                                        <div fxFlex="50" class="cuerpo azul-en-playa font-blanco"
+                                                            style="border-top-left-radius: 6px;border: 3px;  padding-top: 5px;">
+                                                            <div fxFlex="100">
+                                                                <div fxLayout="row wrap" style="height: 100%;">
+                                                                    <div fxFlex="100" style="height: 30%;">
+                                                                        <div fxFlex="70" fxLayoutAlign="start center"
+                                                                            style="border-radius: 6px;border: 3px;">
+                                                                            <span
+                                                                                style="font-weight: 600; margin-left: 20px;"
+                                                                                [ngStyle]="{'font-size':row.producto.length < 12 ? 'large' : 'small' }">{{row.producto}}</span>
+                                                                        </div>
+                                                                        <div fxFlex="30" fxLayoutAlign="start end">
+                                                                            <img [src]="row.imagen" fallimg
+                                                                                style="height: 32px;">
+                                                                            <mat-icon *ngIf="!row.isImagen">
+                                                                                filter_vintage</mat-icon>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div fxFlex="100" style="height: 34%;">
+                                                                        <div fxFlex="20" fxLayoutAlign="end center">
+                                                                            <mat-icon class="mi-icon">local_shipping
+                                                                            </mat-icon>
+                                                                        </div>
+                                                                        <div fxFlex="60" fxLayoutAlign="center center">
+                                                                            <span
+                                                                                style="font-weight: 600;margin-left: 5px;font-size:xx-large;">{{row.enTiempo+row.tarde+row.demorado+row.sinTurno}}</span>
+                                                                        </div>
+                                                                        <div fxFlex="20" fxLayoutAlign="center center">
+                                                                            <mat-icon *ngIf="row.flecha===0"
+                                                                                color="flecha-arriba"
+                                                                                style="font-size: 24px;height: 24px;width: 24px;">
+                                                                                arrow_upward
+                                                                            </mat-icon>
+                                                                            <mat-icon *ngIf="row.flecha===1"
+                                                                                color="flecha-abajo"
+                                                                                style="font-size: 24px;height: 24px;width: 24px;">
+                                                                                arrow_downward
+                                                                            </mat-icon>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div fxFlex="100" style="height: 20%;">
+                                                                        <div fxFlex="40" fxLayoutAlign="end center">
+                                                                            <mat-icon class="mi-icon"
+                                                                                color={{row.color}}>timelapse</mat-icon>
+                                                                        </div>
+                                                                        <div fxFlex="60" fxLayoutAlign="start center"
+                                                                            [ngStyle]="{'color': row.colorString }">
+                                                                            {{row.horas}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="50"
+                                                            class="cuerpo azul-claro font-azul arriba-derecha"
+                                                            style="border-top-right-radius: 6px;border: 3px;"
+                                                            fxLayoutAlign="center center">
+                                                            <div fxFlex="100" style="height: 100%;">
+                                                                <div fxLayout="row wrap" fxLayoutAlign="center center"
+                                                                    style="height: 100%;">
+                                                                    <div fxFlex="100" fxLayoutAlign="start end"
+                                                                        style="color:rgb(145,146,148)!important; height: 40%; margin-left:10%;">
+                                                                        <mat-icon class="mi-icon"> timer_off</mat-icon>
+                                                                        &nbsp;&nbsp;Sin turno:
+                                                                        <strong
+                                                                            *ngIf="row.sinTurno<10">0{{row.sinTurno}}</strong>
+                                                                        <strong
+                                                                            *ngIf="row.sinTurno>=10">{{row.sinTurno}}</strong>
+                                                                    </div>
+                                                                    <div fxFlex="100"
+                                                                        style="height: 20%; margin-left:20%;">
+                                                                    </div>
+                                                                    <div fxFlex="100" fxLayoutAlign="start start"
+                                                                        style="margin-top:-12px;color: rgb(76,111,126)!important;height: 40%; margin-left:10%;">
+                                                                        <mat-icon class="mi-icon"> access_alarm
+                                                                        </mat-icon>&nbsp;Con turno:
+                                                                        <strong
+                                                                            *ngIf="row.enTiempo+row.tarde+row.demorado<10">0{{row.enTiempo+row.tarde+row.demorado}}</strong>
+                                                                        <strong
+                                                                            *ngIf="row.enTiempo+row.tarde+row.demorado>=10">{{row.enTiempo+row.tarde+row.demorado}}</strong>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div fxFlex="100" class="cuerpo"
+                                                        style="height: 21%;background: rgb(71,85,92);border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;border: 3px; "
+                                                        fxLayoutAlign="center center">
+                                                        <div fxFlex="95" style="height: 80%;">
+                                                            <div fxFlex="31" class="cuerpo en-tiempo font-blanco"
+                                                                style="border-bottom-left-radius: 6px;border: 3px;"
+                                                                fxLayoutAlign="center center">
+                                                                <small>En tiempo:
+                                                                    <strong>{{row.enTiempo}}</strong></small>
+                                                            </div>
+                                                            <div fxFlex="38" class="cuerpo tarde"
+                                                                fxLayoutAlign="center center">
+                                                                <small style="font-size: xx-small;"> Fuera de
+                                                                    Horario:<strong>{{row.tarde}}</strong></small>
+                                                            </div>
+                                                            <div fxFlex="31" class="cuerpo demorado  font-blanco"
+                                                                style="color:#ffffff;border-bottom-right-radius: 6px;border: 3px;"
+                                                                fxLayoutAlign="center center">
+                                                                <small>
+                                                                    Demorado:<strong>{{row.demorado}}</strong></small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Div de encabezado Pendientes -->
+                                <div fxFlex="100"
+                                    style="padding: 10px; color: #ffffff;margin-top: 10px;background-color: rgb(255,255,255);">
+                                    <div fxLayout="row wrap">
+                                        <div fxFlex="100">
+                                            <div fxFlex="25" class="cuerpo naranja" fxLayoutAlign="start center">
+                                                <div fxFlex="100" fxLayout="row wrap">
+                                                    <div fxFlex="100">
+                                                        <div fxFlex="50" fxLayoutAlign="start center"
+                                                            style="margin-left: 5px;">
+                                                            <mat-icon> local_shipping</mat-icon>&nbsp; Pendientes:
+                                                        </div>
+                                                        <div fxFlex="50"><strong
+                                                                style="font-size: 28px;">{{totalPendientes.conTurnos+totalPendientes.sinTurnos}}</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="25">
+                                                <div fxFlex="100">
+                                                    <div fxLayout="row wrap" style="height: 100%;">
+                                                        <div fxFlex="100">
+                                                            <div fxFlex="50" class="cuerpo verde-CTG"
+                                                                fxLayoutAlign="start center">
+                                                                <div fxFlex="100">
+                                                                    <div fxLayout="row wrap">
+                                                                        <div fxFlex="100">
+                                                                            <div fxFlex="80"
+                                                                                fxLayoutAlign="start center"
+                                                                                style="margin-left: 5px;">
+                                                                                <mat-icon> assignment_turned_in
+                                                                                </mat-icon>&nbsp; <small>Con CTG
+                                                                                    :</small>
+                                                                            </div>
+                                                                            <div fxFlex="20"
+                                                                                fxLayoutAlign="start center">
+                                                                                <small><strong>{{totalPendientes.conCTG}}</strong></small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div fxFlex="50" class="cuerpo azul-claro"
+                                                                fxLayoutAlign="start center">
+                                                                <div fxFlex="100">
+                                                                    <div fxLayout="row wrap">
+                                                                        <div fxFlex="100"
+                                                                            style="color: rgb(76,111,126)">
+                                                                            <div fxFlex="80"
+                                                                                fxLayoutAlign="start center"
+                                                                                style="margin-left: 5px;">
+                                                                                <mat-icon> access_alarm</mat-icon>
+                                                                                &nbsp; <small>Con turno:</small>
+                                                                            </div>
+                                                                            <div fxFlex="20"
+                                                                                fxLayoutAlign="start center">
+                                                                                <small><strong>{{totalPendientes.conTurnos}}</strong></small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="50">
+                                                <div fxLayout="row wrap">
+                                                    <div fxFlex="100" class="cuerpo con-GPS "
+                                                        style="height: 30px;color:rgb( 0,124,143)"
+                                                        fxLayoutAlign="start center">
+                                                        <mat-icon style="margin-left:20px;"> track_changes</mat-icon>
+                                                        &nbsp;&nbsp;&nbsp;Con GPS:&nbsp;{{totalPendientes.conGPS}}
+                                                    </div>
+                                                    <div fxFlex="100" class="cuerpo azul-abajo centro-derecha"
+                                                        fxLayoutAlign="center center" style="height: 30px;">
+                                                        <div fxFlex="28" fxLayout="row wrap"
+                                                            fxLayoutAlign="center center">
+                                                            <small>0 a 50 Km:
+                                                                <strong>{{totalPendientes.menosKm}}</strong></small>
+                                                        </div>
+                                                        <div fxFlex="10" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="28" fxLayout="row wrap"
+                                                            fxLayoutAlign="center center">
+                                                            <small> 50 a 100 km:
+                                                                <strong>{{totalPendientes.medioKm}}</strong></small>
+                                                        </div>
+                                                        <div fxFlex="10" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="28" fxLayout="row wrap"
+                                                            fxLayoutAlign="start center">
+                                                            <small>más de 100 km:
+                                                                <strong>{{totalPendientes.masKm}}</strong></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carrusel de Card de Pendientes -->
+                                <div fxFlex="100"
+                                    style="background-color: rgb(255,255,255);padding: 10px;margin-top:-20px; padding-bottom: 3px;">
+                                    <div fxLayout="row wrap">
+                                        <div fxFlex="100">
+                                            <div fxFlex="10" fxLayoutAlign="start center">
+                                                <button *ngIf="indexPendiente>0" mat-icon-button matTooltip="Anterior"
+                                                    color="m-0" class="m-0" (click)="actualizarPendiente('previos')">
+                                                    <mat-icon style="width: 24px;height: 24px;font-size: 24px;">
+                                                        arrow_back</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div fxFlex="80" fxLayoutAlign="center center" style="height: 15px;">
+                                                <div *ngFor="let row of navPendientes" fxFlex="5">
+                                                    <button mat-icon-button matTooltip="" color="m-0" class="m-0"
+                                                        (click)="gotoPendienteNav(row)">
+                                                        <ng-container *ngIf="row==indexNavPendiente; else elseTemplate">
+                                                            <div class="circulo-gris"></div>
+                                                        </ng-container>
+                                                        <ng-template #elseTemplate>
+                                                            <div class="circulo-gris-disabled"></div>
+                                                        </ng-template>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div fxFlex="10" fxLayoutAlign="end center">
+                                                <button *ngIf="indexPendiente<pendientesAll.length-3" mat-icon-button
+                                                    matTooltip="Próximo" color="m-0" class="m-0"
+                                                    (click)="actualizarPendiente('next')">
+                                                    <mat-icon style="width: 24px;height: 24px;font-size: 24px;">
+                                                        arrow_forward</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Card de Pendientes  -->
+                                <div fxFlex="100"
+                                    style="background-color: rgb(255,255,255); height: 143px; overflow-y: auto;">
+                                    <div fxLayout="row wrap" style="height: 23vh; margin-left:23px;"
+                                        fxLayoutAlign="start center">
+                                        <div *ngFor="let row of pendientes" fxFlex="33" style="height: 100%;">
+                                            <div class="mi-card">
+                                                <div fxLayout="row wrap" style="height: 78%;">
+                                                    <div fxFlex="100" fxLayoutAlign="start center"
+                                                        style=" width: 100%;height: 100%;">
+                                                        <div fxFlex="50" fxLayout="column"
+                                                            class="cuerpo naranja font-blanco"
+                                                            style="border-top-left-radius: 6px;border: 3px;">
+                                                            <div fxFlex="100">
+                                                                <div fxLayout="row wrap"
+                                                                    style="height: 100%; padding-top: 15px;">
+                                                                    <div fxFlex="100" style="height: 30%;">
+                                                                        <div fxFlex="70" fxLayoutAlign="start center"
+                                                                            style="border-radius: 6px;border: 3px;">
+                                                                            <span
+                                                                                style="font-weight: 600;margin-left: 10px;"
+                                                                                [ngStyle]="{'font-size':row.producto.length<12 ? 'large' : 'small' }">{{row.producto}}</span>
+                                                                        </div>
+                                                                        <div fxFlex="30" fxLayoutAlign="start end">
+                                                                            <img *ngIf="row.isImagen" [src]="row.imagen"
+                                                                                fallimg
+                                                                                style="height: 32px; margin-top: -10px;">
+                                                                            <mat-icon *ngIf="!row.isImagen">
+                                                                                filter_vintage</mat-icon>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div fxFlex="100" style="height: 50%;">
+                                                                        <div fxFlex="20" fxLayoutAlign="end center">
+                                                                            <mat-icon class="mi-icon">local_shipping
+                                                                            </mat-icon>
+                                                                        </div>
+                                                                        <div fxFlex="60" fxLayoutAlign="center center">
+                                                                            <span
+                                                                                style="font-weight: 600;margin-left: 5px;font-size:xx-large;">{{row.conTurno+row.sinTurno}}</span>
+                                                                        </div>
+                                                                        <div fxFlex="20">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div fxFlex="100" style="height: 20px;">
+                                                                        <div fxLayout="row">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="50"
+                                                            class="cuerpo azul-claro abajo-derecha font-azul"
+                                                            style="border-top-right-radius: 6px;border: 3px;"
+                                                            fxLayoutAlign="center center">
+                                                            <div fxFlex="100" style="height: 100%;">
+                                                                <div fxLayout="row wrap" fxLayoutAlign="center center"
+                                                                    style="height: 100%;">
+                                                                    <div fxFlex="100" fxLayoutAlign="start end"
+                                                                        style="color:rgb(76,111,126)!important; height: 40%; margin-left:10%;">
+                                                                        <mat-icon class="mi-icon"> assignment_turned_in
+                                                                        </mat-icon>&nbsp;Con CTG:
+                                                                        <strong *ngIf="row.ctg<10">0{{row.ctg}}</strong>
+                                                                        <strong *ngIf="row.ctg>=10">{{row.ctg}}</strong>
+                                                                    </div>
+                                                                    <div fxFlex="100" fxLayoutAlign="start center"
+                                                                        style="margin-top:-5px;color: rgb(76,111,126)!important;height: 40%; margin-left:10%;">
+                                                                        <mat-icon class="mi-icon"> access_alarm
+                                                                        </mat-icon>&nbsp;Con turno:
+                                                                        <strong
+                                                                            *ngIf="row.conTurno<10">0{{row.conTurno}}</strong>
+                                                                        <strong
+                                                                            *ngIf="row.conTurno>=10">{{row.conTurno}}</strong>
+                                                                    </div>
+                                                                    <div fxFlex="100" fxLayoutAlign="start start"
+                                                                        style="margin-top:-5px;color: rgb(0,131,151)!important;height: 40%; margin-left:10%;">
+                                                                        <mat-icon class="mi-icon"> track_changes
+                                                                        </mat-icon>&nbsp;Con GPS:
+                                                                        <strong *ngIf="row.gps<10">0{{row.gps}}</strong>
+                                                                        <strong *ngIf="row.gps>=10">{{row.gps}}</strong>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--   <mat-divider style="height: 2px;"></mat-divider> -->
+                                                <div fxLayout="row wrap"
+                                                    style="height: 45px;background: rgb(0,124,143);margin-bottom: -20px;color:#ffffff;border-bottom-left-radius: 6px;border: 3px;border-bottom-right-radius: 6px;"
+                                                    fxLayoutAlign="center center">
+                                                    <div fxFlex="100" fxLayoutAlign="center center">
+                                                        <div fxFlex="26" fxLayout="row wrap" fxLayoutAlign="end center">
+                                                            <small>0 a 50 Km:<strong>{{row.menosKm}}</strong></small>
+                                                        </div>
+                                                        <div fxFlex="3" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="30" fxLayout="row wrap" class="cuerpo "
+                                                            fxLayoutAlign="center center">
+                                                            <small>50 a 100 km:<strong>{{row.medioKm}}</strong></small>
+                                                        </div>
+                                                        <div fxFlex="3" fxLayoutAlign="center center">|</div>
+                                                        <div fxFlex="38" fxLayout="row wrap"
+                                                            fxLayoutAlign="start center">
+                                                            <small>más de 100 km:<strong>{{row.masKm}}</strong></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Cierre de mi card -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-card>

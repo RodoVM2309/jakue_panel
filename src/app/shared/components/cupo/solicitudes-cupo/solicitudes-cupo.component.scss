@@ -1,0 +1,197 @@
+table {
+  width: 100%;
+}
+.my-card {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0),
+    0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+  background: #e9e9ea;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: -10px;
+  height: 75vh;
+  overflow-y:hidden;
+}
+.Rotate-90 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  font-size: 11px;
+  background: #ffffff;
+  width: 50px;
+  position: relative;
+  top: 1px;
+
+  margin: 2 0 16px;
+}
+#app-filtrosSolicitudes {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 10px;
+  max-width: 300px;
+  .handle {
+    float: right;
+  }
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+#filtro-dador {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 12px;
+  max-width: 300px;
+  .handle {
+    float: right;
+  }
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+.mat-indicador-total {
+  background-color: #b1b2b4 !important;
+  color: #fff !important;
+}
+.mat-indicador-pend_asignar {
+  background-color: #ec7420 !important;
+  color: #fff !important;
+}
+.mat-indicador-pend_vincular {
+  background-color: #d07f0d !important;
+  color: #fff !important;
+}
+.mat-indicador-sin-ctg {
+  background-color: #eb5700 !important;
+  color: #fff !important;
+}
+.mat-indicador-ctg {
+  background-color: #eadf00 !important;
+  color: #fff !important;
+}
+.mat-indicador-cargado {
+  background-color: #96c57b !important;
+  color: #fff !important;
+}
+.mat-indicador-mas50 {
+  background-color: #5ea844 !important;
+  color: #fff !important;
+}
+.mat-indicador-menos50 {
+  background-color: #5ea643 !important;
+  color: #fff !important;
+}
+.mat-indicador-en_destino {
+  background-color: #406eb0 !important;
+  color: #fff !important;
+}
+.mat-indicador-descargados {
+  background-color: #dbdcdd !important;
+  color: #fff !important;
+}
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-column-first_color {
+  width: 3%;
+  text-align: center;
+  padding: 0px;
+}
+.mat-column-producto {
+  width: 12%;
+  text-align: center;
+  padding: 0px;
+}
+.mat-column-fechadesde {
+  width: 8%;
+  text-align: center;
+  padding: 0px;
+}
+.mat-column-demandado {
+  width: 26%;
+  text-align: center;
+  padding: 0px;
+}
+.mat-column-contraparte {
+  width: 13%;
+  text-align: center;
+  padding: 0px;
+}
+.mat-column-cantidad {
+  width: 6%;
+}
+.mat-column-asignado {
+  width: 6%;
+}
+.mat-column-sin-ctg {
+  width: 6%;
+}
+.mat-column-ctg {
+  width: 6%;
+}
+.mat-column-en_destino {
+  width: 6%;
+}
+.mat-column-descargados {
+  width: 6%;
+}
+.mat-column-acciones {
+  width: 8%;
+}
+.solicitud-acept {
+  background:#87B1C5;
+}
+
+.solicitud-reject {
+  background: #ffc107;
+}

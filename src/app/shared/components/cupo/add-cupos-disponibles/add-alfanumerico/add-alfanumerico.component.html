@@ -1,0 +1,40 @@
+<div [ngClass]="this.data.cupera == 1 ? 'component_1': 'component_2'" fxLayout="row wrap">
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="center">
+      <div class="encabezado" fxLayout="row wrap" fxLayoutAlign="start center">
+        <h1 matDialogTitle style="margin-left: 15px; margin-top:15px;"> {{ data.title }}</h1>
+      </div>
+      <div fxFlex="95" class="pr-1 mt-2">
+        <mat-form-field class="full-width">
+          <input matInput name="fecha" [formControl]="itemForm.controls['fecha']" placeholder="Fecha"
+            [matDatepicker]="appDatepicker" [min]="minFecha" />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+          </mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #appDatepicker></mat-datepicker>
+      </div>
+      <div fxFlex="95" class="pr-1 mt-2">
+        <mat-form-field class="full-width">
+          <input matInput name="alfanumérico" type="text" [formControl]="itemForm.controls['alfanumerico']"
+            placeholder="alfanumerico" />
+        </mat-form-field>
+        <small *ngIf="
+            itemForm.controls['alfanumerico'].hasError('required') &&
+            itemForm.controls['alfanumerico'].dirty
+          " class="form-error-msg">
+          Es requerido el alfanumérico
+        </small>
+      </div>
+
+      <div fxFlex="95" class="mt-1" style="padding: 10px;">
+        <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+          Cancelar
+        </button>
+        <span fxFlex></span>
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

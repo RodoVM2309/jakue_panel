@@ -1,0 +1,57 @@
+table {
+    width: 100%;
+  }
+
+  #Choferes_seleccionados{
+    height: 350px;
+    overflow: auto;
+  }
+
+.ngx-datatable{
+  width: 100%;
+}
+
+.datosPedido{
+  background: #EEEEEC;
+  padding: 0px;
+  margin-top: -46px;
+}
+
+.agm-map {
+    width: 100%;
+  }
+.map {
+    width: 100%;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 500px;
+}
+
+.myButton{
+  width: 500px;
+}
+/deep/ .row-color {
+  background-color: rgb(197, 210, 211);
+}
+.row-color {
+  background-color: rgb(197, 210, 211);
+}
+
+
+/*----------Poner fijo--------------*/
+.example-container {
+  height: 350px;
+  overflow: auto;
+}
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+.mat-rojo {
+  background-color: rgb(213, 216, 228) !important;
+  color: #EE1D23!important;
+}
+/*------------------*/

@@ -1,0 +1,13 @@
+  <app-filtros-asignacion-c3 [productos]="productos" [fecha]="fecha" [myData]="myData" [variables]="variables"
+    (chanceFiltro)="chanceFiltro()" (cambiarFecha)="chanceDate($event)"></app-filtros-asignacion-c3>
+  <app-detalle-producto-zona *ngIf="variables.showDetalleProductoZona" [variables]="variables" [dias]="dias"
+    (selectedRowProducto)="selectedRowProducto($event)" (cambiarFecha)="chanceDate($event)"></app-detalle-producto-zona>
+  <app-detalle-zona *ngIf="variables.showDetalleZona" [productos]="productos" [variables]="variables" [dias]="dias"
+    [listadoAsignacionZona]="variables.listadoAsignacionZona" (cambiarFecha)="chanceDate($event)">
+  </app-detalle-zona>
+  <app-gestion *ngIf="variables.showDetalleZona" [variables]="variables" [dias]="dias" [listSinEmail]="listSinEmail"
+    [cantNotificaciones]="cantNotificaciones" (cambiarFecha)="chanceDate($event)">
+  </app-gestion>
+  <app-grid-solicitudes *ngIf="variables.showDetalleZona" [variables]="variables" [dias]="dias"
+    [listSinEmail]="listSinEmail" [myData]="myData" [listadoSolicitudes]="variables.listadoSolicitudes">
+  </app-grid-solicitudes>

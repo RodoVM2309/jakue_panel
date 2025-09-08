@@ -1,0 +1,148 @@
+﻿<br />
+<div class="m-333">
+  <h4 style="color:#124A99;">Mapa Estaciones de Servicio</h4>
+</div>
+
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen">
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" (click)="limpiarinfowind()" matTooltip="Filtrar Mapa">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <button mat-icon-button (click)="limpiarFiltros()" style="top: -9px;">
+          <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <span>Filtrar Estaciones</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button matTooltip="Cerrar" (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content [style.overflow]="'auto'">      
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        
+        <mat-slide-toggle 
+          class="full-width"
+          [color]="color"
+          [checked]="agrupado_mapa"
+          (change)="agruparMapa()"> Agrupar Estaciones
+        </mat-slide-toggle>
+        <br>
+        <br>
+        <br>
+        <mat-form-field class="full-width">
+          <mat-select
+            name="id_provincia"
+            [formControl]="itemForm.controls['id_provincia']"
+            placeholder="Provincia"
+            (selectionChange)="filtrarProvincia()"
+          >
+            <mat-option
+              *ngFor="let provincia of provincias | unique: 'id'"
+              [value]="provincia.id"
+            >
+              {{ provincia.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> 
+
+
+        <mat-form-field class="full-width">
+          <mat-select
+            name="id_localidad"
+            [formControl]="itemForm.controls['id_localidad']"
+            placeholder="Localidad"
+            (selectionChange)="filtrarlocalidad()"
+          >
+            <mat-option
+              *ngFor="let vlocalidad of obj_localidades | unique: 'id'"
+              [value]="vlocalidad.id"
+            >
+              {{ vlocalidad.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>               
+        <mat-form-field class="full-width">
+          <mat-select
+            name="rsocial"
+            [formControl]="itemForm.controls['rsocial']"
+            placeholder="Razón Social"
+            (selectionChange)="filtrarrsocial()"
+          >
+            <mat-option
+              *ngFor="let socialr of obj_rs"
+              [value]="socialr.descripcion"
+            >
+              {{ socialr.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>               
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card style="height: 80vh; padding: 0px; background: #002776;">
+  <div class="map">
+    <mat-card-content class="p-0">
+      <agm-map
+        [ngStyle]="{height: '78vh'}"
+        [zoom]="zoom"
+        [latitude]="lat"
+        [longitude]="lng"
+        [mapTypeId]="'roadmap'"
+        [mapTypeControl]="false"
+      >
+      <div *ngIf="agrupado_mapa">
+        <agm-marker-cluster
+          imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+          <agm-marker
+            *ngFor="let chofer of choferesTodos; let i = index"
+            [latitude]="chofer.latitud"
+            [longitude]="chofer.longitud"
+            [title]="chofer.nombre"
+            [iconUrl]="iconUrlGreen"
+            (markerClick)="clickedMarker(infoWindow)"
+            [visible]="(((vertodo)? true: chofer.id_localidad == selectlocalidad) && 
+                        ((vertodors)? true: chofer.razon_social == selectrs)  &&
+                        ((vertodoprov)? true: chofer.localidad.id_provincia == selectProv))">
+                        
+            <agm-info-window [isOpen]="false" #infoWindow>
+                <p><strong>Estación:</strong> {{ chofer.razon_social }}</p>
+                <p><strong>Dirección:</strong> {{ chofer.direccion }}</p>
+                <p><strong>RRCC:</strong> {{ chofer.rrcc }}</p>
+                <p><strong>ES/Agro:</strong> {{ chofer.es_agro }}</p>
+            </agm-info-window>
+          </agm-marker>
+        </agm-marker-cluster>
+      </div> 
+      <div *ngIf="!agrupado_mapa">        
+          <agm-marker
+            *ngFor="let chofer of choferesTodos; let i = index"
+            [latitude]="chofer.latitud"
+            [longitude]="chofer.longitud"
+            [title]="chofer.nombre"
+            [iconUrl]="iconUrlGreen"
+            (markerClick)="clickedMarker(infoWindow)"
+            [visible]="(((vertodo)? true: chofer.id_localidad == selectlocalidad) && 
+                        ((vertodors)? true: chofer.razon_social == selectrs)  &&
+                        ((vertodoprov)? true: chofer.localidad.id_provincia == selectProv))">
+                        
+            <agm-info-window [isOpen]="false" #infoWindow>
+              <strong>
+                <p><strong>Estacion:</strong> {{ chofer.razon_social }}</p>
+                <p><strong>Dirección:</strong> {{ chofer.direccion }}</p>
+                <p><strong>RRCC:</strong> {{ chofer.rrcc }}</p>
+                <p><strong>ES/Agro:</strong> {{ chofer.es_agro }}</p>
+              </strong>
+            </agm-info-window>
+          </agm-marker>
+      </div>       
+      </agm-map>
+    </mat-card-content>
+  </div>
+</mat-card>

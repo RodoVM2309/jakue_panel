@@ -1,0 +1,51 @@
+<!-- <h1 matDialogTitle>RECUPERACIÓN</h1> -->
+<div class="encabezadoInfo" fxLayout="row wrap">
+  <div fxFlex="100" fxLayoutAlign="start center">
+    <div fxFlex="6"></div>
+    <div fxFlex="84" fxLayoutAlign="start center">
+      <strong> RECUPERACIÓN </strong>
+    </div>
+    <div fxFlex="10">
+      <button mat-icon-button matTooltip="Cerrar"  class="m-0" (click)="this.dialogRef.close()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Motivo" [formControl]="itemForm.controls['id_motivo_recuperar']"
+          name="id_motivo_recuperar" class="mb-1">
+          <mat-option *ngFor="let motivo of motivos" [value]="motivo.id" ngDefaultControl>
+            {{motivo?.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="itemForm.controls['id_motivo_recuperar'].hasError('required')">
+          Es requerido este campo.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Observación</mat-label>
+        <textarea matInput [formControl]="itemForm.controls['motivo_recuperar']" name="motivo_recuperar"
+          #motivo_recuperar></textarea>
+        <mat-hint align="end">{{ motivo_recuperar.value.length }} / 250</mat-hint>
+        <mat-error *ngIf="itemForm.controls['motivo_recuperar'].hasError('required')">
+          Es requerido este campo.
+        </mat-error>
+        <mat-error *ngIf="itemForm.controls['motivo_recuperar'].hasError('maxlength')">
+          Máximo permitido 250 carácteres..
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+    </div>
+  </div>
+</form>

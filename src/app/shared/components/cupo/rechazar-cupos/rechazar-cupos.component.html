@@ -1,0 +1,128 @@
+<div class="component">
+  <div class="encabezado" fxLayout="column wrap" fxLayoutAlign="start stretch">
+    <div fxFlex="100" fxLayoutAlign="start center" [ngStyle]="{'background': '#009DE0' }">
+      <div fxFlex="5"></div>
+      <div fxFlex="95">
+        <strong>RECHAZAR CUPOS</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuerpo" fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="row" class="encabezado-cupos">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" fxLayoutAlign="start end">
+        <strong class="label-encabezado">CUPOS</strong>
+      </div>
+      <div fxFlex="30" fxLayoutAlign="start end" class="sombreado-encabezado">
+        <div fxFlex="5"></div>
+        <div fxFlex="45" fxLayoutAlign="start end">
+          <strong class="label-encabezado">DISPONIBLES: {{countCuposDisponibles}}</strong>
+        </div>
+        <div fxFlex="45" fxLayoutAlign="start end">
+          <strong class="label-encabezado">SELECCIONADOS: {{countCuposSeleccionados}}</strong>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+    <div fxLayout="row" class="subencabezado-cupos">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" class="pt-15">
+        <div fxFlex="25" fxLayoutAlign="start center">
+          <strong class="label-encabezado">Fecha: {{data.payload.fecha}}</strong>
+        </div>
+        <div fxFlex="20" fxLayoutAlign="start center">
+          <strong class="label-encabezado">Producto: {{producto | uppercase
+            }}</strong>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="cupos">
+      <div fxFlex="5"></div>
+      <div fxFlex="65">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="idCuitDestinatario">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Destinatario</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.nombreDestinatario}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="nombreDestino">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Destino
+            </th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              <div>{{cupo.nombreDestino}}</div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="alfanumericoCupo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cupo</th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              <div> {{cupo.idCupoTerminal}}</div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <div fxFlex="30" class="sombreado">
+        <div fxFlex="95">
+          <table mat-table [dataSource]="dataSourceAction" matSort>
+            <ng-container matColumnDef="selectedCupo">
+              <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                <div fxLayoutAlign="center center">
+                  <button mat-raised-button *ngIf="hay_seleccionados " [disabled]="countCuposSeleccionados==0" class="btn btn-cancelar btn-seleccionar-todo"
+                    (click)="quitarTodos()">Quitar
+                    Todos</button>
+                  <button mat-raised-button *ngIf="!hay_seleccionados" [disabled]="countCuposDisponibles==0" class="btn btn-cancelar btn-seleccionar-todo"
+                    (click)="seleccionarTodos()">Selec.
+                    Todos</button>
+                </div>
+              </th>
+              <td mat-cell *matCellDef="let cupo; let i = index" style="background: #e5e6e6;">
+                <div style="text-align: center;">
+                  <mat-checkbox class="example-radio-button" [(ngModel)]="cupo.asignados" [disabled]="!cupo.habilitado"
+                    (change)="onCheckboxChange($event,cupo,i)">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="detalleCupo">
+              <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                Detalle</th>
+              <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center">
+                <button mat-icon-button matTooltip="Ver Carta Porte" class="m-0"
+                  (click)="openPopUpVer(cupo,cupoDisponibleForm.controls['id_cabecera_'+i].value)">
+                  <mat-icon style="vertical-align: top; margin-top: 2px; font-size: 20px;color: #93BD26;">
+                    visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAction;sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAction;"></tr>
+          </table>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footer" fxLayout="column">
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <div fxFlex="25"></div>
+      <div fxFlex="20">
+        <button mat-raised-button class="btn btn-cancelar" fxLayoutAlign="center center"
+          (click)="cerrar()">CANCELAR</button>
+      </div>
+      <div fxFlex="10"></div>
+      <div fxFlex="20">
+        <button mat-raised-button class="btn btn-confirmar mat-cupo-rechazar" [disabled]="countCuposSeleccionados==0"
+          (click)="rechazar()" fxLayoutAlign="center center">RECHAZAR</button>
+      </div>
+      <div fxFlex="25"></div>
+    </div>
+  </div>
+</div>

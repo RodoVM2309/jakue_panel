@@ -1,0 +1,334 @@
+<div fxLayout="row" fxLayoutWrap="wrap" style="margin-top: 3%;">
+  <div fxFlex="70" style="background: #FCFDFF; margin-left: 13px; padding-bottom: 15px;">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <h3><span style="font-weight: 600; color:#87B1C6; margin-left: 20px; font-size: 1.1rem;">DIFUSIONES
+            PUBLICADAS</span></h3>
+      </div>
+      <div fxFlex="100" style="margin-top: 80px;">
+        <div fxFlex="3" fxLayoutAlign="start center">
+          <button mat-icon-button mat-sm-button class="m-0" [disabled]="indexPublicos===0"
+            (click)="actualizarDifusiones('previos')">
+            <mat-icon style="font-size: 40px;">navigate_before</mat-icon>
+          </button>
+        </div>
+        <div fxFlex="94" class="scroll-container" fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="33" *ngFor="let row of publicos; let i = index; ">
+            <mat-card class="default" style="background: #FCFDFF; border-radius: 6px;border: 3px;">
+              <mat-card-title>
+                <div fxLayout="row wrap" style="padding: 0.4rem;">
+                  <div fxFlex="100">
+                    <div fxFlex="20" fxLayout="column"
+                      style="margin-top: 8px; margin-left: -13px; align-items: flex-end;">
+                      <mat-icon fxFlex="50%">account_circle</mat-icon>
+                    </div>
+                    <div fxFlex="80" fxLayout="column" style="margin-top: 13px; margin-left: 5px;">
+                      <span class="myspan-gris">{{ row.centro }}</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-title>
+
+              <mat-card-content style="margin-top: -6px; padding: 6px;">
+                <div fxLayout="column wrap">
+                  <mat-divider style="height: 2px;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="start center">
+                      <div fxFlex="80">
+                        <div fxLayout="row wrap">
+                          <div fxFlex="100" fxLayoutAlign="start center">
+                            <span class="myspan-gris">De&nbsp;</span>
+                            <span class="myspan-gris">{{row.localidad_carga}}</span>
+                          </div>
+                          <div fxFlex="100" fxLayoutAlign="start center">
+                            <span class="myspan-gris">a&nbsp;</span>
+                            <span
+                              class="myspan-gris">{{(row.tipo == 1) ? row.zona_destino_pedido: row.zona_destino}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div fxFlex="20">
+                        <button mat-mini-fab style="box-shadow: none; width: 35px; height: 35px;" color="calada"
+                        matTooltip="Cantidad de camiones" class="mr-2">
+                          {{ row.cantidad }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100">
+                      <div fxFlex="20" fxLayoutAlign="center center">
+                        <mat-icon style="font-size: 40px; color: #33A85D;margin-top: -20px;
+                        margin-left: -20px;">monetization_on</mat-icon>
+                      </div>
+                      <div fxFlex="80" fxLayoutAlign="start center">
+                        <h4 class="myspan-verde" *ngIf="row.precio_viaje2 === 0"> {{row.precio_viaje  | currency}} / Tn
+                        </h4>
+                        <h4 class="myspan-verde" *ngIf="row.precio_viaje2 !== 0"> {{row.precio_viaje | currency }} -
+                          {{row.precio_viaje2 | currency}} /Tn</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="start center">
+                      <div fxFlex="30">
+                        <strong class="myspan-gris">Adelanto:&nbsp;</strong>
+                      </div>
+                      <div fxFlex="35">
+                        <button mat-icon-button mat-sm-button class="m-0">
+                          <mat-icon style="font-size: 40px;">attach_money</mat-icon>
+                        </button> &nbsp;
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_efectivo == '1'">
+                          <mat-icon style="font-size: 40px; color: #6DB021!important;">done</mat-icon>
+                        </button>
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_efectivo !== '1'" color="warn">
+                          <mat-icon style="font-size: 40px;">clear</mat-icon>
+                        </button>
+                      </div>
+                      <div fxFlex="35">
+                        <button mat-icon-button mat-sm-button class="m-0">
+                          <mat-icon style="font-size: 40px;">local_gas_station</mat-icon>
+                        </button> &nbsp; &nbsp;
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_gasoil == '1'">
+                          <mat-icon style="font-size: 40px; color: #6DB021!important;">done</mat-icon>
+                        </button>
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_gasoil !== '1'" color="warn">
+                          <mat-icon style="font-size: 40px;">clear</mat-icon>
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100">
+                      <div fxFlex="90" fxLayoutAlign="center center">
+                        <strong class="myspan-gris" (click)="showDetalle(row)">Más Información</strong>
+                      </div>
+                      <div fxFlex="10" *ngIf="row.showDetalles">
+                        <button mat-icon-button mat-sm-button class="m-0" color="warn" matTooltip="Cerrar"
+                          fxLayoutAlign="end center" (click)="hideDetalle(row)">
+                          <mat-icon style="font-size: 20px;">clear</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxFlex.gt-xs="33" *ngIf="row.showDetalles">
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Fecha: {{ row.fecha_desde }} > {{ row.fecha_hasta }}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Días de Pago: {{row.condiciones_pago}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Forma de Pago: {{row.medio_pago}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Producto:{{row.nombre_producto}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Carga Peligrosa:
+                        {{(row.carga_peligrosa == 1) ? 'SI' : 'NO'}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Km:{{row.kilometros}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Teléfono:{{row.telefono_contacto}}</span>
+                    </div>
+                    <div class="linea" *ngIf="row.observaciones !== null">
+                      <strong>Observaciones:</strong>
+                      <p>{{(row.observaciones != null) ? row.observaciones:  '' }}</p>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="center center">
+                      <div fxFlex="70" fxLayoutAlign="center center" style="margin-top: 7px;">
+                        <button mat-raised-button style="border-radius: 10px;
+                        border-style: solid;  border: 1px;" (click)="postularme(i,row)" [disabled]="selec[i] < 1"
+                          [ngStyle]="{'background-color':selec[i] < 1 ? 'rgb(140, 190, 158)' : 'rgb(27, 173, 80)'}">
+                          <strong style="font-size: 18px; font-weight: 600; color:#fff;">POSTULARSE</strong>
+                        </button>
+                      </div>
+                      <div fxFlex="30" fxLayoutAlign="center center" style="margin-top: 7px;">
+                        <input class="quantity-input default-bg" min="0" max="{{row.cantidad+row.reduccion}}"
+                          name="quantity" type="number" [(ngModel)]="selec[i]" style="width: 55px !important; box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+                             margin-left: 25px;
+                             border: 1px;
+                             border-radius: 10px;
+                             border-color: #38BEEB!important;
+                             border-style: solid;"
+                          (keyup)="validarCant($event.target.value, row.cantidad+row.reduccion, i)">
+                          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div fxFlex="3" fxLayoutAlign="start center" style="margin-left: -5px;">
+          <button mat-icon-button mat-sm-button class="m-0" [disabled]="indexPublicos >= pedidosPublicos.length-3"
+            (click)="actualizarDifusiones('next')">
+            <mat-icon style="font-size: 40px;">navigate_next</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="30" style="background: #87b1c6;">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <br>
+        <div style="background: #506b78;margin-left: 20px; border-radius: 20px;border: 3px; width: 200px;">
+          <h4><span style="font-weight: 600; color:#FCFDFF;margin-left: 20px; font-size: 12px;">MIS POSTULACIONES
+            </span>
+          </h4>
+        </div>
+      </div>
+      <div fxFlex="100">
+        <div fxFlex="10" fxLayoutAlign="start center">
+          <button mat-icon-button mat-sm-button class="m-0" [disabled]="indexPostulados===0"
+            (click)="actualizarPostulaciones('previos')">
+            <mat-icon style="font-size: 40px;">navigate_before</mat-icon>
+          </button>
+        </div>
+        <div fxFlex="80" class="scroll-container" fxLayout="row wrap">
+          <div fxFlex="100" *ngFor="let row of postulados; let i = index" fxLayoutAlign="center center">
+            <mat-card class="default" style="background: #FCFDFF; border-radius: 6px;border: 3px;">
+              <mat-card-title>
+                <div fxLayout="row wrap" style="padding: 0.4rem;">
+                  <div fxFlex="100">
+                    <div fxFlex="20" fxLayout="column"
+                      style="margin-top: 8px; margin-left: -13px; align-items: flex-end;">
+                      <mat-icon fxFlex="50%">account_circle</mat-icon>
+                    </div>
+                    <div fxFlex="80" fxLayout="column" style="margin-top: 13px; margin-left: 5px;">
+                      <span class="myspan-gris">{{ row.centro }}</span>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-title>
+
+              <mat-card-content style="margin-top: -6px; padding: 6px;">
+                <div fxLayout="column wrap">
+                  <mat-divider style="height: 2px;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="start center">
+                      <span class="myspan-gris">De&nbsp;</span>
+                      <span class="myspan-gris">{{row.localidad_carga}}</span>
+                    </div>
+                    <div fxFlex="100">
+                      <span class="myspan-gris">a&nbsp;</span>
+                      <span class="myspan-gris">{{(row.tipo == 1) ? row.zona_destino_pedido: row.zona_destino}}</span>
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100">
+                      <div fxFlex="20" fxLayoutAlign="center center">
+                        <mat-icon style="font-size: 40px; color: #33A85D;margin-top: -20px;
+                        margin-left: -20px;">monetization_on</mat-icon>
+                      </div>
+                      <div fxFlex="80" fxLayoutAlign="start center">
+                        <h4 class="myspan-verde" *ngIf="row.precio_viaje2 === 0"> {{row.precio_viaje  | currency}} / Tn
+                        </h4>
+                        <h4 class="myspan-verde" *ngIf="row.precio_viaje2 !== 0"> {{row.precio_viaje | currency }} -
+                          {{row.precio_viaje2 | currency}} /Tn</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="start center">
+                      <div fxFlex="30">
+                        <strong class="myspan-gris">Adelanto:&nbsp;</strong>
+                      </div>
+                      <div fxFlex="35">
+                        <button mat-icon-button mat-sm-button class="m-0">
+                          <mat-icon style="font-size: 40px;">attach_money</mat-icon>
+                        </button> &nbsp;
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_efectivo == '1'">
+                          <mat-icon style="font-size: 40px; color: #6DB021!important;">done</mat-icon>
+                        </button>
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_efectivo !== '1'" color="warn">
+                          <mat-icon style="font-size: 40px;">clear</mat-icon>
+                        </button>
+                      </div>
+                      <div fxFlex="35">
+                        <button mat-icon-button mat-sm-button class="m-0">
+                          <mat-icon style="font-size: 40px;">local_gas_station</mat-icon>
+                        </button> &nbsp; &nbsp;
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_gasoil == '1'">
+                          <mat-icon style="font-size: 40px; color: #6DB021!important;">done</mat-icon>
+                        </button>
+                        <button mat-icon-button mat-sm-button class="m-0" *ngIf="row.da_gasoil !== '1'" color="warn">
+                          <mat-icon style="font-size: 40px;">clear</mat-icon>
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                  <mat-divider style="height: 2px; position: relative;"></mat-divider>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100">
+                      <div fxFlex="90" fxLayoutAlign="center center">
+                        <strong class="myspan-gris" (click)="showDetalle(row)">Más Información</strong>
+                      </div>
+                      <div fxFlex="10" *ngIf="row.showDetalles">
+                        <button mat-icon-button mat-sm-button class="m-0" color="warn" matTooltip="Cerrar"
+                          fxLayoutAlign="end center" (click)="hideDetalle(row)">
+                          <mat-icon style="font-size: 20px;">clear</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="100" fxFlex.gt-xs="33" *ngIf="row.showDetalles">
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Fecha: {{ row.fecha_desde }} > {{ row.fecha_hasta }}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Días de Pago: {{row.condiciones_pago}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Forma de Pago: {{row.medio_pago}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Producto:{{row.nombre_producto}}</span>
+                    </div>
+                    <div class="linea">
+                      <span style="font-size: 0.8rem;">Carga Peligrosa:
+                        {{(row.carga_peligrosa == 1) ? 'SI' : 'NO'}}</span>
+                    </div>
+                    <div class="linea" *ngIf="row.observaciones !== null">
+                      <strong>Observaciones:</strong>
+                      <p>{{(row.observaciones != null) ? row.observaciones:  '' }}</p>
+                    </div>
+                  </div>
+                  <div fxLayout="row wrap" style="padding: 0.4rem;">
+                    <div fxFlex="100" fxLayoutAlign="center center" style="margin-top: 7px;">
+                      <button mat-raised-button style="border-radius: 10px !important;
+                      border-color: #e90a0a8c; border-style: solid; box-shadow: none;"
+                        (click)="cancelarPostulacion(i,row)" color="warn">
+                        <strong style="font-size: 18px; font-weight: 600; color:#fff;">Cancelar</strong>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div fxFlex="10" fxLayoutAlign="start center">
+          <button mat-icon-button mat-sm-button class="m-0" [disabled]="indexPostulados >= pedidosPostulados.length-1"
+            (click)="actualizarPostulaciones('next')">
+            <mat-icon style="font-size: 40px;">navigate_next</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

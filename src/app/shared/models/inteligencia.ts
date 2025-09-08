@@ -1,0 +1,32 @@
+export class Inteligencia {
+    id: string;
+    nombre_generador: string;    
+    nombre_dador: string;
+    nombre_producto: string;
+    nombre_lugar_carga: string;
+    zona_destino: string;
+    fecha_desde: string;
+    fecha_hasta: string;
+    nombre_centro: string;
+    km: string;
+    camiones_pendientes: string;
+    cant_camiones_disponibles: number;
+    cant_camiones_muvin: number;
+    cant_camiones_clientes: number;
+    viajes_inteligentes: number;
+    id_centro: string;
+    id_generador: string;
+    camiones_a_km_destino: string;
+    camiones_a_km_origen: string;
+    camiones_cargados: string;
+    camiones_conformes: string;
+    camiones_en_destino: string;
+    camiones_esperando: string;   
+    camiones_rechazados: string;
+    camiones_vacios: string;    
+    latitud: number;
+    longitud: number;
+    total_viajes: number;
+    total_viajes_hijos: number;
+    viajes_asignados: number;
+}

@@ -1,0 +1,88 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Mostrar logs</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <br>
+    <div fxLayout="row wrap" style="margin-left: 10px;">
+      <div fxFlex="100">
+        <div fxFlex="20" fxFlex.gt-xs="20">
+          <mat-form-field class="full">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput name="metodo" [value]="filtro.metodo" placeholder="Método"
+              (keyup)="updateFilter($event.srcElement.value, 'metodo')" />
+          </mat-form-field>
+        </div>
+        <div fxFlex="20" fxFlex.gt-xs="20">
+          <mat-form-field class="full">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput [matDatepicker]="appDatepicker" [value]="filtro.fecha" placeholder="Fecha"
+              (dateInput)="updateFilter($event.value, 'fecha')" (dateChange)="updateFilter($event.value, 'fecha')" />
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #appDatepicker></mat-datepicker>
+            <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="20" fxFlex.gt-xs="20">
+          <mat-form-field class="full">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput name="json_entrada" [value]="filtro.json_entrada" placeholder="Entrada"
+              (keyup)="updateFilter($event.srcElement.value, 'json_entrada')" />
+          </mat-form-field>
+        </div>
+        <div fxFlex="20" fxFlex.gt-xs="20">
+          <mat-form-field class="full">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput name="json_salida" [value]="filtro.json_salida" placeholder="Salida"
+              (keyup)="updateFilter($event.srcElement.value, 'json_salida')" />
+          </mat-form-field>
+        </div>
+        <div fxFlex="20" fxFlex.gt-xs="20">
+          <button mat-raised-button color="primary" (click)="accionFiltrar()">Filtrar</button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <ngx-datatable matSort class="material ml-0 mr-0" [rows]="lista_logs" [columnMode]="'force'" [headerHeight]="50"
+          [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+          [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'">
+          <ngx-datatable-column name="ID" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.id }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="IP" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.ip }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Método" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.metodo }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Fecha" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.fecha }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Usuario" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.user }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Acciones" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-icon-button mat-sm-button color="primary" matTooltip="Información" class="mr-1"
+                (click)="openPopUpInfo(row)">
+                <mat-icon>info</mat-icon>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

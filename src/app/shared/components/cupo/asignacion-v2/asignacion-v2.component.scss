@@ -1,0 +1,1788 @@
+.encabezado {
+  background: #fefefe;
+  color: #0c0c0c;
+  height: 58px;
+  font-size: 14px;
+  margin: 10px;
+  width: 99%;
+
+  .top-label {
+    font-size: 9px;
+    top: -5px;
+    position: relative;
+    line-height: 7px;
+    left: 5px;
+  }
+}
+
+.row_encabezado {
+  height: 60px;
+  padding: 8px;
+}
+
+// Cupo 1
+
+table {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: rgb(225, 225, 225);
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+  width: 90%;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+tr.mat-row {
+  height: 35px;
+}
+
+tr.mat-row>td {
+  height: 35px;
+  border-bottom: thin solid #101010;
+  /* border-style: solid;
+    border-width: thin;
+    border-right-color: #ecf6fc; */
+  /* border-bottom-color: #0a0a0a;
+    border-bottom-width: thin;
+    border-bottom-style: solid; */
+}
+
+.td-mat-cell {
+  text-align: center;
+  border-width: thin;
+  border-color: #999898;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.div-dia-izq {
+  border-right-color: #BEBDBE;
+  border-right-style: solid;
+  border-right-width: thin;
+  height: 36px;
+  font-size: 17px;
+}
+
+.mat-table-sticky {
+  border-top: 1px solid #e0e0e0;
+}
+
+
+
+.header-group-row {
+  border: none;
+  align-items: stretch;
+}
+
+.header-group {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-cell,
+.mat-footer-cell {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+tr.mat-header-row {
+  height: 32px;
+}
+
+th.mat-header-cell {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border-bottom-color: #000000;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type {
+  padding-left: 0px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border-bottom-color: #000000;
+}
+
+
+.example-element-description[_ngcontent-c12] {
+  padding: 10px;
+  background: #00aeef;
+}
+
+.example-element-detail[_ngcontent-c17] {
+  background: #00aeef;
+}
+
+.example-expanded-row {
+  background: #00aeef;
+}
+
+.example-element-detail[_ngcontent-c12] {
+  background: #00aeef;
+}
+
+.example-element-row {
+  height: 64px;
+}
+
+#app-customizer {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 12px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#app-customizer1 {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 92px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.pos-rel {
+  position: relative;
+  z-index: 99;
+
+  .olay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 100;
+  }
+}
+
+.example-element-detail[_ngcontent-c6] {
+  background: #00aeef;
+}
+
+.cursor {
+  cursor: url(https://img.icons8.com/color/48/000000/idea.png), auto;
+}
+
+.white-icon {
+  color: #ffc107;
+}
+
+.white-icon svg {
+  fill: #ffc107;
+}
+
+::ng-deep .app-admin-container .rightside-content-hold {
+  padding: 0px !important;
+}
+
+/* label style */
+.mat-tab-label {
+  background: green;
+  color: white;
+}
+
+/* focus style */
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus {
+  background: red;
+}
+
+/* ink bar style */
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background: yellow;
+  height: 10px;
+}
+
+::ng-deep .mat-tab-labels {
+  height: 48px;
+  margin-top: 0px;
+  margin-left: 56px;
+}
+
+.egret-indigo .mat-tab-group.mat-background-primary .mat-tab-header {
+  background-color: #87b1c6 !important;
+}
+
+.mat-tab-link {
+  color: white !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  color: white;
+}
+
+::ng-deep .mat-tab-header {
+  border-bottom: 0px !important;
+  background-color: #87b1c6 !important;
+}
+
+::ng-deep .mat-tab-label-active .mat-tab-label-content {
+  color: #87b1c6;
+  background-color: #e9e9ea;
+}
+
+::ng-deep .mat-tab-label-active {
+  color: #87b1c6;
+  background-color: #e9e9ea;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: #e9e9ea;
+}
+
+::ng-deep .mat-tab-body-content {
+  background-color: #e9e9ea;
+}
+
+.mat-fab {
+  border: solid !important;
+}
+
+.mat-card.default .mat-card-title {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0px;
+}
+
+agm-map {
+  height: 400px;
+}
+
+.mat-select-panel {
+  max-width: 280px;
+  overflow: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#asignar {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  //right: 200px;
+  right: 120px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#solicitar {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  right: 10px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#solicitar1 {
+  position: fixed;
+  z-index: 20000;
+  left: 48px;
+  max-width: 300px;
+}
+
+#cabecera {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  //right: 150px;
+  right: 200px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#devolver {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  right: 90px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#filtro-asignados {
+  position: fixed;
+  z-index: 20000;
+  top: 75px;
+  right: 10px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#otros_productos {
+  position: fixed;
+  z-index: 20000;
+  top: 197px;
+  right: 30px;
+  max-width: 300px;
+
+  .handle {
+    float: right;
+  }
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+#otros {
+  position: fixed;
+  z-index: 20000;
+  top: 186px;
+  right: 135px;
+  max-width: 300px;
+
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.checkboxcustom {
+  height: 15px;
+  width: 15px;
+}
+
+.example-container {
+  //height: 200px;
+  min-height: 100px;
+  overflow: auto;
+}
+
+.mat-column-destino {
+  width: 50%;
+  border-left-color: #e9e7e7;
+}
+
+
+.mat-column-destinatario {
+  width: 40%;
+  border-left-color: #e9e7e7;
+}
+
+.mat-column-dia1 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia2 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia3 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia4 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia5 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia6 {
+  width: 8%;
+  text-align: center;
+}
+
+.mat-column-dia7 {
+  width: 8%;
+  text-align: center;
+}
+
+/* .mat-column-dia5 {
+  width: 8%;
+  text-align: center;
+  border-right-color: #e9e7e7;
+  padding: 0px;
+} */
+
+.mat-column-disponibles {
+  width: 4.2%;
+  text-align: center;
+  border-right-color: #e9e7e7;
+  padding: 0px;
+  background: #E9F5FA;
+}
+
+.mat-column-solicitados {
+  width: 4.2%;
+  text-align: center;
+  border-right-color: #e9e7e7;
+  padding: 0px;
+  background-color: #FFF5CC;
+}
+
+.mat-column-observaciones {
+  text-align: center;
+  width: 0.5%;
+}
+
+.mat-column-corredor {
+  text-align: center;
+  width: 10.5%;
+}
+
+.mat-column-contraparte {
+  text-align: center;
+  width: 10%;
+}
+
+.mat-column-destinatario_s {
+  text-align: center;
+  width: 10%;
+}
+
+.mat-column-contrato {
+  text-align: center;
+  width: 7%;
+}
+
+.mat-column-zona {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-saldo {
+  text-align: center;
+  width: 5%;
+}
+
+.mat-column-dia1_s {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-dia2_s {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-dia3_s {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-dia4_s {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-dia5_s {
+  text-align: center;
+  width: 8%;
+}
+
+.mat-column-solicitados_s {
+  text-align: center;
+  width: 10%;
+  background: rgb(255, 245, 204);
+}
+
+.table-table-solicitud {
+  width: 100%;
+  border: 1px solid rgb(8, 8, 8);
+}
+
+.header-table-solicitud {
+  background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(8, 8, 8);
+}
+
+.header-table-solicitud-soli {
+  background-color: rgb(235, 110, 32);
+  color: #fff !important;
+  font-weight: 400 !important;
+}
+
+.cell-first-table-solicitud {
+  background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(8, 8, 8);
+}
+
+.cell-table-solicitud {
+  border: 1px solid rgb(8, 8, 8);
+  font-size: 11px;
+  color: #101010 !important;
+}
+
+.cell-dias-table-solicitud {
+  border: 1px solid rgb(8, 8, 8);
+  font-size: 17px;
+  color: #101010 !important;
+  background-color: white;
+}
+
+.cell-solicitados-table-solicitud {
+  border: 1px solid rgb(8, 8, 8);
+  font-size: 17px;
+  color: #101010 !important;
+}
+
+
+.th-mat-header-cell {
+  text-align: center;
+  background-color: #DADADB;
+  border-width: thin;
+  border-color: #999898;
+  border-style: solid;
+}
+
+.th-mat-header-cell-disponibles {
+  text-align: center;
+  background-color: rgb(23, 71, 142);
+  border-width: thin;
+  border-color: rgb(93, 92, 93);
+  border-style: solid;
+}
+
+.th-mat-header-cell-solicitados {
+  text-align: center;
+  background-color: rgb(235, 110, 32);
+  border-width: thin;
+  border-color: #999898;
+  border-style: solid;
+}
+
+.th-mat-header-cell-solicitados_s {
+  text-align: center;
+  background-color: rgb(235, 110, 32);
+  border-width: thin;
+  border-color: #999898;
+  border-style: solid;
+  color: #fff;
+}
+
+.selected-element {
+  background-color: aqua;
+  border: 1px solid rgb(8, 8, 8);
+}
+
+.not-selected-element {
+  background-color: white;
+}
+
+.span_totales {
+  margin-left: 5px;
+}
+
+.mat-column-FileName {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 100px !important;
+  width: 100px !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-checkbox-inner-container {
+  width: 15px;
+  height: 15px;
+  margin-top: 8px;
+  margin-left: 0;
+}
+
+.mat-blue {
+  background-color: #247ba0;
+  color: #fefefe !important;
+}
+
+.mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: 140px;
+  margin-top: 0px;
+}
+
+.mat-sort-header-button {
+  margin-left: 50px;
+  width: 90%;
+}
+
+.textarea {
+  min-height: 100px;
+  border: 1px solid #ddd;
+  position: relative;
+  width: 99%;
+  box-shadow: none;
+  background: #87b1c6;
+  padding: 0;
+  margin: 0.6em;
+  margin-top: 5px;
+}
+
+.textarea_gestion {
+  height: 50px;
+  border: 1px solid #ddd;
+  position: relative;
+  width: 99%;
+  box-shadow: none;
+  background: #6BAF22;
+  padding: 0;
+  margin: 0.6em;
+  margin-top: 5px;
+  color: #fff;
+}
+
+.textarea_sin_cupo {
+  height: 50px;
+  border: 1px solid #ddd;
+  position: relative;
+  width: 99%;
+  box-shadow: none;
+  background: #fff;
+  padding: 0;
+  margin: 0.6em;
+  margin-top: 5px;
+  color: #000;
+}
+
+.textarea_handsontable {
+  height: 40vh;
+  border: 1px solid #ddd;
+  position: relative;
+  width: 99%;
+  box-shadow: none;
+  background: #ffffff;
+  padding: 0;
+  margin: 0.6em;
+  margin-top: 5px;
+  color: rgb(0, 0, 0);
+}
+
+#tablaSolicitudes {
+  width: 99%;
+}
+
+#hot {
+  width: 99%;
+}
+
+.handsontable .wtHider {
+  position: relative;
+  width: 100%;
+}
+
+.table2 {
+  margin-left: 0.6em;
+  margin-top: 0.6em;
+  margin-right: 0.8em;
+  width: 99%;
+}
+
+.textarea .grabber {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  cursor: s-resize;
+  height: 12px;
+  width: 100%;
+  border-top: 1px solid #f1f1f1;
+  overflow: hidden;
+  background-color: #ffffff;
+  background-image: url("https://cdn.sstatic.net/Sites/stackoverflow/img/sprites.svg"),
+    none;
+  background-position: 53% -365px;
+  background-size: initial;
+  background-repeat: no-repeat;
+}
+
+.mat-icon-button {
+  width: 17px;
+}
+
+.clock_kt {
+  color: #777777;
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-color: #afadad;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 0.5px;
+}
+
+.icon-info {
+  font-size: 15px;
+  height: 15px;
+  width: 10px;
+}
+
+.color-total {
+  color: rgb(92, 172, 48) !important;
+}
+
+.color-pendiente {
+  color: rgb(184, 105, 24) !important;
+}
+
+.color-disabled {
+  color: rgba(169, 172, 167, 0.74) !important;
+}
+
+#form-cuponera1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff;
+    border-top: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(255, 255, 255);
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused
+      background-color: rgb(23, 71, 144) !important;*/
+    background-color: #ffffff !important;
+  }
+}
+
+#sele-producto {
+  ::ng-deep .mat-form-field-infix {
+    margin-top: 0;
+    color: #ffffff;
+    border-top: none !important;
+    padding: 0;
+    //margin-left: 10px;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background: transparent !important;
+  }
+}
+
+.select_producto {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(23, 71, 144);
+  color: #ffffff;
+}
+
+.mfl {
+  margin-left: 5px;
+  height: 30px;
+  margin-top: -3px;
+  max-width: 95%;
+}
+
+.label-span {
+  margin-top: -6px;
+  margin-left: 5px;
+  font-size: 12px;
+  color: rgb(255, 254, 254);
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.fecha-bt {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 2px;
+  width: 100%;
+  height: 35px;
+  padding: 2px;
+  padding-right: 7px;
+  border-width: 0.5px;
+  background: rgb(23, 71, 144);
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+}
+
+#fecha-bt1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff !important;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: 0px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background: transparent !important;
+  }
+}
+
+.color-fondo-ceros {
+  color: #ecf6fc !important;
+}
+
+
+
+// Sacar el molesto border de colores de los botones
+::ng-deep .egret-indigo button.m-0.mat-icon-button.mat-m-0.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-cupo-asignar.mat-fab.mat-accent.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-cupo-asignar.mat-fab.mat-accent.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.m-0.mat-icon-button.mat-m-0.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-mouse-focused {
+  outline: none;
+}
+
+.td_cell {
+  width: 100%;
+  font-size: 17px;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.background-disponibles {
+  background-color: rgb(233, 245, 250);
+}
+
+.background-solicitados {
+  background-color: rgb(255, 245, 204);
+}
+
+::ng-deep .egret-indigo .mat-select-disabled .mat-select-value {
+  color: #fff;
+}
+
+::ng-deep .egret-indigo .mat-form-field .mat-select.mat-select-disabled .mat-select-arrow {
+  color: #fff;
+  /*  margin-top: -7px; */
+}
+
+::ng-deep .egret-indigo .mat-select-value {
+  color: #fff;
+}
+
+::ng-deep .egret-indigo .mat-select-arrow {
+  color: #fff;
+  /*  margin-top: -7px; */
+}
+
+::ng-deep .egret-indigo .mat-select.mat-select-disabled .mat-select-arrow {
+  color: #fff;
+}
+
+::ng-deep .mat-datepicker-toggle-default-icon {
+  color: #fff;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+.width-90 {
+  width: 90%;
+}
+
+.width-80 {
+  width: 80%;
+}
+
+.width-70 {
+  width: 70%;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+#sele-destinatario {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(9, 102, 126) !important;
+  }
+}
+
+.select-destinatario {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+}
+
+.select-cliente {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 9px;
+  padding-left: 8px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+  line-height: 15px;
+}
+
+.select-cliente-disabled {
+  border-color: rgb(139, 165, 172);
+  background: rgb(139, 165, 172);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 9px;
+  padding-left: 8px;
+  //background-color: #ffffff;
+  color: #c7c1c1;
+  line-height: 15px;
+}
+
+#sele-destino,
+#select-ccpp,
+#select-cliente {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(164, 199, 207) !important;
+  }
+}
+
+.select-destino {
+  border-color: rgb(164, 199, 207);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+}
+
+
+.select-destino-disabled {
+  border-color: rgb(139, 165, 172);
+  background: rgb(139, 165, 172);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #c7c1c1;
+}
+
+#sele-corredor {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-corredor {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-corredor-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+#sele-contraparte {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-contraparte {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-contraparte-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+#sele-destSolicitud {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-destSolicitud {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-destSolicitud-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+
+#sele-zona {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-zona {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-zona-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+#sele-contrato {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-contrato {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-contrato-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+.select-contrato-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+#sele-caratula {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -16px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(179, 215, 237) !important;
+  }
+}
+
+.select-caratula {
+  border-color: rgb(0, 123, 193);
+  border-style: solid;
+  border-radius: 10px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 123, 193);
+  color: #ffffff;
+}
+
+.select-caratula-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+
+
+.select-caratula-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+#sele-acciones {
+  :host /deep/ .mat-form-field-infix {
+    margin-top: -3px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+
+  :host /deep/ .egret-indigo .mat-select-arrow {
+    color: #fff;
+    margin-top: -7px;
+  }
+
+  :host /deep/ .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  :host /deep/ .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  :host /deep/ .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(164, 199, 207) !important;
+  }
+
+}
+
+:host /deep/ .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: rgba(244, 239, 239, 0.54) !important;
+}
+
+
+::ng-deep .mat-form-field-underline {
+  background-image: none !important;
+}
+
+::ng-deep .egret-indigo .mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #fff !important;
+}
+
+#sele-acciones2 {
+  :host /deep/ .mat-form-field-infix {
+    margin-top: -3px;
+    color: #ffffff;
+    text-align: left;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  :host /deep/ .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  :host /deep/ .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(164, 199, 207) !important;
+  }
+
+}
+
+.select-acciones {
+  border-color: rgb(251, 251, 251);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 5px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+.input_cupos {
+  border-color: rgb(251, 251, 251);
+  border-style: solid;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.input_cupos-disabled {
+  border-color: rgb(217, 220, 223);
+  border-style: solid;
+  border-width: thin;
+  border-radius: 10px;
+  background-color: rgb(142, 146, 151) !important;
+  color: #000000;
+}
+
+:host /deep/ .mat-raised-button {
+  line-height: 30px !important;
+  border-radius: 10px;
+  height: 30px;
+  width: 70%;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: rgb(225, 225, 225);
+  color: rgb(23, 71, 142);
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type {
+  padding-left: 0px;
+}
+
+td.mat-cell:last-of-type {
+  padding-left: 0px;
+
+}
+
+
+td.mat-cell:last-of-type {
+  padding-right: 0px;
+}
+
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+  padding-right: 0px;
+}
+
+::ng-deep .mat-form-field-hide-placeholder .mat-select-placeholder {
+  color: #ffffff;
+  margin-top: -7px;
+}
+
+::ng-deep #hot-display-license-info {
+  display: none !important;
+}
+
+// ::ng-deep .handsontable .htDimmed {
+//   color: #101010 !important;
+// }
+
+::ng-deep .handsontable td {
+  border-right: 1px solid #080808 !important;
+  border-bottom: 1px solid #060606 !important;
+}
+
+::ng-deep .handsontable td:first-of-type {
+  border-left: 1px solid #0a0a0a !important;
+}
+
+::ng-deep .handsontable th,
+.handsontable td {
+  border-right: 1px solid #080808 !important;
+  border-bottom: 1px solid #060606 !important;
+}
+
+::ng-deep .handsontable th:first-child {
+  border-left: 1px solid #0a0a0a !important;
+}
+
+::ng-deep .handsontable th:last-child {
+  border-right: 1px solid #0c0c0c !important;
+}
+
+.notifica {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  position: absolute;
+  top: -8px;
+  right: -10%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+// sacar el color de la linea de los select
+:host /deep/ .mat-form-field-underline {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+// Sacar el molesto border de colores de los botones
+::ng-deep .egret-indigo button.m-0.mat-icon-button.mat-m-0.cdk-focused.cdk-mouse-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-icon-button.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-cupo-solicitar.mat-fab.mat-accent.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1.3);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.badge {
+  display: inline-block;
+  background-color: #0079c0;
+  border-radius: 50%;
+  color: #fff;
+  padding: 0.5em 0.75em;
+  position: relative;
+  left: -11px;
+  top: -15px;
+}
+
+.pulsate::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: pulse 1s ease infinite;
+  border-radius: 50%;
+  border: 4px double #0079c0;
+}
+
+/*estilo scroll negro*/
+#style-1::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+  background-color: transparent !important;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 6px !important;
+  background-color: transparent !important;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background-color: #555 !important;
+}
+
+// Estilo a la barra de desplazamiento
+.scrollbar {
+  overflow-x: hidden;
+}
+
+::ng-deep .fixed-topbar .rightside-content-hold {
+  overflow: unset !important;
+}
+
+.icon-add-enable {
+  font-size: 28px;
+  height: 20px;
+  width: 50px;
+  color: #174891;
+}
+
+.icon-add-disabled {
+  font-size: 28px;
+  height: 20px;
+  width: 50px;
+  color: #555 !important;
+}
+
+.mat-badge-content {
+  background-color: #ffffff !important;
+  color: #000000;
+}
+
+::ng-deep .mat-drawer-content {
+  overflow: hidden !important;
+}
+
+::ng-deep .handsontable THEAD TH.totalsolicitados {
+  background: #eb6e20;
+  border-color: #eb6e20;
+  color: #fff !important;
+  font-weight: 400 !important;
+}
+
+::ng-deep .handsontable th {
+  border-right: 1px solid #080808 !important;
+  border-bottom: 1px solid #060606 !important;
+}

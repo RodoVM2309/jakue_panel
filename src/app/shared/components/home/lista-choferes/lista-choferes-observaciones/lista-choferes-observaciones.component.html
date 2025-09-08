@@ -1,0 +1,25 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">     
+      <div fxFlex="50" class="pr-1" hidden>
+          <mat-form-field class="full-width">
+            <input matInput name="id" [formControl]="itemForm.controls['id']" >
+          </mat-form-field>
+        </div> 
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea maxlength="2000" matInput name="observaciones" placeholder="Observaciones"
+          [formControl]="itemForm.controls['observaciones']" rows="3">
+        </textarea>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['observaciones'].hasError('required') && itemForm.controls['observaciones'].touched" class="form-error-msg">
+        Es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

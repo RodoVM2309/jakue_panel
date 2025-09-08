@@ -1,0 +1,227 @@
+.component_2 {
+  background-color: rgb(233, 233, 234);
+  margin-right: -24px;
+  margin-left: -24px;
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
+
+.component_1 {
+  background-color: rgb(233, 233, 234);
+}
+
+.encabezado {
+  background-color: rgb(23, 72, 145);
+  color: #FEFEFE;
+  height: 50px;
+  font-size: 24px;
+  width: 100%;
+}
+
+.cuerpo {
+  background-color: rgb(233, 233, 234);
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.div-cuerpo {
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.div-botones {
+  height: 50px;
+  margin-bottom: 30px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.full-80 {
+  width: 80%;
+}
+
+.full-90 {
+  width: 90%;
+}
+
+.full-70 {
+  width: 70%;
+}
+
+.full-60 {
+  width: 60%;
+}
+
+.my-row {
+  width: 100%;
+}
+
+.div-table {
+  width: 100%;
+  min-height: 176px;
+  border: 1px solid;
+  overflow-y: scroll;
+  // margin-top:20px;
+  // height: 36vh;
+}
+
+.form-span-cosecha {
+  color: #c9c5c5
+}
+
+.mat-cabecera {
+  background-color: #29327B !important;
+  color: #fff !important;
+  border-color: rgb(214, 211, 211) !important;
+  border-width: 0.5px;
+}
+
+.mat-guardar-cabecera {
+  background-color: rgb(134, 177, 197) !important;
+  color: #fff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+mat-card.card-wrapper>mat-card-content>form>mat-card {
+  padding: 2% 5% !important;
+  border-radius: 10px;
+}
+
+mat-card {
+  padding: 2% 5% !important;
+  border-radius: 10px;
+}
+
+.mat-card-cuerpo>div>div>mat-form-field {
+  width: 100%;
+}
+
+.mat-card-cuerpo {
+  overflow: auto;
+  height: 68vh;
+}
+
+
+#form-add-cupo {
+
+  ::ng-deep .mat-form-field-infix {
+    margin-top: 0px !important;
+    border-top: 0.84375em solid transparent !important;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-form-field {
+    height: 20px;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #247ba0;
+  }
+
+}
+
+// Sacar el molesto border de colores de los botones
+::ng-deep .egret-indigo button.m-0.mat-icon-button.mat-m-0.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-cupo-asignar.mat-fab.mat-accent.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-cupo-asignar.mat-fab.mat-accent.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.m-0.mat-icon-button.mat-m-0.cdk-focused.cdk-touch-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-program-focused {
+  outline: none;
+}
+
+::ng-deep .egret-indigo button.mat-raised-button.cdk-focused.cdk-mouse-focused {
+  outline: none;
+}
+
+.not-empty-select.mat-selected {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004A90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #837f7f;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}
+
+
+// Estilo a la barra de desplazamiento
+.scrollbar {
+  overflow: auto;
+}
+
+/*estilo scroll negro*/
+#style-1::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+}
+
+.is-loading ::ng-deep .mat-option-text {
+  display: flex;
+  justify-content: center;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42A948;
+  /* green */
+}
+
+/*.ng-invalid:not(form)  {
+  border-left: 1px solid #a94442;  red
+}*/
+
+table {
+  width: 100%;
+}

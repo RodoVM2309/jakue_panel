@@ -1,0 +1,129 @@
+﻿<mat-card class="p-0">
+  <mat-card-title class="">
+    <div class="card-title-text" style="background:#85AFC4">PEDIDO FLETE RETORNO </div>
+
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="addPedidoForm" (ngSubmit)="postPedido()">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          Centro:
+          <span fxFlex></span>
+          <mat-select style="width: 35%;" id="dador" placeholder="Seleccione el Centro"
+            [formControl]="addPedidoForm.controls['selectedCentro']" name="dador" class="mb-1"
+            (selectionChange)="selectCentro()">
+            <mat-option *ngFor="let centro of centros" [value]="centro.id_persona_rol" ngDefaultControl>
+              {{centro.razon_social}}
+            </mat-option>
+          </mat-select>
+          <span fxFlex></span>
+          <!--  <mat-icon (click)="openPopAgregarDador()" color="primary" matTooltip="Agregar Cargador">add</mat-icon>  -->
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="desdeDate" formControlName="desdeDate" placeholder="Fecha Desde"
+              [matDatepicker]="appDatepicker" [max]="maxDate" (dateInput)="addEvent('input', $event, 'desde')"
+              (dateChange)="addEvent('change', $event, 'desde')">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+            </mat-datepicker-toggle>
+
+          </mat-form-field>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="hastaDate" formControlName="hastaDate" placeholder="Fecha hasta"
+              [matDatepicker]="appDatepicker1" [min]="minDate" (dateInput)="addEvent('input', $event, 'hasta')"
+              (dateChange)="addEvent('change', $event, 'hasta')">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker1"></mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker1></mat-datepicker>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <div fxFlex="25">
+            Lugar de carga:
+          </div>
+          <div fxFlex="75">
+            <mat-select id="origen" placeholder="Seleccione el Lugar de Carga"
+              [formControl]="addPedidoForm.controls['selectedDestino']" name="destino" class="mb-1">
+              <mat-option *ngFor="let destino of destinos" [value]="destino.id" ngDefaultControl>
+                {{destino.descripcion}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+        </div>
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <div fxFlex="25">
+            Lugar destino:
+          </div>
+          <div fxFlex="75">
+            <mat-select id="origen" placeholder="Seleccione el Lugar de destino"
+              [formControl]="addPedidoForm.controls['selectedOrigen']" name="origen" class="mb-1">
+              <mat-option *ngFor="let origen of origenes" [value]="origen.id" ngDefaultControl>
+                {{origen.descripcion}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+          <div fxFlex="25">
+            Producto:
+          </div>
+          <div fxFlex="75">
+            <mat-select id="producto" placeholder="Seleccione el Producto"
+              [formControl]="addPedidoForm.controls['selectedProducto']" name="producto" class="mb-1">
+              <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+                {{producto.descripcion}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+        </div>
+        <div fxFlex="40" fxFlex.gt-xs="50" class="pr-1">
+          Cantidad de Camiones:
+          <input class="quantity-input default-bg" min="1" name="quantity" type="number"
+            [formControl]="addPedidoForm.controls['quantity']" style="width: 55px !important;">
+          <small
+            *ngIf="addPedidoForm.controls['quantity'].hasError('required') && addPedidoForm.controls['quantity'].touched"
+            class="form-error-msg"> Debe introducir la Cantidad de Camiones</small>
+          <small
+            *ngIf="addPedidoForm.controls['quantity'].hasError('min') && addPedidoForm.controls['quantity'].touched"
+            class="form-error-msg"> Como mínimo 1 camión</small>
+        </div>
+
+        <!--  <mat-checkbox class="example-radio-button" (change)="onChange($event)" [formControl]="addPedidoForm.controls['ckIntermediario']" >
+                    Permitir que un Intermediario asigne Viajes al Pedido
+                </mat-checkbox>
+                <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1" *ngIf="mostrarIntermediario">
+                    Intermediario:
+                    <span fxFlex></span>
+                    <mat-select style="width: 35%;" id="intermediario" placeholder="Seleccione el Intermediario"
+                        [formControl]="addPedidoForm.controls['selectedIntermediario']" name="intermediario" class="mb-1">
+                        <mat-option *ngFor="let intermediario of intermediarios" [value]="intermediario.id"
+                            ngDefaultControl>
+                            {{intermediario.nombre_intermediario}}
+                        </mat-option>
+                    </mat-select>
+                </div> -->
+      </div>
+      <br />
+      <div class="pb-1">
+        <button mat-raised-button color="warn" type="button" (click)="gotoHome()">
+          Cancelar
+        </button>
+        <span fxFlex></span>
+        <!-- <button mat-raised-button color="primary" type="button" [disabled]="addPedidoForm.invalid" (click)="goAsignarViaje()">Guardar
+                    y Asignar viajes</button> -->
+        <span fxFlex></span>
+        <button mat-raised-button color="primary" [disabled]="addPedidoForm.invalid">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

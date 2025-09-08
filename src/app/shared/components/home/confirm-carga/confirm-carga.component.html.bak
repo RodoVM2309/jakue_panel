@@ -1,0 +1,166 @@
+﻿<mat-card-title class="">
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <mat-divider></mat-divider>
+</mat-card-title>
+
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder=""
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="!updateFecha">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Fecha:</mat-label>
+        <input matInput name="fecha" [formControl]="itemForm.controls['fecha']" placeholder="Fecha Carga"
+          [matDatepicker]="appDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+        </mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="updateFecha">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Fecha:</mat-label>
+        <input
+          matInput
+          name="fecha_disabled"
+          [formControl]="itemForm.controls['fecha_disabled']"
+          readonly
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Destino-Descripción" [formControl]="itemForm.controls['id_destino']" name="id_destino" class="mb-1" (selectionChange)="analisisZona()">
+          <mat-option *ngFor="let destino of destinos" [value]="destino.id_persona_rol" ngDefaultControl>
+            {{destino.descripcion}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Destinatario" [formControl]="itemForm.controls['id_destinatario']" name="id_destinatario" class="mb-1">
+          <mat-option *ngFor="let destinatario of destinatarios" [value]="destinatario.id_destinatario" ngDefaultControl>
+            {{destinatario.nombre_destinatario}} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Entregador" [formControl]="itemForm.controls['id_entregador']" name="id_entregador" class="mb-1">
+          <mat-option *ngFor="let entregador of entregadores" [value]="entregador.id_entregador" ngDefaultControl>
+            {{entregador.nombre_entregador}} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Corredor" [formControl]="itemForm.controls['id_corredor']" name="id_corredor" class="mb-1">
+          <mat-option *ngFor="let corredor of corredores" [value]="corredor.id_corredor" ngDefaultControl>
+            {{corredor.nombre_corredor}} 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+    <mat-divider></mat-divider>
+    <div fxFlex="50" class="pr-1" *ngIf="!updateCarta_porte">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Carta Porte / Remito</mat-label>
+        <input
+          matInput
+          name="carta_porte"
+          [formControl]="itemForm.controls['carta_porte']"
+          placeholder="Carta de Porte / Remito"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['carta_porte'].hasError('required') &&
+          itemForm.controls['carta_porte'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido la carta de porte / remito
+      </small>
+     <small *ngIf="itemForm.controls['carta_porte'].hasError('pattern') && itemForm.controls['carta_porte'].touched" class="form-error-msg">
+        Solo debe introducir números
+      </small> 
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="updateCarta_porte">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Carta Porte</mat-label>
+        <input
+          matInput
+          name="carta_porte_disabled"
+          [formControl]="itemForm.controls['carta_porte_disabled']"
+          readonly
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="!updateCupo">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Cupo</mat-label>
+        <input
+          matInput
+          name="cupo"
+          [formControl]="itemForm.controls['cupo']"
+          placeholder="Número de Cupo"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['cupo'].hasError('required') &&
+          itemForm.controls['cupo'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido el cupo
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1" *ngIf="updateCupo">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Cupo</mat-label>
+        <input
+          matInput
+          name="cupo_disabled"
+          [formControl]="itemForm.controls['cupo_disabled']"
+          readonly
+        />
+      </mat-form-field>
+    </div>
+    <!--    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="fecha cupo" [formControl]="itemForm.controls['fecha_cupo']" placeholder="Fecha Cupo" [matDatepicker]="appDatepicker1">
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker1">
+          </mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #appDatepicker1></mat-datepicker>
+      </div>-->
+    <mat-divider></mat-divider>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,75 @@
+<mat-card class="p-0">
+  <!-- <mat-card-title class="">
+    <div class="card-title-text" style="background:#85AFC4">{{horaString}}:{{minutosString}}:{{segundosString}}</div>
+  </mat-card-title> -->
+  <mat-card-content [style.overflow]="'auto'">
+
+    <div fxLayout="column wrap">
+      <div fxFlex="100" class="pr-0">
+        <div fxLayout="column wrap">
+          <div fxFlex="100" class="pr-1" style="height: 40px;margin-top:10px;">
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="sumaHora()">
+                <mat-icon style="font-size: 44px;">expand_less</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end center"></div>
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="sumaMinutos()">
+                <mat-icon style="font-size: 44px;">expand_less</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end center"></div>
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="sumaSegundos()">
+                <mat-icon style="font-size: 44px;">expand_less</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div fxFlex="100" class="mydiv">
+            <div fxFlex="30" class="clock_kt" fxLayoutAlign="center center">
+              <div>{{horaString}}</div>
+
+            </div>
+            <div fxFlex="5"  fxLayoutAlign="start center" style="font-size: 3rem;height: 40px;">:</div>
+            <div fxFlex="30" class="clock_kt" fxLayoutAlign="center center">
+              <div>{{minutosString}}</div>
+
+            </div>
+            <div fxFlex="5"  fxLayoutAlign="start center" style="font-size: 3rem;height: 40px;">:</div>
+            <div fxFlex="30" class="clock_kt" fxLayoutAlign="center center">
+              <div>{{segundosString}}</div>
+            </div>
+          </div>
+          <div fxFlex="100" class="pr-1" style="height: 40px;">
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="restaHora()">
+                <mat-icon style="font-size: 44px;">expand_more</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end center"></div>
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="restaMinutos()">
+                <mat-icon style="font-size: 44px;">expand_more</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end center"></div>
+            <div fxFlex="30" fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button matTooltip="" (click)="restaSegundos()">
+                <mat-icon style="font-size: 44px;">expand_more</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" style="margin-top: 20px;">
+          <div fxFlex="100" class="pr-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+            <span fxFlex></span>
+            <button mat-raised-button color="primary" (click)="summit()">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,310 @@
+<mat-card class="card_filtro">
+  <div fxLayout="column" fxLayoutAlign="space-between stretch">
+    <form autocomplete="off" [formGroup]="filtrosForm" (ngSubmit)="submit(pageEvent)">
+      <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- Rango Fecha -->
+          <div fxLayoutGap fxLayoutAlign="center center">
+            <mat-form-field class="fecha-bt" id="fecha-bt1">
+              <input matInput placeholder="Rango Fecha" [satDatepicker]="picker" formControlName="rango_fecha"
+                (dateChange)="cambioRangoFecha()" />
+              <sat-datepicker #picker [rangeMode]="true" [closeAfterSelection]="false"></sat-datepicker>
+              <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+            </mat-form-field>
+          </div>
+          <!-- Grupo de clientes -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_celeste">
+            <span>Grupo de clientes: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="id_grupoCliente" formControlName="id_grupoCliente">
+                <mat-option *ngFor="let item of listado_grupoClientes" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Km a terminal -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_gris">
+            <span>Km a terminal : </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="km_terminal" formControlName="km_terminal" multiple>
+                <mat-option *ngFor="let item of km_terminal" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- Terminal de carga -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="sele-producto" class="select_producto">
+            <span>Terminal:</span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="id_terminal" (selectionChange)="onChange($event)" formControlName="id_terminal">
+                <mat-option *ngFor="let item of listadoTerminalCarga" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- CLIENTE -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs" class="select_celeste">
+            <span style="padding-left: 11px;">Cliente:</span>
+            <mat-form-field class="full-width">
+              <input name="cliente" formControlName="cliente" matInput type="text" value="">
+            </mat-form-field>
+          </div>
+          <!-- Emp. Transporte -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs_gris" class="select_gris">
+            <span>Emp. Transporte:</span>
+            <mat-form-field class="pl-1">
+              <input name="empresaTransporte" formControlName="empresaTransporte" matInput placeholder="" type="text"
+                value="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- TIPO DE DESPACHO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="sele-producto" class="select_producto">
+            <span>Tipo despacho: </span>
+            <mat-form-field class="pl-1" style="width: 138px;">
+              <mat-select name="id_tipo" formControlName="id_tipo">
+                <mat-option *ngFor="let item of listado_tipo" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- CUPO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs" class="select_verde">
+            <span style="padding-left: 10px;">Cupo:</span>
+            <mat-form-field class="full-width">
+              <input name="cupo" formControlName="cupo" matInput placeholder="" type="text" value="">
+            </mat-form-field>
+          </div>
+          <!-- DNI CHOFER-->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs_gris" class="select_gris">
+            <span style="padding-right: 8px;">DNI:</span>
+            <mat-form-field class="pl-1">
+              <input name="dniChofer" formControlName="dniChofer" matInput placeholder="" type="text" value="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- CONSIGNATARIO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="inputs" class="select_producto">
+            <span>Consignatario:</span>
+            <mat-form-field class="full-width">
+              <input name="consignatario" formControlName="consignatario" matInput placeholder="" type="text" value="">
+            </mat-form-field>
+          </div>
+          <!-- PRODUCTO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_verde">
+            <span style="padding-top: 1px;">Producto: </span>
+            <mat-select-autocomplete selectPlaceholder="Buscar..." [options]="listado_productos" [multiple]='true'
+              [labelCount]='3' (selectionChange)="getDetalleProductoFertilizantes()" name="optionsSelector"
+              ngDefaultControl [formControl]="filtrosForm.controls['id_producto']">
+            </mat-select-autocomplete>
+          </div>
+          <!-- DOCUMENTACION -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_gris">
+            <span style="padding-right: 14px;">Documentación : </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="doc" formControlName="doc">
+                <mat-option *ngFor="let item of documentacion" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <!-- ZONA -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_blue">
+            <span style="padding-right: 36px;">Zonas: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="id_zona" formControlName="id_zona" [(ngModel)]="selectedZona">
+                <mat-option *ngFor="let zona of listado_zona" [value]="zona.id">
+                  {{zona.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- DETALLE DE PRODUCTO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue"
+            [className]="(selectedProducto === 0) ? 'select_gris' : 'select_verde'">
+            <span>Detalle: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="id_detalleProducto" formControlName="id_detalleProducto">
+                <mat-option *ngFor="let item of listado_detalleProductos" [value]="item.id_prod_erp">
+                  {{item.descripcion_prod_erp}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- ESTADO ARRIBO -->
+          <div fxLayoutGap fxLayoutAlign="center center" id="select_blue" class="select_gris">
+            <span style="padding-right: 14px;">Estado: </span>
+            <mat-form-field class="pl-1">
+              <mat-select name="doc" formControlName="arribo">
+                <mat-option *ngFor="let item of estado_arribo" [value]="item.id">
+                  {{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+        <div fxLayout="column" fxLayoutAlign="space-between stretch">
+          <div fxLayoutGap>&nbsp;</div>
+          <div fxLayoutGap>&nbsp;</div>
+          <div fxLayoutGap fxLayoutAlign="center center">
+            <button class="buscar_btn" [disabled]="filtrosForm.invalid" type="submit" mat-raised-button>
+              <span style="font-size: small;">BUSCAR </span>
+            </button>
+          </div>
+        </div>
+        <div fxFlex="1"></div>
+      </div>
+    </form>
+  </div>
+</mat-card>
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+  <div fxFlex="90" class="segunda_tbl comunes">
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="padding-left: 23px;padding-bottom: 10px;">
+      <div fxFlex="27" style="color:white;padding-left: 5px;">Terminal de Carga: &nbsp;{{ selectedTerminal | uppercase
+        }}</div>
+      <div fxFlex="20" style="color:white;padding-left: 5px;">Total camiones: {{totalCamiones}}</div>
+      <div fxFlex="50" style="color:white;padding-left: 5px;">Total TN: {{totalTn}}</div>
+      <div fxFlex fxLayoutAlign="space-between center">
+        <button class="btn_export" (click)="exportarInfo()" type="button" mat-raised-button>
+          <span style="font-size: small;">EXPORTAR </span>
+        </button>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around stretch" style="margin-bottom: 5px; ">
+      <div>
+        <mat-table [dataSource]="dataSource" matSort>
+          <!-- Position fecha -->
+          <ng-container matColumnDef="fecha">
+            <th class="col_blue" style="width: 1%" mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell style="text-align: center;padding: 2px;" *matCellDef="let element"> {{element.fecha | date:
+              'dd/MM' }} </td>
+          </ng-container>
+
+          <!-- Position despacho -->
+          <ng-container matColumnDef="despacho">
+            <th class="col_blue" style="width: 2%;" mat-header-cell *matHeaderCellDef> Despacho </th>
+            <td mat-cell *matCellDef="let element"> {{element.despacho}} </td>
+          </ng-container>
+
+          <!-- Position consignatario -->
+          <ng-container matColumnDef="consignatario">
+            <th class="col_blue" style="width: 8%;" mat-header-cell *matHeaderCellDef> Consignatario </th>
+            <td mat-cell *matCellDef="let element"> {{element.consignatario}} </td>
+          </ng-container>
+
+          <!-- Position cliente -->
+          <ng-container matColumnDef="cliente">
+            <th class="col_celeste" style="width: 8%;" mat-header-cell *matHeaderCellDef> Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+          </ng-container>
+
+          <!-- Position reserva -->
+          <ng-container matColumnDef="reserva">
+            <th class="col_celeste" style="width: 7%;" mat-header-cell *matHeaderCellDef> Reserva </th>
+            <td mat-cell *matCellDef="let element"> {{element.reserva}} </td>
+          </ng-container>
+
+          <!-- Position cupo -->
+          <ng-container matColumnDef="cupo">
+            <th class="col_verde" style="width: 8%;" mat-header-cell *matHeaderCellDef> Cupo </th>
+            <td mat-cell *matCellDef="let element"> {{element.cupo}} </td>
+          </ng-container>
+          <!-- Position producto -->
+          <ng-container matColumnDef="producto">
+            <th class="col_verde" style="width: 8%;" mat-header-cell *matHeaderCellDef> Producto </th>
+            <td mat-cell *matCellDef="let element"> {{element.producto}} </td>
+          </ng-container>
+          <!-- Position detalle_producto -->
+          <ng-container matColumnDef="detalle_producto">
+            <th class="col_verde" style="width: 9%;" mat-header-cell *matHeaderCellDef> Detalle </th>
+            <td mat-cell *matCellDef="let element"> {{element.detalle_producto}} </td>
+          </ng-container>
+          <!-- Position tn -->
+          <ng-container matColumnDef="tn">
+            <th class="col_verde" style="width: 3%;" mat-header-cell *matHeaderCellDef> TN </th>
+            <td mat-cell *matCellDef="let element"> {{element.tn}} </td>
+          </ng-container>
+          <!-- Position km_term -->
+          <ng-container matColumnDef="km_term">
+            <th class="col_gris" style="width: 4%;" mat-header-cell *matHeaderCellDef> Km Term </th>
+            <td mat-cell *matCellDef="let element"> {{element.km_term | distancia}} </td>
+          </ng-container>
+          <!-- Position empresa_transp -->
+          <ng-container matColumnDef="empresa_transp">
+            <th class="col_gris" style="width: 8%;" mat-header-cell *matHeaderCellDef> Empresa Transp </th>
+            <td mat-cell *matCellDef="let element"> {{element.empresa_transp}} </td>
+          </ng-container>
+          <!-- Position nombre_chofer -->
+          <ng-container matColumnDef="nombre_chofer">
+            <th class="col_gris" style="width: 8%;" mat-header-cell *matHeaderCellDef> Nombre Chofer </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre_chofer}} </td>
+          </ng-container>
+          <!-- Position patente -->
+          <ng-container matColumnDef="patente">
+            <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> Patente </th>
+            <td mat-cell *matCellDef="let element"> {{element.patente}}{{element.acoplado ? '/'+element.acoplado: ''}}</td>
+          </ng-container>
+          <!-- Position DNI -->
+          <ng-container matColumnDef="dni_chofer">
+            <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> DNI </th>
+            <td mat-cell *matCellDef="let element"> {{element.dni_chofer}} </td>
+          </ng-container>
+          <!-- Position doc -->
+          <ng-container matColumnDef="doc">
+            <th class="col_gris" style="width: 3%;" mat-header-cell *matHeaderCellDef> Doc. </th>
+            <td mat-cell *matCellDef="let element">
+              <span [class.rojo]="element.doc == 'NO'">{{element.doc}}</span>
+            </td>
+          </ng-container>
+         <!-- Position fecha_turno -->
+          <ng-container matColumnDef="fecha_turno">
+                      <th class="col_gris" style="width: 5%;" mat-header-cell *matHeaderCellDef> Turno </th>
+                      <td mat-cell *matCellDef="let element"> {{element.fecha_turno | date:
+                        'dd/MM/yy HH:mm'}} </td>
+          </ng-container>
+          <!-- Position arribo -->
+          <ng-container matColumnDef="arribo">
+            <th class="col_verdeClaro" style="width: 3%;" mat-header-cell *matHeaderCellDef> Arribo. </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="centrar">
+                <span *ngIf="element.arribo  != null">{{element.arribo | date: 'dd/MM/yy H:mm'}}</span>
+                <button class="btn_confirmar" *ngIf="element.arribo == null" type="button"
+                  (click)="confirmarArribo(element.reserva,$event)" mat-raised-button> Confirmar </button>
+              </div>
+            </td>
+          </ng-container>
+          <!-- Position cont -->
+          <ng-container matColumnDef="cont">
+            <th class="col_verdeClaro" mat-header-cell *matHeaderCellDef> Cont. </th>
+            <td mat-cell style="padding: 2px;" *matCellDef="let element">
+              <button mat-icon-button mat-sm-button type="button" (click)="openPopUpwhatsapp(element)">
+                <img src="assets/images/muvin/whatsapp.svg">
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table>
+        <mat-paginator #paginator id="paginacion" [length]="pageEvent.length" [pageSize]="pageEvent.pageSize"
+          (page)="getServerData($event)" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

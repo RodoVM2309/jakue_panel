@@ -1,0 +1,96 @@
+<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Configuración de Muvin</h4>
+</div>
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Datos de muvin">
+      <mat-card-content class="mt-1">
+        <form [formGroup]="itemForm" (ngSubmit)="submit()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">            
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput type="text"  maxlength="150" placeholder="Razon Social" formControlName="razonSocial">
+              <mat-error>
+                <span *ngIf="!itemForm.get('razonSocial').valid && itemForm.get('razonSocial').touched">Por favor entre las Razon Social. Es requerido</span>
+              </mat-error>
+                </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput type="text"   maxlength="200" formControlName="domicilio" placeholder="Domicilio" >
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['domicilio'].hasError('required') && itemForm.controls['domicilio'].touched"
+                class="form-error-msg"> Es requerido el Domicilio
+              </small>
+              
+            </div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput  min="30000000000" max="39999999999" type="number" formControlName="cuit" placeholder="CUIT" >
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['cuit'].hasError('required') && itemForm.controls['cuit'].touched"
+                class="form-error-msg">Por favor entre el cuit. Es requerido.
+              </small>
+              <small *ngIf="itemForm.controls['cuit'].hasError('invalidNumber') && itemForm.controls['cuit'].touched"
+              class="form-error-msg">
+                 El cuit no es válido, revíselo.
+              </small>
+                <mat-form-field class="full-width">
+                  <input matInput name="email" [formControl]="itemForm.controls['email']" placeholder="E-mail para notificar postulaciones" (change)="comprobarEmails()" (keyup)= "comprobarEmails()" >
+                </mat-form-field>
+                <small *ngIf="incorrect_emails && itemForm.controls['email'].dirty && itemForm.controls['email'].touched" class="form-error-msg">
+                  Email incorrecto. Si hay mas de uno separelo por ";"
+                </small>
+                <!-- <small *ngIf="exists_emails && itemForm.controls['email'].dirty && itemForm.controls['email'].touched" class="form-error-msg">
+                  Email ya existe. No puede estar repetido.
+                </small> -->
+            </div>
+          </div>
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <!-- <div fxFlex="50" class="pr-1">
+              <mat-checkbox class="example-radio-button" [formControl]="itemForm.controls['condiciones_viaje']">
+                Condiciones de Viaje&nbsp;
+              </mat-checkbox>
+            </div> -->
+            <div fxFlex="100" class="mt-1">
+              <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button>
+              <span fxFlex></span>
+              <button mat-raised-button color="primary" [disabled]="itemForm.invalid  || incorrect_emails">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-tab>
+    <mat-tab label="Seguro de Viaje">
+        <mat-card-content class="mt-1">
+          <form [formGroup]="emailForm" (ngSubmit)="submitEmail()">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput type="email" placeholder="Email de Muvin" formControlName="emailMuvin">
+                  <mat-error>
+                    <span *ngIf="!emailForm.get('emailMuvin').valid && emailForm.get('emailMuvin').touched">Por favor introduzca el email .
+                      Es requerido el email</span>
+                  </mat-error>
+                </mat-form-field>                
+              </div>
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput type="text" formControlName="emailSiniestro" class="form-control" placeholder="Email para los siniestros">
+                   <mat-error>
+                    <span *ngIf="!emailForm.get('emailSiniestro').valid && emailForm.get('emailSiniestro').touched">Por favor introduzca los email para los siniestros</span>
+                  </mat-error>
+                </mat-form-field>   
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">             
+              <div fxFlex="100" class="mt-1">
+                <button mat-raised-button color="warn" type="button" (click)="closeForm()">Cancelar</button>
+                <span fxFlex></span>
+                <button mat-raised-button color="primary" [disabled]="emailForm.invalid">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+  </mat-tab-group>
+</mat-card>

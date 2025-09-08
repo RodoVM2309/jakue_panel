@@ -1,0 +1,431 @@
+<div class="component">
+  <div class="encabezado" fxLayout="column wrap" fxLayoutAlign="start stretch">
+    <div fxFlex="100" fxLayoutAlign="start center" [ngStyle]="{'background':hayDemanda ? '#174793' : '#009DE0' }">
+      <div fxFlex="5"></div>
+      <div fxFlex="95">
+        <strong *ngIf="hayDemanda">ASIGNAR CUPOS CON SOLICITUD</strong>
+        <strong *ngIf="!hayDemanda">ASIGNAR CUPOS SIN SOLICITUD </strong>
+      </div>
+    </div>
+  </div>
+  <!-- 1ra FILA -->
+  <div class="cuerpo" fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="row" class="encabezado-cupos" fxLayoutAlign="start center">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" fxLayoutAlign="start center">
+        <strong class="label-encabezado">CUPOS</strong>
+      </div>
+      <div fxFlex="30" fxLayoutAlign="start end" class="sombreado-encabezado">
+        <div fxFlex="5"></div>
+        <div fxFlex="45" fxLayoutAlign="start end">
+          <strong class="label-encabezado">DISPONIBLES: {{countCuposDisponibles}}</strong>
+        </div>
+        <div fxFlex="45" fxLayoutAlign="start end">
+          <strong class="label-encabezado">SELECCIONADOS: {{countCuposSeleccionados}}</strong>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+    <div fxLayout="row" class="subencabezado-cupos">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" class="pt-15">
+        <div fxFlex="25" fxLayoutAlign="start center">
+          <strong class="label-encabezado">Fecha: {{data.payload.fecha}}</strong>
+        </div>
+        <div fxFlex="20" fxLayoutAlign="start center">
+          <strong class="label-encabezado">Producto: {{producto | uppercase
+            }}</strong>
+        </div>
+      </div>
+      <div fxFlex="30" class="sombreado pt-15">
+        <div fxFlex="5"></div>
+        <div fxFlex="90" fxLayoutAlign="center center">
+          <mat-select name="cabecera" [formControl]="cabeceraForm.controls['idCabecera']"
+            placeholder="Seleccionar Cabecera" (selectionChange)="selectionChangeCabecera($event)">
+            <mat-option [value]="">Sin Cabecera</mat-option>
+            <mat-option *ngFor="let cabecera of cabeceras" [value]="cabecera.id">
+              {{ cabecera.titulo }}
+            </mat-option>
+          </mat-select>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+    <div fxLayout="row" class="cupos">
+      <div fxFlex="5"></div>
+      <div fxFlex="65">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="idCuitDestinatario">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Destinatario</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.nombreDestinatario}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="nombreDestino">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Destino
+            </th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              <div>{{cupo.nombreDestino}}</div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="alfanumericoCupo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cupo</th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              <div> {{cupo.idCupoTerminal}}</div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="caratulaMercadoATermino" *ngIf="usaMTR">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Carátula MtR</th>
+            <td mat-cell *matCellDef="let cupo; let i = index">
+              <div> {{cupo.caratulaMercadoATermino}}</div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div fxFlex="30" class="sombreado">
+        <div fxFlex="95">
+          <table mat-table [dataSource]="dataSourceAction" matSort>
+            <!-- <ng-container matColumnDef="selectedCupo">
+                            <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                                <div fxLayoutAlign="center center">
+                                    <button mat-raised-button *ngIf="hay_seleccionados"
+                                        class="btn btn-cancelar btn-seleccionar-todo" (click)="quitarTodos()">Quitar
+                                        Todos</button>
+                                    <button mat-raised-button *ngIf="!hay_seleccionados"
+                                        class="btn btn-cancelar btn-seleccionar-todo"
+                                        (click)="seleccionarTodos()">Selec.
+                                        Todos</button>
+                                </div>
+                            </th>
+                            <td mat-cell *matCellDef="let cupo; let i = index">
+                                <div fxLayout="row wrap" fxLayoutAlign="center center">
+                                    <div fxFlex="100">
+                                        <div fxFlex="65" fxLayoutAlign="center center">
+                                            <mat-form-field class="full-width">
+                                                <mat-select name="cabecera"
+                                                    [formControl]="cupoDisponibleForm.controls['id_cabecera_'+i]"
+                                                    [disabled]="!cupo.asignado || cupo.aplicar "
+                                                    placeholder="Seleccionar Cabecera"
+                                                    (selectionChange)="selectionChangeCabecera($event,i)"
+                                                    class="selector-cupo-cabecera">
+                                                    <mat-option [value]="">Sin Cabecera</mat-option>
+                                                    <mat-option *ngFor="let cabecera of cabeceras"
+                                                        [value]="cabecera.id">
+                                                        {{ cabecera.titulo }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxFlex="15" fxLayoutAlign="center center">
+                                            <mat-checkbox class="example-radio-button" [(ngModel)]="cupo.aplicar"
+                                                (change)="onCheckboxChangeAplicar($event, cupo,i)"
+                                                [disabled]="!cupo.asignado ||cupoDisponibleForm.controls['id_cabecera_'+i].value !== 0">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div fxFlex="10" fxLayoutAlign="center center">
+                                            <div fxFlex="45" fxLayoutAlign="center center">
+                                                <button mat-icon-button matTooltip="Ver Carta Porte" class="m-0"
+                                                    (click)="openPopUpVer(cupo,cupoDisponibleForm.controls['id_cabecera_'+i].value)">
+                                                    <mat-icon
+                                                        style="vertical-align: top; margin-top: 2px; font-size: 20px;color: #93BD26;">
+                                                        visibility</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div fxFlex="15" fxLayout="column wrap" fxLayoutAlign="center center"></div>
+                                            <div fxFlex="45" fxLayoutAlign="center center">
+                                                <button mat-icon-button matTooltip="Editar" class="ml-21"
+                                                    (click)="openModificar(cupo,cupoDisponibleForm.controls['id_cabecera_'+i].value,true)"
+                                                    [disabled]="cupo.ctg !== null && cupo.ctg !== undefined">
+                                                    <mat-icon
+                                                        style="vertical-align: top; margin-top: 2px; font-size: 20px;color: #93BD26;">
+                                                        edit</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container> -->
+            <ng-container matColumnDef="selectedCupo">
+              <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                <div fxLayoutAlign="center center">
+                  <button mat-raised-button *ngIf="hay_seleccionados" class="btn btn-cancelar btn-seleccionar-todo"
+                    (click)="quitarTodos()">Quitar
+                    Todos</button>
+                  <button mat-raised-button *ngIf="!hay_seleccionados" class="btn btn-cancelar btn-seleccionar-todo"
+                    (click)="seleccionarTodos()">Selec.
+                    Todos</button>
+                </div>
+              </th>
+              <td mat-cell *matCellDef="let cupo; let i = index" style="background: #e5e6e6;">
+                <div style="text-align: center;">
+                  <mat-checkbox class="example-radio-button" [(ngModel)]="cupo.asignado" [disabled]="cupo.habilitado"
+                    (change)="onCheckboxChange($event,cupo,i)">
+                  </mat-checkbox>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="detalleCupo">
+              <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                Detalle</th>
+              <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center">
+                <button mat-icon-button matTooltip="Ver Carta Porte" class="m-0"
+                  (click)="openPopUpVer(cupo,cupoDisponibleForm.controls['id_cabecera_'+i].value)">
+                  <mat-icon style="vertical-align: top; margin-top: 2px; font-size: 20px;color: #93BD26;">
+                    visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="editarCupo">
+              <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                Editar</th>
+              <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center">
+                <button mat-icon-button matTooltip="Editar" class="ml-21"
+                  (click)="openModificar(cupo,cupoDisponibleForm.controls['id_cabecera_'+i].value,true)"
+                  [disabled]="cupo.ctg !== null && cupo.ctg !== undefined">
+                  <mat-icon style="vertical-align: top; margin-top: 2px; font-size: 20px;color: #93BD26;">
+                    edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAction;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAction;"></tr>
+          </table>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+  </div>
+  <!-- 2da FILA -->
+  <div class="cuerpo" fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="row" class="encabezado-demanda" *ngIf="hayDemanda">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" fxLayoutAlign="start end">
+        <strong class="label-encabezado">SOLICITUDES</strong>
+      </div>
+      <div fxFlex="30" class="sombreado-encabezado">
+        <div fxFlex="100">
+          <div fxFlex="5"></div>
+          <div fxFlex="90" fxLayoutAlign="start end">
+            <strong class="label-encabezado">PENDIENTES:
+              {{countCuposSeleccionados-countCuposDemandados}}</strong>
+          </div>
+          <div fxFlex="5"></div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" class="encabezado-sin-demanda" *ngIf="!hayDemanda">
+      <div fxFlex="7"></div>
+      <div fxFlex="86">
+        <div fxFlex="30" fxLayoutAlign="start end">
+          <strong class="label-encabezado">BUSCAR CUIT/RAZON SOCIAL:</strong>
+        </div>
+        <div fxFlex="70" fxLayoutAlign="start end">
+          <form [formGroup]="searchForm" class="form-search">
+            <div fxFlex="80">
+              <mat-form-field class="input-search">
+                <!-- <mat-label> </mat-label> -->
+                <input matInput name="cuit" type="text" [value]="cuit" [formControl]="searchForm.controls['cuit']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="10">
+              <button mat-icon-button matTooltip="Buscar" class="icon-buscar" (click)="BuscarDemandaCUIT($event)">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+            <div fxFlex="10">
+              <button mat-button style="color: #fff; margin-left: 10px; padding-top: 17px;" matTooltip="Agregar cliente"
+                (click)="addPersona()">
+                <mat-icon style="margin-top: -5px;">add_circle_outline</mat-icon>
+                Nuevo
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div fxFlex="7"></div>
+    </div>
+    <div fxLayout="row" class="subencabezado-demanda" *ngIf="hayDemanda">
+      <div fxFlex="5"></div>
+      <div fxFlex="65" class="pt-15">
+        <div fxFlex="100" fxLayoutAlign="start center">
+          <strong class="label-encabezado">Receptor: {{receptor.nombreDemandante}}</strong>
+        </div>
+      </div>
+      <div fxFlex="30" class="sombreado pt-15"></div>
+    </div>
+    <div fxLayout="row" class="hay-demanda" *ngIf="hayDemanda">
+      <div fxFlex="5"></div>
+      <div fxFlex="65">
+        <table mat-table [dataSource]="dataSourceDemanda" matSort>
+          <ng-container matColumnDef="nombreDemandante">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.nombreDemandante}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="zona">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Zona</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.zona}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="contrato">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contrato/Fijación</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.contrato}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="codigoCosecha">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Cosecha</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.codigoCosecha}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="comprador">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Comprador</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.comprador}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="caratula_mtr" *ngIf="usaMTR">
+            <tr>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Carátula MtR</th>
+              <td mat-cell *matCellDef="let cupo; let i = index">
+                {{cupo.caratula_mtr}}
+              </td>
+            </tr>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsDemanda;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsDemanda;"></tr>
+        </table>
+      </div>
+      <div fxFlex="30" class="sombreado">
+        <div fxFlex="95" style="background-color: #93BD26;">
+          <form [formGroup]="itemForm">
+            <table mat-table [dataSource]="dataSourceDemandaAction" matSort>
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef class="sombreado text-center pl-20">
+                  Total</th>
+                <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center pl-20">
+                  <div style="text-align: center;">{{cupo.cantidad-cupo.asignado}} </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="asignar">
+                <th mat-header-cell *matHeaderCellDef class="sombreado text-center">
+                  Asignar</th>
+                <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center">
+                  <div style="text-align: center;">
+                    <input class="quantity-input tb-cantidad" min="0" max="{{cupo.cantidad-cupo.asignado}}" name="i"
+                      type="number" [(value)]="cupo.asignar"
+                      (change)="ChangeCantidadDemanda($event.target.value,cupo,i )"
+                      [formControl]="itemForm.controls['quantity'+i]">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="observaciones">
+                <th mat-header-cell *matHeaderCellDef class="sombreado text-center px-0">
+                  Observ.</th>
+                <td mat-cell *matCellDef="let cupo; let i = index" class="sombreado text-center px-0">
+                  <button mat-icon-button matTooltip="Observaciones" color="m-0" class="m-0"
+                    (click)="openPopUpObserv(cupo)">
+                    <mat-icon fxFlex="20%" style="font-size: 15px; height: 15px; width: 10px;">
+                      info_outline</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsDemandaAction;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsDemandaAction;"></tr>
+            </table>
+          </form>
+        </div>
+        <div fxFlex="5"></div>
+      </div>
+    </div>
+    <div fxLayout="row" class="no-hay-demanda" *ngIf="!hayDemanda">
+      <div fxFlex="5"></div>
+      <div fxFlex="90">
+        <div fxFlex="30" fxLayout="column wrap">
+          <h5>Resultado búsqueda:</h5>
+        </div>
+        <div fxFlex="40">
+          <div fxFlex="100" *ngIf="!noHayCliente">
+            <h6>No se encontraron clientes.</h6>
+          </div>
+          <div fxFlex="100" *ngIf="noHayCliente" fxFlexAlign="center">
+            <div *ngIf="selectedSearchCentro.id==0">
+              <h6 fxFlex> <strong>Clientes encontrados.</strong></h6>
+            </div>
+            <div *ngIf="selectedSearchCentro.id!==0">
+              <h6 fxFlex> <strong>Cliente:</strong>
+                {{selectedSearchCentro.razon_social}}</h6>
+            </div>
+            <div *ngIf="showTableSearch">
+              <table mat-table [dataSource]="dataSourceCentro" matSort class="mat-elevation-z8">
+                <ng-container matColumnDef="razon_social">
+                  <tr>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social</th>
+                    <td mat-cell *matCellDef="let cupo; let i = index">
+                      {{cupo.razon_social}}
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container matColumnDef="asignado">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Seleccionar cliente</th>
+                  <td mat-cell *matCellDef="let cupo; let i = index">
+                    <div>
+                      <mat-checkbox class="example-radio-button" [checked]="cupo.asignado" [disabled]="cupo.bloqueado"
+                        (change)="onCheckboxChangeCliente($event, cupo,i)">
+                      </mat-checkbox>
+                    </div>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCentro; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsCentro;"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="5"></div>
+    </div>
+  </div>
+
+  <div class="footer" fxLayout="column">
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <div fxFlex="25"></div>
+      <div fxFlex="20">
+        <button mat-raised-button class="btn btn-cancelar" fxLayoutAlign="center center"
+          (click)="cerrar()">CANCELAR</button>
+      </div>
+      <div fxFlex="10"></div>
+      <div fxFlex="20">
+        <button mat-raised-button class="btn btn-confirmar" *ngIf="hayDemanda"
+          [disabled]="countCuposSeleccionados!=countCuposDemandados || countCuposDemandados==0" (click)="asignarCupo()"
+          fxLayoutAlign="center center">CONFIRMAR</button>
+        <button mat-raised-button class="btn btn-confirmar" fxLayoutAlign="center center"
+          *ngIf="!hayDemanda && !noHayCliente" [disabled]="countCuposSeleccionados==0"
+          (click)="autoAsignarCupo()">AUTOASIGNAR</button>
+        <button mat-raised-button class="btn btn-confirmar" fxLayoutAlign="center center"
+          *ngIf="!hayDemanda && noHayCliente" [disabled]="countCuposSeleccionados==0" (click)="asignarCupo()">CONFIRMAR
+        </button>
+      </div>
+      <div fxFlex="25"></div>
+    </div>
+  </div>
+</div>

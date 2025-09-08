@@ -1,0 +1,151 @@
+<div id="cabecera">
+  <div class="handle"
+       style="color: #174891">
+    <p style="margin: 0px 10px 0px; font-size: small;">Nueva</p>
+    <button mat-fab
+            class="mat-ccpp-cabecera"
+            matTooltip="Nueva empresa"
+            (click)="openPopUp({}, true)">
+      <mat-icon style="margin-top: -8px;"
+                class="icon-display">add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="margin-333"
+     style="height: 85vh;">
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxLayout="row wrap"
+           style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px;">
+        <div fxFlex="20">
+          <div fxLayout="row wrap"
+               style="background: #184892; padding: 15px; ">
+            <p style="margin: 0px 30px 0px; font-size: 15px; color: white;">RUC Empresa</p>
+          </div>
+        </div>
+        <div fxFlex="2">
+        </div>
+        <div fxFlex="35"
+             fxLayoutAlign="center center">
+          <input autofocus="true"
+                 placeholder="Buscar Empresa por Razón Social"
+                 type="text"
+                 #buscar
+                 [formControl]="buscarForm.controls['nombre_interno']"
+                 class="input-buscar">
+        </div>
+        <div fxFlex="2"></div>
+        <div fxFlex="4"
+             fxLayoutAlign="center center">
+          <button mat-raised-button
+                  style="background-color: #174891;"
+                  type="button"
+                  (click)="buscarEmpresa()">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    &nbsp;
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxLayout="row wrap"
+           style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px;">
+        <div fxFlex="100">
+          <div fxFlex="10"
+               fxLayoutAlign="center center">
+            <button mat-button
+                    color="primary"
+                    title="Descargar plantilla actualizada en Excel"
+                    (click)="descargarArchivo()"
+                    mat-mini-fab>
+              <mat-icon>cloud_download</mat-icon>
+            </button>
+          </div>
+          <div fxFlex="10"
+               fxLayoutAlign="center center">
+            <button mat-button
+                    color="accent"
+                    title="Adjuntar documento Excel"
+                    style="background-color: #29bf4f;"
+                    mat-mini-fab
+                    (click)="imgFileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden
+                   type="file"
+                   #imgFileInput
+                   (change)="incomingfile($event)"
+                   (click)="reset()"
+                   accept=".xlsx" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    &nbsp;
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div class="textarea">
+
+        <div style="margin-top: 20px; margin-left: 5px; margin-right: 5px; margin-bottom: 5px; ">
+          <ngx-datatable matSort
+                         class="material ml-0 mr-0"
+                         [rows]="lista_empresa"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="'auto'"
+                         [externalPaging]="true"
+                         [count]="page.totalElements"
+                         [limit]="page.size"
+                         (page)='setPage($event)'
+                         [messages]="messages"
+                         [offset]="page.pageNumber-1">
+            <ngx-datatable-column name="RUC"
+                                  [flexGrow]="1"
+                                  [maxWidth]="300"
+                                  [resizeable]="false">
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{ row?.cuit_interno }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Razón Social"
+                                  [flexGrow]="1"
+                                  [maxWidth]="1000"
+                                  [resizeable]="false">
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                {{ row?.nombre_interno }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Acciones"
+                                  [flexGrow]="1"
+                                  [resizeable]="false">
+              <ng-template let-row="row"
+                           ngx-datatable-cell-template>
+                <button mat-icon-button
+                        mat-sm-button
+                        color="primary"
+                        class="m-0"
+                        (click)="openPopUpInfoPersona(row)"
+                        matTooltip="Información Perfil"><mat-icon>account_circle</mat-icon></button>
+                <button mat-icon-button
+                        mat-sm-button
+                        color="warn"
+                        matTooltip="Eliminar"
+                        (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" [style.overflow]="'auto'" >
+    <div fxFlex="100" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id del producto" />
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="descripcion"  maxlength="90" [formControl]="itemForm.controls['descripcion']" placeholder="Descripción"
+          #descripcion />
+        <!-- <mat-hint align="end">{{ razon_social.value.length }} / 50</mat-hint> -->
+      </mat-form-field>
+      <small *ngIf="
+            itemForm.controls['descripcion'].hasError('required') &&
+            itemForm.controls['descripcion'].touched
+          " class="form-error-msg">
+        La descripción es obligatoria
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1" >
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,13 @@
+#app-customizer {
+    position: fixed;
+    z-index: 20000;
+    top: 70px;    
+    right: 12px;
+    max-width: 300px;
+    .handle {
+      float: right;
+    }
+    .mat-card-content  {
+      padding: 1rem 1.5rem 2rem;
+    }
+  }

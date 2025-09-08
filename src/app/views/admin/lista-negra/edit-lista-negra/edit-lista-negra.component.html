@@ -1,0 +1,93 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_chofer"
+          [formControl]="itemForm.controls['id_chofer']"
+          placeholder="Id del Chofer"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del Chofer"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          name="id_motivo"
+          [formControl]="itemForm.controls['id_motivo']"
+          placeholder="Motivo de Lista Negra"
+        >
+          <mat-option
+            *ngFor="let lnMotivo of lista_negra_motivo"
+            [value]="lnMotivo.id"
+          >
+            {{ lnMotivo.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['id_motivo'].hasError('required') &&
+          itemForm.controls['id_motivo'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido el motivo
+      </small>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="explicacion"
+          [formControl]="itemForm.controls['explicacion']"
+          placeholder="Motivo o Causa por lo que lo añade a la lista negra"
+          #explicacion
+          maxlength="600"
+        />
+        <mat-hint align="end">{{ explicacion.value.length }} / 600</mat-hint>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          [matDatepicker]="fechaPicker"
+          [min]="minDate"
+          [formControl]="itemForm.controls['fecha_hasta']"
+          placeholder="Fecha hasta (opcional)"
+          name="fecha_hasta"
+        />
+        <mat-datepicker-toggle matSuffix [for]="fechaPicker"></mat-datepicker-toggle>
+        <mat-datepicker #fechaPicker></mat-datepicker>
+        <mat-hint *ngIf="!fechaHastaErrors">Selecciona una fecha mayor a hoy</mat-hint>
+        <mat-error *ngIf="fechaHastaErrors">{{ fechaHastaErrors }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,90 @@
+<mat-card class="p-0 estilo_card">
+  <mat-card-title>
+    <div fxLayout="row wrap" class="card-title-text titulo-fondo">
+      <div fxFlex="95">
+        <h5>DETALLE </h5>
+      </div>
+      <div fxFlex="5" fxLayoutAlign="end center">
+        <h5 class="cerrar_popup" (click)="gotoHome()"> x </h5>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card-content>
+    <div>
+      <mat-card class="p-0 estilo_card_item">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="detalle">
+            <p><strong>Detalle de Cargas </strong></p>
+          </div>
+        </div>
+        <hr>
+        <mat-card-content class="p-0">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="pt-1">
+              <div fxFlex="98" class="contenedor-card">
+                <mat-card class="p-0 estilo_card_item">
+                  <mat-card-title class="black-500">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                      <div fxFlex="100" fxFlex.gt-xs="13">
+                        <button mattooltip="Cambiar Chofer" type="button" [disabled]="habilitarButtonCambiarChofer"
+                          (click)="openPopListadoChofer()" class="btn_asignarchofer" mat-stroked-button>Cambiar
+                          Chofer</button>
+                      </div>
+                      <!-- CUIT chofer -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch">
+                        <div fxLayoutAlign="start center" fxFlex="100">
+                          <div fxLayout="column" fxLayoutAlign="start center">
+                            <span class="input-color" style="margin-right: 51px;">Cuit:</span>
+                            <span class="color-white">{{ chofer.cuit_persona }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Nombre chofer -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch">
+                        <div fxFlex="100" fxFlex.gt-xs="13">
+                          <mat-icon style="color: #fff; margin-top: 15px;" aria-hidden="false"
+                            aria-label="{2:label} icon">perm_identity</mat-icon>
+                        </div>
+                        <div fxLayoutAlign="start center" fxFlex="100">
+                          <div fxLayout="column" fxLayoutAlign="start center">
+                            <span class="input-color" style="margin-right: 51px;">Nombre:
+                            </span>
+                            <span matTooltip="{{chofer.nombre_persona| uppercase}}" class="color-white">
+                              {{chofer.nombre_persona|
+                              uppercase | slice:0:14 }}{{(chofer.nombre_persona.length > 14) ?
+                              '...': '' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Patente chofer -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch">
+                        <div fxLayoutAlign="start center" fxFlex="100">
+                          <div fxLayout="column" fxLayoutAlign="start center">
+                            <span class="input-color" style="margin-right: 51px;">Patente:</span>
+                            <span class="color-white">{{ chofer.patente |
+                              uppercase }} / {{ chofer['acoplado_pantente'] | uppercase
+                              }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Número de Tel. chofer -->
+                      <div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="start stretch">
+                        <div fxLayoutAlign="start center" fxFlex="100">
+                          <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                            <span class="input-color" style="margin-right: 10px;">Número de tel.
+                            </span>
+                            <span class="stoc">{{chofer['telefono']}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-title>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

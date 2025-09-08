@@ -1,0 +1,93 @@
+<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">{{data.title}}</h4>
+  <span fxFlex></span>
+  <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cerrar</button>
+</div>
+<mat-card *ngIf="productos" class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="productosDesvios" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+      [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+      <ngx-datatable-column name="Producto" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_producto }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Total viajes" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.total_viajes }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Viajes desviados" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.viajes_desviados }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="motivos" class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="motivosDesvios" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+      [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+      <ngx-datatable-column name="Motivo" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.motivo_desvio }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Viajes desviados" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.viajes_desviados }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="lugares" class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="lugaresDesvios" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+      [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+      <ngx-datatable-column name="Lugar de carga" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.lugar_carga }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!--<ngx-datatable-column name="Total viajes" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.total_viajes }}
+        </ng-template>
+      </ngx-datatable-column>-->
+      <ngx-datatable-column name="Viajes desviados" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.viajes_desviados }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="destinos" class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" [rows]="destinosDesvios" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+      [limit]="page.size" (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages">
+      <ngx-datatable-column name="Destino" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.destino }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!--<ngx-datatable-column name="Total viajes" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.total_viajes }}
+        </ng-template>
+      </ngx-datatable-column>-->
+      <ngx-datatable-column name="Viajes desviados" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.viajes_desviados }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

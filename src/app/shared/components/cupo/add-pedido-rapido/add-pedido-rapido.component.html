@@ -1,0 +1,161 @@
+﻿<div class="component" id="style-1" fxLayout="row wrap">
+  <mat-card class="p-0">
+    <mat-card-title>
+      <div class="card-title-text" style="background: #85afc4">
+        <span *ngIf="!data.isUpdate">AGREGAR PEDIDO RÁPIDO</span>
+        <span *ngIf="data.isUpdate">MODIFICAR PEDIDO</span>
+      </div>
+    </mat-card-title>
+    <mat-card-content style="overflow-y: auto;">
+      <form id="form-add-cupo" [formGroup]="addPedidoForm">
+        <div fxLayout="column wrap">
+          <div fxLayout="row wrap">
+            <button (click)="closeAutocompleteOptions()" class="button-close"></button>
+
+            <div fxFlex="100">
+              <mat-card class="my-card">
+                <mat-card-title>Datos del Viaje</mat-card-title>
+                <mat-card-content class="p-0">
+
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Origen</mat-label>
+                    <input type="text" placeholder="Escriba el nombre del origen de la carga" aria-label="origen"
+                      matInput [formControl]="addPedidoForm.controls['nombre_origen']" [matAutocomplete]="auto" [disabled]="disabledOrigen">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                    (optionSelected)="selectedOrigin($event)">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.descripcion">
+                        {{option.descripcion }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+            <div fxFlex="100">
+              <mat-card class="my-card">
+                <mat-card-title>Datos del chofer</mat-card-title>
+                <mat-card-content class="p-0">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Cédula de Identidad (C.I.) del Chofer</mat-label>
+                    <input matInput name="choferCuit" [formControl]="addPedidoForm.controls['choferCuit']"
+                      placeholder="Escriba la Cédula de Identidad (C.I.) del Chofer" #choferCuit maxlength="11"
+                      (blur)="comprobarChoferCuit()" type="text" />
+                    <!-- <mat-hint align="end">{{ choferCuit.value.length }} / 11</mat-hint> -->
+                    <small *ngIf="
+                  addPedidoForm.controls['choferCuit'].hasError('required') &&
+                  addPedidoForm.controls['choferCuit'].touched
+                " class="form-error-msg">
+                      Debe introducir una Cédula de Identidad (C.I.) del chofer válido
+                    </small>
+                    <!--  <small *ngIf="addPedidoForm.controls['choferCuit'].hasError('pattern')" class="form-error-msg">
+                Solo debe introducir números
+              </small> -->
+                    <small *ngIf="
+                  incorrect_chofer_cuit &&
+                  addPedidoForm.controls['choferCuit'].dirty &&
+                  addPedidoForm.controls['choferCuit'].touched
+                " class="form-error-msg">
+                      La Cédula de Identidad (C.I.) no corresponde a un chofer o el mismo no esta
+                      disponible.
+                    </small>
+                    <small *ngIf="addPedidoForm.controls['chapa_acoplado'].hasError('pattern')" class="form-error-msg">
+                      Debe introducir una La Cédula de Identidad (C.I.) válida
+                    </small>
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput name="telefono" placeholder="Número de teléfono"
+                      [formControl]="addPedidoForm.controls['telefono']" type="tel" readonly />
+                    <mat-icon matSuffix (click)="editPhone()">mode_edit</mat-icon>
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre y Apellidos</mat-label>
+                    <input matInput name="razon_social" placeholder="Nombre y Apellidos del Chofer"
+                      [formControl]="addPedidoForm.controls['razon_social']" type="text" readonly />
+                  </mat-form-field>
+                </mat-card-content>
+              </mat-card>
+              <mat-card class="my-card">
+                <mat-card-title style="display: flex;">
+                  <div>
+                    Chapas
+                  </div>
+                  <div style="margin-left: auto;">
+                    <button mat-raised-button (click)="updateChapas()" class="my-button-small"
+                      [disabled]="addPedidoForm.invalid || isInvalid || incorrect_chofer_cuit ||!esValidadoChofer">
+                      <mat-icon class="my-mat-icon">edit</mat-icon>
+                      Modificar
+                    </button>
+                  </div>
+                </mat-card-title>
+                <mat-card-content class="p-0">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Camión</mat-label>
+                    <input matInput name="chapa_camion" [formControl]="addPedidoForm.controls['chapa_camion']"
+                      placeholder="Chapa Camión" type="text" readonly />
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Carreta</mat-label>
+                    <input matInput name="chapa_acoplado" [formControl]="addPedidoForm.controls['chapa_acoplado']"
+                      placeholder="Chapa Acoplado" type="text" readonly />
+                  </mat-form-field>
+                </mat-card-content>
+              </mat-card>
+
+
+              <mat-card class="my-card" *ngIf="data.dador_turno_destino==='1'">
+                <mat-card-title style="display: flex;">
+                  <div>
+                    Turnos disponibles
+                  </div>
+                </mat-card-title>
+                <mat-card-content class="p-0">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>{{titleTurno}}</mat-label>
+                    <mat-select name="id_turno" 
+                    placeholder="Seleccione el turno"
+                    [formControl]="addPedidoForm.controls['id_turno']">
+                      <mat-option *ngFor="let option of dataHorarios" [value]="option.id">
+                        Hora de Inicio {{ option.hora_inicio }} | Hora de Fin {{ option.hora_fin }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" class="mt-1 height-50">
+              <div fxFlex="48" fxLayoutAlign="start center">
+                <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+                  Cancelar
+                </button>
+              </div>
+              <div fxFlex="50">
+              </div>
+              <div fxFlex="48" fxLayoutAlign="end center">
+                <button *ngIf="!data.dador_turno_destino || data.dador_turno_destino!='1'" mat-raised-button color="primary" (click)="submit()" [disabled]="
+              addPedidoForm.invalid || isInvalid || incorrect_chofer_cuit ||!esValidadoChofer
+                      ">
+                  Guardar
+                </button>
+
+                <button  *ngIf="data.dador_turno_destino==='1'" mat-raised-button color="primary" (click)="submit()" [disabled]="
+                addPedidoForm.invalid || incorrect_chofer_cuit ||!esValidadoChofer ||
+                addPedidoForm.controls['id_turno'].invalid
+                        ">
+                    Guardar
+                  </button>
+              </div>
+              <div fxFlex="4"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

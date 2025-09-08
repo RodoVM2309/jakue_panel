@@ -1,0 +1,208 @@
+table {
+  width: 100%;
+}
+.not-scroll{
+  overflow: hidden;
+}
+.my-card {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0),
+    0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+  background: #e9e9ea;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.Rotate-90 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  font-size: 11px;
+  background: #ffffff;
+  width: 50px;
+  position: relative;
+  top: 1px;
+
+  margin: 2 0 16px;
+}
+#filtro-dador {
+  position: fixed;
+  z-index: 20000;
+  top: 70px;
+  right: 12px;
+  max-width: 300px;
+  .handle {
+    float: right;
+  }
+  .mat-card-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.mat-column-first_color {
+  width: 3%;
+}
+.mat-column-receptor {
+  width: 37%;
+}
+.mat-column-total {
+  width: 10%;
+}
+.mat-column-ctg {
+  width: 10%;
+}
+.mat-column-sin-ctg {
+  width: 10%;
+}
+.mat-column-en_destino {
+  width: 10%;
+}
+.mat-column-descargados {
+  width: 10%;
+}
+.mat-column-recuperar {
+  width: 10%;
+}
+
+.mat-column-pend_asignar {
+  width: 7%;
+}
+.mat-column-pend_vincular {
+  width: 7%;
+}
+
+.mat-column-cargado {
+  width: 7%;
+}
+.mat-column-mas50 {
+  width: 7%;
+}
+.mat-column-menos50 {
+  width: 7%;
+}
+
+.mat-column-menos50_destino {
+  width: 7%;
+}
+
+
+.mat-column-anulados {
+  width: 7%;
+}
+
+.mat-indicador-total {
+  background-color: #b1b2b4 !important;
+  color: #fff !important;
+}
+.mat-indicador-pend_asignar {
+  background-color: #ec7420 !important;
+  color: #fff !important;
+}
+.mat-indicador-pend_vincular {
+  background-color: #d07f0d !important;
+  color: #fff !important;
+}
+.mat-indicador-ctg {
+  background-color: #eadf00 !important;
+  color: #fff !important;
+}
+.mat-indicador-sin-ctg {
+  background-color: #EB5700 !important;
+  color: #fff !important;
+}
+.mat-indicador-cargado {
+  background-color: #96c57b !important;
+  color: #fff !important;
+}
+.mat-indicador-mas50 {
+  background-color: #5ea844 !important;
+  color: #fff !important;
+}
+.mat-indicador-menos50 {
+  background-color: #5ea643 !important;
+  color: #fff !important;
+}
+.mat-indicador-en_destino {
+  background-color: #006CB1 !important;
+  color: #fff !important;
+}
+.mat-indicador-descargados {
+  background-color: #009DE0 !important;
+  color: #fff !important;
+}
+.mat-indicador-anulados {
+  background-color: #ee5a66 !important;
+  color: #fff !important;
+}
+
+
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(16, 17, 16) !important;
+}
+:host /deep/  .egret-indigo .mat-select-value {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: #00020a;
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(2, 5, 8);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #3F51B5;
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #000103 !important;
+}
+
+#fecha-bt-con {
+  ::ng-deep.mat-form-field-infix {
+    color: rgb(0, 0, 0);
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: 0px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(0, 0, 0);
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(0, 0, 0);
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background: transparent !important;
+  }
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: rgb(8, 0, 0);
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}

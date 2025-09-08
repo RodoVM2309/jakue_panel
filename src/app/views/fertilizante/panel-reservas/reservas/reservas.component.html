@@ -1,0 +1,83 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 5px; " >
+  <div fxFlex="100">
+    <div fxFlex="10" fxLayoutAlign="start center"  style="color:white;padding-left: 5px;">RESERVAS</div>
+    <div fxFlex="80"></div>
+    <div fxFlex="10" fxLayoutAlign="end center"   >
+      <button type="button" (click)="exportarResevas()" class="btn_exportar" mat-stroked-button> <mat-icon>cloud_download</mat-icon>  Exportar</button>
+    </div>
+  </div>
+</div>
+
+  <table *ngIf="reservas.length">
+    <thead>
+    <tr>
+      <th><div class="col_grupoClientes">Grupo de Clientes</div></th>
+      <th><div class="row_common">Zona</div></th>
+      <th><div class="row_common">Cuenta / cliente</div></th>
+      <th *ngFor="let despacho of despachos" class="col_tipoDespacho">
+         <div><strong>{{despacho | uppercase }}</strong></div>
+      </th>
+      <th class="row_pendiente"><div><strong>RECIBIDAS</strong></div></th>
+      <th class="row_cupos"><div><strong>PROCESADAS</strong></div></th>
+    </tr>
+  </thead>
+    <tbody >
+    <tr *ngFor="let item of reservas"  >
+       <td><div style="text-align: left;">{{item.grupo_cliente}}</div></td>
+       <td><div style="text-align: center;">{{item.zona}}</div></td>
+       <td><div style="text-align: center;">{{item.cliente}}</div></td>
+
+
+       <td  *ngFor="let tipo of item.tipos">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxLayoutAlign="center center" class="td_cell">
+            <div fxFlex="50" fxLayoutAlign="center center" class="div-dia-izq ">
+              <span >{{tipo.recibidas}}</span>
+            </div>
+            <div fxFlex="50" fxLayoutAlign="center center">
+              <span>{{tipo.procesadas}}</span>
+            </div>
+          </div>
+        </div>
+       </td>
+
+       <td *ngIf="item.recibidas > 0" class="col_pendientes" (click)="openPopupResevas(item,0)">{{item.recibidas}}</td>
+       <td *ngIf="item.recibidas == 0" class="col_pendientes" >{{item.recibidas}}</td>
+       <!-- CON CUPOS -->
+       <td *ngIf="item.procesadas == 0" class="col_pendientes" >{{item.procesadas}}</td>
+       <td *ngIf="item.procesadas > 0" class="col_pendientes" (click)="openPopupResevas(item,1)" >{{item.procesadas}}</td>
+     </tr>
+    </tbody>
+     <tr style="text-align: right;">
+       <td colspan="13">
+         <div>
+           <mat-paginator #paginator class="mat-paginator-sticky"
+            [pageSize]="page.size"
+            [pageSizeOptions]="[10]"
+            [showFirstLastButtons]="true"
+            [length]="pageCount"
+            (page)="pageEvent = getServerData($event)">
+          </mat-paginator>
+
+         </div>
+       </td>
+     </tr>
+  </table>
+
+
+ <table *ngIf="!reservas.length">
+    <tr>
+      <th><div class="col_grupoClientes">Grupo de Clientes</div></th>
+      <th><div class="row_common">Zona</div></th>
+      <th><div class="row_common">Cuenta / cliente</div></th>
+      <th *ngFor="let despacho of despachos"  class="col_tipoDespacho">
+        <div><strong>{{despacho | uppercase }}</strong></div>
+      </th>
+      <th class="row_pendiente"><div><strong>RECIBIDAS</strong></div></th>
+      <th class="row_cupos"><div><strong>PROCESADAS</strong></div></th>
+    </tr>
+    <tr style="text-align: center; background-color: brown; color:white">
+      <td colspan="14"><div >NO HAY DATOS</div></td>
+    </tr>
+ </table>
+

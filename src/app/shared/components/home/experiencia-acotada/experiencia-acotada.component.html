@@ -1,0 +1,23 @@
+<h1 matDialogTitle>{{data.title}} <mat-icon aria-hidden="false" aria-label="">lock</mat-icon>
+</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder=" Seleccione un Dador de Cupos" [formControl]="itemForm.controls['dador']" name="dador" class="mb-1">
+          <mat-option *ngFor="let dador of dadores" [value]="dador" ngDefaultControl>
+            {{dador.nombre_persona}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['dador'].hasError('required') && itemForm.controls['dador'].touched" class="form-error-msg">
+        El dador es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Aceptar</button>
+      <!-- <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button> -->
+    </div>
+  </div>
+</form>

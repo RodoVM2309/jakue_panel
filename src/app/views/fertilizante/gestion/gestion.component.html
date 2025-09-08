@@ -1,0 +1,11 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)"
+style="margin-top: 8px;padding: 0px;" >  
+  <mat-tab label="Seguimiento" >
+    <app-seguimiento *ngIf="selectedTab === 0" ></app-seguimiento>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
+

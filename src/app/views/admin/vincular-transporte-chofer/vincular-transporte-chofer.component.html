@@ -1,0 +1,156 @@
+﻿<br />
+<div class="m-333">
+  <h4 style="color:#124A99;">Choferes</h4>
+</div>
+<div class="m-333">
+  <!-- <span fxFlex></span> -->
+  <button
+    mat-raised-button
+    class="mb-05"
+    color="primary"
+    (click)="openPopUpVincular()"
+  >
+    Agregar Chofer
+  </button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <input
+      type="text"
+      style="padding:8px;margin:15px auto;width:30%;"
+      placeholder="Buscar CUIT/CUIL"
+      (keyup)="updateFilter($event)"
+    />
+    <ngx-datatable
+      class="material"
+      [rows]="choferes"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [externalPaging]="true"
+      [count]="page.totalElements"
+      [offset]="page.pageNumber"
+      [limit]="page.size"
+      (page)="setPage($event)"
+      [rowHeight]="'auto'"
+      [messages]="messages"
+    >
+      <!--  <ngx-datatable-column name="No." [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.id_chofer }}
+                </ng-template>
+             </ngx-datatable-column>  -->
+      <ngx-datatable-column name="Apellido, Nombre" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_chofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Celular" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.celular }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Alias" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.alias }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Bloqueado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.desc_bloqueado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Registrado en App" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.registrado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_camion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="3">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            (click)="openPopUpAliasChofer(row)"
+            matTooltip="Crear Alias"
+          >
+            <mat-icon>format_shapes</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            *ngIf="!row.bloqueado"
+            matTooltip="Bloquear"
+            (click)="bloqueoDesbloqueo(row)"
+          >
+            <mat-icon>lock_open</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            *ngIf="row.bloqueado"
+            matTooltip="Desbloquear"
+            (click)="bloqueoDesbloqueo(row)"
+          >
+            <mat-icon>lock_outline</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            (click)="openPopUpVincularEquipo(row)"
+            matTooltip="Vincular Equipo"
+          >
+            <mat-icon>contacts</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            (click)="openPopUpsms(row)"
+            matTooltip="Compartir"
+          >
+            <mat-icon>message</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="m-0"
+            (click)="openPopUpInfoPersona(row)"
+            matTooltip="Información Perfil"
+          >
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="warn"
+            class="m-0"
+            (click)="deleteItem(row)"
+            matTooltip="Eliminar"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,59 @@
+#app-customizer2 {
+    position: fixed;
+    z-index: 20000;
+    top: 70px;    
+    right: 12px;
+    max-width: 300px;
+    .handle {
+      float: right;
+    }
+    .mat-card-content  {
+      padding: 1rem 1.5rem 2rem;
+    }
+  }
+
+  /*----------Poner fijo--------------*/
+  .example-container {
+    height: 550px;
+    overflow: auto;
+  }
+
+  .mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+  }
+  /*------------------*/ 
+  
+  table {
+    width: 100%;
+  }
+  td.mat-cell:first-of-type {
+    padding: 0px;
+  }
+  .Rotate-90
+  {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  
+    font-size: 11px;
+    background: #ffffff;
+    width: 50px;
+    position: relative;
+    top: 1px;
+
+    margin: 2 0 16px;
+  }
+
+  .mat-fab {    
+    border: solid !important;
+  }

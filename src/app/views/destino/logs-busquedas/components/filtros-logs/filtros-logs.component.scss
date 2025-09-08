@@ -1,0 +1,428 @@
+#form-cuponera1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #c3c3c3;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #c3c3c3;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    background-color: #174790 !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    background-color: #174790 !important;
+  }
+}
+
+#opcionales{
+  ::ng-deep.mat-form-field-underline {
+    background-color: #007ac1 !important;
+  }
+
+  ::ng-deep .mat-form-field-ripple {
+    background-color: #007ac1 !important;
+  }
+}
+
+.encabezado {
+  background: #fefefe;
+  color: #0c0c0c;
+  height: auto;
+  font-size: 14px;
+  margin: 10px 30px 8px 30px;
+  overflow: hidden;
+}
+
+.row_encabezado {
+  min-height: 50px;
+  padding-left: 8px;
+  padding-top: 2px;
+  padding-right: 8px;
+  width: 100%;
+}
+
+#sele-producto {
+  ::ng-deep.mat-form-field-infix {
+    color: #ffffff;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: -3px;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background: transparent !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background: transparent !important;
+  }
+}
+
+.select-producto {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 40px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  background: rgb(23, 71, 144);
+  color: #ffffff;
+}
+
+.select_fecha {
+  max-width: 200px;
+}
+
+.fecha-bt {
+  border-color: rgb(23, 71, 144);
+  border-style: solid;
+  border-radius: 5px;
+  margin-top: 2px;
+  height: 35px;
+  padding: 2px;
+  padding-right: 7px;
+  border-width: 0.5px;
+  background: rgb(23, 71, 144);
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+}
+
+#fecha-bt1 {
+  ::ng-deep.mat-form-field-infix {
+    color: #fff;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 6px;
+    margin-top: -1px;
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background: transparent !important;
+    //background-color: #ffffff !important;
+  }
+
+  ::ng-deep .mat-form-field-ripple {
+    /*change color of underline when focused*/
+    //background-color: #ffffff !important;
+    background: transparent !important;
+  }
+
+  ::ng-deep .egret-indigo .mat-input-element {
+    caret-color: #3f51b5;
+    font-size: 12px;
+  }
+}
+
+.select-zona {
+  border-color: rgb(0, 122, 193);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(0, 122, 193);
+  color: #ffffff;
+  margin-right: 20px;
+  //max-width: 200px;
+}
+
+.select-zona-disabled {
+  border-color: rgb(113, 160, 187);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(113, 160, 187);
+  color: #c7c1c1;
+}
+
+.select-tipo {
+  border-color: rgb(9, 102, 126);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  background: rgb(9, 102, 126);
+  color: #ffffff;
+  // max-width: 200px;
+}
+
+.select-cliente-disabled {
+  border-color: rgb(179, 215, 237);
+  background: rgb(179, 215, 237);
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 35px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  //background-color: #ffffff;
+  color: #ffffff;
+}
+
+:host /deep/ .egret-indigo .mat-input-element {
+  caret-color: #3f51b5;
+  font-size: 12px;
+}
+
+:host /deep/ .mat-form-field-prefix,
+.mat-form-field-suffix {
+  margin-left: -40px;
+}
+
+:host /deep/.mat-raised-button {
+  line-height: 36px;
+  border-radius: 10px;
+  background-color: #174891;
+  height: 33px;
+  max-width: 50px;
+  color: #ffffff !important;
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+/* focus style */
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+.mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus {
+  background: red;
+}
+
+/* ink bar style */
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background: yellow;
+  height: 10px;
+}
+
+/* ::ng-deep .mat-tab-labels {
+  height: 48px;
+  margin-top: 0px;
+  margin-left: 25px;
+} */
+
+.egret-indigo .mat-tab-group.mat-background-primary .mat-tab-header {
+  background-color: #87b1c6 !important;
+}
+
+.mat-tab-link {
+  color: white !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  color: white;
+}
+
+::ng-deep .mat-tab-header {
+  border-bottom: 0px !important;
+  background-color: #87b1c6 !important;
+}
+
+::ng-deep .mat-tab-label-active .mat-tab-label-content {
+  color: #87b1c6;
+  background-color: #e9e9ea;
+}
+
+::ng-deep .mat-tab-label-active {
+  color: #87b1c6;
+  background-color: #e9e9ea;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: #e9e9ea;
+}
+
+::ng-deep .mat-tab-body-content {
+  background-color: #e9e9ea;
+}
+
+
+
+::ng-deep .egret-indigo .mat-select-disabled .mat-select-value {
+  color: #fff;
+}
+
+::ng-deep .egret-indigo .mat-form-field .mat-select.mat-select-disabled .mat-select-arrow {
+  color: #fff;
+  /*  margin-top: -7px; */
+}
+
+::ng-deep .egret-indigo .mat-select-value {
+  color: #fff;
+}
+
+::ng-deep .egret-indigo .mat-select-arrow {
+  color: #fff;
+  /*  margin-top: -7px; */
+}
+
+::ng-deep .egret-indigo .mat-select.mat-select-disabled .mat-select-arrow {
+  color: #fff;
+}
+
+::ng-deep .mat-datepicker-toggle-default-icon {
+  color: #fff;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: x-large;
+}
+
+.mat-input-placeholder {
+  white-space: normal;
+  font-size: 12px;
+}
+
+.mfl {
+  margin-left: 5px;
+  height: 30px;
+  margin-top: -30px;
+  max-width: 95%;
+}
+
+.label-span {
+  margin-top: -6px;
+  margin-left: 5px;
+  font-size: 12px;
+  color: rgb(255, 254, 254);
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+:host /deep/ .mat-select-arrow-wrapper {
+  padding: 5px;
+}
+
+.input-buscar {
+  width: 100%;
+  height: 34px;
+  background-color: #ffffff;
+  border-color: rgb(121, 116, 116);
+  border-radius: 10px;
+  border-width: 0.7px;
+  border-style: solid;
+  color: #0b0b0b;
+
+}
+
+#sele-input {
+  ::ng-deep.mat-form-field-infix {
+    color: #000;
+    border-top: 0.84375em solid transparent;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: -10px;
+    /*  border-top: 0.84375em solid transparent; */
+  }
+
+  ::ng-deep.mat-form-field-infix .mat-input-element {
+    margin-top: -3.5em;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    /*change color of underline*/
+    background: transparent !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background: transparent !important;
+  }
+}
+
+.mat-color-delete {
+  background-color: lightgray !important;
+}
+
+.mat-indicador-ctg {
+  //background-color: #eadf00 !important;
+  color: #615f5f !important;
+}
+
+.smallError {
+  font-size: xx-small !important;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.ng-invalid:not(form) {
+  color: red;
+  /* red */
+}
+
+.btn-clear {
+  margin-top: 10px;
+}
+
+.select-opcionales {
+  border-color: #007AC1;
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 3px;
+  height: 40px;
+  border-width: thin;
+  padding-top: 6px;
+  padding-left: 1px;
+  background: #007AC1;
+  color: #ffffff;
+}

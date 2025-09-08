@@ -1,0 +1,138 @@
+<div class="margin-333">
+  <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA;
+  height: 84vh; width: 100%; margin-top: 44px;" [style.overflow]="'auto'" [style.width.px]="">
+    <form [formGroup]="buscarForm">
+      <div fxLayout="column wrap" style=" width: 100%; margin-left: -10px; margin-top: -10px;">
+        <div fxLayout="row wrap" style="height: 50px;">
+          <div fxFlex="100" style="background-color: #ffffff;color: #ffffff;font-size: 1rem;"
+            fxLayoutAlign="center center">
+            <div fxFlex="15" class="cuerpo azul  font-azul" fxLayout="row wrap" fxLayoutAlign="center center"
+              style="height: 50px;">
+              <span style="font-weight: 600;">Buscador</span>
+            </div>
+            <div fxFlex="26" class="cuerpo verde lado-izquierdo-arriba-azul" fxLayout="row wrap"
+              fxLayoutAlign="start center">
+              <div fxFlex="100" fxLayoutAlign="center center">1 - Seleccionar Criterio de Búsqueda</div>
+            </div>
+            <div fxFlex="59" fxLayout="row wrap" fxLayoutAlign="start center"
+              class="cuerpo azul-claro lado-izquierdo-arriba-claro">
+              <div fxFlex="100" style="color: #000000">
+                <div fxFlex="25" fxLayoutAlign="center center">
+                  <mat-checkbox class="example-radio-button" [checked]="estadoActivo == 1"
+                    (change)="onCheckboxChangeEstadoActive($event, 1)">
+                  </mat-checkbox>
+                  <span style="margin-left: 10px;">Alfanumérico</span>
+                </div>
+                <div fxFlex="25" fxLayoutAlign="center center">
+                  <mat-checkbox class="example-radio-button" [checked]="estadoActivo == 2"
+                    (change)="onCheckboxChangeEstadoActive($event, 2)">
+                  </mat-checkbox>
+                  <span style="margin-left: 10px;">Chapa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" style="height: 130px;background-color: #ffffff;color: #ffffff;font-size: 1rem;">
+          <div fxFlex="100" fxLayoutAlign="center center" style="height: 90px;">
+            <mat-icon color="negro-blanco" class="icon-buscar">find_in_page</mat-icon>
+            <input autofocus="true" placeholder="{{stringCriterio}}" type="text"
+              [formControl]="buscarForm.controls['criterio']" class="input-buscar">
+          </div>
+          <div fxFlex="100" fxLayoutAlign="center center" style="margin-bottom: 15px;">
+            <button mat-raised-button color="carga-publicada" [disabled]="buscarForm.invalid" id="buscador"
+              (click)="buscar()">Buscar</button>
+          </div>
+        </div>
+        <div fxLayout="row wrap" *ngIf="encontrado" class="mt-1 resultado " fxLayoutAlign="start start"
+          style="height: 170px;">
+          <div fxFlex="100" fxLayoutAlign="start center" style="margin-top: 10px;">
+            <strong style="margin-left: 20px;">Su búsqueda > CUPO: {{cupo.cupo}} => FECHA:
+              {{cupo.fecha | date:"dd/MM/yyyy"}}</strong>
+          </div>
+          <mat-divider style=" position: static;"></mat-divider>
+          <div fxFlex="100" fxLayoutAlign="start center" style="margin-top: 25px;">
+            <table mat-table [dataSource]="dataSource" class="my-table mat-elevation-z8" style="box-shadow: none;">
+              <ng-container matColumnDef="terminal">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Terminal </th>
+                <td mat-cell *matCellDef="let element" class="my-row"> {{element.terminal}} </td>
+              </ng-container>
+              <ng-container matColumnDef="producto">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Producto </th>
+                <td mat-cell *matCellDef="let element" class="my-row"> {{element.producto}} </td>
+              </ng-container>
+              <ng-container matColumnDef="nombreChofer">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Chofer </th>
+                <td mat-cell *matCellDef="let element; let i = index" class="my-row">
+                  {{element.nombreChofer}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="placaCamion">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Chapa </th>
+                <td mat-cell *matCellDef="let element" class="my-row"> {{element.placaCamion}} </td>
+              </ng-container>
+              <ng-container matColumnDef="tiempo">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> En Tiempo </th>
+                <td mat-cell *matCellDef="let element" class="my-row"> {{ tiempo }} </td>
+              </ng-container>
+              <ng-container matColumnDef="asignacion">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Historial Asignación </th>
+                <td mat-cell *matCellDef="let element" class="my-row">
+                  <mat-chip-list aria-label="Asignaciones" style="padding: 2px;">
+                    <mat-chip color="primary" disabled *ngFor="let item of element.cupoAsignados; index as i"
+                      id="asignaciones">
+                      <span style="color: #000; font-weight: 400;"> {{ item.nombreDador }} </span>
+                      <mat-icon color="primary" style="font-size: 17px; font-weight: bolder; text-align: center;">
+                        south
+                      </mat-icon>
+                    </mat-chip>
+                    <mat-chip color="primary" disabled *ngFor="let item of element.cupoAsignados; index as i"
+                      id="asignaciones"
+                      [style.background-color]="(i+1 < element.cupoAsignados.length) ? '#fff' : '#e0e0e0'"
+                      [style.display]="(i+1 < element.cupoAsignados.length) ? 'none' : 'inline-block'">
+                      <span *ngIf="element.cupoAsignados.length == i+1" style="color: #124a99; font-weight: 700;">
+                        {{ item.nombreReceptor}}
+                      </span>
+                    </mat-chip>
+                  </mat-chip-list>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Estado </th>
+                <td mat-cell *matCellDef="let element" class="my-row">
+                  <mat-chip-list aria-label="Estado">
+                    <mat-chip [color]="color" selected style="padding: 0px 7px 0px 7px;">
+                      {{ estadov }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef class="my-header"> Acciones </th>
+                <td mat-cell *matCellDef="let element" class="my-row">
+                  <button *ngIf="cupo.estado < 3 || cupo.estado == 4" mat-raised-button color="primary" id="acciones"
+                    (click)="estadoCupo(element, 'arribado')">
+                    CONFIRMAR ARRIBO
+                  </button>
+                  <div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="cupo.estado == 5">
+                    <button mat-raised-button color="carga-publicada" id="acciones"
+                      (click)="estadoCupo(element, 'descargado')" style="margin-bottom: 7px;">
+                      INFORMAR DESCARGA
+                    </button>
+                    <div fxFlex="1"></div>
+                    <button mat-raised-button color="cupo-rechazar" id="acciones"
+                      (click)="estadoCupo(element, 'rechazado')">
+                      INFORMAR RECHAZO
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

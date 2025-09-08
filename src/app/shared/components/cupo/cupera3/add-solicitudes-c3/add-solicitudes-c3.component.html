@@ -1,0 +1,350 @@
+<div class="component scrollbar" id="style-1" fxLayout="row wrap">
+  <mat-card class="p-0" [ngStyle]="{'margin':usaCupera1 ? '-0.5rem' : '-1.5rem'}" >
+    <mat-card-title class="">
+      <div class="card-title-text" style="background:#004A90; color: white; font-weight: 400; font-size: larger;">
+        GENERAR SOLICITUD DE CUPOS
+      </div>
+    </mat-card-title>
+    <mat-card-content style="overflow-y: auto;">
+      <form [formGroup]="variables.addSolicitudForm" (ngSubmit)="submit()">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <h5 style="font-weight: 600;">DESTINATARIO</h5>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input matInput type="text" name="nombredestinatario" #nombredestinatario placeholder="Razón social"
+                  aria-label="Razón social" [formControl]="variables.addSolicitudForm.controls['nombredestinatario']"
+                  [matAutocomplete]="auto2" />
+                <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngIf="variables.isLoading" class="is-loading">
+                    <mat-spinner diameter="50"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!variables.isLoading">
+                    <mat-option (onSelectionChange)="completeCuit(option,'destinatario')"
+                      *ngFor="let option of variables.filteredOptionsDestinatarios" [value]="option">
+                      {{option.razon_social | uppercase}}
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+                <small
+                  *ngIf="variables.incorrect_destinatario_cuit && variables.addSolicitudForm.controls['nombredestinatario'].dirty && variables.addSolicitudForm.controls['nombredestinatario'].touched"
+                  class="form-error-msg">
+                  La razón social no corresponde a un dador.
+                </small>
+              </mat-form-field>
+            </div>
+            <div fxFlex="5"></div>
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="CUIT" aria-label="Number" matInput
+                  [formControl]="variables.addSolicitudForm.controls['destinatario']" #destinatario maxlength="11" minlength="11"
+                  (change)="comprobarDestinatarioCuit($event.target.value)"
+                  (keyup)="comprobarDestinatarioCuit($event.target.value)">
+
+                <mat-hint align="end">{{ destinatario.value.length }} / 11</mat-hint>
+                <small *ngIf="variables.addSolicitudForm.controls['destinatario'].hasError('pattern')" class="form-error-msg">
+                  Solo debe introducir números
+                </small>
+                <small *ngIf="variables.addSolicitudForm.controls['destinatario'].hasError('minlength')" class="form-error-msg">
+                  Debe introducir 11 números
+                </small>
+                <small *ngIf="((variables.incorrect_destinatario_cuit && variables.addSolicitudForm.controls['destinatario'].dirty
+                  && variables.addSolicitudForm.controls['destinatario'].touched) || (variables.incorrect_destinatario_cuit))"
+                  class="form-error-msg">
+                  El CUIT no corresponde a un dador.
+                </small>
+                <!-- <small
+                  *ngIf="variables.incorrect_destinatario_cuit"
+                  class="form-error-msg">
+                  El CUIT no corresponde a un dador.
+                </small> -->
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <h5 style="font-weight: 600;">CORREDOR/ACOPIO/CANJEADOR</h5>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input matInput type="text" name="nombredemandado" #nombredemandado placeholder="Razón social"
+                  aria-label="Razón social" [formControl]="variables.addSolicitudForm.controls['nombredemandado']"
+                  [matAutocomplete]="auto" uppercase>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngIf="variables.isLoading" class="is-loading">
+                    <mat-spinner diameter="50"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!variables.isLoading">
+                    <mat-option (onSelectionChange)="completeCuit(option,'demandadoCuit')"
+                      *ngFor="let option of variables.filteredOptionsCorredores" [value]="option">
+                      {{option.razon_social | uppercase}}
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+                <small *ngIf="variables.noEsCorredorDemandando" class="form-error-msg">
+                  La razón social no es un Corredor.
+                </small>
+              </mat-form-field>
+            </div>
+            <div fxFlex="5"></div>
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="CUIT" aria-label="Number" matInput
+                  [formControl]="variables.addSolicitudForm.controls['demandadoCuit']" #demandadoCuit maxlength="11"
+                  minlength="11" (change)="comprobarCorredorCuit($event.target.value)"
+                  (keyup)="comprobarCorredorCuit($event.target.value)">
+                <mat-hint align="end">{{ demandadoCuit.value.length }} / 11</mat-hint>
+                <small *ngIf="variables.addSolicitudForm.controls['demandadoCuit'].hasError('pattern')" class="form-error-msg">
+                  Solo debe introducir números
+                </small>
+                <!--  <small
+                  *ngIf="!mismo_cuit && incorrect_demandado_cuit && variables.addSolicitudForm.controls['demandadoCuit'].dirty && variables.addSolicitudForm.controls['demandadoCuit'].touched"
+                  class="form-error-msg">
+                  El CUIT no corresponde a un Dador de Cupos.
+                </small> -->
+               <!--  <small
+                  *ngIf="((!mismo_cuit && incorrect_corredor_cuit && variables.addSolicitudForm.controls['demandadoCuit'].dirty
+                  && variables.addSolicitudForm.controls['demandadoCuit'].touched) || (noEsCorredorDemandando))"
+                  class="form-error-msg">
+                  El CUIT no es un Corredor.
+                </small> -->
+                <small *ngIf="noEsCorredor()" class="form-error-msg">
+                  El CUIT no es un Corredor.
+                </small>
+                <small
+                  *ngIf="variables.mismo_cuit && variables.addSolicitudForm.controls['demandadoCuit'].dirty && variables.addSolicitudForm.controls['demandadoCuit'].touched"
+                  class="form-error-msg">
+                  No puedes realizar una solicitud de cupos a tu propio CUIT.
+                </small>
+                <!--  <small *ngIf="noEsCorredorDemandando" class="form-error-msg">
+                  El CUIT no es un Corredor.
+                </small> -->
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <h5 style="font-weight: 600;">CLIENTE</h5>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="start center">
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input matInput type="text" name="nombrecontraparte" #nombrecontraparte placeholder="Razón social"
+                  aria-label="Razón social" [formControl]="variables.addSolicitudForm.controls['nombrecontraparte']"
+                  [matAutocomplete]="otro">
+                <mat-autocomplete autoActiveFirstOption #otro="matAutocomplete" [displayWith]="displayFn2">
+                  <mat-option *ngIf="variables.isLoading" class="is-loading">
+                    <mat-spinner diameter="50"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!variables.isLoading">
+                    <mat-option (onSelectionChange)="completeCuit(option_c,'contraparte')"
+                      *ngFor="let option_c of variables.filteredOptionsContrapartes " [value]="option_c">
+                      {{option_c.razon_social | uppercase}}
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div fxFlex="5"></div>
+            <div fxFlex="50">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="CUIT" aria-label="Number" matInput
+                  [formControl]="variables.addSolicitudForm.controls['contraparte']" #contraparte maxlength="11" minlength="11">
+
+                <mat-hint align="end">{{ contraparte.value.length }} / 11</mat-hint>
+                <small *ngIf="variables.addSolicitudForm.controls['contraparte'].hasError('pattern')" class="form-error-msg">
+                  Solo debe introducir números
+                </small>
+                <small *ngIf="variables.addSolicitudForm.controls['contraparte'].hasError('minlength')" class="form-error-msg">
+                  Debe introducir 11 números
+                </small>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" style="margin-bottom: 10px;  margin-top: 10px;">
+          <div fxFlex="100">
+            <div class="asignado">
+              <div fxLayout="column wrap">
+                <div fxLayout="row wrap">
+                  <div fxFlex="5" class="pr-1">
+                    <mat-icon>playlist_add</mat-icon>
+                  </div>
+                  <div fxFlex="60" class="pr-1">
+                    <p>ESTAS SOLICITANDO CUPOS A {{variables.demandado}}</p>
+                  </div>
+                  <div fxFlex="30" class="pr-1" fxLayoutAlign="end start">
+                    <mat-slide-toggle (change)="autoAsignar($event)"
+                      [formControl]="variables.addSolicitudForm.controls['autosolicitud']">Autosolicitud</mat-slide-toggle>
+                  </div>
+                </div>
+                <div fxFlex="5" class="pr-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100">
+            <div fxFlex="28" class="pr-1">
+              <div fxLayout="row wrap">
+                <div fxFlex="50" class="pr-1">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Cosecha Desde</mat-label>
+                    <input matInput [min]="10" [max]="98" name="quantity" type="number" placeholder="Desde.."
+                      [formControl]="variables.addSolicitudForm.controls['codigoCosecha1']"
+                      (keyup)="validateCodigoCosecha($event.target.value,'desde')"
+                      (change)="validateCodigoCosecha($event.target.value,'desde')" />
+                    <small
+                      *ngIf="variables.addSolicitudForm.controls['codigoCosecha1'].hasError('required') && variables.addSolicitudForm.controls['codigoCosecha1'].touched"
+                      class="form-error-msg">
+                      Debe introducir el código de la Cosecha Desde
+                    </small>
+                    <small *ngIf="variables.addSolicitudForm.controls['codigoCosecha1'].hasError('cosecha1Error1') "
+                      class="form-error-msg">
+                      Cosecha Desde debe ser entre 10 y 98
+                    </small>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="50" class="pr-1">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Cosecha Hasta</mat-label>
+                    <input matInput [min]="11" [max]="99" name="quantity" type="number" placeholder="Hasta.."
+                      [formControl]="variables.addSolicitudForm.controls['codigoCosecha2']"
+                      (keyup)="validateCodigoCosecha($event.target.value,'hasta')"
+                      (change)="validateCodigoCosecha($event.target.value,'hasta')" />
+                    <small
+                      *ngIf="((variables.addSolicitudForm.controls['codigoCosecha2'].hasError('required')
+                      && variables.addSolicitudForm.controls['codigoCosecha2'].touched) || (variables.addSolicitudForm.controls['codigoCosecha2'].hasError('cosecha2Error2')))"
+                      class="form-error-msg">
+                      Debe introducir el código de la Cosecha Hasta
+                    </small>
+                    <small *ngIf="variables.addSolicitudForm.controls['codigoCosecha2'].hasError('cosecha2Error1') "
+                      class="form-error-msg">
+                      Cosecha Hasta debe ser entre 11 y 99
+                    </small>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="18" class="pr-1">
+              <div fxFlex="100" class="pr-1" id="sele-producto">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Producto</mat-label>
+                  <mat-select name="producto" class="select_producto"
+                    [formControl]="variables.addSolicitudForm.controls['id_producto']" placeholder="Producto">
+                    <mat-option *ngFor="let producto of variables.productos" [value]="producto.id">
+                      {{ producto.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="18" class="pr-1">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Contrato/Fijación</mat-label>
+                <input matInput maxlength="40" name="contrato" [formControl]="variables.addSolicitudForm.controls['contrato']"
+                  placeholder="Contrato/Fijación" />
+              </mat-form-field>
+              <small *ngIf="
+                  variables.addSolicitudForm.controls['contrato'].hasError('maxlength') &&
+                  variables.addSolicitudForm.controls['contrato'].touched
+                  " class="form-error-msg">
+                Ha excedido la longitud max de caracterers</small>
+            </div>
+            <div fxFlex="18" class="pr-1">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Zonas</mat-label>
+                <mat-select name="Zonas" [formControl]="variables.addSolicitudForm.controls['zona']"
+                [disabled]="variables.isInicio || variables.invalidZona" placeholder="Zonas" >
+                  <mat-option *ngFor="let zona of variables.zonas" [value]="zona.id">
+                    {{ zona.descripcion }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="18" class="pr-1" *ngIf="variables.usaMTR">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Carátula MTR</mat-label>
+                <input matInput maxlength="6" name="caratula" [formControl]="variables.addSolicitudForm.controls['caratula']"
+                  placeholder="Carátula MTR" />
+              </mat-form-field>
+              <small *ngIf="
+                  variables.addSolicitudForm.controls['caratula'].hasError('maxlength') &&
+                  variables.addSolicitudForm.controls['caratula'].touched
+                  " class="form-error-msg">
+                Ha excedido la longitud max de caracterers</small>
+            </div>
+          </div>
+        </div>
+        <mat-card
+          style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: rgb(121, 117, 117); padding: 0px; "
+          [style.overflow]="'auto'" [style.width.px]="'98%'" [style.height.px]="'3'">
+        </mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+          <div fxFlex="100">
+            <div fxFlex="15" class="pr-1"><strong>Fecha</strong> </div>
+            <div fxFlex="15" class="pr-1" fxLayoutAlign="center center"><strong>Cupos por día</strong></div>
+            <div fxFlex="70" class="pr-1"><strong>Observaciones por día</strong></div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" *ngFor="let option of variables.tablaFechas; let i= index ">
+          <div fxFlex="100">
+            <div fxFlex="15" class="pr-1">
+              <mat-form-field class="full-width">
+                <!-- <mat-label>Fecha Cupo </mat-label> -->
+                <input matInput [formControl]="variables.addSolicitudForm.controls['fecha_'+i]" placeholder=""
+                  (dateChange)="inputFecha($event,i)" [matDatepicker]="appDatepicker" [min]="variables.minFecha" />
+                <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="2" class="pr-1"></div>
+            <div fxFlex="11" fxLayoutAlign="end start" id="input-cant">
+              <mat-form-field class="full-width" appearance="outline" style="height:30px;">
+                <input matInput type="number" [max]='1000' [min]="0" (keyup)="comprobarForm()"
+                  (change)="comprobarForm()" [formControl]="variables.addSolicitudForm.controls['cantidad_'+i]" />
+
+                <div *ngIf="variables.addSolicitudForm.controls['cantidad_'+i].hasError('max')">
+                  <small class="form-error-msg">El número máximo puede ser 1000.</small>
+                </div>
+              </mat-form-field>
+            </div>
+            <div fxFlex="2" class="pr-1"></div>
+            <div fxFlex="70" class="pr-1">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput placeholder="" #observ [formControl]="variables.addSolicitudForm.controls['observ_'+i]"
+                  [maxLength]="250" />
+                <mat-hint align="end">{{observ.value.length }} / 250</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap" *ngIf="!variables.esDadorCupo && variables.esClienteFinal">
+          <div fxFlex="100" class="pr-1">
+            <mat-checkbox class="example-radio-button" (change)="onChange2($event)" style="margin-left: 18px;"
+              [formControl]="variables.addSolicitudForm.controls['administra']">
+              Permitir que un Centro administre los cupos
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div fxLayout="row wrap">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+              Cancelar
+            </button>
+            <span fxFlex>
+             <!--  Add: {{variables.addSolicitudForm.invalid}} CF: {{!comprobarForm()}} cC: {{variables.cantidadCupos==0}} sF:{{!variables.selectedFecha}} iFC:{{!variables.invalidFechaCant}} -->
+            </span>
+            <button mat-raised-button color="primary"
+              [disabled]="variables.addSolicitudForm.invalid ||  !comprobarForm() || variables.cantidadCupos==0 || !variables.selectedFecha || !variables.invalidFechaCant ">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

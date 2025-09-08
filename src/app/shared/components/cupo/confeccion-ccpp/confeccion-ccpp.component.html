@@ -1,0 +1,1264 @@
+<div id="form-nwe-ccpp">
+  <mat-card class="p-0 card-wrapper">
+    <mat-card-title>
+      <div class="card-title-text">
+        <h3>Confección CCPP</h3>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="confeccionCCPPForm" class="example-form">
+        <!-- Primer mat card -->
+        <mat-card class="first-mat-card">
+          <mat-form-field class="example-full-width">
+            <mat-label>C.T.G.</mat-label>
+            <input matInput name="cartaPorte" maxlength="11" [formControl]="confeccionCCPPForm.controls['cartaPorte']"
+              [readonly]="boolCcpp.cartaPorte">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Fecha Carga</mat-label>
+            <input matInput *ngIf="boolCcpp.fechaCarga" name="fechaCarga" maxlength="100"
+              [value]="boolCcpp.stringfechaCarga" [readonly]="boolCcpp.fechaCarga">
+            <input matInput *ngIf="!boolCcpp.fechaCarga" name="fechaCarga"
+              [formControl]="confeccionCCPPForm.controls['fechaCarga']" placeholder="dd/mm/aaaa"
+              [matDatepicker]="appDatepicker" [readonly]="boolCcpp.fechaCarga">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+            </mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+          <mat-form-field class="example-full-width">
+            <mat-label>Vencimiento</mat-label>
+            <input matInput *ngIf="boolCcpp.fechaVencimiento" name="fechaCarga" maxlength="100"
+              [value]="boolCcpp.stringfechaVencimiento" [readonly]="boolCcpp.fechaVencimiento">
+            <input matInput *ngIf="!boolCcpp.fechaVencimiento" name="fechaVencimiento"
+              [formControl]="confeccionCCPPForm.controls['fechaVencimiento']" placeholder="dd/mm/aaaa"
+              [matDatepicker]="appDatepicker1">
+            <mat-datepicker-toggle matSuffix [for]="appDatepicker1">
+            </mat-datepicker-toggle>
+          </mat-form-field>
+          <mat-datepicker #appDatepicker1></mat-datepicker>
+        </mat-card>
+        <!-- Segundo mat card -->
+        <mat-card class="mat-card-intervinientes">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                01 INTERVINIENTES
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="60" style="padding-right: 5%;">
+              <mat-form-field class="example-full-width">
+                <mat-label>TITULAR CARTA DE PORTE</mat-label>
+                <input matInput name="nombreTitular" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreTitular']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Intermediario</mat-label>
+                <input matInput name="nombreIntermediario" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreIntermediario']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Remitente Comercial</mat-label>
+                <input matInput name="nombreRemitente" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreRemitente']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Corredor Comprador</mat-label>
+                <input matInput name="nombreCorredorComprador" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreCorredorComprador']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Mercado a Término</mat-label>
+                <input matInput name="nombreMercadoATermino" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreMercadoATermino']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Corredor Vendedor</mat-label>
+                <input matInput name="nombreCorredorVendedor" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreCorredorVendedor']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Representante Entregador</mat-label>
+                <input matInput name="nombreEntregador" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreEntregador']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Destinatario</mat-label>
+                <input matInput name="nombreDestinatario" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreDestinatario']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Destino</mat-label>
+                <input matInput name="nombreDestino" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreDestino']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Intermediario del flete</mat-label>
+                <input matInput name="nombreIntermediarioFlete" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreIntermediarioFlete']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Transportista</mat-label>
+                <input matInput name="nombreTransportista" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreTransportista']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Chofer</mat-label>
+                <input matInput name="nombreChofer" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['nombreChofer']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="40">
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitTitula" #idCuitTitula maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitTitula']">
+                <mat-hint align="end">{{idCuitTitula.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitIntermediario" #idCuitIntermediario maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitIntermediario']">
+                <mat-hint align="end">{{idCuitIntermediario.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitRemComercial" #idCuitRemComercial maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitRemComercial']">
+                <mat-hint align="end">{{idCuitRemComercial.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitCorredorC" #idCuitCorredorC maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitCorredorC']">
+                <mat-hint align="end">{{idCuitCorredorC.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitMercadoATermino" #idCuitMercadoATermino maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitMercadoATermino']">
+                <mat-hint align="end">{{idCuitMercadoATermino.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitCorredorV" #idCuitCorredorV maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitCorredorV']">
+                <mat-hint align="end">{{idCuitCorredorV.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitRepresentanteEntregador" #idCuitRepresentanteEntregador maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitRepresentanteEntregador']">
+                <mat-hint align="end">{{idCuitRepresentanteEntregador.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitDestinatario" #idCuitDestinatario maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitDestinatario']">
+                <mat-hint align="end">{{idCuitDestinatario.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitDestino" #idCuitDestino maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitDestino']">
+                <mat-hint align="end">{{idCuitDestino.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitIntermediarioFlete" #idCuitIntermediarioFlete maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitIntermediarioFlete']">
+                <mat-hint align="end">{{idCuitIntermediarioFlete.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitTransportista" #idCuitTransportista maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitTransportista']">
+                <mat-hint align="end">{{idCuitTransportista.value.length }} / 11</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT</mat-label>
+                <input matInput name="idCuitChofer" #idCuitChofer maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['idCuitChofer']">
+                <mat-hint align="end">{{idCuitChofer.value.length }} / 11</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card>
+        <!-- Tercer mat card -->
+        <mat-card class="mat-granos-especie">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                02 GRANOS - ESPECIE
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="25" style="padding-right:2%">
+              <mat-form-field class="example-full-width">
+                <mat-label>Grano / Especie</mat-label>
+                <input matInput name="granoNombre" maxlength="70"
+                  [formControl]="confeccionCCPPForm.controls['granoNombre']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="25" style="padding-right:2%">
+              <mat-form-field class="example-full-width">
+                <mat-label>Tipo</mat-label>
+                <input matInput name="tipoGrano" maxlength="50"
+                  [formControl]="confeccionCCPPForm.controls['tipoGrano']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="25" style="padding-right:2%">
+              <mat-form-field class="example-full-width">
+                <mat-label>Cosecha</mat-label>
+                <input matInput name="cosecha" type="number" [formControl]="confeccionCCPPForm.controls['cosecha']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="25">
+              <mat-form-field class="example-full-width">
+                <mat-label>Contrato/Fijación</mat-label>
+                <input matInput name="nroContrato" maxlength="70"
+                  [formControl]="confeccionCCPPForm.controls['nroContrato']">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="50" style="padding-right:2%">
+              <div fxLayout="column">
+                <div fxLayout="row" class="example-full-width">
+                  <mat-checkbox [checked]="ccpp.granoPesadaDestino" name="granoPesadaDestino"
+                    [formControl]="confeccionCCPPForm.controls['granoPesadaDestino']">
+                  </mat-checkbox>
+                  <span style="margin-left: 5px;">La carga será pesada en destino</span>
+                </div>
+                <mat-form-field class="full-50">
+                  <mat-label>Kgs Estimados</mat-label>
+                  <input matInput type="number" name="granoKgEstimado"
+                    [formControl]="confeccionCCPPForm.controls['granoKgEstimado']">
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="25" style="padding-right:2%">
+              <div fxLayout="column">
+                <div fxLayout="row" class="example-full-width">
+                  <mat-checkbox [checked]="ccpp.granoCalidad" name="granoCalidad"
+                    [formControl]="confeccionCCPPForm.controls['granoCalidad']">
+                  </mat-checkbox>
+                  <span style="margin-left: 5px;">Declaración de Calidad</span>
+                </div>
+                <div fxLayout="row" class="example-full-width">
+                  <mat-checkbox [checked]="ccpp.granoConforme" name="granoConforme"
+                    [formControl]="confeccionCCPPForm.controls['granoConforme']">
+                  </mat-checkbox>
+                  <span style="margin-left: 5px;">Conforme</span>
+                </div>
+                <div fxLayout="row" class="example-full-width">
+                  <mat-checkbox [checked]="ccpp.granoCondicional" name="granoCondicional"
+                    [disabled]="boolCcpp.granoCondicional"
+                    [formControl]="confeccionCCPPForm.controls['granoCondicional']">
+                  </mat-checkbox>
+                  <span style="margin-left: 5px;">Condicional</span>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="25">
+              <mat-form-field class="example-full-width">
+                <mat-label>Peso Bruto (Kgs)</mat-label>
+                <input matInput name="granoPesoBruto" type="number"
+                  [formControl]="confeccionCCPPForm.controls['granoPesoBruto']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Peso tara (Kgs)</mat-label>
+                <input matInput type="number" name="granoPesoTara"
+                  [formControl]="confeccionCCPPForm.controls['granoPesoTara']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Peso Neto (Kgs)</mat-label>
+                <input matInput type="number" name="granoPesoNeto"
+                  [formControl]="confeccionCCPPForm.controls['granoPesoNeto']">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout=column>
+            <mat-card-subtitle style="margin: 0;">
+              <div class="card-title-text">
+                Observaciones:
+              </div>
+            </mat-card-subtitle>
+            <div fxFlex="100" fxLayoutAlign="start center">
+              <div fxFlex="55">
+                <mat-form-field class="full-width">
+                  <mat-label>Intermediario 2</mat-label>
+                  <input matInput name="nombreIntermediario1"
+                    [formControl]="confeccionCCPPForm.controls['nombreIntermediario1']" placeholder="Intermediario 2"
+                    #nombreIntermediario1 />
+                </mat-form-field>
+              </div>
+              <div fxFlex="5"></div>
+              <div fxFlex="40">
+                <mat-form-field class="full-width">
+                  <mat-label>CUIT</mat-label>
+                  <input matInput name="idCuitIntermediario1"
+                    [formControl]="confeccionCCPPForm.controls['idCuitIntermediario1']" placeholder="CUIT"
+                    #idCuitIntermediario1 minlength="11" maxlength="11" />
+                  <mat-hint align="end">{{idCuitIntermediario1.value.length }} / 11</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="100" fxLayoutAlign="start center">
+              <div fxFlex="55">
+                <mat-form-field class="full-width">
+                  <mat-label>Intermediario 3</mat-label>
+                  <input matInput name="nombreIntermediario2"
+                    [formControl]="confeccionCCPPForm.controls['nombreIntermediario2']" placeholder="Intermediario 3"
+                    #nombreIntermediario2 />
+                </mat-form-field>
+              </div>
+              <div fxFlex="5"></div>
+              <div fxFlex="40">
+                <mat-form-field class="full-width">
+                  <mat-label>CUIT</mat-label>
+                  <input matInput name="idCuitIntermediario2"
+                    [formControl]="confeccionCCPPForm.controls['idCuitIntermediario2']" placeholder="CUIT"
+                    #idCuitIntermediario2 minlength="11" maxlength="11" />
+                  <mat-hint align="end">{{idCuitIntermediario2.value.length }} / 11</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="100">
+              <mat-form-field style="width: 100%;" class="example-full-width">
+                <mat-label>Carátula Mercado a Término</mat-label>
+                <input matInput name="caratula" #caratula maxlength="60"
+                  [formControl]="confeccionCCPPForm.controls['caratulaMercadoATermino']">
+                <mat-hint align="end">{{ caratula.value.length }} / 60</mat-hint>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100">
+              <mat-form-field style="width: 100%;" class="example-full-width">
+                <mat-label>Comentario</mat-label>
+                <input matInput name="comentario" #comentario maxlength="60"
+                  [formControl]="confeccionCCPPForm.controls['comentario']">
+                <mat-hint align="end">{{ comentario.value.length }} / 60</mat-hint>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="40">
+                <div fxLayout="column">
+                  <mat-card-subtitle style="margin-top: 9% !important;">
+                    <div class="card-title-text">
+                      PROCEDENCIA MERCADERÍA
+                    </div>
+                  </mat-card-subtitle>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput name="procedenciaDireccion" maxlength="100"
+                      [formControl]="confeccionCCPPForm.controls['procedenciaDireccion']">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex="60" style="margin-left: 5%;">
+                <div fxLayout="column">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Establecimiento</mat-label>
+                    <input matInput name="procedenciaEstablecimiento" maxlength="100"
+                      [formControl]="confeccionCCPPForm.controls['procedenciaEstablecimiento']">
+                  </mat-form-field>
+                  <div fxLayout="row">
+                    <mat-form-field fxFlex="50" class="example-full-width">
+                      <mat-label>Localidad</mat-label>
+                      <input matInput name="procedenciaLocalidad" maxlength="70"
+                        [formControl]="confeccionCCPPForm.controls['procedenciaLocalidad']">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="50" class="example-full-width">
+                      <mat-label>Provincia</mat-label>
+                      <input matInput name="procedenciaProvincia" maxlength="70"
+                        [formControl]="confeccionCCPPForm.controls['procedenciaProvincia']">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <!-- Cuarto mat card -->
+        <mat-card class="mat-card-datos-transporte">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                03 DESTINO
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="30" style="margin-right: 5%;">
+              <mat-form-field style="width:100%" class="example-full-width">
+                <mat-label>Dirección</mat-label>
+                <input matInput name="destinoGranoDireccion" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['destinoGranoDireccion']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="30" style="margin-right: 5%;">
+              <mat-form-field style="width:100%" class="example-full-width">
+                <mat-label>Localidad</mat-label>
+                <input matInput name="destinoGranoLocalidad" maxlength="70"
+                  [formControl]="confeccionCCPPForm.controls['destinoGranoLocalidad']">
+              </mat-form-field>
+            </div>
+            <div fxFlex="30">
+              <mat-form-field style="width:100%" class="example-full-width">
+                <mat-label>Provincia</mat-label>
+                <input matInput name="destinoGranoProvincia" maxlength="70"
+                  [formControl]="confeccionCCPPForm.controls['destinoGranoProvincia']">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card>
+        <!-- Quinto mat card -->
+        <mat-card class="mat-card-intervinientes">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                04 DATOS DEL TRANSPORTE
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="100">
+              <mat-form-field class="example-full-width">
+                <mat-label>Pagador del Flete</mat-label>
+                <input matInput name="transportePagadorFlete" maxlength="100"
+                  [formControl]="confeccionCCPPForm.controls['transportePagadorFlete']">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="40" style="margin-right: 10%;">
+              <div fxLayout="column">
+                <div fxLayout="row">
+                  <mat-form-field style="width: 30%; margin-right: 5%;" class="example-full-width">
+                    <mat-label>Camión</mat-label>
+                    <input matInput name="transporteCamion" maxlength="7"
+                      [formControl]="confeccionCCPPForm.controls['transporteCamion']">
+                  </mat-form-field>
+                  <mat-form-field style="width: 30%; margin-right: 5%;" class="example-full-width">
+                    <input matInput name="transporteCamion2" maxlength="7"
+                      [formControl]="confeccionCCPPForm.controls['transporteCamion2']">
+                  </mat-form-field>
+                  <mat-form-field style="width: 30%;" class="example-full-width">
+                    <input matInput name="transporteCamion3" maxlength="7"
+                      [formControl]="confeccionCCPPForm.controls['transporteCamion3']">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="40">
+                  <mat-form-field style="width: 100%;" class="example-full-width">
+                    <mat-label>Km a Recorrer</mat-label>
+                    <input matInput type="number" name="kmRecorrer"
+                      [formControl]="confeccionCCPPForm.controls['kmRecorrer']">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="20" style="margin-right: 10%;">
+              <div fxLayout="column">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Acoplado</mat-label>
+                  <input matInput name="transporteAcoplado" maxlength="7"
+                    [formControl]="confeccionCCPPForm.controls['transporteAcoplado']">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Tarifa</mat-label>
+                  <input matInput type="number" name="transporteTarifa"
+                    [formControl]="confeccionCCPPForm.controls['transporteTarifa']">
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="40">
+              <div fxLayout="column">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Tarifa de Referencia</mat-label>
+                  <input matInput type="number" name="transporteTarifaReferencia"
+                    [formControl]="confeccionCCPPForm.controls['transporteTarifaReferencia']">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Procedencia</mat-label>
+                  <input matInput maxlength="100" name="transportePagadorFlete"
+                    [formControl]="confeccionCCPPForm.controls['transportePagadorFlete']">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <!-- Sexto mat card -->
+        <mat-card class="mat-card-intervinientes">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                05 DATOS A COMPLETAR EN EL LUGAR DE DESTINO Y DESCARGA
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="40" style="margin-right: 5%;">
+              <div fxLayout="column">
+                <div fxLayout="row">
+                  <mat-form-field style="width: 50%;margin-right: 10%;" class="example-full-width">
+                    <mat-label>Fecha Arribo</mat-label>
+                    <input matInput *ngIf="boolCcpp.destinoFechaArribo" name="fechaCarga" maxlength="100"
+                      [value]="boolCcpp.stringdestinoFechaArribo" [readonly]="boolCcpp.destinoFechaArribo">
+                    <input matInput *ngIf="!boolCcpp.destinoFechaArribo" name="destinoFechaArribo"
+                      [formControl]="confeccionCCPPForm.controls['destinoFechaArribo']" placeholder="dd/mm/aaaa"
+                      [matDatepicker]="appDatepicker2">
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker2">
+                    </mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker2></mat-datepicker>
+                  <mat-form-field style="width: 40%;" class="example-full-width">
+                    <mat-label>Hora</mat-label>
+                    <input type="time" matInput [readonly]="boolCcpp.transportePagadorFlete"
+                      [formControl]="confeccionCCPPForm.controls['destinoHoraArribo']" (click)="open($event)">
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <mat-form-field style="width: 50%;margin-right: 10%;" class="example-full-width">
+                    <mat-label>Fecha descarga</mat-label>
+                    <input matInput *ngIf="boolCcpp.destinoFechaDescarga" name="fechaCarga" maxlength="100"
+                      [value]="boolCcpp.stringdestinoFechaDescarga" [readonly]="boolCcpp.destinoFechaDescarga">
+                    <input matInput *ngIf="!boolCcpp.destinoFechaDescarga" name="destinoFechaDescarga"
+                      [formControl]="confeccionCCPPForm.controls['destinoFechaDescarga']" placeholder="dd/mm/aaaa"
+                      [matDatepicker]="appDatepicker3">
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker3">
+                    </mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker3></mat-datepicker>
+                  <mat-form-field style="width: 40%;" class="example-full-width">
+                    <mat-label>Hora</mat-label>
+                    <input type="time" matInput [formControl]="confeccionCCPPForm.controls['destinoHoraDescarga']"
+                      (click)="open1($event)">
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                  <mat-form-field style="width: 100%;" class="example-full-width">
+                    <mat-label>Turno Nro</mat-label>
+                    <input matInput name="destinoNumeroTurno" type="number"
+                      [formControl]="confeccionCCPPForm.controls['destinoNumeroTurno']">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="20" style="margin-right: 5%;">
+              <div fxLayout="column">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Peso Bruton (Kgs.)</mat-label>
+                  <input matInput type="number" name="destinoPesoBruto"
+                    [formControl]="confeccionCCPPForm.controls['destinoPesoBruto']">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Peso Tara (Kgs.)</mat-label>
+                  <input matInput type="number" name="destinoPesoTara"
+                    [formControl]="confeccionCCPPForm.controls['destinoPesoTara']">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Peso Neto (Kgs.)</mat-label>
+                  <input matInput type="number" name="destinoPesoNeto"
+                    [formControl]="confeccionCCPPForm.controls['destinoPesoNeto']">
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="40">
+              <div fxLayout="column">
+                <label>Observaciones:</label>
+                <textarea style="border: 1px solid #80808061;border-radius: 8px;" name="destinoObservaciones"
+                  maxlength="150" [formControl]="confeccionCCPPForm.controls['destinoObservaciones']" cols="30"
+                  rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <!-- Septimo mat card -->
+        <mat-card class="mat-card-intervinientes">
+          <div style="margin-bottom: 7%;" fxLayout="row">
+            <mat-card-title fxFlex="100" style="margin: 0;">
+              <div class="card-subtitle-text">
+                06 CAMBIO DEL DOMICILIO DE DESCARGA / DESVIO
+              </div>
+            </mat-card-title>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="50" style="margin-right: 5%;">
+              <div fxLayout="column">
+                <mat-form-field class="example-full-width">
+                  <mat-label>CUIT Destino y Denominación</mat-label>
+                  <input matInput name="desvioCuitDestino" maxlength="11"
+                    [formControl]="confeccionCCPPForm.controls['desvioCuitDestino']">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <mat-label>Domicilio</mat-label>
+                  <input matInput name="desvioDomicilio" maxlength="50"
+                    [formControl]="confeccionCCPPForm.controls['desvioDomicilio']">
+                </mat-form-field>
+                <div fxLayout="row">
+                  <mat-form-field fxFlex="50" style="margin-right: 5%;" class="example-full-width">
+                    <mat-label>Nro Planta RUCA</mat-label>
+                    <input matInput type="number" name="nroPlantaRuca"
+                      [formControl]="confeccionCCPPForm.controls['nroPlantaRuca']">
+                  </mat-form-field>
+                  <mat-form-field fxFlex="50" class="example-full-width">
+                    <mat-label type="date">Fecha</mat-label>
+                    <input matInput *ngIf="boolCcpp.desvioFecha" name="fechaCarga" maxlength="100"
+                      [value]="boolCcpp.stringdesvioFecha" [readonly]="boolCcpp.desvioFecha">
+                    <input matInput *ngIf="!boolCcpp.desvioFecha" name="desvioFecha"
+                      [formControl]="confeccionCCPPForm.controls['desvioFecha']" placeholder="dd/mm/aaaa"
+                      [matDatepicker]="appDatepicker4">
+                    <mat-datepicker-toggle matSuffix [for]="appDatepicker4">
+                    </mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #appDatepicker4></mat-datepicker>
+
+                </div>
+              </div>
+            </div>
+            <div fxFlex="50">
+              <mat-form-field class="example-full-width">
+                <mat-label>CUIT Destinatario y Denominación</mat-label>
+                <input matInput name="desvioCuitDestinatario" maxlength="11"
+                  [formControl]="confeccionCCPPForm.controls['desvioCuitDestinatario']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Localidad</mat-label>
+                <input matInput maxlength="50" name="desvioLocalidad"
+                  [formControl]="confeccionCCPPForm.controls['desvioLocalidad']">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Traslado ordenado por</mat-label>
+                <input matInput maxlength="100" name="desvioOrdenadoPor"
+                  [formControl]="confeccionCCPPForm.controls['desvioOrdenadoPor']">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card>
+        <div fxLayout="row">
+          <div fxFlex="50">
+            <div class="buttons-wrapper">
+              <button id="btn-cancelar" (click)="closeModal()" mat-button>Cancelar</button>
+              <button id="btn-imprimir" mat-button color="primary" (click)="printPage()">Imprimir</button>
+              <button id="btn-guardar" mat-button color="accent" (click)="submit()">Guardar</button>
+            </div>
+          </div>
+          <div fxFlex="50">
+            <form [formGroup]="notificarForm" class="example-form">
+              <mat-card class="first-mat-card form-notifica">
+                <div fxLayout="row">
+                  <div fxFlex="70">
+                    <div fxLayout="column">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>E-Mail</mat-label>
+                        <input matInput type="mail" name="email"
+                          [formControl]="notificarForm.controls['email']">
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Observaciones</mat-label>
+                        <input matInput type="text" name="cuerpo"
+                          [formControl]="notificarForm.controls['cuerpo']">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxFlex="30">
+                    <div class="buttons-wrapper">
+                      <button id="btn-guardar"
+                      class="bootom-notificar"
+                      mat-button
+                      color="accent"
+                      [disabled]="notificarForm.invalid"
+                      (click)="notificarccpp()">Guardar  y Notificar</button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+          </form>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div id="print-ccpp">
+  <div fxFlex="100" [style.width]="styleWidth" [style.font-size]="fontSize">
+    <div fxLayout="row wrap" class="emisor" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height4Row">
+        <div fxFlex="33" class="border-der">
+          <img src="assets/images/carta-porte/header1.png" alt="" style="height: 90px;width: 100%;margin-top: 10px;">
+        </div>
+        <div fxFlex="67">
+          <div fxLayout="100" class=" border-abajo" fxLayout="row wrap" [style.height]="height2Row"
+            fxLayoutAlign="start start">
+            <div fxFlex="50">
+              <img src="assets/images/carta-porte/header2.png" style="height: 48px;width: 100%;">
+            </div>
+            <div fxFlex="50">
+              <img src="assets/images/carta-porte/header3.png" style="height: 48px;width: 100%;">
+            </div>
+          </div>
+          <div fxLayout="100" fxLayout="row wrap" fxLayoutAlign="start center" [style.height]="height2Row">
+            <div fxFlex="50" class=" border-der" [style.height]="height2Row" fxLayoutAlign="start start">
+              <strong class="margen-izq">CTG:</strong>
+            </div>
+            <div fxFlex="50" fxLayout="row wrap">
+              <div fxFlex="100" class="border-abajo" fxLayoutAlign="start center">
+                <span class="margen-izq">Fecha Carga:</span>
+              </div>
+              <div fxFlex="100" fxLayoutAlign="start center">
+                <span class="margen-izq">Fecha Vencimiento:</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="inca" fxLayoutAlign="center center">
+      <div fxFlex="100" fxLayoutAlign="center center">
+        <strong>CARTA DE PORTE PARA EL TRANSPORTE AUTOMOTOR DE GRANOS- PRODUCTOR (Inc.a) </strong>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+        <div fxFlex="3" [style.height]="heightInter"
+          style="border-style: solid; border-width: 1px; border-radius: 10px;margin-top:1px;"
+          fxLayoutAlign="center center">
+          <strong class="rotate90">1 - INTERVENIENTES</strong>
+        </div>
+        <div fxFlex="97" style="margin-top:1px;">
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" style="margin-left: 3px;">
+            <tbody style="margin-top: 2px;">
+              <tr>
+                <td style="width: 30%;margin-left:2px; ">
+                  <strong>Titular Carta Porte</strong>
+                </td>
+                <td style="width: 35%;">
+                  <span *ngIf="ccpp.nombreTitular"> {{ccpp.nombreTitular}}</span>
+                </td>
+                <td style="width: 10%;"> <strong>CUIT Nro</strong> </td>
+                <td style="width: 20%;">
+                  <span *ngIf="ccpp.idCuitTitula"> {{ccpp.idCuitTitula}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Intermediario</td>
+                <td>
+                  <span *ngIf="ccpp.nombreIntermediario">{{ccpp.nombreIntermediario}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitIntermediario">{{ccpp.idCuitIntermediario}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Remitente Comercial</td>
+                <td>
+                  <span *ngIf="ccpp.nombreRemitente">{{ccpp.nombreRemitente}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitRemComercial">{{ccpp.idCuitRemComercial}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Corredor comprador</td>
+                <td>
+                  <span *ngIf="ccpp.nombreCorredorComprador">{{ccpp.nombreCorredorComprador}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitCorredorC">{{ccpp.idCuitCorredorC}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Mercado a término</td>
+                <td>
+                  <span *ngIf="ccpp.nombreMercadoATermino"> {{ccpp.nombreMercadoATermino}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitMercadoATermino">{{ccpp.idCuitMercadoATermino}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Corredor vendedor</td>
+                <td>
+                  <span *ngIf="ccpp.nombreCorredorVendedor">{{ccpp.nombreCorredorVendedor}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitCorredorV"> {{ccpp.idCuitCorredorV}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Representante/Entregador</td>
+                <td>
+                  <span *ngIf="ccpp.nombreEntregador">{{ccpp.nombreEntregador}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitRepresentanteEntregador">{{ccpp.idCuitRepresentanteEntregador}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Destinatario</td>
+                <td>
+                  <span *ngIf="ccpp.nombreDestinatario">{{ccpp.nombreDestinatario}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitDestinatario">{{ccpp.idCuitDestinatario}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Destino</td>
+                <td>
+                  <span *ngIf="ccpp.nombreDestino">{{ccpp.nombreDestino}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitDestino">{{ccpp.idCuitDestino}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Intermediario del Flete</td>
+                <td>
+                  <span *ngIf="ccpp.nombreIntermediarioFlete">{{ccpp.nombreIntermediarioFlete}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitIntermediarioFlete">{{ccpp.idCuitIntermediarioFlete}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Transportista</td>
+                <td>
+                  <span *ngIf="ccpp.nombreTransportista">{{ccpp.nombreTransportista}}</span>
+                </td>
+                <td>CUIT Nro </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitTransportista">{{ccpp.idCuitTransportista}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Chofer</td>
+                <td>
+                  <span *ngIf="ccpp.nombreChofer">{{ccpp.nombreChofer}}</span>
+                </td>
+                <td>CUIT/CUIL </td>
+                <td>
+                  <span *ngIf="ccpp.idCuitChofer">{{ccpp.idCuitChofer}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" style="background-color: #ffffff; " fxLayoutAlign="start start">
+        <div fxFlex="3" [style.height]="heightGranos"
+          style="border-style: solid; border-width: 1px; border-radius: 10px;margin-top:1px;"
+          fxLayoutAlign="center center">
+          <strong class="rotate90">2 - GRANOS / ESPECIES</strong>
+        </div>
+        <div fxFlex="97" fxLayout="row wrap" fxLayoutAlign="start start" style="margin-top:2px; ">
+          <div fxFlex="100" style="height: 25px;">
+            <div fxFlex="15" class="margen-izq border-todo"> <span class="margen-izq">Grano/Especie</span></div>
+            <div fxFlex="13" class="border-abajo border-arriba border-der"></div>
+            <div fxFlex="7" class="border-abajo border-arriba border-der"><span class="margen-izq">Tipo</span></div>
+            <div fxFlex="15" class="border-abajo border-arriba border-der"></div>
+            <div fxFlex="10" class="border-abajo border-arriba border-der"><span class="margen-izq">Cosecha</span>
+            </div>
+            <div fxFlex="15" class=" border-abajo border-arriba border-der"></div>
+            <div fxFlex="12" class=" border-abajo border-arriba border-der"><span class="margen-izq">Contrato/Fijación
+                Nro</span></div>
+            <div fxFlex="13" class=" border-abajo border-arriba border-der">{{cabecera.nroContrato}}</div>
+          </div>
+          <div fxFlex="100" fxLayoutAlign="center center" class="border-izq border-der"
+            style="margin-left: 3px; height: 75px;">
+            <div fxFlex="75">
+              <div fxFlex="100">
+                <div fxFlex="28" fxLayout="row wrap" style="height: 75px;" class="border-abajo border-der">
+                  <div fxFlex="100" style="height: 50px;" fxLayout="row wrap">
+                    <div fxFlex="100"> <span class="margen-izq"> La carga será pesada </span></div>
+                    <div fxFlex="100">
+                      <div fxFlex="70"><span class="margen-izq">en el destino </span></div>
+                      <div fxFlex="13" fxLayoutAlign="center center">
+                        <div class="circulo"></div>
+                      </div>
+                      <div fxFlex="17"></div>
+                    </div>
+                  </div>
+                  <div fxFlex="100" style="height: 25px;" class=" border-abajo" fxLayout="row wrap">
+                    <div fxFlex="75" class="border-der border-arriba">
+                      <span class="margen-izq">Kgs. Estimados</span>
+                    </div>
+                    <div fxFlex="25" class="border-arriba"></div>
+                  </div>
+                </div>
+                <div fxFlex="35" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                  <div fxFlex="100" fxLayoutAlign="center center">
+                    <span fxFlex="85" class="margen-izq"> Declaración de Calidad </span>
+                    <div fxFlex="10">
+                      <div class="circulo"></div>
+                    </div>
+
+                    <div fxFlex="5"></div>
+                  </div>
+                  <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                    <span fxFlex="85" class="margen-izq">Conforme</span>
+                    <div fxFlex="10">
+                      <div class="circulo"></div>
+                    </div>
+                    <div fxFlex="5"></div>
+                  </div>
+                  <div fxFlex="100" class="border-arriba" fxLayoutAlign="center center">
+                    <span fxFlex="85" class="margen-izq ">Condicional</span>
+                    <div fxFlex="10">
+                      <div class="circulo"></div>
+                    </div>
+                    <div fxFlex="5"></div>
+                  </div>
+                </div>
+                <div fxFlex="25" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                  <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                    <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+                  </div>
+                  <div fxFlex="100" class="border-abajo " fxLayoutAlign="center center">
+                    <span class="margen-izq">Peso Tara (Kgrs.)</span>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="center center">
+                    <span class="margen-izq">Peso Neto (Kgrs.)</span>
+                  </div>
+                </div>
+                <div fxFlex="12" style="height: 75px;" fxLayout="row wrap" class="border-abajo border-der">
+                  <div fxFlex="100" class="border-abajo ">
+                  </div>
+                  <div fxFlex="100" class="border-abajo ">
+                  </div>
+                  <div fxFlex="100">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="25" style="height: 75px;" class="border-abajo" fxLayoutAlign="start start">
+              <div fxFlex="100">
+                <div fxFlex="100" fxLayout="row wrap" style="height: 75px;" class="border-abajo">
+                  <div fxFlex="100" style="height: 50px;" fxLayout="row wrap">
+                    <div fxFlex="100">
+                      <span class="margen-izq">Observaciones:</span>
+                    </div>
+                    <div fxFlex="100">
+                      <span class="margen-izq"
+                        *ngIf="ccpp.nombreIntermediario1">{{ccpp.nombreIntermediario1.substr(0,25)}}</span>
+                    </div>
+                    <div fxFlex="100">
+                      <span class="margen-izq"
+                        *ngIf="ccpp.nombreIntermediario2">{{ccpp.nombreIntermediario2.substr(0,25)}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="100" style="height: 25x;">
+            <div fxFlex="60" fxLayoutAlign="center center" class="margen-izq border-izq border-abajo border-der">
+              <strong>PROCEDENCIA DE LA MERCADERÍA</strong></div>
+            <div fxFlex="17" class=" border-abajo border-der"><span class="margen-izq">Establecimiento</span></div>
+            <div fxFlex="23" class=" border-abajo border-der"></div>
+          </div>
+          <div fxFlex="100" style="height: 50px;">
+            <div fxFlex="10" fxLayoutAlign="center center" class="margen-izq border-izq border-abajo"> <span
+                class="margen-izq">Dirección</span></div>
+            <div fxFlex="50" fxLayoutAlign="center center" class="border-izq border-abajo border-der"> </div>
+            <div fxFlex="17" fxLayout="row wrap" class="border-der">
+              <div fxFlex="100" class="border-abajo ">
+                <span class="margen-izq">Localidad</span>
+              </div>
+              <div fxFlex="100" class="border-abajo ">
+                <span class="margen-izq">Provincia</span>
+              </div>
+            </div>
+            <div fxFlex="23" fxLayout="row wrap">
+              <div fxFlex="100" class="border-abajo border-der">
+              </div>
+              <div fxFlex="100" class="border-abajo border-der">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height2Row" style="background-color: #ffffff;margin-top:2px;"
+        class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+        <div fxFlex="100" [style.height]="heightRow">
+          <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+            <strong class="margen-izq">3</strong></div>
+          <div fxFlex="45" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+            <strong class="margen-izq">DESTINO</strong>
+          </div>
+          <div fxFlex="20" class="border-abajo border-der">
+            <span class="margen-izq">Localidad</span>
+          </div>
+          <div fxFlex="30" class="border-abajo">
+
+          </div>
+        </div>
+        <div fxFlex="100" [style.height]="heightRow">
+          <div fxFlex="10" fxLayoutAlign="start center"> <span class="margen-izq ">Dirección</span></div>
+          <div fxFlex="40" fxLayoutAlign="center center" class="border-izq border-der"> </div>
+          <div fxFlex="20" class="border-der">
+            <span class="margen-izq">Provincia</span>
+          </div>
+          <div fxFlex="30">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height4Row" style="background-color: #ffffff;margin-top:2px;"
+        class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+        <div fxFlex="100" [style.height]="heightRow">
+          <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+            <strong class="margen-izq">4</strong></div>
+          <div fxFlex="40" fxLayoutAlign="start center" class="border-izq border-abajo border-der">
+            <strong class="margen-izq">DATOS DEL TRANSPORTE</strong>
+          </div>
+          <div fxFlex="20" class="border-abajo border-der">
+            <span class="margen-izq">Pagador del Flete</span>
+          </div>
+          <div fxFlex="35" class="border-abajo">
+          </div>
+        </div>
+        <div fxFlex="100" [style.height]="height3Row">
+          <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Camión</span>
+              </div>
+              <div fxFlex="25" class="border-abajo border-der">
+              </div>
+              <div fxFlex="25" class="border-abajo border-der">
+              </div>
+              <div fxFlex="25" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Acoplado</span>
+              </div>
+              <div fxFlex="10" class="border-abajo border-der">
+
+              </div>
+              <div fxFlex="40" class="border-abajo border-der">
+                <span class="margen-izq">Tarifa de Referencia</span>
+              </div>
+              <div fxFlex="25" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="35" class="border-der">
+                <span class="margen-izq">Km a recorrer</span>
+              </div>
+              <div fxFlex="10" class="border-der">
+
+              </div>
+              <div fxFlex="30" class="border-der">
+                <span class="margen-izq">Tarifa </span>
+              </div>
+              <div fxFlex="25">
+              </div>
+            </div>
+          </div>
+          <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="center center">
+            <div fxFlex="100" [style.height]="height3Row">
+              <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                fxLayoutAlign="center end">
+                <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                  <small>Firma del Remitente </small>
+                </div>
+              </div>
+              <div fxFlex="50" class="border-todo class-border1px class-radius" style="margin: 3px;"
+                fxLayoutAlign="center end">
+                <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                  <small>Firma del Chofer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height4Row" style="margin-top:2px;"
+        class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+        <div fxFlex="100" [style.height]="heightRow">
+          <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+            <strong class="margen-izq">5</strong></div>
+          <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+            <strong class="margen-izq">DATOS A COMPLETAR EN EL LUGAR DE DESTINO Y DESCARGA</strong>
+          </div>
+        </div>
+        <div fxFlex="100" [style.height]="height3Row">
+          <div fxFlex="70" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Fecha Arribo</span>
+              </div>
+              <div fxFlex="15" class="border-abajo border-der">
+              </div>
+              <div fxFlex="10" class="border-abajo border-der">
+                <span class="margen-izq">Hora</span>
+              </div>
+              <div fxFlex="10" class="border-abajo border-der">
+              </div>
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Peso Bruto (Kgrs.)</span>
+              </div>
+              <div fxFlex="15" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Fecha Descarga</span>
+              </div>
+              <div fxFlex="15" class="border-abajo border-der">
+              </div>
+              <div fxFlex="10" class="border-abajo border-der">
+                <span class="margen-izq">Hora</span>
+              </div>
+              <div fxFlex="10" class="border-abajo border-der">
+              </div>
+              <div fxFlex="25" class="border-abajo border-der">
+                <span class="margen-izq">Peso Tara (Kgrs.)</span>
+              </div>
+              <div fxFlex="15" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="25" class="border-der">
+                <span class="margen-izq">Turno Nro</span>
+              </div>
+              <div fxFlex="35" class="border-der">
+              </div>
+              <div fxFlex="25" class="border-der">
+                <span class="margen-izq">Tarifa </span>
+              </div>
+              <div fxFlex="15">
+              </div>
+            </div>
+          </div>
+          <div fxFlex="30" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="100" [style.height]="height3Row">
+              <span class="margen-izq">Observaciones:</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height5Row" style="margin-top:2px;"
+        class="border-todo class-border1px class-radius" fxLayoutAlign="start center" fxLayout="row wrap">
+        <div fxFlex="100" [style.height]="heightRow">
+          <div fxFlex="5" fxLayoutAlign="center center" class="border-abajo">
+            <strong class="margen-izq">6</strong></div>
+          <div fxFlex="95" fxLayoutAlign="start center" class="border-izq border-abajo">
+            <strong class="margen-izq">CAMBIO DEL DOMICILIO DE DESCARGA / DESVIO</strong>
+          </div>
+        </div>
+        <div fxFlex="100" [style.height]="height4Row">
+          <div fxFlex="50" class="border-der" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="100" style="height: 30px;">
+              <div fxFlex="70" class="border-abajo border-der">
+                <span class="margen-izq">CUIT Destino y Denominación</span>
+              </div>
+              <div fxFlex="30" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="20" class="border-abajo border-der">
+                <span class="margen-izq">Domicilio</span>
+              </div>
+              <div fxFlex="80" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="37" class="border-der">
+                <span class="margen-izq">Nro Planta RUCA</span>
+              </div>
+              <div fxFlex="23" class="border-der">
+              </div>
+              <div fxFlex="15" class="border-der">
+                <span class="margen-izq">Fecha </span>
+              </div>
+              <div fxFlex="25">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="50" class="border-arriba border-der">
+                <span class="margen-izq">Traslado ordenado por</span>
+              </div>
+              <div fxFlex="50" class="border-arriba">
+              </div>
+            </div>
+          </div>
+          <div fxFlex="50" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="70" class="border-abajo border-der">
+                <span class="margen-izq">CUIT Destino y Denominación</span>
+              </div>
+              <div fxFlex="30" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="heightRow">
+              <div fxFlex="20" class="border-abajo border-der">
+                <span class="margen-izq">Localidad</span>
+              </div>
+              <div fxFlex="80" class="border-abajo">
+              </div>
+            </div>
+            <div fxFlex="100" [style.height]="height2Row" fxLayoutAlign="center end">
+              <div fxFlex="85" class="border-arriba" fxLayoutAlign="center end">
+                <small>Firma del Remitente </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100" [style.height]="height3Row" style="margin-top:2px;" fxLayoutAlign="start center"
+        fxLayout="row wrap">
+        <div fxFlex="100">
+          <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+            style="margin: 3px;" fxLayoutAlign="center end">
+            <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+              <small>Firma del Perito Recibidor </small>
+            </div>
+            <div fxFlex="8"></div>
+            <div fxFlex="46" class="border-arriba" fxLayoutAlign="center end">
+              <small>Matrícula Nro </small>
+            </div>
+          </div>
+          <div fxFlex="50" [style.height]="height3Row" class="border-todo class-border1px class-radius"
+            style="margin: 3px;" fxLayoutAlign="center end">
+            <div fxFlex="56" class="border-arriba" fxLayoutAlign="center end">
+              <small>Firma del Destinatario Entregador </small>
+            </div>
+            <div fxFlex="4"></div>
+            <div fxFlex="36" class="border-arriba" fxLayoutAlign="center end">
+              <small>Matrícula Nro </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

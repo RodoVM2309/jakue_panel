@@ -1,0 +1,108 @@
+<br />
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <div
+      style="background-color: #EAF8FD;height: 80px;"
+      fxLayoutAlign="left center"
+    >
+      <strong style="color: rgb(9, 55, 160);margin-left: 20px;font-size: 20px;"
+        >Listas activas</strong
+      >
+      <span fxFlex></span>
+      <div fxLayoutAlign="end center">
+        <div class="handle" style="color: #fff; margin-right: 15px;">
+          <strong
+            style="color: rgb(122,170,192);margin-right: 20px;font-size: 20px;"
+            >Nueva Lista</strong
+          >
+          <button
+            mat-fab
+            class="mat-filtros"
+            (click)="openPopUp({}, true)"
+            matTooltip="Adicionar Nueva Lista"
+            style="border: solid;
+              border-color: white;"
+          >
+            <mat-icon style="margin-top: -7px;color: white;">add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- chofer Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row?.id }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <!-- patente Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let row">{{ row?.nombre }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            (click)="openPopUp(row)"
+            matTooltip="Modificar Lista"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            (click)="openPopUp2(row)"
+            matTooltip="Lista de choferes"
+          >
+            <mat-icon>list</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            (click)="openPopUp3(row)"
+            matTooltip="Duplicar lista"
+          >
+            <mat-icon>commute</mat-icon>
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="example-element-row"
+        [ngStyle]="
+          (row.disponibilidad == '1' || row?.estado === 'Ocupado') && {
+            'background-color': '#efefef'
+          }
+        "
+      ></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      #paginator
+      class="mat-paginator-sticky"
+      [pageSize]="page.size"
+      [pageSizeOptions]="[5]"
+      [showFirstLastButtons]="true"
+      [length]="page.totalElements"
+      (page)="setPage($event)"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

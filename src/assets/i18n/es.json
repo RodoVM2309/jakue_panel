@@ -1,0 +1,670 @@
+{
+    "HOME": "Inicio",
+    "GOHOME": "Ir a Inicio",
+    "DASHBOARD": "Tablero",
+    "APPS": "Apps",
+    "INBOX": "Mensaje",
+    "CHAT": "Charla",
+    "CALENDAR": "Calendario",
+    "DIALOGS": "Diálogo",
+    "CONFIRM": "Confirmar",
+    "LOADER": "Loader",
+    "MEMBER": "Miembro",
+    "MATERIAL": "Material",
+    "BUTTONS": "Botones",
+    "CARDS": "Tarjeta",
+    "SELECT": "Seleccionar",
+    "AUTOCOMPLETE": "Autocomplete",
+    "INPUT": "Entrada",
+    "CHECKBOX": "Checkbox",
+    "DATEPICKER": "Datepicker",
+    "RADIO": "Radio",
+    "TOOLBAR": "Toolbar",
+    "LISTS": "lista",
+    "GRIDS": "Grids",
+    "PROGRESS": "Progreso",
+    "TABS": "Tabs",
+    "SWITCH": "Cambio",
+    "TOOLTIP": "Tooltip",
+    "MENU": "Menú",
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar",
+    "SLIDER": "Slider",
+    "SNACKBAR": "Snackbar",
+    "FORMS": "Formularios",
+    "EDITOR": "Editor",
+    "BASIC": "Sencillo",
+    "UPLOAD": "Subir",
+    "WIZARD": "paso a paso",
+    "TABLES": "Mesas",
+    "FULLSCREEN": "Pantalla Completa",
+    "PAGING": "Paging",
+    "FILTER": "Filtrar",
+    "MAP": "Mapa",
+    "CHARTS": "Gráfico",
+    "DND": "Arrastrar y soltar",
+    "PAGES": "Página",
+    "TOUR": "Gira",
+    "SESSIONS": "Sesiones",
+    "SIGNIN": "Entrar",
+    "SIGNUP": "Regístrate",
+    "SIGNOUT": "Salir",
+    "SIGNOUT_APP": "Sign out app",
+    "FORGOT": "Forgot",
+    "LOCKSCREEN": "Lockscreen",
+    "OTHERS": "Otros",
+    "GALLERY": "Gallery",
+    "PRICINGS": "Pricings",
+    "NOTIFICATIONS": "notificaciones",
+    "USERS": "Usuarios",
+    "PROFILE": "Perfil",
+    "MYPROFILE": "Mi Perfil",
+    "BLANK": "Blanco",
+    "MATICONS": "Material Iconos",
+    "ADD": "Añadir",
+    "ITEM": "ít.",
+    "SUBITEM": "Subitem",
+    "DOC": "Documentación",
+    "NOTFOUND": "Perdió",
+    "ERROR": "Error",
+    "OVERVIEW": "Resumen",
+    "SETTINGS": "Ajustes",
+    "UPDATE": "Actualizar",
+    "ECOMMERCE": "Ecommerce",
+    "SHOP": "Shop",
+    "PRODUCTS": "Products",
+    "PRODUCT DETAILS": "Product Details",
+    "CART": "Cart",
+    "CHECKOUT": "Checkout",
+    "COLOR": "Color",
+    "DESCRIPTION": "Descripción",
+    "ADMINISTRATION": "Administración",
+    "NAME": "nombre",
+    "REMOVE": "Remover",
+    "options": {
+        "actions": "Acciones",
+        "action": "Acción",
+        "tipo": "tipo"
+    },
+    "global": {
+        "dashboardOrder": "PANEL PEDIDO",
+        "dashboardOrder1": "Panel Pedidos",
+        "dashboardCupo": "PANEL CUPO",
+        "dashboardCupo1": "Panel Cupo",
+        "dashboardTurneado": "PANEL TURNEADO",
+        "dashboardTurneado1": "Panel Turneado",
+        "dashboardNotifications": "PANEL NOTIFICACIONES",
+        "dashboardDestinations": "ADMINISTRACIÓN",
+        "dashboardAddressee": "PANEL DESTINATARIO",
+        "dashboardDiffusions": "PANEL DIFUSION",
+        "dashboardDestino": "Panel Destino",
+        "logisticDashboard": "Panel Logístico",
+        "logisticDashboards": "Paneles Logísticos",
+        "ccppDashboards": "PANEL CCPP",
+        "ccppDashboards1": "Paneles Carta Porte",
+        "preOrder": "Pre Pedido",
+        "configCentro": "Configuración del Centro",
+        "configDestino": "Configuración de Puerto",
+        "configMagyp": "Configuración de Magyp",
+        "logisticParams": "Parámetros Logísticos",
+        "commercialParams": "Parámetros Comerciales",
+        "reportStatistics": "Reportes y Estadísticas",
+        "inteligenciaLogistica": "Inteligencia Logística",
+        "auditoria": "Auditoria",
+        "errorLog": "Error Log",
+        "optionsFleet": "Opciones de Flota",
+        "generalParams": "Parámetros Generales",
+        "appParams": "Parámetros APP",
+        "optimizeTime": "Optimiza tu tiempo",
+        "estacionesServicios": "Estaciones de servicios",
+        "DADOR": "DADOR",
+        "Todos": "Todos",
+        "Total": "Total"
+    },
+    "pedido": {
+        "Pedidos": "Pedidos",
+        "PEDIDOS": "PEDIDOS",
+        "Pedido": "Pedido",
+        "PEDIDO": "PEDIDO",
+    "atrasados": "Atrasados",
+    "enTiempo": " En tiempo",
+    "bloqueados": "Bloqueados",
+    "xAsignar": "Por Asignar",
+    "asignados": "Asignados",
+    "enCurso": "En Curso",
+    "desviados": "Desviados",
+    "rechazados": "Rechazados",
+    "flotaAdministrada": "Flota Administrada",
+    "libres": "Libres",
+    "intemediarios": "Intermediarios",
+    "sinUbicacion": "Sin Ubicación",
+    "conUbicacion": "Con Ubicación"
+  },
+  "cupo": {
+    "cuposDisponibles": "Cupos Disponibles",
+    "cuposVinculados": "Cupos Vinculados",
+    "solicitudes": "Solicitudes"
+  },
+  "reserva":{
+    "seguimiento-reserva": "Seguimiento Reservas"    
+  },
+  "login": {
+    "name": " Palabra de pase",
+    "title": "Entrar con su cuenta",
+    "forgotPassword": "Olvidó la contraseña?. Restaurar",
+    "titleRecovery": "Recuperar tu cuenta",
+    "session": "Iniciar sessión",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "Iagree": "Acepto las condiciones",
+    "answer": "Usted tiene una cuenta?",
+    "title2": "El acceso es libre y gratis al sitio!",
+    "Irecovery": "Contraseña olvidada",
+    "codigo": "Introduzca el código enviado en el email",
+    "botonRecovery": "Validar código",
+    "textTitleRecovery": "Para recuperar su cuenta, deberá introducir la cuenta de correo a la que puedas obtener el código de verificación.",
+    "note": "Nota",
+    "textCode": "Si ha recibido el código de verificación, complete los datos para recuperar su cuenta.",
+    "enterCodigo": "Enter the code sent in the email"
+  },
+  "nomencladores": {
+    "mediopago": "Medio de Pago",
+    "mediopagos": "Medios de Pagos",
+    "marcaVehiculo": "Marca de Vehículo",
+    "marcaVehiculos": "Marcas de Vehículos",
+    "tipoVehiculo": "Tipo de Vehículo",
+    "tipoVehiculos": "Tipos de Vehículos",
+    "companiaSeguro": "Compañía de Seguro",
+    "companiaSeguros": "Compañías de Seguro",
+    "companiaTelefono": "Compañía de Teléfono",
+    "companiaTelefonos": "Compañías de Teléfonos",
+    "estadoChofer": "Estado del Chofer",
+    "motivoCalificacion": "Motivo de Calificación"
+  },
+  "usuarios": {
+    "ROL": "Role",
+    "ROLS": "Roles",
+    "username": " Email",
+    "nombre": "Nombre",
+    "apellidos": "Apellidos",
+    "telefono": "Teléfono",
+    "status": "Estado",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "search": "Buscar usuarios",
+    "searchNombre": " Busca por nombre",
+    "searchTelefono": " Buscar por teléfono",
+    "invalidAdress": "Dirección de email incorrecta",
+    "emailRequired": "Email es requerido",
+    "passwordRequired": "Contraseña es requerido",
+    "confirmPasswordRequired": "Confirmar contraseña es requerida",
+    "noMathPassword": "No coinciden las contraseñas",
+    "chancePassword": "Cambiar Contraseña",
+    "oldPassword": "Contraseña actual",
+    "newPassword": "Nueva Contraseña"
+  },
+  "choferes": {
+    "default": "Choferes"
+  },
+  "clientes": {
+    "default": "Clientes"
+  },
+  "profile": {
+    "tab1": "Configuración",
+    "tab2": "Imagen del perfil",
+    "uploadTitle": "Seleccionar su imagen de perfil",
+    "typeFile": "Arrastre aquí un archivo png/jpeg",
+    "fileName": "Nombre",
+    "fileSize": "Tamaño",
+    "fileProgress": "Progreso",
+    "actions": "Acciones",
+    "status": "Estado",
+    "updated": "Su perfil se ha actualizado!",
+    "error": "Error al actualizarse!",
+    "imagenLista": "Imagen lista para subir presione el botón subir",
+    "errorImagen": "Extensión no valida solo:  png / jpg",
+    "chancePasswordOk": "Contraseña cambiada correctamente",
+    "chancePasswordError": "Error al cambiar la Contraseña"
+  },
+  "tables": {
+    "table": "Tabla",
+    "empty": "No existen datos"
+  },
+  "configurarCentro": {
+    "nav": "Configuración",
+    "title": "Configuración del centro"
+  },
+  "vincularCentroOperador": {
+    "nav": "Operadores"
+  },
+  "centroPorEvaluar": {
+    "nav": "Evaluación Choferes"
+  },
+  "centroListaNegra": {
+    "nav": "Lista Negra de Choferes"
+  },
+  "centroListaViajesRechazados": {
+    "nav": "Lista Viajes Rechazados"
+  },
+  "centroGestionMotivos": {
+    "nav": "Gestión de Motivos"
+  },
+  "centroUsuarioWhatsapp": {
+    "nav": "Usuario Whatsapp"
+  },
+  "centroLineaWhatsapp": {
+    "nav": "Línea Whatsapp"
+  },
+  "busquedaFlota": {
+    "nav": "Búsqueda de Flota"
+  },
+  "cargaMasivaFlota": {
+    "nav": "Carga Masiva de Flota"
+  },
+  "whatsappPropio": {
+    "nav": "Whatsapp Propio"
+  },
+  "whatsappCliente": {
+    "nav": "Whatsapp de Cliente"
+  },
+    "auditoriaCentro": {
+        "nav": "Auditoria"
+    },
+    "errorLog": {
+        "nav": "Error Log"
+    },
+  "person": {
+    "nav": "Personas"
+  },
+  "estadoChofer": {
+    "nav": "Estado de Choferes"
+  },
+  "vincularCentroIntemediario": {
+    "nav": "Transportadoras"
+  },
+  "vincularCentroTransporte": {
+    "nav": "Transportistas"
+  },
+  "vincularzonaChofer": {
+    "nav": "Flota Administrada"
+  },
+  "combustibleRetiro": {
+    "nav": "Órdenes de Retiro"
+  },
+  "origenes": {
+    "nav": "Lugares de Carga"
+  },
+  "zonaCentro": {
+    "nav": "Zona Choferes"
+  },
+  "vincularCentroCliente": {
+    "nav": "Cargadores"
+  },
+  "vincularCentroDestinatario": {
+    "nav": "Destinatarios"
+  },
+  "vincularCentroCorredor": {
+    "nav": "Corredores"
+  },
+  "bajadaMasiva": {
+    "nav": "Bajada Masiva"
+  },
+  "estadistica": {
+    "nav": "Volúmenes"
+  },
+  "rankings": {
+    "nav": "Eficiencia Logística"
+  },
+  "nuevosProveedores": {
+    "nav": "Nuevos proveedores"
+  },
+  "hojaRuta": {
+    "nav": "Hoja de Ruta"
+  },
+  "difusiones": {
+    "nav": "Difusiones"
+  },
+  "viajes": {
+    "nav": "Viajes"
+  },
+  "camiones": {
+    "nav": "Camiones",
+    "marcas": "Marcas de Camiones",
+    "tipos": "Tipos de Camiones"
+  },
+  "acoplados": {
+    "nav": "Acoplados",
+    "marcas": "Marcas de Acoplados",
+    "tipos": "Tipos de Acoplados"
+  },
+  "equipos": {
+    "nav": "Equipos"
+  },
+  "notificaciones": {
+    "nav": "Notificaciones manuales"
+  },
+  "choferLibre": {
+    "nav": "Chof. Libres Pendientes"
+  },
+  "choferPerdido": {
+    "nav": "Chof. Libres Perdidos"
+  },
+  "mapaChoferLibre": {
+    "nav": "Mapa Chof. Libres"
+  },
+  "destinos": {
+    "nav": "Destinos"
+  },
+  "centros": {
+    "nav": "Centros Muvin"
+  },
+  "productos": {
+    "nav": "Productos"
+  },
+  "combustibles": {
+    "nav": "Combustibles"
+  },
+  "tipoDestino": {
+    "nav": "Tipo Destino"
+  },
+  "zonaDestino": {
+    "nav": "Zonas Destino"
+  },
+  "zonasChoferesLibres": {
+    "nav": "Zonas Choferes Libres"
+  },
+  "estadosDestinos": {
+    "nav": "Estados Destinos"
+  },
+  "desvioMotivo": {
+    "nav": "Motivos Desvio"
+  },
+  "motivoListaNegra": {
+    "nav": "Motivos Lista Negra"
+  },
+  "razonRechazo": {
+    "nav": "Motivos Calada Rechazada"
+  },
+  "destinatario": {
+    "nav": "Destinatario"
+  },
+  "corredores": {
+    "nav": "Corredores"
+  },
+  "entregador": {
+    "nav": "Entregadores"
+  },
+  "vincularCentroEntregador": {
+    "nav": "Entregadores"
+  },
+  "vincularCentroEmpresa": {
+    "nav": "Empresas"
+  },
+  "pais": {
+    "nav": "Países"
+  },
+  "provincias": {
+    "nav": "Provincias/Localidades"
+  },
+  "choferesUnistall": {
+    "nav": "Choferes no activos"
+  },
+  "manual": {
+    "nav": "Manuales Necesarios"
+  },
+  "documento": {
+    "nav": "Documentación Necesaria"
+  },
+  "estandar": {
+    "nav": "Est. Comercialización"
+  },
+  "mapaRadares": {
+    "nav": "Mapa Radares"
+  },
+  "mapaTalleres": {
+    "nav": "Mapa Talleres RTO"
+  },
+  "mapaRuta": {
+    "nav": "Mapa Oficinas RUTA"
+  },
+  "mapaOficina": {
+    "nav": "Mapa Oficinas LNH"
+  },
+  "sorteo": {
+    "nav": "Promociones"
+  },
+  "concurso": {
+    "nav": "Concursos"
+  },
+  "noticia": {
+    "nav": "Noticias"
+  },
+  "consulta": {
+    "nav": "Consultas Choferes"
+  },
+  "parametroChat": {
+    "nav": "Parámetro Chat"
+  },
+  "boca": {
+    "nav": "Carga de estaciones"
+  },
+  "mapaEstaciones": {
+    "nav": "Mapa de estaciones"
+  },
+  "flotaIntermediario": {
+    "nav": "Flota Intermediario"
+  },
+  "documentacionChoferes": {
+    "nav": "Documentación de Choferes"
+  },
+  "turneadas": {
+    "nav": "Turneadas"
+  },
+  "confirmarArribo": {
+    "nav": "Confirmación de arribo"
+  },
+  "listado-contrato": {
+    "nav": "Listado de Contratos/Fijaciones",
+    "buscarContratos":" Buscar Contratos/Fijaciones",
+    "buscarAlfanumerico":"Buscar por Alfanumérico Cupo",
+    "buscarNoContrato":"Buscar por Número de Contrato/Fijación",
+    "alfanumericoCupo":"AlfanumericoCupo",
+    "destino":"Nombre Destino ",
+    "producto": "Nombre Producto",
+    "numeroContrato":"Número Contrato/Fijación",
+    "nombreDador": "Nombre Dador",
+    "itemsPerPageLabel": "Cont Contratos/Fijacionestos for page",
+    "nextPageLabel": "Next",
+    "firstPageLabel": "First",
+    "lastPageLabel": "Last",
+    "previousPageLabel": "Previos",
+    "errorSearchContratos":"Error, al buscar los Contratos/Fijaciones"
+  },
+  "panelTurneado": {
+    "nav": "PANEL TURNEADO",
+    "lista-choferes": {
+      "nav": "LISTA DE ESTADO DE LOS CHOFERES",
+      "title": "Estados de los choferes",
+      "centro":"CENTRO",
+      "listasTurneada":"LISTA DE TURNEADA",
+      "listasTurneada1":"Lista de Turneada",
+      "chofer":"Chofer",
+      "itemsPerPageLabel": "Estados por páginas",
+      "nextPageLabel": "Próximo",
+      "firstPageLabel": "Primero",
+      "lastPageLabel": "Último",
+      "previousPageLabel": "Anterior",
+      "errorSearchContratos": "Error, al buscar los estados de los choferes"
+    },
+    "lista-turneado": {
+      "nav": "LISTA DE TURNEADO",
+      "title":"Lista de Turneado",
+      "itemsPerPageLabel": "Turneado por páginas",
+      "nextPageLabel": "Próximo",
+      "firstPageLabel": "Primero",
+      "lastPageLabel": "Último",
+      "previousPageLabel": "Anterior",
+      "errorSearchContratos": "Error, al buscar las listas de los turneados"
+    },
+    "confirmar-arribo": {
+      "nav": "CONFIRMAR ARRIBO",
+      "title":"Confirmar arribo",
+      "itemsPerPageLabel": "Arribo por páginas",
+      "nextPageLabel": "Próximo",
+      "firstPageLabel": "Primero",
+      "lastPageLabel": "Último",
+      "previousPageLabel": "Anterior",
+      "errorSearchContratos": "Error, al buscar los arribos"
+    },
+    "control-mensual": {
+      "nav": "CONTROL MENSUAL",
+      "title":"Control Mensual",
+      "searchChofer":"Buscar Chofer",
+      "id_pedido":"Pedido",
+      "nombre_chofer":"Nombre Chofer",
+      "nombre_lista":"Nombre Actual",
+      "nombre_lista_pedido":"Lista anterior",
+      "create_at":"Fecha",
+      "creado_por":"Creado por",
+      "itemsPerPageLabel": "controles por páginas",
+      "nextPageLabel": "Próximo",
+      "firstPageLabel": "Primero",
+      "lastPageLabel": "Último",
+      "previousPageLabel": "Anterior",
+      "errorSearchContratos": "Error, al buscar los controles",
+      "actions":"Acciones",
+      "nuevaLista":" Nueva Lista",
+      "modificar": "Modificar Lista",
+      "listasTurneada":"Seleccionar nueva lista de Turneada",
+      "observaciones":"Observaciones",
+      "observRequired":" Es requerido este valor"
+    }
+  },
+  "tipo-turneado": {
+    "nav":"Tipo de Turneado",
+    "title":"Definir tipo de turneado",
+    "tipo1":"TURNEADO POR HISTORICO DE VIAJE",
+    "tipo2":"TURNEADO POR ORDEN DE LLEGADA",
+    "guardarOk":"¡Tipo de turneado guardado correctamente!",
+    "errorGuardar":"No se pudo guardar el tipo de turneado , intentelo nuevamente"
+  },
+  "usuario-whatsapp": {
+    "nav":"Usuario de Whatsapp",
+    "title":"Definir línea de whatsapp",
+    "tipo1":"SIN LÍNEA DE WHATSAPP",
+    "tipo2":"CON LÍNEA DE WHATSAPP",
+    "guardarOk":"¡línea de Whatsapp guardada correctamente!",
+    "errorGuardar":"No se pudo guardar la línea de Whatsapp , intentelo nuevamente",
+    "users":"USUARIOS DE WHATSAPP",
+    "add": "Agregar usuario",
+    "razon_social":"Razón Social",
+    "error_razon_social":" Es requerido la razon_social",
+    "telefono":"Teléfono",
+    "error_telefono":" Es requerido la telefono",
+    "cuit":"CUIT",
+    "error_cuit":"Es requerido el CUIT",
+    "deleteCliente":"Eliminar usuario"
+  },
+  "logistica": {
+    "nav":"Inteligencia Logística",
+    "title":"Inteligencia Logística",
+    "horasTitle":"Horas de Reporte GPS",
+    "errorHorasRequired":"Por favor entre las horas. Es requerido las horas",
+    "errorHorasMin":"Por favor valor mínimo 0 horas.",
+    "errorHorasMax":"Por favor valor máximo 48 horas.",
+    "kmTitle":"Radio de km",
+    "errorKmRequired":"Por favor entre los km. Es requerido este valor",
+    "errorKmMin":"Por favor valor mínimo 0 km.",
+    "errorKmMax":"Se admiten hasta 200 km.",
+    "guardarOk":"¡Inteligencia Logística guardada correctamente!",
+    "errorGuardar":"La Inteligencia Logística no se pudo guardar, inténtelo nuevamente"
+  },
+  "configuracion-notificaciones": {
+    "nav":"Notificaciones",
+    "title":"Notificaciones",
+    "emailTitle":"Email para notificaciones",
+    "errorEmail":" Email incorrecto. Si hay mas de uno separelo por ; ",
+    "guardarOk":"¡Email de Notificaciones guardado correctamente!",
+    "errorGuardar":"Email de Notificaciones no se pudo guardar, inténtelo nuevamente"
+  },
+  "configuracion-stop": {
+    "nav":"Stop",
+    "title":"Configuración Stop",
+    "stopTitle":"Api Key",
+    "api_key":"Api Key",
+    "errorApiKeyRequired":"Por favor introduzca la Api Key. Es requerido. ",
+    "guardarOk":"Api Key guardado correctamente!",
+    "errorGuardar":"Api Key no se pudo guardar, inténtelo nuevamente"
+  },
+  "configuracion-productos-centro": {
+    "nav":"Productos del centro",
+    "title":"Productos del centro",
+    "excluido":"Productos excluidos",
+    "guardarOk":"Api Key guardado correctamente!",
+    "errorGuardar":"Api Key no se pudo guardar, inténtelo nuevamente"
+  },
+  "configuracion-dadores": {
+    "nav":"Dadores de Cupos",
+    "title":"Dadores de Cupos",
+    "excluido":"Dadores excluidos",
+    "guardarOk":"Api Key guardado correctamente!",
+    "errorGuardar":"Api Key no se pudo guardar, inténtelo nuevamente"
+  },
+  "config-puerto": {
+    "nav":"Configuración de puerto",
+    "add": "Agregar puerto",
+    "title":"Destino",
+    "descripcion":"Destino",
+    "domicilio":"Domicilio",
+    "nombreZonaDestino":"Zona Destino",
+    "nombreTipoDestino":"Tipo Destino",
+    "nombreSituacionPuerto":"Situación del Puerto",
+    "tam_ventana":"Tamaño de la ventana" ,
+    "cam_ventana":"Camiones",
+    "hora_inicio":"Hora comienzo",
+    "hora_fin":"Hora final",
+    "horas":" Horas",
+    "minutos": " Minutos",
+    "excluido":"Dadores excluidos",
+    "guardarOk":"Api Key guardado correctamente!",
+    "errorGuardar":"Api Key no se pudo guardar, inténtelo nuevamente"
+  },
+  "panelDestino": {
+    "admin": "Administración",
+    "turnos":"TURNOS",
+    "gestion":"GESTIÓN PLANTAS",
+    "turnos-resumen": {
+      "default": "Resumen",
+      "diario":{
+        "default": "Diario"
+      },
+      "semanal":{
+        "default": "Semanal"
+      },
+      "mensual":{
+        "default": "Mensual"
+      }
+    },
+    "turnos-disponibles":{
+      "default": "Disponibles"
+
+        },
+        "gestion-planta": {
+            "posicion": "Posición",
+            "dashboard": "Posición",
+            "pendientes": "Pendientes con GPS",
+            "clearing-cupos": "Clearing Cupos"
+        }
+    },
+    "panelMagyp": {
+        "panelGestion": "Panel Gestión",
+        "gestion": "GESTIÓN",
+        "administracion": "ADMINISTRACIÓN"
+    },
+    "panelMtr": {
+        "panelMtr": "Panel MTR",
+        "gestion": "GESTIÓN",
+        "administracion": "ADMINISTRACIÓN"
+    }
+
+}

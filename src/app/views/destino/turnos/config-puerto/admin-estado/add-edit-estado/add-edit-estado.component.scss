@@ -1,0 +1,18 @@
+.card-header-success .card-icon,
+    .card-header-success:not(.card-header-icon):not(.card-header-text),
+    .card-header-success .card-text{
+      background-color: #00008b;
+    }
+
+    .card-header-warning .card-icon,
+    .card-header-warning:not(.card-header-icon):not(.card-header-text),
+    .card-header-warning .card-text{
+        background-color: #ff0000;
+    }
+    .mat-raised-button {
+      line-height: 36px;
+      line-height: 3px;
+      border-radius: 10px;
+      height: 30px;
+      color: #ffffff !important;
+    }

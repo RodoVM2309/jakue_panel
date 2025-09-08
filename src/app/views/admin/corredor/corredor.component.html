@@ -1,0 +1,48 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Corredores</h4>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material ml-0 mr-0" 
+       [rows]="corredores" 
+       [columnMode]="'force'" 
+       [headerHeight]="50" 
+        [footerHeight]="50" 
+         [externalPaging]="true" 
+          [count]="page.totalElements" 
+          [offset]="page.pageNumber"
+          [limit]="page.size" 
+          (page)='setPage($event)' 
+          [rowHeight]="'auto'">
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id }}
+        </ng-template>
+      </ngx-datatable-column> -->
+      <ngx-datatable-column name="Corredor" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Localidad" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.localidad_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CUIT/CUIL" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.cuit_persona }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" matTooltip="Info" class="m-0" (click)="openPopUpInfoPersona(row)"
+            matTooltip="Informaci?n Perfil">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

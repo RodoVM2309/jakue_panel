@@ -1,0 +1,24 @@
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(255, 255, 255) !important;
+}
+:host /deep/ .mat-form-field-infix {
+  margin-top: 7px;
+  color: rgb(255, 255, 255);
+  /*  border-top: 0.84375em solid transparent; */
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(255, 255, 255);
+}
+
+:host /deep/ .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: rgb(255, 255, 255);
+}
+
+:host /deep/.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #3F51B5 !important;
+}
+

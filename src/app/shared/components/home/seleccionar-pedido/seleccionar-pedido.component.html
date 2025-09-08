@@ -1,0 +1,135 @@
+<div class="m-333">
+  <h4 style="color:#124A99;text-align: left;margin-left: 40px;">Nuevo Pedido</h4>
+  <span fxFlex></span>
+</div>
+<div fxLayout="column wrap">
+  <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="(!showCentro && !escliente) && !showDador"
+          style="padding: 8px; background-color:#85AFC4; border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;text-align: left;"
+          mat-raised-button color="primary" (click)="opcionSelect(1)">
+          <mat-icon style="font-size: 40px;margin-left: 40px;width: 40px;height: 40px;">arrow_forward</mat-icon>
+          &nbsp;&nbsp;FLETE LARGO
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="showDador"
+          style="padding: 8px; background-color:#85AFC4; border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;;text-align: left;"
+          mat-raised-button color="primary" (click)="opcionSelect(1)">
+          <mat-icon style="font-size: 40px;margin-left: 40px;width: 40px;height: 40px;">arrow_forward</mat-icon>
+          &nbsp;&nbsp;FLETE LARGO
+        </button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- PEDIDO CEREALES FLETE RETORNO  !showDador-->
+  <!-- <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="(!showCentro && !escliente) && !showDador"
+          style="padding: 8px;background-color:#85AFC4;border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;;text-align: left; "
+          mat-raised-button color="primary" (click)="opcionSelect(2)">
+          <mat-icon style="font-size: 40px;margin-left: 40px;width: 40px;height: 40px;">arrow_back</mat-icon>
+          &nbsp;&nbsp;FLETE RETORNO
+        </button>
+      </div>
+    </div>
+  </div>
+  <br> -->
+  <!-- PEDIDO CEREALES FLETE RETORNO  showDador-->
+ <!--  <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="showDador"
+          style="padding: 8px;background-color:#85AFC4;border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;;text-align: left;"
+          mat-raised-button color="primary" (click)="opcionSelect(2)">
+          <mat-icon style="font-size:40px;margin-left: 40px;width: 40px;height: 40px;">arrow_back</mat-icon>
+          &nbsp;&nbsp;FLETE RETORNO
+        </button>
+      </div>
+    </div>
+  </div> -->
+  <!-- PEDIDO FERTLIZANTES -->
+  <!-- <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="(!showCentro && !escliente) && !showDador"
+          style="padding: 8px;background-color:#85AFC4;border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;;text-align: left; "
+          mat-raised-button color="primary" (click)="opcionSelect(4)">
+          <mat-icon style="font-size: 40px;margin-left: 40px;width: 40px;height: 40px;">arrow_back</mat-icon>
+          &nbsp;&nbsp;FLETE FERTILIZANTES
+        </button>
+      </div>
+    </div>
+  </div> -->
+  <br>
+  <div fxFlex="100" style=" width: 80%;">
+    <div fxLayout="row wrap" fxFlex="100">
+      <div fxFlex="100" style="align-content: left">
+        <button *ngIf="(!showCentro && !escliente) && !showDador"
+          style="padding: 8px;background-color:#85AFC4;border-radius: 100px !important;width: 100%;font-size: medium;margin-left: 40px;;text-align: left;"
+          mat-raised-button color="primary" (click)="opcionSelect(3)">
+          <mat-icon style="font-size: 40px;margin-left: 40px;width: 40px;height: 40px;">redo</mat-icon>
+          &nbsp;&nbsp;FLETE CORTO / TRANSFERENCIA
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="m-333">
+  <div fxLayout="row wrap" fxFlex="100">
+    <span fxFlex></span>
+    <div fxFlex="100" style="align-content: top">
+
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="closeForm()"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+    </div>
+
+  </div>
+</div>
+<!-- <table style="border: 0px !important;width: 100%">
+  <tr>
+    <div fxFlex="100">
+      <div fxFlex="100" style=" width: 100%">
+        <button mat-raised-button color="primary"
+          style="border-radius: 100px !important; width: 100%;font-size: medium" (click)="opcionSelect(1)">PEDIDO
+          FLETE LARGO <mat-icon>arrow_forward</mat-icon></button>
+      </div>
+    </div>
+  </tr>
+  <br>
+  <tr>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="width: 100%">
+        <button mat-raised-button color="primary"
+          style="border-radius: 100px !important; width: 100%;font-size: medium" (click)="opcionSelect(2)">PEDIDO
+          FLETE RETORNO <mat-icon>arrow_back</mat-icon>  </button>
+      </div>
+    </div>
+    <br>
+  </tr>
+  <tr>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="width: 100%">
+        <button mat-raised-button color="primary"
+          style="border-radius: 100px !important; width: 100%;font-size: medium" (click)="opcionSelect(3)">PEDIDO
+          FLETE CORTO <mat-icon>redo</mat-icon> </button>
+      </div>
+    </div>
+    <br>
+  </tr>
+</table> -->

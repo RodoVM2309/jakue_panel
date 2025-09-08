@@ -1,0 +1,11 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+  <mat-tab label="Cadenas">
+    <app-cadenas *ngIf="selectedTab === 0"></app-cadenas>
+  </mat-tab>
+  <mat-tab label="Autoridades de Salud">
+    <app-autoridades *ngIf="selectedTab === 1"></app-autoridades>
+  </mat-tab>
+  <mat-tab label="Whatsapp">
+    <app-whatsapp *ngIf="selectedTab === 2"></app-whatsapp>
+  </mat-tab>
+</mat-tab-group>

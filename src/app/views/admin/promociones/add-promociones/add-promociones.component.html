@@ -1,0 +1,54 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input matInput name="id" [formControl]="itemForm.controls['id']" placeholder="Id de la promoción">
+      </mat-form-field>
+    </div> 
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="nombre" [formControl]="itemForm.controls['nombre']" placeholder="Nombre" #nombre maxlength="50">
+        <mat-hint align="end">{{nombre.value.length}} / 150</mat-hint>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['nombre'].hasError('required') && itemForm.controls['nombre'].touched" class="form-error-msg">
+        El nombre es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="cant_beneficiarios" [formControl]="itemForm.controls['cant_beneficiarios']" placeholder="Cantidad de beneficiarios">        
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['cant_beneficiarios'].hasError('required') && itemForm.controls['cant_beneficiarios'].touched" class="form-error-msg">
+        La cantidad es obligatoria
+      </small>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="intervalo" [formControl]="itemForm.controls['intervalo']" placeholder="Intervalo">        
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['intervalo'].hasError('required') && itemForm.controls['intervalo'].touched" class="form-error-msg">
+        El intervalo es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="titulo"  maxlength="224" [formControl]="itemForm.controls['titulo']" placeholder="Titulo">        
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['titulo'].hasError('required') && itemForm.controls['titulo'].touched" class="form-error-msg">
+        El titulo es obligatorio
+      </small>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="descripcion"  maxlength="224" [formControl]="itemForm.controls['descripcion']" placeholder="Descripcion">        
+      </mat-form-field>
+     
+    </div>    
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    </div>
+  </div>
+</form>

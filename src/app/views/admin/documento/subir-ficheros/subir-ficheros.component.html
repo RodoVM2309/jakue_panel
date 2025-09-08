@@ -1,0 +1,22 @@
+﻿<mat-progress-bar mode="determinate" [value]="porciento"></mat-progress-bar>
+<h1 matDialogTitle>{{data.title}}</h1>
+<mat-card class="p-0">
+  <div class="mb-1">
+    <div ng2FileDrop class="fileupload-drop-zone" (click)="inputsubir.click()">
+      <p *ngIf="error_val" class="error">{{msg}}</p>
+      <img *ngIf="mostrar_img" src="assets/images/muvin/pdf-icono.png" alt="Documento PDF">
+      <br>
+      <p *ngIf="!error_val" class="success">{{msg}}</p>
+      <input #inputsubir style="display: none" type="file" name="fichero" (change)="onFileSelected($event)" />
+    </div>
+    <div class="profile-actions mb-1 p-1" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" [disabled]="btn_disabled" (click)="onUpload()" matTooltip="Subir">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+      <span fxFlex="8px"></span>
+      <button mat-raised-button color="warn" (click)="cancelar()" matTooltip="Cancelar">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

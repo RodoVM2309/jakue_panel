@@ -1,0 +1,123 @@
+<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id_chofer"
+          [formControl]="itemForm.controls['id_chofer']"
+          placeholder="Id del Chofer"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          placeholder="Estado"
+          [formControl]="itemForm.controls['estado']"
+          name="estado"
+          class="mb-1"
+          (selectionChange)="onChangeEstado($event.value)"
+        >
+          <mat-option
+            *ngFor="let estado of estados"
+            [value]="estado.id"
+            ngDefaultControl
+          >
+            {{ estado.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" *ngIf="!mostrarCausasInatividad" class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          name="observaciones"
+          placeholder="Observaciones"
+          [formControl]="itemForm.controls['observaciones']"
+          rows="2"
+        >
+        </textarea>
+      </mat-form-field>
+      <small
+          *ngIf="
+            itemForm.controls['observaciones'].hasError('required') &&
+            itemForm.controls['observaciones'].touched
+          "
+          class="form-error-msg"
+        >
+          Las observaciones es obligatorio
+        </small>
+    </div>
+    <div fxFlex="50" *ngIf="mostrarCausasInatividad" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          placeholder="Causas"
+          [formControl]="itemForm.controls['causa_inactividad']"
+          name="causa_inactividad"
+          class="mb-1"
+        >
+          <mat-option
+            *ngFor="let causa of causas"
+            [value]="causa.descripcion"
+            ngDefaultControl
+          >
+            {{ causa.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" *ngIf="mostrarFecha" fxFlex.gt-xs="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="desdeDate"
+          [formControl]="itemForm.controls['desdeDate']"
+          placeholder="Fecha Desde"
+          [matDatepicker]="appDatepicker"
+          [max]="maxDate"
+          (dateInput)="addEvent('input', $event, 'desde')"
+          (dateChange)="addEvent('change', $event, 'desde')"
+        />
+        <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+        </mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker></mat-datepicker>
+    </div>
+    <div fxFlex="50" *ngIf="mostrarFecha" fxFlex.gt-xs="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="hastaDate"
+          formControlName="hastaDate"
+          placeholder="Fecha hasta"
+          [matDatepicker]="appDatepicker1"
+          [min]="minDate"
+          (dateInput)="addEvent('input', $event, 'hasta')"
+          (dateChange)="addEvent('change', $event, 'hasta')"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="appDatepicker1"
+        ></mat-datepicker-toggle>
+      </mat-form-field>
+      <mat-datepicker #appDatepicker1></mat-datepicker>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MB572CC');
+
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Facebook Pixel Code -->
+  <script>
+    ! function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1577735815696574');
+    fbq('track', 'PageView');
+
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1577735815696574&ev=PageView&noscript=1" /></noscript>
+  <!-- End Facebook Pixel Code -->
+
+  <meta charset="utf-8">
+  <title>Jakue | Sitio de Administración</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@progress/kendo-theme-default@latest/dist/all.css"
+    crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <link href=”https://fonts.googleapis.com/icon?family=Material+Icons" rel=”stylesheet”>
+
+  <style>
+    body {
+      font-family: "RobotoRegular", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    my-app {
+      display: block;
+      box-sizing: border-box;
+      padding: 30px;
+    }
+
+    my-app>.k-icon.k-i-loading {
+      font-size: 64px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .example-wrapper {
+      min-height: 280px;
+      align-content: flex-start;
+    }
+
+    .example-wrapper p,
+    .example-col p {
+      margin: 0 0 10px;
+    }
+
+    .example-wrapper p:first-child,
+    .example-col p:first-child {
+      margin-top: 0;
+    }
+
+    .example-col {
+      display: inline-block;
+      vertical-align: top;
+      padding-right: 20px;
+      padding-bottom: 20px;
+    }
+
+    .example-config {
+      margin: 0 0 20px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, .03);
+      border: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .event-log {
+      margin: 0;
+      padding: 0;
+      max-height: 100px;
+      overflow-y: auto;
+      list-style-type: none;
+      border: 1px solid rgba(0, 0, 0, .08);
+      background-color: #fff;
+    }
+
+    .event-log li {
+      margin: 0;
+      padding: .3em;
+      line-height: 1.2em;
+      border-bottom: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .event-log li:last-child {
+      margin-bottom: -1px;
+    }
+
+  </style>
+
+  <!-- <script type="text/javascript">
+    document.oncontextmenu = function () {
+      alert("¡Esta acción no está permitida!");
+      return false;
+    }
+  </script> -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146423515-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+  </script>
+
+</head>
+
+<body class="">
+  <app-root>
+    <div class="app-loader">
+      <div class="spinner">
+        <div class="double-bounce1 mat-bg-primary"></div>
+        <div class="double-bounce2 mat-bg-accent"></div>
+      </div>
+    </div>
+  </app-root>
+
+  <!-- <script>
+    __Zone_enable_cross_context_check = true;
+  </script> -->
+</body>
+
+</html>

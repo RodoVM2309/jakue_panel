@@ -1,0 +1,44 @@
+<div class="encabezado" fxLayout="column wrap">
+  <div fxFlex="100">
+    <div fxFlex="65" fxLayoutAlign="start center">
+      <strong style="margin-left: 20px;">Línea Magyp Covid 19</strong>
+      <img style="margin-left: 10px;" src="assets/images/muvin/logo-magyp.png" alt="" style="height: 40px;" />
+    </div>
+    <div fxFlex="35" fxLayoutAlign="start center">
+      <h4>ENVIAR MENSAJE</h4>
+    </div>
+  </div>
+</div>
+<div class="cuerpo" fxLayout="column wrap">
+  <form [formGroup]="itemForm">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top:30px;">
+      <div fxFlex="100" fxLayoutAlign="center center" >
+        <mat-form-field style="width: 80%;" style="height: 25vh; width: 87%; overflow-y: auto;">
+          <textarea matInput name="body" placeholder="Mensaje para el transportista" style="height: 30vh; "
+            [formControl]="itemForm.controls['body']" style="background-color: rgb(240,240,240); "
+            rows="10">
+            </textarea>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <small *ngIf="itemForm.controls['body'].hasError('required') && itemForm.controls['body'].touched"
+          style="margin-left: 50px;" class="form-error-msg">
+          El cuerpo del mensaje es obligatorio
+        </small>
+      </div>
+      <div fxFlex="100" class="mt-1">
+        <div fxFlex="10"></div>
+        <div fxFlex="80">
+          <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">
+            Cancelar
+          </button>
+          <span fxFlex></span>
+          <button mat-raised-button style="background-color: black;" [disabled]="itemForm.invalid " (click)="submit()">
+            Guardar
+          </button>
+        </div>
+        <div fxFlex="10"></div>
+      </div>
+    </div>
+  </form>
+</div>

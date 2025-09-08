@@ -1,0 +1,91 @@
+<h1 matDialogTitle>{{ data.title }}</h1>
+
+<div mat-dialog-content>
+  <!-- Formulario de búsqueda por RUC -->
+  <form [formGroup]="rucForm" (ngSubmit)="buscarChofer()" *ngIf="!mostrarFormularioChofer">
+    <div fxLayout="column" fxLayoutGap="20px">
+      <mat-form-field class="full-width">
+        <mat-label>RUC del Chofer</mat-label>
+        <input
+          matInput
+          name="cuit"
+          [formControl]="rucForm.controls['cuit']"
+          placeholder="Ingrese el RUC del chofer"
+        />
+        <mat-error *ngIf="rucForm.get('cuit')?.hasError('required') && rucForm.get('cuit')?.touched">
+          El RUC es requerido
+        </mat-error>
+        <mat-error *ngIf="rucForm.get('cuit')?.hasError('pattern') && rucForm.get('cuit')?.touched">
+          El RUC debe contener solo números
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="rucForm.invalid"
+        >
+          Buscar Chofer
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Información del chofer encontrado -->
+  <div *ngIf="mostrarFormularioChofer && choferEncontrado">
+    <div class="chofer-info-card">
+      <h3>Chofer Encontrado</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Nombre:</strong> {{ choferEncontrado.nombre_chofer }}
+        </div>
+        <div class="info-item">
+          <strong>RUC:</strong> {{ choferEncontrado.cuit_chofer }}
+        </div>
+        <div class="info-item">
+          <strong>Teléfono:</strong> {{ choferEncontrado.celular }}
+        </div>
+        <div class="info-item">
+          <strong>Patente Camión:</strong> {{ choferEncontrado.patente_camion }}
+        </div>
+        <div class="info-item">
+          <strong>Patente Acoplado:</strong> {{ choferEncontrado.patente_acoplado }}
+        </div>
+        <div class="info-item">
+          <strong>Transportista:</strong> {{ choferEncontrado.nombre_transportista }}
+        </div>
+        <div class="info-item">
+          <strong>Estado:</strong> {{ choferEncontrado.estado }}
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" class="mt-3">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="cancelar()"
+      >
+        Cancelar
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="continuar()"
+      >
+        Continuar con Lista Negra
+      </button>
+    </div>
+  </div>
+</div>

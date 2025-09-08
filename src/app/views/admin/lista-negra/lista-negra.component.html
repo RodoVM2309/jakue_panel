@@ -1,0 +1,128 @@
+﻿<br />
+<div class="m-333">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h4 style="color: #124a99">Historial de Choferes en lista negra</h4>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="openPopUpAgregarChofer()"
+      class="mb-2">
+      <mat-icon>add</mat-icon>
+      Agregar chofer a lista negra
+    </button>
+  </div>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="p-3">
+      <mat-form-field
+        style="width: 30%"
+        class="example-full-width"
+      >
+        <mat-label>
+          <mat-icon matPrefix>search</mat-icon> Buscar por nombre de
+          chofer</mat-label
+        >
+        <input matInput (keyup)="updateFilter($event)" />
+      </mat-form-field>
+      
+      <mat-checkbox 
+        [(ngModel)]="filtroActivo" 
+        (change)="updateFiltroActivo($event)"
+        color="primary">
+        Solo mostrar activos
+      </mat-checkbox>
+    </div>
+    <ngx-datatable
+      class="material ml-0 mr-0"
+      [rows]="blackList"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [externalPaging]="true"
+      [count]="page.totalElements"
+      [offset]="page.pageNumber"
+      [limit]="page.size"
+      (page)="setPage($event)"
+      [rowHeight]="'auto'"
+    >
+      <!-- <ngx-datatable-column name="No." [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id }}
+        </ng-template>
+      </ngx-datatable-column> -->
+      <ngx-datatable-column name="Nombre del Chofer" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.nombre_chofer }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente Camión" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_camion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Patente Acoplado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.patente_acoplado }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Empresa Transportista" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.empresa_transporte }}
+      </ng-template>
+    </ngx-datatable-column> -->
+      <ngx-datatable-column name="Explicación" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.explicacion }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Fecha Desde" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.fecha_desde | date:'dd/MM/yyyy' }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Fecha Hasta" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="row?.fecha_hasta; else indefinido">
+            {{ row?.fecha_hasta | date:'dd/MM/yyyy' }}
+          </span>
+          <ng-template #indefinido>
+            <span class="badge badge-secondary">Indefinido</span>
+          </ng-template>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Estado" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="getEstadoChofer(row) === 'activo'" class="badge badge-success">Activo</span>
+          <span *ngIf="getEstadoChofer(row) === 'inactivo'" class="badge badge-danger">Inactivo</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button
+            [disabled]="getEstadoChofer(row) === 'inactivo'"
+            mat-icon-button
+            mat-sm-button
+            color="primary"
+            class="mr-1"
+            (click)="openPopUp(row)"
+            matTooltip="Editar"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            mat-sm-button
+            color="accent"
+            class="mr-1"
+            *ngIf="getEstadoChofer(row) === 'activo'"
+            (click)="habilitarChofer(row)"
+            matTooltip="Habilitar Chofer"
+          >
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

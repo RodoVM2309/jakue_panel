@@ -1,0 +1,68 @@
+/* focus style */
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus{
+    background: red;
+  }
+  /* ink bar style */
+  .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: yellow;
+    height: 10px;
+  }
+  ::ng-deep .mat-tab-labels {
+    height: 48px;
+    margin-top: 0px;
+    margin-left: 56px;
+  }
+  button .mat-button-toggle-button{
+    color: #639AEC !important;
+}
+.link-btn {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-size: 0.8em;
+    padding: 0px;
+    text-align: center;
+    min-width: 180px;
+  }
+
+  .link-btn:hover {
+    background-color: #639AEC;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-size: 0.8em;
+    padding: 0px;
+  }
+  .mat-tab-group {
+    margin-bottom: -24px;
+  }
+
+  /* label style */
+  .mat-tab-link{
+    color:white !important;
+  }
+
+  .mat-tab-label-active{
+    color: white;
+    background-color: #87B1C6;
+    opacity: 1 !important;
+   }
+
+   /* focus style */
+  .egret-indigo .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+  .egret-indigo .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus,
+  .egret-indigo .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus,
+  .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus{
+    background: #87B1C6;
+  }
+
+  ::ng-deep .mat-ink-bar {
+    visibility: hidden !important;
+  }
+
+

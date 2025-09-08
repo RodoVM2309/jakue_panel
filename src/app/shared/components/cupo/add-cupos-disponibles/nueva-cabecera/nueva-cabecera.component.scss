@@ -1,0 +1,22 @@
+.not-empty-select.mat-selected {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: #000 !important;
+}
+
+:host /deep/ .mat-select-arrow {
+  color: #5e5c5c !important;
+}
+
+:host /deep/ .mat-form-field-ripple {
+  background-color: #004A90 !important;
+}
+
+:host /deep/ .mat-datepicker-toggle-default-icon {
+  color: #837f7f;
+  margin-top: -10px;
+  margin-right: 12px;
+  font-size: medium;
+}

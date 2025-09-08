@@ -1,0 +1,38 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id de la Persona"
+        />
+      </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          placeholder="Roles"
+          [formControl]="itemForm.controls['roles']"
+          multiple
+        >
+          <mat-option *ngFor="let vrol of rolesList" [value]="vrol.id">
+            {{ vrol.description }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <small *ngIf="itemForm.controls['roles'].hasError('required') && itemForm.controls['roles'].touched"
+        class="form-error-msg">
+        Es requerido el(os) rol(es).
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancelar</button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Guardar</button>
+
+    </div>
+  </div>
+</form>

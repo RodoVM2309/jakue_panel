@@ -1,0 +1,44 @@
+<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Motivos de Rechazos</h4>
+</div>
+<div class="m-333">
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Agregar Motivo</button>
+</div>
+<mat-card class="p-0">   
+  <mat-card-content class="p-0">
+      <ngx-datatable matSort
+          class="material ml-0 mr-0"
+          [rows]="motivos"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [externalPaging]="true" 
+          [count]="page.totalElements" 
+          [offset]="page.pageNumber"
+          [limit]="page.size" 
+          (page)='setPage($event)' 
+          [rowHeight]="'auto'">
+          <ngx-datatable-column name="ID" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.id }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Descripcion" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.descripcion }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Afecta Lugar" [flexGrow]="1" *ngIf="tipo_turneada!=2">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.afecta }}
+            </ng-template>
+          </ngx-datatable-column>         
+          <ngx-datatable-column name="Acciones" [flexGrow]="10">
+            <ng-template let-row="row" ngx-datatable-cell-template>  
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)" matTooltip="Modificar Motivo"><mat-icon>edit</mat-icon></button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+  </mat-card-content>
+</mat-card>

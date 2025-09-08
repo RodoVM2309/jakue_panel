@@ -1,0 +1,72 @@
+<div fxLayout="column wrap" style="padding: 0px;">
+  <div fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="background: #124A99; color: #E9E9EA;">
+        <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+        </div>
+        <div fxFlex="85" fxLayoutAlign="start start" style="margin-top:15px;">
+          <h4>{{data.title}}</h4>
+        </div>
+        <span FxFlex></span>
+        <div fxFlex="10" style="margin-top:8px;margin-left:15px;">
+
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-1" fxLayoutAlign="end start" style="padding-right: 5%;">
+      <button mat-raised-button style="background-color: #8C8A8B;font-size: small; min-width: 60px;"
+      (click)="openPopAdminEstado('Add',{})">
+        <mat-icon>add_circle_outline</mat-icon> Nuevo Estado
+      </button>
+    </div>
+    <div fxLayout="row wrap" class="mt-1" fxLayoutAlign="center start">
+      <div fxFlex="100" >
+        <table mat-table [dataSource]="dataSource" class="my-table mat-elevation-z8">
+          <ng-container matColumnDef="first_column">
+            <!--    <th mat-header-cell *matHeaderCellDef> </th> -->
+            <td mat-cell *matCellDef="let element; let i = index">
+              <mat-checkbox class="example-radio-button" [checked]="estadoActivo == i"
+                (change)="onCheckboxChangeEstadoActive($event, i)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="descripcion">
+            <!--  <th mat-header-cell *matHeaderCellDef>  </th> -->
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="color">
+            <!--  <th mat-header-cell *matHeaderCellDef>  </th> -->
+            <td mat-cell *matCellDef="let element">
+               <div class="rectangulo" [ngStyle]="{'background-color':element.color   }"></div> </td>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <!--  <th mat-header-cell *matHeaderCellDef>  </th> -->
+            <td mat-cell *matCellDef="let element; let i = index " fxLayoutAlign="center center">
+              <button mat-icon-button mat-sm-button color="success" class="mr-0" matTooltip="Editar"
+                *ngIf="i !==initialActivo" (click)="openPopAdminEstado('Update',element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <span *ngIf="i !==initialActivo"> &nbsp;&nbsp;</span>
+              <button mat-icon-button mat-sm-button color="warn" class="mr-0" matTooltip="Eliminar"
+                *ngIf="i !==initialActivo" (click)="openPopAdminEstado('Delete',element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!--   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-1" fxLayoutAlign="center end" >
+      <div fxFlex="100">
+        <div fxFlex="50" fxLayoutAlign="center start"> <button mat-raised-button color="warn" type="button"
+            (click)="dialogRef.close(false)">CANCELAR</button></div>
+        <div fxFlex="50" fxLayoutAlign="center start"> <button mat-raised-button
+            style="background-color: #6AC52E;font-size: small; min-width: 60px;" (click)="submit()">CONFIRMAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+.component {
+  background-color: rgb(134,177,197);
+  width: 100%;
+  height: 100%;
+}
+
+.encabezado {
+  background-color: rgb(16, 156, 216);
+  color: #FEFEFE;
+  height: 40px;
+  font-size: 24px;
+}
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.body {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 5px;
+  height: 75vh;
+  background-color: rgb(255, 255, 255);
+}
+.div-cuerpo {
+  background-color: rgb(255, 255, 255);
+  margin-top: 10px;
+  height: 45vh;
+  border-radius: 5px;
+}
+
+.footer {
+  color: #FEFEFE;
+  height: 8vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.rest-body {
+  height: 66vh;
+}
+.data-activo {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  height: 40px;
+}
+.data-muvin {
+  background-color: rgb(234, 109, 33);
+  color: rgb(255, 255, 255);
+  height: 40px;
+}
+
+.mat-raised-button {
+  line-height: 36px;
+  line-height: 3px;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  color: #ffffff !important;
+}
+
+#btn-ver {
+  width: 150px;
+  height: 40px;
+  position: fixed;
+  z-index: 20000;
+  bottom: 120px;
+  right: 220px;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: rgb(235, 236, 236);
+  max-width: 300px;
+  .handle {
+    float: right;
+    width: 100%;
+    height: 100%;
+  }
+  .mat-card-content  {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+.div-botones {
+  width: 100%;
+  height: 50px;
+}
+.error-msg {
+  color: #f44336;
+  display: block;
+  margin-top: -20px;
+}
+
+.border-todo {
+  border-style: solid;
+  border-width: 1px;
+}
+.ta-border {
+  border-style: solid;
+  border-width: 1px;
+  border-left: rgb(0, 0, 0);
+  border-top: rgb(0, 0, 0);
+  border-right: rgb(0, 0, 0);
+}
+
+.mat-raised-button[disabled] {
+  background-color: rgb(107, 119, 136) !important;
+}
+
+#form-comentario {
+  ::ng-deep.mat-form-field-infix {
+    margin-top: -10px;
+    border-top: 0.84375em solid transparent;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #ffffff;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #ffffff !important;
+  }
+
+  ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #ffffff !important;
+  }
+}

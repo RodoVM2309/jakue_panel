@@ -1,0 +1,184 @@
+<h5 style=" padding-left: 20px; padding-top: 30px;">
+  <strong style="font-weight: 900;">
+    CASOS POSITIVOS ACUMULADOS AL DIA DE LA FECHA
+  </strong>
+</h5>
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-sm="33.33" fxLayout="column" style="height: 70vh; padding: 13px; padding-right: 0px;">
+    <div fxLayout="row" fxLayoutWrap="wrap" style="height: 60vh;">
+      <div class="full-width">
+        <div fxLayout="row wrap">
+          <div fxFlex="100%">
+            <mat-card
+              style="
+                height: 66.9vh;
+                width: 98%;
+                padding: 0px;
+                background: rgb(43, 196, 243);
+              "
+            >
+              <agm-map
+                [zoom]="zoom"
+                [latitude]="mapCenter.lat"
+                [longitude]="mapCenter.lng"
+                [mapTypeId]="'roadmap'"
+                [mapTypeControl]="true"
+              >
+                <div >
+                  <agm-marker-cluster [maxZoom]="24" [styles]="clusterStyles" [minimumClusterSize]="1">
+                    <agm-marker-spider>
+                      <div *ngFor="let chof of casos">
+                        <agm-marker
+                          *ngIf="chof.latitud !== 0"
+                          [latitude]="chof.latitud"
+                          [longitude]="chof.longitud"
+                          [visible]=false
+                        >
+                        </agm-marker>
+                      </div>
+                    </agm-marker-spider>
+                  </agm-marker-cluster>
+                </div>
+              </agm-map>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="33.33" fxLayout="column" style="height: 70vh; padding: 10px; padding-right: 5px;" >
+    <mat-card     class="mat-bg-accent p-0" style="height: 50%; margin-top: 10px;"
+      [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }"
+    >
+      <mat-card-title class=""   class="mat-bg-accent m-0">
+        <div class="card-title-text">
+          <span style="color: #47b9e6; font-weight: 700;">Detalle por Provincia</span>
+          <span fxFlex></span>
+
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content  class="mat-bg-accent m-0 scrollbar" id="style-1">
+        <div class="mb-1" *ngFor="let caso of casosProvincias">
+          <p class="mb-05" style="margin: 10px 0 16px; color: black; font-weight: 500; font-size: 12px;">
+            {{caso.nombre | titlecase}}
+          </p>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="90" fxLayout="column">
+              <mat-progress-bar
+                class=""
+                color="warn"
+                mode="determinate"
+                [value]="caso.valor"
+              >
+              </mat-progress-bar>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="10" fxLayout="column">
+              <p style="color: #e64524; font-weight: 400; margin: -12px 0px 0px; text-align: right;">{{caso.cant}}</p>
+            </div>
+          </div>
+          <hr style="margin-top: 0.90em; border-top: 2px solid #47b9e691;">
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card style=" background: #1b5c72;   height: 50%;  color: rgba(255, 255, 255, 0.87); margin-top: 10px;"
+      class="p-0"
+      [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }"
+    >
+      <mat-card-title class="">
+        <div class="card-title-text">
+          <span style="color: #fff; font-weight: 700;">Detalle por Localidad</span>
+          <span fxFlex></span>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content class="scrollbar" id="style-2">
+        <div class="mb-1" *ngFor="let caso of casosLocalidad">
+          <p class="mb-05" style="margin: 10px 0 16px; color: #fff; font-weight: 500; font-size: 12px;">
+            {{caso.nombre | titlecase}}
+          </p>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="90" fxLayout="column">
+              <mat-progress-bar
+                class=""
+                color="warn"
+                mode="determinate"
+                [value]="caso.valor"          >
+              </mat-progress-bar>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="10" fxLayout="column">
+              <p style="color: #fff; font-weight: 400; margin: -12px 0px 0px; text-align: right;">{{caso.cant}}</p>
+            </div>
+          </div>
+          <hr style="margin-top: 0.90em; border-top: 2px solid #47b9e691;">
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="33.33" fxLayout="column" style="height: 70vh; padding: 10px; padding-left: 5px;">
+    <mat-card style="height: 50%; margin-top: 10px;"
+      class="default"
+      [@animate]="{ value: '*', params: { y: '25px', delay: '300ms' } }"
+    >
+      <mat-card-title class="">
+        <span style="color: #47b9e6; font-weight: 700;">Evolución Diaria</span>
+        <span fxFlex></span>
+      </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content style="height: 75%; ">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-sm="95" fxLayout="column">
+            <canvas
+              height="146"
+              baseChart
+              class="chart m-0"
+              [datasets]="lineChartSteppedData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              [legend]="true"
+            ></canvas>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card
+      class="p-0" style=" background: #50535c; height: 50%; color: rgba(255, 255, 255, 0.87); margin-top: 10px;"
+      [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }"
+    >
+      <mat-card-title class="">
+        <div class="card-title-text">
+          <span style="color: #fff; font-weight: 700;">Detalle Cadena</span>
+          <span fxFlex></span>
+
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content class="scrollbar" id="style-2">
+        <div class="mb-1"  *ngFor="let caso of casosCadena">
+          <p class="mb-05" style="margin: 10px 0 16px; color: #fff; font-weight: 500; font-size: 12px;">
+            {{caso.nombre | titlecase}}
+          </p>
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="90" fxLayout="column">
+              <mat-progress-bar
+                class=""
+                color="warn"
+                mode="determinate"
+                [value]="caso.valor"
+              >
+              </mat-progress-bar>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="10" fxLayout="column">
+              <p style="color: #fff; font-weight: 400; margin: -12px 0px 0px; text-align: right;">{{caso.cant}}</p>
+            </div>
+          </div>
+          <hr style="margin-top: 0.90em; border-top: 2px solid #47b9e691;">
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

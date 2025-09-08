@@ -1,0 +1,30 @@
+<div fxLayout="column wrap">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="background: darkblue; color: #E9E9EA;height: 50px;">
+      <div fxFlex="5" style="margin-top:15px;margin-left:15px;">
+      </div>
+      <div fxFlex="50" fxLayoutAlign="start start" style="margin-top:15px;">
+        <h3>DOCUMENTO:</h3>
+        <h4>{{data.title}}</h4>
+      </div>
+      <div fxFlex="40" fxLayoutAlign="start start" style="margin-top:15px;">
+        <h3>Chofer:</h3>
+        <h4>{{datos.nombreChofer}}</h4>
+      </div>
+      <span FxFlex></span>
+      <div fxFlex="5" style="margin-top:8px;margin-left:15px;">
+        <button mat-icon-button matTooltip="Cerrar documento" color="m-0" class="m-0" (click)="cancelar()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center" style="width: 78vw; height: 71vh;overflow-y: scroll; ">
+    <img [src]="imagenTemp | authImage | async" alt="Vista Previa" />
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 10px;">
+    <button mat-raised-button color="warn" type="button" (click)="cancelar()">
+      Cerrar
+    </button>
+  </div>
+</div>

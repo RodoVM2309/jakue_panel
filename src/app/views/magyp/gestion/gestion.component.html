@@ -1,0 +1,14 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+  <mat-tab label="Dashboard">
+    <app-dashboard *ngIf="selectedTab === 0"></app-dashboard>
+  </mat-tab>
+  <mat-tab label="Detalles transportistas">
+    <app-detalle *ngIf="selectedTab === 1"></app-detalle>
+  </mat-tab>
+  <mat-tab label="Seguimiento STOP">
+    <app-seguimiento *ngIf="selectedTab === 2"></app-seguimiento>
+  </mat-tab>
+  <mat-tab label="Contacto Magyp">
+    <app-contacto *ngIf="selectedTab === 3"></app-contacto>
+  </mat-tab>
+</mat-tab-group>

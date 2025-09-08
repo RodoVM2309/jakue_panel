@@ -1,0 +1,32 @@
+﻿<mat-tab-group (selectedIndexChange)="selectTab($event)"
+               style="margin-top: 8px;">
+  <mat-tab label="{{'cupo.cuposDisponibles' | translate}}"
+           *ngIf="showTabCuposDisponibles ">
+    <app-cupos-disponibles *ngIf="selectedTab === 0"></app-cupos-disponibles>
+  </mat-tab>
+  <mat-tab label="Panel Consolidado"
+           *ngIf="showTabPanelConsolidado">
+    <app-panel-consolidado-pedido *ngIf="selectedTab === 1"
+                                  [listado]="cuposDadoresApiV2"
+                                  [detalles]="cuposDetallesApiV2"
+                                  [fecha]="searchDateString"
+                                  (cambiarFecha)="chanceDate($event, selectedTab)"
+                                  [myData]="myData"
+                                  [productos]="productos"
+                                  (chanceProductos)="getItemsProductos()">
+    </app-panel-consolidado-pedido>
+  </mat-tab>
+  <!-- <mat-tab label="{{'pedido.Pedidos' | translate}}">
+    <app-carga-pedido *ngIf="selectedTab === 1"></app-carga-pedido>
+  </mat-tab>
+   <mat-tab label="{{'reserva.seguimiento-reserva' | translate}}">
+    <app-seguimiento-reserva *ngIf="selectedTab === 1"></app-seguimiento-reserva>
+  </mat-tab> -->
+
+  <!-- <mat-tab label="{{'cupo.cuposVinculados' | translate}}" *ngIf="showTabCuposVinculados">
+   <app-cupos-vinculados *ngIf="selectedTab === 3"></app-cupos-vinculados>
+  </mat-tab>
+  <mat-tab label="{{'cupo.solicitudes' | translate}}" *ngIf="showTabSolicitudes && !esDadorCupo && esClienteFinal">
+   <app-solicitudes *ngIf="selectedTab === 4"></app-solicitudes>
+  </mat-tab> -->
+</mat-tab-group>

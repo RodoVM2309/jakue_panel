@@ -1,0 +1,185 @@
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20">
+      <img src="assets/images/muvin/seguro.png" alt="">
+    </div>
+    <div fxFlex="60">
+      <h2>Denuncia de Siniestro Transporte de Mercadería</h2>
+    </div>
+    <div fxFlex="20" style="text-align: right">
+      <img src="assets/images/muvin/fondo.png" alt="" style="width: 50%; height:50%">
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right; margin-right: 20px;">
+      Fecha de siniestro: &nbsp;&nbsp;
+    </div>
+    <div fxFlex="80">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" style="width: 100%">
+          <div fxFlex="33">
+            <input name="fecha" type="text" [formControl]="siniestroForm.controls['fecha']" readonly>
+          </div>
+          <div fxFlex="33">
+            Hora:<input name="hora" type="text" [formControl]="siniestroForm.controls['hora']" readonly>
+          </div>
+          <div fxFlex="33">
+            Póliza:
+            <input name="poliza" type="text" [formControl]="siniestroForm.controls['poliza']" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+      Tipo de siniestro: &nbsp;&nbsp;
+    </div>
+    <div fxFlex="80">
+      <div fxLayout="column">
+        <div fxLayout="row wrap">
+          <div fxFlex="100" style="width: 60%">
+            <div fxFlex="20" style="text-align: left;margin-left: 20px;">
+              Robo / Hurto / Falta de entrega &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo1" type="text" [formControl]="siniestroForm.controls['tipo1']" readonly
+                style="width: 50px;">
+            </div>
+            <div fxFlex="15" style="text-align: left;">
+              Choque &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo5" type="text" [formControl]="siniestroForm.controls['tipo5']" readonly
+                style="width: 50px;">
+            </div>
+            <span fxFlex></span>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" style="width: 100%">
+            <div fxFlex="20" style="text-align: left;margin-left: 20px;">
+              Daños &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo2" type="text" [formControl]="siniestroForm.controls['tipo2']" readonly
+                style="width: 50px;">
+            </div>
+            <div fxFlex="15" style="text-align: left;">
+              Vuelco &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo6" type="text" [formControl]="siniestroForm.controls['tipo6']" readonly
+                style="width: 50px;">
+            </div>
+            <span fxFlex></span>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" style="width: 60%">
+            <div fxFlex="20" style="text-align: left;margin-left: 20px;">
+              Hechos de la naturaleza &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo3" type="text" [formControl]="siniestroForm.controls['tipo3']" readonly
+                style="width: 50px;">
+            </div>
+            <div fxFlex="15" style="text-align: left;">
+              Carga / Descarga &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo7" type="text" [formControl]="siniestroForm.controls['tipo7']" readonly
+                style="width: 50px;">
+            </div>
+            <span fxFlex></span>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="100" style="width: 60%">
+            <div fxFlex="20" style="text-align: left;margin-left: 20px;">
+              Incendio &nbsp;&nbsp;
+            </div>
+            <div fxFlex="10">
+              <input name="tipo4" type="text" [formControl]="siniestroForm.controls['tipo4']" readonly
+                style="width: 50px;">
+            </div>
+
+            <span fxFlex></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+      Tipo de Mercaderia
+    </div>
+    <div fxFlex="80">
+      <div fxFlex="30" style="text-align: left;">
+        <input name="tipo_mercaderia" type="text" [formControl]="siniestroForm.controls['tipo_mercaderia']" readonly>
+      </div>
+      <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+        Monto reclamado
+      </div>
+      <div fxFlex="30" style="text-align: right;">
+        <input name="monto_reclamado" type="text" [formControl]="siniestroForm.controls['monto_reclamado']" readonly>
+      </div>
+      <span fxFlex></span>
+    </div>
+
+
+  </div>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+      Descripción del siniestro
+    </div>
+    <div fxFlex="80">
+      <textarea matInput name="descripcion" readonly [formControl]="siniestroForm.controls['descripcion']" rows="5">
+                         </textarea>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+      Observaciones Adicionales
+    </div>
+    <div fxFlex="80">
+      <textarea matInput name="observaciones" readonly [formControl]="siniestroForm.controls['observaciones']" rows="5">
+                       </textarea>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+  <div fxFlex="100" style="width: 100%">
+    <div fxFlex="20" style="text-align: right;margin-right: 20px;">
+      Informacion de Contacto
+    </div>
+    <div fxFlex="80">
+      <input name="contacto" type="text" [formControl]="siniestroForm.controls['contacto']" readonly
+        style="width: 100%">
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" style="align-content: right;align-items: right;">
+  <span fxFlex></span>
+  <mat-paginator #paginator [pageSize]="1" [showFirstLastButtons]="true" [length]="totalSize">
+  </mat-paginator>
+</div>
+<div fxLayout="row wrap" style="padding: 0px;margin-left:0px;align-content: center;align-items: center">
+
+  <div fxFlex="100" class="mt-1">
+    <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()">Cerrar</button>
+  </div>
+</div>
+<!--  -->

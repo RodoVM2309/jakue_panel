@@ -1,0 +1,103 @@
+﻿<br>
+<div class="m-333">
+  <h4 style="color:#124A99;">Mapa Cupos</h4>
+</div>
+
+<mat-card style="height: 80vh; padding: 0px; background: rgb(43, 196, 243);">
+  <div class="map">
+    
+    <mat-card-title class="m-0">      
+      <div fxFlex="100" fxFlex.gt-xs="70" class="pr-1" style="background-color: #a9ada1f5;">
+        <mat-select id="filterProducto" placeholder="Productos" name="filterProducto" class="mb-1" [(value)]="selectedFilterProducto"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Productos (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+            {{producto.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-select id="filterDestino" placeholder="Destinos" name="filterDestino" class="mb-1" [(value)]="selectedFilterDestino"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Destinos (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let destino of destinos" [value]="destino.id" ngDefaultControl>
+            {{destino.descripcion}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div fxFlex="100" fxFlex.gt-xs="70" class="pr-1" style="background-color: #a9ada1f5;">
+        <mat-select id="filterDador" placeholder="Dadores de Carga" name="filterDador" class="mb-1" [(value)]="selectedFilterDador"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Dadores de Carga (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let dador of dadores" [value]="dador.id" ngDefaultControl>
+            {{dador.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-select id="filterEstado" placeholder="Estado Viaje" name="filterEstado" class="mb-1" [(value)]="selectedFilterEstado"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Estado Viaje (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let estado of estados" [value]="estado.descripcion" ngDefaultControl>
+            {{estado.descripcion}}
+          </mat-option>
+        </mat-select>
+      </div> 
+      <div fxFlex="100" fxFlex.gt-xs="70" class="pr-1" style="background-color: #a9ada1f5;">
+        <mat-select id="filterCorredor" placeholder="Corredor" name="filterCorredor" class="mb-1" [(value)]="selectedFilterCorredor"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Corredor (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let corredor of corredores" [value]="corredor.descripcion" ngDefaultControl>
+            {{corredor.descripcion}}
+          </mat-option>
+        </mat-select>
+        <mat-select id="filterEntregador" placeholder="Entregador" name="filterEntregador" class="mb-1" [(value)]="selectedFilterEntregador"
+          (selectionChange)="chanceSelectTipo()">
+          <mat-option  [value]="0">
+            Entregador (Sin Filtro)
+          </mat-option>
+          <mat-option *ngFor="let entregador of entregadores" [value]="entregador.descripcion" ngDefaultControl>
+            {{entregador.descripcion}}
+          </mat-option>
+        </mat-select>
+      </div>      
+    </mat-card-title>
+
+    <mat-card-content class="p-0">
+      <agm-map [ngStyle]="{height: '78vh'}" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"      
+        [mapTypeId]="'hybrid'" [mapTypeControl]="true">
+        <div *ngIf="(selected==0 || selected==2) && !rolDador">
+          <agm-marker *ngFor="let chof of choferesViajes" 
+            [latitude]="chof.latitud" 
+            [longitude]="chof.longitud" 
+            [iconUrl]="iconUrlRed"
+            (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                <p>
+                    <strong>Patente:</strong> {{chof.patente_acoplado}}
+                  </p>
+                  <p>
+                    <strong>Chofer:</strong> {{chof.nombre_chofer}}
+                  </p>
+                  <p>
+                    <strong>Transportista:</strong> {{chof.nombre_transportista}}
+                  </p>
+                  <p>
+                    <strong>Celular:</strong> {{chof.telefono}}
+                  </p>
+                  <p>
+                      <strong>Última actualización:</strong> {{chof.update_at}}
+                    </p>
+            </agm-info-window>
+          </agm-marker>
+        </div>        
+      </agm-map>
+    </mat-card-content>
+  </div>
+</mat-card>

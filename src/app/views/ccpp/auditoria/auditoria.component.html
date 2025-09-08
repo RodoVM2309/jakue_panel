@@ -1,0 +1,81 @@
+<!-- <div class="circulo"></div> -->
+<div class="margin-333" style="height: 85vh;">
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div fxLayout="row wrap" style="background: #FFFFFF; margin-top: 6px; margin-left: 6px; margin-right: 6px;">
+        <div fxFlex="20">
+          <div fxLayout="row wrap" style="background: #184892; padding: 15px; ">
+            <p style="margin: 0px 30px 0px; font-size: 15px; color: white;">Auditoría</p>
+          </div>
+        </div>
+        <div fxFlex="2">
+        </div>
+        <div fxFlex="35" fxLayoutAlign="center center">
+          <input autofocus="true" placeholder="Buscar Cupo" type="text" [formControl]="buscarForm.controls['cupo']"
+            class="input-buscar">
+        </div>
+        <div fxFlex="2"></div>
+        <div fxFlex="4" fxLayoutAlign="center center">
+          <button mat-raised-button style="background-color: #174891;" type="button" (click)="buscarCupos()">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    &nbsp;
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <div class="textarea">
+        <!-- <div fxLayout="row wrap">
+
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Fecha</div>
+          </div>
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Cupo</div>
+          </div>
+          <div fxFlex="40">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Motivo actualización</div>
+          </div>
+          <div fxFlex="20">
+            <div style="margin-top: 20px; margin-left: 20px; color: #ffffff;">Marcar como leído y ocultar</div>
+          </div>
+
+        </div> -->
+        <div style="margin-top: 20px; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;">
+          <ngx-datatable  class="material ml-0 mr-0" [rows]="data" [columnMode]="'force'" [sorts]="[{prop: 'create_at', dir: 'asc'}, {prop: 'campoNombre',  dir: 'asc' }]" [sortType]="'multi'"
+          [headerHeight]="50" [footerHeight]="50" [externalPaging]="true" [count]="page.totalElements" [limit]="page.size"
+          (page)='setPage($event)' [rowHeight]="'auto'" [messages]="messages" [offset]="page.pageNumber-1" >
+            <ngx-datatable-column prop="create_at" name="Fecha y hora" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.create_at }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="alfanumerico" name="Cupo" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.alfanumerico }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column  prop="campoNombre" name="Motivo actualización" [resizeable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                Se reemplazo el campo {{ row?.campoNombre }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Marcar como leído y ocultar" [resizeable]="false" >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button mat-sm-button class="mr-1" matTooltip="Marcar como leído y ocultar"
+                  (click)="marcarComoLeido(row)">
+                  <mat-icon style="color: #000000;">done</mat-icon>
+                </button>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

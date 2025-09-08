@@ -1,0 +1,29 @@
+.component {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 50vh;
+  overflow: auto;
+}
+.div-margin {
+  box-shadow: none !important;
+  margin: -24px !important;
+}
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 30vh;
+  width: 100%;
+  overflow: auto;
+}
+.encabezado {
+  color: #FEFEFE;
+  font-size: 24px;
+  width: 100%;
+}
+.footer {
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+

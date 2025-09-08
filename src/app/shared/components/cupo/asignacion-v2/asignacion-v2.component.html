@@ -1,0 +1,940 @@
+<div class="margin-333"
+     class="scrollbar"
+     id="style-1">
+  <div fxLayout="column wrap">
+    <form id="form-cuponera1"
+          [formGroup]="filtrarForm"
+          class="encabezado">
+      <div fxLayout="row wrap"
+           #tablaFiltros>
+        <div fxFlex="100"
+             fxLayoutGap="10px"
+             fxLayoutAlign="start"
+             class="row_encabezado">
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select_producto">
+            <span class="label-span">Producto:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select name="producto"
+                          (selectionChange)="aplicarFiltroProducto($event)"
+                          [formControl]="filtrarForm.controls['selectedProducto']">
+                <mat-option *ngFor="let otrosp of productos; trackBy: trackByFn"
+                            [value]="otrosp.id">
+                  {{ otrosp.descripcion }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select_producto">
+            <span class="label-span">Fecha desde:</span>
+            <mat-form-field class="full-width mfl">
+              <input matInput
+                     name="fechaFilter"
+                     [formControl]="filtrarForm.controls['selectedFecha']"
+                     [matDatepicker]="appDatepicker"
+                     readonly>
+              <mat-datepicker-toggle matSuffix
+                                     [for]="appDatepicker"
+                                     color="blanco">
+              </mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #appDatepicker></mat-datepicker>
+          </div>
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario">
+            <span class="label-span">Dadores:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select name="dador"
+                          (selectionChange)="aplicarFiltroDadores($event)"
+                          [formControl]="filtrarForm.controls['selectedDador']">
+                <mat-option *ngFor="let dador of dadores; trackBy: trackByFn "
+                            [value]="dador.id">
+                  {{dador.razon_social}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario">
+            <span class="label-span">Destinatarios:</span>
+            <mat-form-field class="full-width mfl">
+              <mat-select name="destinatario"
+                          (selectionChange)="aplicarFiltroDestinatario($event)"
+                          [formControl]="filtrarForm.controls['selectedDestinatario']">
+                <mat-option *ngFor="let otrosd of destinatarios | orderBy: {property: 'razon_social', direction: 1}"
+                            [value]="otrosd.id">
+                  {{otrosd.razon_social}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario"
+               [ngClass]="disabledDestino ? 'select-destino-disabled': 'select-destino'">
+            <span class="label-span">Destino:</span>
+            <mat-form-field class="full-width mfl"
+                            *ngIf="!disabledDestino">
+              <mat-select name="destino"
+                          (selectionChange)="aplicarFiltroDestino($event)"
+                          [disabled]="disabledDestino"
+                          [formControl]="filtrarForm.controls['selectedDestino']">
+                <mat-option *ngFor="let otrosde of destinos; trackBy: trackByFn "
+                            [value]="otrosde.id">
+                  {{otrosde.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.xs="45"
+               fxFlex.sm="15"
+               fxFlex.lg="15"
+               fxLayout="columna wrap"
+               class="select-destinatario"
+               [ngClass]="disabledcliente ? 'select-destino-disabled': 'select-destino'">
+            <span class="label-span">Cliente:</span>
+            <mat-form-field class="full-width mfl"
+                            *ngIf="!disabledcliente">
+              <mat-select name="cliente"
+                          (selectionChange)="aplicarFiltroCliente($event)"
+                          [disabled]="disabledcliente"
+                          [formControl]="filtrarForm.controls['selectedCliente']">
+                <mat-option *ngFor="let cliente of clientes; trackBy: trackByFn "
+                            [value]="cliente.id">
+                  {{cliente.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex.xs="45"
+               fxFlex.sm="10"
+               fxFlex.lg="10"
+               fxLayoutAlign="start center">
+            <button mat-raised-button
+                    style="background-color: #174891; "
+                    type="button"
+                    (click)="buscar()">
+              BUSCAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <mat-card class="textarea"
+              *ngIf="!isSelectedDestinatario">
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA;"
+                    [style.width.px]="'100%'"
+                    style="padding: 0px; margin-left: 6px; margin-right: 6px; box-shadow: none; margin-top: 7px;">
+            <!-- <mat-card
+                style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #87B1C6; padding: 0px; margin-top: 5px;margin-left: 0px;margin-right: 0px;border-radius: 0px;"
+                [style.overflow]="'auto'" [style.width.px]="'100%'" [style.height.px]="'5'">
+              </mat-card> -->
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div fxFlex="100"
+                   class="example-container mat-elevation-z8">
+                <table mat-table
+                       [dataSource]="dataSource"
+                       matSort>
+                  <ng-container matColumnDef="destinatario"
+                                style="height: 50px;">
+                    <tr>
+                      <th mat-header-cell
+                          *matHeaderCellDef
+                          style="text-align: center; padding-left: 10px;"
+                          mat-sort-header>
+                        <span style="color: #174891">DESTINATARIO</span>
+                        <button mat-icon-button
+                                matTooltip="Adicionar cupos disponibles"
+                                color="m-0"
+                                class="m-0"
+                                style="height: 45px;width: 45px; padding: 10px;"
+                                (click)="addCupoDisponibles()">
+                          <mat-icon fxFlex="30%"
+                                    style="font-size: 28px; height: 50px; width: 50px; color: #174891">
+                            add_circle
+                          </mat-icon>
+                        </button>
+                      </th>
+                      <td mat-cell
+                          *matCellDef="let cupo; let i = index"
+                          style="text-align: left; padding-left: 10px; cursor: pointer;"
+                          (click)="selectCupo(cupo)">
+                        <span>{{cupo.nombreDestinatario | uppercase }}</span>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <ng-container matColumnDef="dia1">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[0].dia_semana_string}}. {{dias[0].dia}}/{{dias[0].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq ">
+                            <span *ngIf="cupo.dia0.asignados>0">{{cupo.dia0.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia2">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[1].dia_semana_string}}. {{dias[1].dia}}/{{dias[1].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia1.asignados>0">{{cupo.dia1.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia3">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[2].dia_semana_string}}. {{dias[2].dia}}/{{dias[2].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia2.asignados>0">{{cupo.dia2.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia4">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[3].dia_semana_string}}. {{dias[3].dia}}/{{dias[3].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia3.asignados>0">{{cupo.dia3.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia5">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[4].dia_semana_string}}. {{dias[4].dia}}/{{dias[4].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell ">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia4.asignados>0">{{cupo.dia4.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia6">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[5].dia_semana_string}}. {{dias[5].dia}}/{{dias[5].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell ">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia5.asignados>0">{{cupo.dia5.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="dia7">
+                    <th mat-header-cell
+                        *matHeaderCellDef
+                        class="th-mat-header-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="full-width">
+                          {{dias[6].dia_semana_string}}. {{dias[6].dia}}/{{dias[6].mes}}
+                        </div>
+                      </div>
+                    </th>
+                    <td mat-cell
+                        *matCellDef="let cupo; let i = index"
+                        class="td-mat-cell">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100"
+                             fxLayoutAlign="center center"
+                             class="td_cell ">
+                          <div fxFlex="100"
+                               fxLayoutAlign="center center"
+                               class="div-dia-izq">
+                            <span *ngIf="cupo.dia6.asignados>0">{{cupo.dia6.asignados}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row
+                      *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                  <tr mat-row
+                      *matRowDef="let row; columns: displayedColumns;"
+                      class="example-element-row"></tr>
+
+                </table>
+              </div>
+
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+    <div fxLayout="row wrap"
+         class="textarea"
+         fxLayoutAlign="start start"
+         [style.height.px]='height1'
+         *ngIf="isSelectedDestinatario">
+      <div fxFlex="100"
+           [style.height.px]='height2'>
+        <table mat-table
+               [dataSource]="dataSourceSelectedCupo"
+               matSort
+               style="margin-left: 0.6em;
+        margin-top: 0.6em;
+        margin-right: 0.8em;
+        width: 99%;">
+          <ng-container matColumnDef="destinatario"
+                        style="height: 50px;">
+            <tr>
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  style="text-align: center; padding-left: 10px;"
+                  mat-sort-header>
+                <span style="color: #174891">CUPOS POR DESTINATARIO / DESTINO</span>
+                <button mat-icon-button
+                        matTooltip="Adicionar cupos disponibles"
+                        color="m-0"
+                        class="m-0"
+                        style="height: 45px;width: 45px; padding: 10px;"
+                        (click)="addCupoDisponibles()">
+                  <mat-icon fxFlex="30%"
+                            style="font-size: 28px; height: 50px; width: 50px; color: #174891">
+                    add_circle
+                  </mat-icon>
+                </button>
+              </th>
+              <td mat-cell
+                  *matCellDef="let cupo; let i = index"
+                  style="text-align: left; padding-left: 10px;">
+                {{cupo.nombreDestinatario | uppercase }} / {{selectedDestino}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="dia1">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[0].dia_semana_string}}. {{dias[0].dia}}/{{dias[0].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia0.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia0.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia0.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia0.solicitados>0">{{cupo.dia0.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia2">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[1].dia_semana_string}}. {{dias[1].dia}}/{{dias[1].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia1.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia1.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia1.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia1.solicitados>0">{{cupo.dia1.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia3">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[2].dia_semana_string}}. {{dias[2].dia}}/{{dias[2].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia2.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia2.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia2.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia2.solicitados>0">{{cupo.dia2.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia4">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[3].dia_semana_string}}. {{dias[3].dia}}/{{dias[3].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia3.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia3.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia3.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia3.solicitados>0">{{cupo.dia3.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia5">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[4].dia_semana_string}}. {{dias[4].dia}}/{{dias[4].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia4.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia4.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia4.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia6">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[5].dia_semana_string}}. {{dias[5].dia}}/{{dias[5].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia5.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia5.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia5.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia7">
+            <th mat-header-cell
+                *matHeaderCellDef
+                class="th-mat-header-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="full-width">
+                  {{dias[6].dia_semana_string}}. {{dias[6].dia}}/{{dias[6].mes}}
+                </div>
+              </div>
+            </th>
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia6.asignados>0"
+                          matTooltip={{dataFromService}}
+                          (click)="openPopUpInfoCupo(cupo.dia6.cupos,cupo.nombreDestinatario,cupo.idCuitDestinatario,filtro.idDestino)">{{cupo.dia6.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row
+              *matRowDef="let row; columns: displayedColumns;"
+              class="example-element-row"></tr>
+
+        </table>
+      </div>
+      <mat-divider></mat-divider>
+      <!-- <div fxFlex="100" fxLayoutAlign="start start"
+        style="background: #87b1c6;color: #ffffff; height: 20px; margin-top: 2px;">
+        <div fxFlex="3" fxLayoutAlign="end center">
+          <button mat-icon-button mat-sm-button class="mr-1" (click)="mostrarDetallesDestinos()">
+            <mat-icon *ngIf="!isDetallesDestinos" style="margin-top: -5px;">chevron_right</mat-icon>
+            <mat-icon *ngIf="isDetallesDestinos" style="margin-top: -5px;">expand_less</mat-icon>
+          </button>
+        </div>
+        <div fxFlex="87" fxLayoutAlign="start center">
+          <span (click)="mostrarDetallesDestinos()" style="cursor: pointer;">Detalle Destinos</span>
+        </div>
+      </div> -->
+      <div fxFlex="100"
+           *ngIf="isDetallesDestinos">
+        <table mat-table
+               [dataSource]="dataSourceDetalleDestinatario"
+               style="margin-left: 0.6em;
+        margin-top: 0.6em;
+        margin-right: 0.8em;
+        width: 99%;">
+          <ng-container matColumnDef="destino"
+                        style="height: 50px;">
+            <tr>
+              <td mat-cell
+                  *matCellDef="let cupo; let i = index"
+                  style="cursor: pointer; text-align: left; padding-left: 10px;"
+                  (click)="selectDestino(cupo)">
+                {{cupo.nombreDestino | uppercase }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="dia1">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia0.asignados>0">{{cupo.dia0.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia0.solicitados>0">{{cupo.dia0.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia2">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia1.asignados>0">{{cupo.dia1.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia1.solicitados>0">{{cupo.dia1.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia3">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia2.asignados>0">{{cupo.dia2.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia2.solicitados>0">{{cupo.dia2.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia4">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia3.asignados>0">{{cupo.dia3.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia3.solicitados>0">{{cupo.dia3.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia5">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia4.asignados>0">{{cupo.dia4.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia6">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia5.asignados>0">{{cupo.dia5.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dia7">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index"
+                class="td-mat-cell">
+              <div fxLayout="row wrap">
+                <div fxFlex="100"
+                     fxLayoutAlign="center center"
+                     class="td_cell ">
+                  <div fxFlex="100"
+                       fxLayoutAlign="center center"
+                       class="div-dia-izq">
+                    <span *ngIf="cupo.dia6.asignados>0">{{cupo.dia6.asignados}}</span>
+                  </div>
+                  <!-- <div fxFlex="50"><span *ngIf="cupo.dia4.solicitados>0">{{cupo.dia4.solicitados}}</span></div> -->
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="disponibles">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index">
+              <span *ngIf="cupo.total_asignados>0">{{cupo.total_asignados}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="solicitados">
+            <td mat-cell
+                *matCellDef="let cupo; let i = index">
+              <span *ngIf="cupo.total_solicitados>0">{{cupo.total_solicitados}}</span>
+            </td>
+          </ng-container>
+          <tr mat-row
+              *matRowDef="let row; columns: displayedColumnsDestino;"
+              class="example-element-row"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap"
+       class="textarea_gestion"
+       fxLayoutAlign="space-around center"
+       *ngIf="isSelectedDestinatario || mostrarSolicitudes">
+    <div fxFlex="100"
+         fxLayoutAlign="space-around center"
+         style="height: 50px;">
+      <div fxFlex="10"
+           class="ml-3 mt-0">
+        <span>GESTION</span>
+        <button mat-icon-button
+                mat-sm-button
+                class="mr-1">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="15">
+        <div fxFlex="100"
+             fxLayoutAlign="center center">
+          <div fxFlex="70">Cupos por Módulo</div>
+          <div fxFlex="30">
+            <input matInput
+                   name="cuposxModulos"
+                   #cuposModulos
+                   type="number"
+                   [readonly]="disabledCuposXModulos"
+                   min=0
+                   (keyup.enter)="validarInput($event)"
+                   (change)="validarInput($event)"
+                   matTooltip="{{toolTipModulo}}"
+                   [formControl]="gestionForm.controls['cuposxModulos']"
+                   [ngClass]="disabledCuposXModulos ? 'input_cupos-disabled': 'input_cupos'" />
+          </div>
+        </div>
+      </div>
+      <div fxFlex="2"></div>
+      <div fxFlex="6"
+           fxLayoutAlign="start center">
+        <!-- <button mat-raised-button [ngStyle]="{'background-color':!validatedForm ? '#97e4b1' : '#589529'}" type="button"
+          (click)="confirmar()" [disabled]="!validatedForm || !validFecha">
+          <small style="font-size: 73%;">CONFIRMAR</small>
+        </button> -->
+      </div>
+      <div fxFlex="13"
+           fxLayoutAlign="start center">
+        <button mat-raised-button
+                [ngStyle]="{'background-color':!validatedForm ? '#97e4b1' : '#000000'}"
+                type="button"
+                style="width: 100%;"
+                (click)="confirmar_notificar()"
+                [disabled]="!validatedForm || !validFecha">
+          <small style="font-size: 73%;">CONFIRMAR Y NOTIFICAR</small>
+        </button>
+      </div>
+      <div fxFlex="8"
+           fxLayoutAlign="start center">
+        <!-- <button mat-raised-button matBadge="{{cantNotificaciones}}"
+          [ngStyle]="{'background-color': !validFecha || cantNotificaciones==0 ? '#97e4b1' : '#83CBE8'}"
+          [matBadgeHidden]="!validFecha || cantNotificaciones===0" matBadgeColor="#ffffff" type="button"
+          (click)="notificar()" [disabled]=" !validFecha || cantNotificaciones==0">
+          <small style="font-size: 73%;">NOTIFICAR</small>
+        </button> -->
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap"
+       class="textarea_handsontable"
+       fxLayoutAlign="center start"
+       *ngIf="(isSelectedDestinatario || mostrarSolicitudes) && showHandsonTable">
+    <div fxFlex="100"
+         fxLayoutAlign="center center">
+      <div style="width: 100%; "
+           #tablaSolicitudes>
+        <!-- <hot-table #hot [afterInit]="afterInit" [afterSelectionEnd]="detectChanges"
+          [afterGetColHeader]="pintarSolicitado" [afterRenderer]="renderRow" [beforeOnCellMouseDown]="limitarSeleccion"
+          [beforeOnCellMouseOver]="limitarSeleccion2" [settings]="tableSettings" [colHeaders]="colHeaders"
+          [data]="listadoSolicitudes"></hot-table> -->
+        <hot-table #hot
+                   [afterInit]="afterInit"
+                   [afterSelectionEnd]="detectChanges"
+                   [afterRenderer]="renderRow"
+                   [beforeOnCellMouseDown]="limitarSeleccion"
+                   [beforeOnCellMouseOver]="limitarSeleccion2"
+                   [settings]="tableSettings"
+                   [colHeaders]="colHeaders"
+                   [data]="listadoSolicitudes"></hot-table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- <div *ngIf="agregarsolicitud && isSelectedDestinatario" id="solicitar1" [style.top.px]='topaddSolicitad - 4'
+  [style.left.px]="leftaddSolicitad - 10">
+  <button mat-icon-button color="m-0" class="m-0" (click)="addSolicitudPropia()" matTooltip="Asignar sin Solicitud "
+    [disabled]="!validFecha" style="height: 40px; width: 45px; padding: 10px;">
+    <mat-icon fxFlex="30%" [ngClass]="validFecha ? 'icon-add-enable': 'icon-add-disabled'">
+      add_circle
+    </mat-icon>
+  </button>
+</div> -->

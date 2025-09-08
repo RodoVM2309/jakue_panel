@@ -1,0 +1,162 @@
+.component {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 93vh;
+  overflow: auto;
+}
+
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
+th.mat-header-cell:first-of-type {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.encabezado {
+  color: #FEFEFE;
+  height: 6vh;
+  font-size: 18px;
+  width: 100%;
+}
+
+.footer {
+  color: #FEFEFE;
+  height: 7vh;
+  font-size: 24px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-top: 2px solid #e0e0e0;
+  padding-top: 35px;
+}
+
+.cuerpo {
+  background-color: rgb(255, 255, 255);
+  height: 40%;
+  overflow-y: scroll;
+
+  .primera-mitad,
+  .segunda.mitad {
+    min-height: 50%;
+    // overflow-y: scroll;
+  }
+
+  .encabezado-cupos,
+  .encabezado-demanda,
+  .encabezado-sin-demanda {
+    background-color: #86b0c4;
+    height: 8vh;
+    font-size: 15px;
+    color: #FEFEFE;
+
+    .sombreado-encabezado {
+      background-color: #789fb1;
+    }
+  }
+
+  .subencabezado-cupos,
+  .subencabezado-demanda {
+    border-bottom: 2px solid #b3b2b3;
+  }
+
+  .cupos th,
+  .hay-demanda th {
+    color: #009DE0;
+    font-weight: bold;
+  }
+
+  .no-hay-demanda {
+    padding-top: 20px;
+  }
+
+  .label-encabezado {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .sombreado {
+    background-color: #e5e6e6 !important;
+  }
+
+  .form-search,
+  .input-search {
+    width: 100%;
+  }
+
+  .icon-buscar {
+    padding-top: 15px;
+  }
+
+  .pt-15 {
+    padding-top: 15px;
+  }
+}
+
+/* MARGIN */
+.mb-0 {
+  margin-bottom: 0px !important;
+}
+
+/* PADDING */
+.pt-15 {
+  padding-top: 15px !important;
+}
+
+.pl-0 {
+  padding-left: 0px !important;
+}
+
+.pl-20 {
+  padding-left: 20px !important;
+}
+
+.px-0 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+/* BOTONES FOOTER */
+.btn {
+  color: #FEFEFE;
+  border-radius: 50px;
+  padding: 0px 80px;
+}
+
+.btn-cancelar {
+  background-color: #000;
+}
+
+.btn-confirmar {
+  background-color: #004a90;
+}
+
+.mat-column-contrato {
+  width: 15%;
+}
+
+.mat-column-comprador {
+  width: 35%;
+}
+
+.btn-seleccionar-todo {
+  font-size: 12px !important;
+  padding: 0px 10px !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-comprador {
+  width: 20%;
+  // text-align: center;
+  // padding: 0px;
+}
+
+.prueba{
+  background:#FFE100;
+}

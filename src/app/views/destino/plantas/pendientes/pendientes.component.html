@@ -1,0 +1,119 @@
+<div class="margin-333">
+  <mat-card
+    style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA; height: 84vh; width: 103%;"
+    [style.overflow]="'auto'" [style.width.px]="">
+    <form [formGroup]="pendientesForm">
+      <div fxLayout="column wrap" style=" width: 100%; margin-left: -10px; margin-top: -10px;">
+        <div fxFlex="100" style="height: 50px; background-color: #ffffff;">
+          <div fxFlex="15" fxFlex.gt-xs="15" class="pr-1">
+            <mat-form-field class="full-width" style="margin-left: 10px;">
+              <input matInput name="fechaFilter" [formControl]="pendientesForm.controls['selectedFecha']"
+                placeholder="Fecha" [matDatepicker]="appDatepicker" (dateChange)="aplicarFiltro('fecha', $event)"/>
+              <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+              </mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #appDatepicker></mat-datepicker>
+          </div>
+          <div fxFlex="25" fxFlex.gt-xs="25" class="pr-1" fxLayoutAlign="start center" style="margin-top: 15px;">
+            <!-- &nbsp; -->
+             <img src="assets/images/muvin/menu-estado-de-puertos.png" alt="" style="height: 32px; margin-top: -10px;">
+            <mat-select id="select_bgNegro" placeholder="Destino" (selectionChange)="aplicarFiltro('id_destino', $event)"
+              [formControl]="pendientesForm.controls['selectedDestino']"
+              name="destino" class="mb-1" style="margin-left: 11px;">
+              <mat-option *ngFor="let destino of destinos" [value]="destino.id"
+                ngDefaultControl >
+                {{ destino.descripcion }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div fxFlex="15" fxFlex.gt-xs="15" class="pr-1" fxLayoutAlign="start center" style="margin-top: 15px;">
+            <!-- &nbsp; -->
+            <!-- <span fxFlex></span> -->
+            <mat-select id="select_bgNegro" placeholder="Producto" (selectionChange)="aplicarFiltro('id_producto', $event)"
+              [formControl]="pendientesForm.controls['selectedProducto']"
+              name="producto" class="mb-1" style="margin-left: 11px;">
+              <mat-option *ngFor="let producto of productos" [value]="producto.id"
+                ngDefaultControl >
+                {{ producto.descripcion }}
+              </mat-option>
+            </mat-select>
+          </div>
+            <span fxFlex></span>
+        </div>
+        <div fxFlex="100" style="height: 80vh; background-color: #ffffff;">
+          <agm-map [ngStyle]="{height: '78vh'}" [zoom]="zoom" [latitude]="mapCenter.lat" [longitude]="mapCenter.lng"
+          [mapTypeId]="'hybrid'" [mapTypeControl]="true">
+          <div *ngIf="cbEnPlaya">
+            <agm-marker *ngFor="let chofer of choferesEnPlaya" [latitude]="chofer.latitud" [longitude]="chofer.longitud"
+              [iconUrl]="chofer.iconUrl" (markerClick)="clickedMarker(infoWindow)">
+              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                <p>
+                  <strong>Chofer:</strong> {{chofer.nombreChofer}}
+                </p>
+              </agm-info-window>
+            </agm-marker>
+          </div>
+          <div *ngIf="cbPendientes">
+            <agm-marker *ngFor="let chofer of choferesPendientes" [latitude]="chofer.latitud" [longitude]="chofer.longitud"
+              [iconUrl]="chofer.iconUrl" (markerClick)="clickedMarker(infoWindow)">
+              <agm-info-window [disableAutoPan]="true" [isOpen]="false" #infoWindow>
+                <p>
+                  <strong>Chofer:</strong> {{chofer.nombreChofer}}
+                </p>
+              </agm-info-window>
+            </agm-marker>
+          </div>
+        </agm-map>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>
+<div id="app-customizer">
+  <div class="handle" *ngIf="!isCustomizerOpen" style="color: #fff; margin-right:28px;">
+    <p style="margin: 4px 10px 0px; font-size: small;">Filtrar</p>
+    <button mat-fab class="mat-rojo-filtrar" (click)="isCustomizerOpen = true" matTooltip="Filtrar">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <mat-card class="p-0" *ngIf="isCustomizerOpen">
+    <mat-card-title class="mat-rojo-filtrar">
+      <div class="card-title-text">
+        <span>Filtrar Mapa</span>
+        <span fxFlex></span>
+        <button class="card-control" mat-icon-button (click)="isCustomizerOpen = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <!-- <button mat-icon-button (click)="limpiarFiltros()">
+        <mat-icon matTooltip="Limpiar filtros">autorenew</mat-icon>
+      </button>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <mat-form-field class="full-width">
+          <mat-select id="filterProducto" placeholder="Producto" name="filterProducto" class="mb-1"
+            [(value)]="filtro.id_producto" (selectionChange)="aplicarFiltro($event,'producto')">
+            <mat-option [value]="null">
+              Sin Filtro
+            </mat-option>
+            <mat-option *ngFor="let producto of productos" [value]="producto.id" ngDefaultControl>
+              {{producto.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="appDatepicker" [formControl]="pendientesForm.controls['selectedFecha']" placeholder="Fecha"
+            (dateChange)="aplicarFiltro($event, 'fecha')" readonly />
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #appDatepicker></mat-datepicker>
+          <mat-datepicker #appDatepicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      <div fxLayout="column wrap" fxLayout.lt-sm="column">
+        <mat-checkbox class="example-margin" [(ngModel)]="cbEnPlaya">En Playa</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="cbPendientes">Pendientes</mat-checkbox>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

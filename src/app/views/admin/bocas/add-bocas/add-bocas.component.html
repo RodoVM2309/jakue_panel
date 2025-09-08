@@ -1,0 +1,222 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" [style.overflow]="'auto'" [style.height.vh]="'77'">
+    <div fxFlex="100" class="pr-1" hidden>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="id"
+          [formControl]="itemForm.controls['id']"
+          placeholder="Id del producto"
+        />
+      </mat-form-field>
+    </div>    
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            name="razon_social"
+            [formControl]="itemForm.controls['razon_social']"
+            placeholder="Razón Social"
+            #descripcion  maxlength="150"
+          />
+          <!-- <mat-hint align="end">{{ razon_social.value.length }} / 50</mat-hint> -->
+        </mat-form-field>
+        <small
+          *ngIf="
+            itemForm.controls['razon_social'].hasError('required') &&
+            itemForm.controls['razon_social'].touched
+          "
+          class="form-error-msg"
+        >
+          La razón social es obligatoria
+        </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            name="direccion"
+            [formControl]="itemForm.controls['direccion']"
+            placeholder="Dirección"
+            #direccion  maxlength="250"
+          />
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select
+            name="pais"
+            [formControl]="itemForm.controls['pais']"
+            placeholder="País"
+            (selectionChange)="getProvincias()"
+          >
+            <mat-option *ngFor="let vpais of paises" [value]="vpais.id">
+              {{ vpais.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          name="provincia"
+          [formControl]="itemForm.controls['provincia']"
+          placeholder="Provincia"
+          (selectionChange)="getLocalidades()"
+        >
+          <mat-option *ngFor="let vprov of provincias" [value]="vprov.id">
+            {{ vprov.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select
+          name="id_localidad"
+          [formControl]="itemForm.controls['id_localidad']"
+          placeholder="Localidad"
+        >
+          <mat-option
+            *ngFor="let vlocalidad of localidades"
+            [value]="vlocalidad.id"
+          >
+            {{ vlocalidad.descripcion }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['id_localidad'].hasError('required') &&
+          itemForm.controls['id_localidad'].touched
+        "
+        class="form-error-msg"
+      >
+        Es requerido la localidad
+      </small>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            maxlength="2"
+            matInput            
+            name="rrcc"
+            [formControl]="itemForm.controls['rrcc']"
+            placeholder="RRCC"
+            #rrcc
+          />
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            maxlength="2"
+            matInput
+            name="es_agro"
+            [formControl]="itemForm.controls['es_agro']"
+            placeholder="ES/AGRO"
+            #es_agro
+          />
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1" hidden>
+        <mat-form-field class="full-width">
+          <input disabled
+            matInput
+            name="latitud"
+            type="number"
+            [formControl]="itemForm.controls['latitud']"
+            placeholder="Latitud"
+          />
+        </mat-form-field>
+        <small
+          *ngIf="
+            itemForm.controls['latitud'].hasError('required') &&
+            itemForm.controls['latitud'].dirty
+          "
+          class="form-error-msg"
+        >
+          Es requerida la latitud
+        </small>
+    </div>
+    <div fxFlex="50" class="pr-1" hidden>
+        <mat-form-field class="full-width">
+          <input disabled
+            matInput
+            name="longitud"
+            type="number"
+            [formControl]="itemForm.controls['longitud']"
+            placeholder="Longitud"
+          />
+        </mat-form-field>
+        <small
+          *ngIf="
+            itemForm.controls['longitud'].hasError('required') &&
+            itemForm.controls['longitud'].dirty
+          "
+          class="form-error-msg"
+        >
+          Es requerida la longitud
+        </small>
+    </div>
+    <mat-accordion class="full-width">
+        <mat-expansion-panel [expanded]="true" style="background-color: bisque;">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Vista del mapa
+            </mat-panel-title>
+            <mat-panel-description>
+              Localización de la zona de la estación
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="form-group">
+            <input placeholder="Buscar Localidad de la Estación" autocorrect="off" autocapitalize="off" spellcheck="off"
+              type="text" class="form-control" #search [formControl]="searchControl">
+          </div>
+          <mat-card-content class="p-0">
+            <agm-map
+              [ngStyle]="{ height: '300px' }"
+              [zoom]="zoom"
+              [latitude]="latitude"
+              [longitude]="longitude"
+              (mapClick)="clickMapa($event)"
+              [mapTypeId]="'roadmap'"
+              [mapTypeControl]="false"
+            >
+              <agm-marker
+                *ngFor="let marcador of marcadores; let i = index"
+                [latitude]="marcador.lat"
+                [longitude]="marcador.lng"
+                [title]="marcador.titulo"
+                [markerDraggable]="marcador.draggable"
+                (markerClick)="clickMarcador(marcador, i)"
+                (dragEnd)="dragEndMarcador(marcador, $event)"
+              >
+                <agm-info-window>
+                  <strong>{{ marcador.titulo }}</strong>
+                  <p *ngIf="marcador.desc">
+                    {{ marcador.desc }}
+                  </p>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
+          </mat-card-content>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+          Guardar
+        </button>
+        <span fxFlex></span>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="dialogRef.close(false)"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+</form>

@@ -1,0 +1,98 @@
+<div fxLayout="column wrap">
+  <div fxLayout="row wrap">
+    <div
+      fxFlex="100"
+      style="background: darkblue; color: #e9e9ea; height: 50px;"
+    >
+      <div fxFlex="90" fxLayoutAlign="start start" style="margin-top: 15px;">
+        <h3>MODIFICAR CANTIDAD DE CUPOS</h3>
+      </div>
+      <span FxFlex></span>
+      <!-- <div fxFlex="10" style="margin-top:8px;margin-left:15px;">
+          <button mat-icon-button matTooltip="Cerrar" color="m-0" class="m-0" (click)="submit()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div> -->
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div
+      fxFlex="100"
+      style="background: rgb(207, 207, 212); color: rgb(8, 8, 8); height: 50px;"
+    >
+      <div fxFlex="3" style="margin-top: 15px; margin-left: 15px;"></div>
+      <div fxFlex="40" style="margin-top: 15px; margin-left: 15px;">
+        <strong style="font-size: 16px;">Desde: </strong>
+        <strong style="font-size: 14px;"
+          >{{ demandaCupo.fechaDesde }} - {{ demandaCupo.fechaHasta }}
+        </strong>
+      </div>
+      <div fxFlex="40" style="margin-top: 15px; margin-left: 15px;">
+        <strong style="font-size: 16px;">Demandante: </strong>
+        <strong style="font-size: 14px;"
+          >{{ demandaCupo.nombreDemandante }}.</strong
+        >
+      </div>
+      <div fxFlex="17"></div>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <form fxFlex="100" [formGroup]="chanceCountCupoForm" (ngSubmit)="submit()">
+      <div fxLayout="column wrap">
+        <div fxLayout="row wrap">
+          <div fxFlex="100">
+            <div fxFlex="50" style="margin-top: 15px; margin-left: 15px;">
+              <mat-card class="p-0">
+                <mat-card-title class="mat-rojo-filtrar">
+                  <div class="card-title-text">
+                    <span>Cantidades</span>
+                    <span fxFlex></span>
+                  </div>
+                </mat-card-title>
+                <mat-card-content>
+                  <div fxLayout="column wrap" fxLayout.lt-sm="column">
+                    <div fxLayout="row wrap">
+                      Cantidad de cupos: {{ demandaCupo.cantidad }}
+                    </div>
+                    <div fxLayout="row wrap">
+                      Asignados: {{ demandaCupo.asignado }}
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div fxFlex="50" fxLayoutAlign="center center">
+              Nueva cantidad:
+              <input
+                class="quantity-input default-bg"
+                name="i"
+                type="number"
+                [min]="demandaCupo.asignado"
+                [formControl]="chanceCountCupoForm.controls['cantidad']"
+                style="width: 55px !important;"
+              />
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row wrap">
+          <div fxFlex="50" class="mt-1" style="height: 2vw; margin-left: 20px;">
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="dialogRef.close(false)"
+            >
+              Cancelar
+            </button>
+          </div>
+          <span fxFlex></span>
+          <div fxFlex="25" class="mt-1" style="height: 2vw;">
+            <button mat-raised-button color="primary">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

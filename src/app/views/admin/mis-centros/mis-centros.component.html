@@ -1,0 +1,40 @@
+﻿<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Centros</h4>
+</div>
+
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+     
+    <ngx-datatable
+          class="material ml-0 mr-0"
+          [rows]="centros"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [externalPaging]="false" 
+         
+          [rowHeight]="'auto'">
+          <ngx-datatable-column name="Razón Social" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.razon_social }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="CUIT" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row?.cuit_cuil }}
+            </ng-template>
+          </ngx-datatable-column>
+              
+          
+          <ngx-datatable-column name="Acciones" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>  
+            
+            <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUpInfoPersona(row)" matTooltip="Información Perfil"><mat-icon>account_circle</mat-icon>
+            </button>
+            
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+  </mat-card-content>
+</mat-card>

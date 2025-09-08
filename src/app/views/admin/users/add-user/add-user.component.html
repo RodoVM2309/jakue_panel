@@ -1,0 +1,90 @@
+﻿<h1 matDialogTitle>{{data.title}}</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="userName"
+        maxlength="75"
+        [formControl]="itemForm.controls['userName']"
+        placeholder="Nombre">
+      </mat-form-field>
+      <small
+          *ngIf="
+            itemForm.controls['userName'].hasError('required') &&
+            itemForm.controls['userName'].touched
+          "
+          class="form-error-msg"
+        >
+          La nombre es obligatorio
+        </small>
+    </div>
+    <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="firstName"
+          maxlength="75"
+          [formControl]="itemForm.controls['firstName']"
+          placeholder="firstName">
+        </mat-form-field>
+        <small
+          *ngIf="
+            itemForm.controls['firstName'].hasError('required') &&
+            itemForm.controls['firstName'].touched
+          "
+          class="form-error-msg"
+        >
+          La nombre es obligatorio
+        </small>
+      </div>
+      <div fxFlex="50"  class="pr-1">
+          <mat-form-field class="full-width">
+            <input
+            matInput
+            name="lastName"
+            [formControl]="itemForm.controls['lastName']"
+            placeholder="LastName">
+          </mat-form-field>
+          <small
+          *ngIf="
+            itemForm.controls['lastName'].hasError('required') &&
+            itemForm.controls['lastName'].touched
+          "
+          class="form-error-msg"
+        >
+          La nombre es obligatorio
+        </small>
+        </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="email"
+        name="email"
+        [formControl]="itemForm.controls['email']"
+        placeholder="Email">
+      </mat-form-field>
+    </div>
+
+    
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="phone"
+        maxlength="50"
+        [formControl]="itemForm.controls['phone']"
+        placeholder="Phone">
+      </mat-form-field>
+    </div>
+    
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

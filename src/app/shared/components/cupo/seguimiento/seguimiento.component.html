@@ -1,0 +1,236 @@
+<div class="margin-333" style="overflow-y: auto; height: 78vh;">
+  <div fxLayout="column wrap">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <form id="form-cuponera1" [formGroup]="seguimientoForm">
+          <div fxLayout="row wrap" class="encabezado">
+            <div fxFlex="100" class="row_encabezado" fxLayoutAlign="end center">
+              <div fxFlex="1"></div>
+              <div fxFlex="25" fxLayoutAlign="center center" id="sele-producto" class="select_producto">
+                <div fxFlex="100">
+                  <div fxFlex="50" fxLayoutAlign="center center">
+                    <span style="margin-left: 10px">PRODUCTOS:</span>
+                  </div>
+                  <div fxFlex="50">
+                    <mat-form-field class="full-width">
+                      <mat-select name="producto" (selectionChange)="aplicarFiltroProducto($event)" [formControl]="
+                          seguimientoForm.controls['selectedProducto']
+                        ">
+                        <mat-option *ngFor="let otrosp of productos" [value]="otrosp.id">
+                          {{ otrosp.descripcion }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="1"></div>
+              <div fxFlex="25" fxLayoutAlign="start start" id="fecha-bt1" class="select_fecha">
+                <div fxFlex="100">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100">
+                      <mat-form-field class="full-width fecha-bt" id="fecha-bt1">
+                        <input matInput placeholder="Rango Fecha" [satDatepicker]="picker"
+                          formControlName="selectedFecha" (dateChange)="cambioRangoFecha(ref)" />
+                        <sat-datepicker #picker [rangeMode]="true" [closeAfterSelection]="false"></sat-datepicker>
+                        <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex="100">
+                      <small *ngIf="
+                          seguimientoForm.controls['selectedFecha'].hasError(
+                            'rango'
+                          )
+                        " class="form-error-msg div-error">
+                        No es posible un rango mayor a 30 días.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="1"></div>
+              <div fxFlex="37" fxLayoutAlign="start start" id="sele-contraparte" [ngClass]="
+                  disabledContraparte
+                    ? 'select-contraparte-disabled'
+                    : 'select-contraparte'
+                ">
+                <div fxFlex="100">
+                  <div fxFlex="29">
+                    <span style="margin-left: 10px">Cliente:</span>
+                  </div>
+                  <div fxFlex="70">
+                    <mat-form-field class="full-width" *ngIf="!disabledContraparte">
+                      <mat-select name="contraparte" (selectionChange)="aplicarFiltroContraparte($event)" [formControl]="
+                          seguimientoForm.controls['selectedContraparte']
+                        ">
+                        <mat-option *ngFor="let otroscp of contrapartes" [value]="otroscp.id">
+                          {{ otroscp.descripcion }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="10"></div>
+            </div>
+            <mat-divider></mat-divider>
+            <div fxFlex="100" class="row_encabezado" fxLayoutAlign="end center">
+              <div fxFlex="1"></div>
+              <div fxFlex="51" fxLayoutAlign="start start" id="sele-destinatario" class="select-destinatario">
+                <div fxFlex="100">
+                  <div fxFlex="40">
+                    <span style="margin-left: 5px">Destinatarios:</span>
+                  </div>
+                  <div fxFlex="60">
+                    <mat-form-field class="full-width">
+                      <mat-select (selectionChange)="aplicarFiltroDestinatario($event)" name="destinatario"
+                        [formControl]="
+                          seguimientoForm.controls['selectedDestinatario']
+                        ">
+                        <mat-option *ngFor="let otrosd of destinatarios" [value]="otrosd.id">
+                          {{ otrosd.razon_social }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="1"></div>
+              <div fxFlex="37" fxLayoutAlign="start start" id="sele-destino" [ngClass]="
+              disabledDestino ? 'select-destino-disabled' : 'select-destino'">
+                <div fxFlex="100">
+                  <div fxFlex="30">
+                    <span style="margin-left: 10px">Destino:</span>
+                  </div>
+                  <div fxFlex="70">
+                    <mat-form-field class="full-width" *ngIf="!disabledDestino">
+                      <mat-select name="destino" (selectionChange)="aplicarFiltroDestino($event)" [formControl]="
+                      seguimientoForm.controls['selectedDestino']
+                    " [disabled]="disabledDestino">
+                        <mat-option *ngFor="let otrosde of destinos" [value]="otrosde.id">
+                          {{ otrosde.descripcion }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="10" fxLayoutAlign="center center">
+                <div fxFlex="100" fxLayoutAlign="center center">
+                  <button mat-raised-button style="background-color: #174891" type="button" (click)="buscar()">
+                    BUSCAR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Aqui debajo viene la parte de la tabla -->
+  <div fxLayout="row wrap" class="div-table">
+    <div fxFlex="100">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="row_encabezado">
+          <div fxFlex="90"></div>
+          <div fxFlex="10" fxLayoutAlign="end center">
+            <button mat-raised-button style="background-color: #174891" type="button" (click)="exportAsXLSX()">
+              <small>EXPORTAR</small>
+            </button>
+          </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="contraparte">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="mi-header-cell">
+              Cliente
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              {{ cupo.contraparte | uppercase }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="asignado">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul">
+              ASIGNADO
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              <strong>{{ cupo.asignado }} </strong>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="devuelto">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul">
+              RECUPERADO
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              <strong *ngIf="cupo.devuelto == 0"> </strong>
+              <strong *ngIf="cupo.devuelto !== 0">{{ cupo.devuelto }} </strong>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="chofer">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul">
+              CHOFER ASIGNADO
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              <strong *ngIf="cupo.choferes_vinculados == 0"> </strong>
+              <strong *ngIf="cupo.choferes_vinculados !== 0">{{ cupo.choferes_vinculados }} </strong>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="derivacion">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul" style="width: 7% !important;">
+              DERIVACION
+            </th>
+            <td mat-cell *matCellDef="let cupo" style="text-align: center;">
+              <strong >{{cupo.derivaciones}} </strong>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="cumplido">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul">
+              CUMPLIDO
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              <strong>{{ cupo.cumplido }} </strong>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="porciento">
+            <th mat-header-cell *matHeaderCellDef class="mi-header-cell-azul">
+              % CUMPLIDO
+            </th>
+            <td mat-cell *matCellDef="let cupo">
+              <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" *ngIf="cupo.asignado > 0">
+                  <div fxFlex="70" fxLayoutAlign="center center">
+                    <strong>{{ cupo.porciento }}% </strong>
+                  </div>
+                  <div fxFlex="30" fxLayoutAlign="start center">
+                    <div *ngIf="cupo.porciento < 51" class="circulo_rojo"></div>
+                    <div *ngIf="cupo.porciento > 51 && cupo.porciento < 90" class="circulo_amarillo"></div>
+                    <div *ngIf="cupo.porciento > 89" class="circulo_verde"></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Aqui debajo viene el pagination -->
+  <div fxLayout="row wrap" class="pagination">
+    <div fxFlex="100" fxLayoutAlign="end center">
+      <mat-paginator #paginator class="mat-paginator-sticky" [pageSize]="pageEvent.pageSize"
+        [showFirstLastButtons]="true" [length]="pageEvent.length">
+      </mat-paginator>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="myData.solicitaCupos" id="solicitar">
+    <div class="handle" style="color: #ffffff">
+      <p style="margin: 0px 20px 0px 0px; font-size: xx-small">SOLICITAR</p>
+      <button mat-fab class="mat-cupo-solicitar" matTooltip="Solicitar Cupos" (click)="addCupoSolicitados(0)">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
+  </div> -->
+</div>

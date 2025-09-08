@@ -1,0 +1,79 @@
+<mat-card class="card_filtro">
+  <div fxLayout="column" fxLayoutAlign="space-between stretch">
+    <form [formGroup]="filtrosForm" (ngSubmit)="submit()">
+      <!-- fecha  [min]="now"-->
+      <div fxFlex="10" fxLayoutAlign="center center" id="fecha-bt1">
+        <mat-form-field class="fecha-bt">
+          <input matInput name="fecha" formControlName="fecha" placeholder="Fecha" [matDatepicker]="appDatepicker"
+            readonly>
+          <mat-datepicker-toggle matSuffix [for]="appDatepicker" color="blanco">
+          </mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #appDatepicker></mat-datepicker>
+      </div>
+      <!-- terminal -->
+      <div fxFlex="30" fxLayoutAlign="center center" id="sele-producto" class="select_producto">
+        <span>Terminal de carga:</span>
+        <mat-form-field class="pl-1">
+          <mat-select name="terminal" formControlName="terminal">
+            <mat-option *ngFor="let terminal of terminales" [value]="terminal.id">
+              {{terminal.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="1"></div>
+      <!-- grupo_cliente -->
+      <div fxFlex="30" fxLayoutAlign="center center" id="select_blue" class="select_blue">
+        <span>Grupo de clientes: </span>
+        <mat-form-field class="pl-1">
+          <mat-select name="grupo_cliente" formControlName="grupo_cliente">
+            <mat-option *ngFor="let grupo of listado_grupoClientes" [value]="grupo.id">
+              {{grupo.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="1"></div>
+      <!-- cliente -->
+      <div fxFlex="30" fxLayoutAlign="center center" id="select_blue" class="select_blue">
+        <span>Cuenta o Clientes: </span>
+        <mat-form-field class="width-50">
+          <mat-select name="cuenta_cliente" formControlName="cuenta_cliente" [(ngModel)]="selectedCliente">
+            <mat-option *ngFor="let cliente of listado_clientes" [value]="cliente.id">
+              {{cliente.razon_social}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="1"></div>
+      <!-- zonas -->
+      <div fxFlex="12" fxLayoutAlign="center center" id="select_blue" class="select_blue">
+        <span>Zonas: </span>
+        <mat-form-field class="width-50">
+          <mat-select name="zona" formControlName="zona" [(ngModel)]="selectedZona">
+            <mat-option *ngFor="let zona of listado_zona" [value]="zona.id">
+              {{zona.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="1"></div>
+      <!-- Buscar -->
+      <div fxFlex="" fxLayoutAlign="center center">
+        <button mat-raised-button style="background-color: #174891;" type="submit">
+          <span style="font-size: small;">Buscar </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-card>
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+  <div fxFlex="90" class="primera_tbl comunes">
+    <app-capacidad-terminal></app-capacidad-terminal>
+  </div>
+  <div fxFlex="1"></div>
+  <div fxFlex="90" class="segunda_tbl comunes">
+    <app-reservas (page_actual)="paginar($event)"></app-reservas>
+  </div>
+</div>

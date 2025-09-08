@@ -1,0 +1,135 @@
+<div>
+  <h1 matDialogTitle>{{ data.title }}</h1>
+  <span fxFlex></span><mat-icon>account_circle</mat-icon>
+</div>
+<form [formGroup]="itemFormPersona"
+      (ngSubmit)="submit()">
+  <div fxLayout="row wrap"
+       fxLayout.lt-sm="column">
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               name="cuit_cuil"
+               type="text"
+               formControlName="cuit_cuil"
+               placeholder="Cédula de Identidad (C.I.) del Chofer"
+               #cuitcuil
+               maxlength="11"
+               readonly />
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               name="apellidos"
+               formControlName="apellidos"
+               placeholder="Apellido"
+               #apellidos
+               maxlength="35" />
+        <mat-hint align="end">{{ apellidos.value.length }} / 35</mat-hint>
+      </mat-form-field>
+      <small *ngIf=" f.apellidos.hasError('required') && f.apellidos.touched"
+             class="form-error-msg">
+        Es requerido los apellidos
+      </small>
+    </div>
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               name="nombre"
+               formControlName="nombre"
+               placeholder="Nombre"
+               #nombre
+               maxlength="35" />
+        <mat-hint align="end">{{ nombre.value.length }} / 35</mat-hint>
+      </mat-form-field>
+      <small *ngIf=" f.nombre.hasError('required') &&  f.nombre.touched"
+             class="form-error-msg">
+        Es requerido el nombre
+      </small>
+    </div>
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <!-- <span matPrefix>+595 &nbsp;</span>  -->
+        <input matInput
+               name="telefono"
+               formControlName="telefono"
+               placeholder="Teléfono (Ejemplo: 595900000000)"
+               type="tel"
+               #telefono />
+        <!--  <mat-icon matSuffix>mode_edit</mat-icon> -->
+      </mat-form-field>
+      <!-- <div *ngIf="f.telefono.touched && f.telefono.invalid" class="form-error-msg">
+        <div >El teléfono debe contener 12 dígitos. Ejemplo: 595900000000.</div>
+    </div> -->
+      <small *ngIf="f.telefono.invalid &&
+          f.telefono.touched
+        "
+             class="form-error-msg">
+        El teléfono debe contener 12 dígitos. Ejemplo: 595900000000.
+      </small>
+    </div>
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               name="chapa_camion"
+               formControlName="chapa_camion"
+               placeholder="Chapa Camión"
+               #chapa_camion
+               (input)="chapa_camion.value = chapa_camion.value.toUpperCase()"
+               maxlength="8" />
+        <mat-hint align="end">{{ chapa_camion.value.length }} /8 </mat-hint>
+      </mat-form-field>
+      <small *ngIf="f.chapa_camion.hasError('required') && f.chapa_camion.touched"
+             class="form-error-msg">
+        Es requerido la chapa del camión
+      </small>
+      <small *ngIf="f.chapa_camion.hasError('pattern')"
+             class="form-error-msg">
+        Debe introducir una chapa de camión válida
+      </small>
+    </div>
+    <div fxFlex="50"
+         class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               name="chapa_acoplado"
+               formControlName="chapa_acoplado"
+               placeholder="Chapa Acoplado"
+               #chapa_acoplado
+               (input)="chapa_acoplado.value = chapa_acoplado.value.toUpperCase()"
+               maxlength="8" />
+        <mat-hint align="end">{{ chapa_acoplado.value.length }} /8 </mat-hint>
+      </mat-form-field>
+      <small *ngIf="f.chapa_acoplado.hasError('required') && f.chapa_acoplado.touched"
+             class="form-error-msg">
+        Es requerido la chapa del acoplado
+      </small>
+      <small *ngIf="f.chapa_acoplado.hasError('pattern')"
+             class="form-error-msg">
+        Debe introducir una chapa de acoplado válida
+      </small>
+    </div>
+    <div fxFlex="100"
+         class="mt-1">
+      <button mat-raised-button
+              color="warn"
+              type="button"
+              (click)="cancelar()">
+        Cancelar
+      </button>
+
+      <span fxFlex></span>
+      <button mat-raised-button
+              color="primary"
+              [disabled]="itemFormPersona.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

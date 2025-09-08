@@ -1,0 +1,58 @@
+<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          name="cuit_cuil"
+          type="text"
+          [formControl]="itemForm.controls['cuit_cuil']"
+          placeholder=" RUC "
+          (change)="comprobarCUIT()"
+        />
+      </mat-form-field>
+      <small
+        *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('required') &&
+          itemForm.controls['cuit_cuil'].dirty
+        "
+        class="form-error-msg"
+      >
+        Es requerido el RUC
+      </small>
+      <small
+        *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('maxlength') &&
+          itemForm.controls['cuit_cuil'].dirty
+        "
+        class="form-error-msg"
+      >
+        Debe tener máximo 11 caracteres.
+      </small>
+      <small
+        *ngIf="
+          itemForm.controls['cuit_cuil'].hasError('max') &&
+          itemForm.controls['cuit_cuil'].dirty
+        "
+        class="form-error-msg"
+      >
+      RUC incorrecto.
+      </small>
+    </div>
+    <div fxFlex="100" class="mt-1">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="dialogRef.close(false)"
+      >
+        Cancelar
+      </button>
+      <span fxFlex></span>
+      <button mat-raised-button color="primary" [disabled]="incorrectcuit">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,53 @@
+<div class="component" fxLayout="column wrap">
+  <div class="encabezado" fxLayout="row wrap">
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <div fxFlex="3"></div>
+      <div fxFlex="80" fxLayoutAlign="start center">
+        <strong>TITULO COPIA CABECERA </strong>
+      </div>
+      <div fxFlex="17"></div>
+    </div>
+  </div>
+  <form [formGroup]="copiaCabeceraForm">
+    <div class="cuerpo" fxLayout="column wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <div fxFlex="100">
+          <div fxFlex="4"></div>
+          <div fxFlex="92" class="div-cuerpo">
+            <div fxFlex="100" fxLayoutAlign="start center">
+              <mat-form-field class="full-width">
+                <input matInput name="titulo" [formControl]="copiaCabeceraForm.controls['titulo']"
+                  placeholder="Título Cabecera / Alias " #titulo />
+                  <mat-hint align="end">{{titulo.value.length }} / 70</mat-hint>
+              </mat-form-field>
+              <small *ngIf="copiaCabeceraForm.controls['titulo'].hasError('maxlength') " class="form-error-msg">
+                Debe introducir como máximo 70 carácteres
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" fxLayout="row wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="center start" class="div-botones">
+        <div fxFlex="100" class="mt-1">
+          <div fxFlex="4"></div>
+          <div fxFlex="44" fxLayoutAlign="center center">
+            <button mat-raised-button style="background-color: black; width: 200px;color: #ffffff !important;"
+              type="button" (click)="dialogRef.close(false)">
+              CANCELAR
+            </button>
+          </div>
+          <!-- <div fxFlex="14"></div> -->
+          <div fxFlex="34" fxLayoutAlign="start center">
+            <button mat-raised-button style="background-color: rgb(23,72,145);width: 200px;color: #ffffff !important;"
+              [disabled]="copiaCabeceraForm.invalid" (click)="submit()">
+              GUARDAR
+            </button>
+          </div>
+          <div fxFlex="18"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

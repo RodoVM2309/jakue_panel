@@ -1,0 +1,49 @@
+:host /deep/indigo .mat-form-field .mat-select.mat-select-disabled .mat-select-arrow {
+  color: rgb(7, 0, 0);
+  /*  margin-top: -7px; */
+}
+
+:host /deep/ .egret-indigo .mat-select-value {
+  color: rgb(7, 0, 0);
+}
+
+:host /deep/ .egret-indigo .mat-select-arrow {
+  color: rgb(7, 0, 0);
+  /*  margin-top: -7px; */
+}
+
+:host /deep/ .egret-indigo .mat-select.mat-select-disabled .mat-select-arrow {
+  color: rgb(7, 0, 0);
+}
+
+.not-empty-select.mat-selected {
+  color: rgb(7, 0, 0) !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: rgb(7, 0, 0) !important;
+}
+
+::ng-deep .egret-indigo .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: grey !important;
+}
+
+
+::ng-deep .mat-form-field-underline {
+  background-color: grey !important;
+}
+
+::ng-deep .egret-indigo .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: grey !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: grey !important;
+  font-weight: bold;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 14px !important;
+}
+
+

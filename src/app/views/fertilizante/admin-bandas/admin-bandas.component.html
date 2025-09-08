@@ -1,0 +1,205 @@
+<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectTab($event)" style="margin-top: 3px;">
+  <mat-tab label="{{'Administrar' | translate}}">
+    <div style="background-color: #E9E9EA; margin-top: 8px; margin-left: 10px; margin-right: 10px;">
+      <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #E9E9EA; padding:0px;" [style.overflow]="'auto'" [style.width.px]="">
+          <form autocomplete="off" [formGroup]="configPuertoForm" (ngSubmit)="submit()">
+              <div fxLayout="column wrap">
+                  <div class="encabezado" fxLayout="row wrap">
+                      <div fxFlex="15" fxLayoutAlign="start" id="sele-encabezado">
+                          <mat-form-field>
+                              <!-- (selectionChange)="onSelection($event)" -->
+                              <mat-select class="cp_select" (selectionChange)="obtenerProductos()" [formControl]="configPuertoForm.controls['id_origen']">
+                                  <mat-option *ngFor="let destino of destinos" [value]="destino.id">
+                                      {{destino.descripcion}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
+                      <div fxFlex="15" fxLayoutAlign="start" id="sele-encabezado">
+                          <mat-form-field>
+                              <mat-select class="cp_select" (selectionChange)="modificarConfig(flat_estado = true)" [formControl]="configPuertoForm.controls['estado']">
+                                  <mat-option *ngFor="let estado of estadosPuertos" [value]="estado.id">
+                                      ESTADO: {{estado.descripcion}}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
+
+                      <div fxFlex="15" fxLayout="row wrap" class="cp_hora_corte" fxLayoutAlign="center center">
+                          <div fxFlex="100" fxLayoutAlign="center center">
+                              <div fxFlex="40" fxLayoutAlign="end center">Corte:</div>
+                              <div fxFlex="45" id="input_hora_corte">
+                                  <mat-form-field class="full-width">
+                                      <input matInput (click)="open()" [formControl]="configPuertoForm.controls['corte']">
+                                  </mat-form-field>
+                              </div>
+                              <div fxFlex="15" fxLayoutAlign="start center">
+                                  <mat-icon>arrow_drop_down</mat-icon>
+                              </div>
+                          </div>
+                      </div>
+                      <div fxFlex="8" fxLayout="column wrap" fxLayoutAlign="center end">
+                          <span style="margin-top:-6px;margin-right: 5px; ">Ampliación</span>
+                          <span style="margin-top: -5px;margin-right: 5px;"> de Cupo</span>
+                      </div>
+                      <div fxFlex="6" fxLayout="column wrap">
+                          <small style="text-align: center;">Hs Antes</small>
+                          <div class="input_hs" id="input_hora_antes">
+                              <mat-form-field class="full-width">
+                                  <input type="number" matInput
+                                  (keyup.enter)="modificarConfig(flat_estado)"
+                                  min="0"
+                                  pattern="\d+"
+                                  matTooltip="Preciona Enter para los cambios"
+                                  onkeyup="if(this.value > 48) this.value = 48; javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))"
+                                  [formControl]="configPuertoForm.controls['amp_cupo_antes']">
+                              </mat-form-field>
+
+                          </div>
+                      </div>
+                      <div fxFlex="6" fxLayout="column wrap">
+                          <small style="text-align: center;">Hs Después</small>
+                          <div class="input_hs" id="input_hora_antes">
+                              <mat-form-field class="full-width">
+                                  <input type="number" matInput
+                                  (keyup.enter)="modificarConfig(flat_estado)"
+                                  onkeyup="if(this.value > 48) this.value = 48; javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))"
+                                  matTooltip="Preciona Enter para guardar los cambios"
+                                  [formControl]="configPuertoForm.controls['amp_cupo_despues']">
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <div fxFlex="14" fxLayout="row wrap" id="sele-encabezado" fxLayoutAlign="center center">
+                          <div fxFlex="100" fxLayoutAlign="center center" class="cp_select">
+                              <div fxFlex="55" class="banda" fxLayoutAlign="start center">Banda Actual: </div>
+                              <div fxFlex="30">
+                                  <mat-select (selectionChange)="modificarConfig(flat_estado)" [formControl]="configPuertoForm.controls['banda']">
+                                      <mat-option *ngFor="let banda of bandas" [value]="banda.valor">
+                                          {{banda.descripcion}}
+                                      </mat-option>
+                                  </mat-select>
+                              </div>
+                          </div>
+                      </div>
+                      <div fxFlex="14" fxLayout="row wrap" class="cp_hora_corte" fxLayoutAlign="center center">
+                          <div fxFlex="100" fxLayoutAlign="center center">
+                              <div fxFlex="40" fxLayoutAlign="end center">Tolerancia:</div>
+                              <div fxFlex="30" id="input_hora_corte">
+                                  <mat-form-field class="full-width">
+                                      <input type="number"
+                                      (keyup.enter)="modificarConfig(flat_estado)"
+                                      onkeyup="if(this.value > 48) this.value = 48; javascript: return event.keyCode === 8 ||event.keyCode === 46 ? true : !isNaN(Number(event.key))"
+                                      matTooltip="Semana Anterior" matInput style="text-align: center;"
+                                      [formControl]="configPuertoForm.controls['tolerancia']">
+                                  </mat-form-field>
+                              </div>
+                              <div fxFlex="15" fxLayoutAlign="start center">
+                                  <mat-icon>arrow_drop_down</mat-icon>
+                              </div>
+                          </div>
+                      </div>
+                      <div fxFlex="2"></div>
+                  </div>
+                  <mat-divider style="height: 2px;"></mat-divider>
+                  <div class="sub_encabezado" fxLayout="row wrap">
+                      <div fxFlex="100">
+                          <div fxFlex="15" fxLayoutAlign="start" id="sele-sub-encabezado">
+                              <mat-form-field>
+                                  <mat-select class="cp_sub_select" [formControl]="configPuertoForm.controls['id_tipo_despacho']"
+                                      (selectionChange)="onChange($event)">
+                                      <mat-option *ngFor="let producto of productos" [value]="producto.id">
+                                          {{producto.descripcion}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div fxFlex="15" fxLayoutAlign="start" id="sele-sub-encabezado">
+                              <mat-form-field>
+                                  <mat-select class="cp_sub_select" (selectionChange)="CambiarSemana()" [formControl]="configPuertoForm.controls['semana']">
+                                      <mat-option *ngFor="let semana of semanas" [value]="semana.valor">
+                                          {{semana.descripcion}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div fxFlex="22" class="btn_total_banda" fxLayoutAlign="center center">
+                              <strong> <span style="font-size: small;">TOTAL BANDA/S SELECCIONADAS: </span>
+                              &nbsp;&nbsp;{{totalSeleccionada}}</strong>
+                          </div>
+                          <div fxFlex="20" class="turno_banda" fxLayoutAlign="center center">
+                              <div fxFlex="100" fxLayoutAlign="center center">
+                                  <div fxFlex="60" fxLayoutAlign="center center">Turnos por bandas</div>
+                                  <div fxFlex="30" class="in_turno_banda" id="id_turno_banda">
+                                      <mat-form-field class="full-width">
+                                          <input type="number" class="confondo" matInput [formControl]="configPuertoForm.controls['turno_banda']" [(ngModel)]="cant_turno">
+                                      </mat-form-field>
+                                  </div>
+                                  <div fxFlex="10" fxLayoutAlign="start center">
+                                  </div>
+                              </div>
+                          </div>
+                          <div fxFlex="17" fxLayoutAlign="center center" style="margin-top: 5px;">
+                              <mat-form-field>
+                                  <mat-select class="cp_select" (selectionChange)="desactivarInput()" [formControl]="configPuertoForm.controls['acciones']">
+                                      <mat-option *ngFor="let accion of acciones" [value]="accion.id">
+                                          {{accion.descripcion}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div fxFlex="10" fxLayoutAlign="start center" style="margin-top: -5px;">
+                              <button mat-raised-button class="btn_confirmar" [disabled]="configPuertoForm.invalid || this.desactivarBtn" type="submit">
+                                  <strong> <span style="font-size: small;">CONFIRMAR </span></strong>
+                          </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div fxFlex="100" fxLayoutAlign="center center">
+                      <div fxFlex="2" fxLayoutAlign="initial" style="height: 449px;">
+                          <mat-icon matTooltip="Semana Anterior" (click)="anteriorsemana()">
+                              arrow_back</mat-icon>
+                      </div>
+                      <div fxFlex="96">
+                          <app-tabla-horario-fertilizantes [turno_banda]="cant_turno" (gridSeleccionada)="lista_pos($event)">
+                          </app-tabla-horario-fertilizantes>
+                      </div>
+                      <div fxFlex="2" fxLayoutAlign="initial" style="height: 449px;">
+                          <mat-icon matTooltip="Semana Siguiente" (click)="posteriorsemana()">
+                              arrow_forward</mat-icon>
+                      </div>
+                  </div>
+                  <div class="tbl_footer" fxLayout="row wrap">
+                      <div fxFlex="15" class="tbl_int" fxLayoutAlign="initial">TOTAL TURNOS TERMINAL</div>
+                      <div fxFlex="6" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[0]}}</div>
+                      <div fxFlex="19" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[1]}}</div>
+                      <div fxFlex="6" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[2]}}</div>
+                      <div fxFlex="19" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[3]}}</div>
+                      <div fxFlex="5" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[4]}}</div>
+                      <div fxFlex="20" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[5]}}</div>
+                      <div fxFlex="5" class="tbl_int" fxLayoutAlign="center initial">{{total_productos_origen[6]}}</div>
+                  </div>
+                  <div class="tbl_footer" fxLayout="row wrap">
+                      <div fxFlex="15" class="tbl_int" fxLayoutAlign="initial">TOTAL TURNOS &nbsp;{{ selectedProducto | uppercase }} </div>
+                      <div fxFlex="6" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[0]}}</div>
+                      <div fxFlex="19" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[1]}}</div>
+                      <div fxFlex="6" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[2]}}</div>
+                      <div fxFlex="19" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[3]}}</div>
+                      <div fxFlex="5" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[4]}}</div>
+                      <div fxFlex="20" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[5]}}</div>
+                      <div fxFlex="5" class="tbl_int" fxLayoutAlign="center initial">{{total_turnos_producto[6]}}</div>
+                  </div>
+              </div>
+          </form>
+
+      </mat-card>
+    </div>
+  </mat-tab>
+  <mat-tab label="Disponibles">
+    <p>Disponibles</p>
+  </mat-tab>
+  <mat-tab label="Buscar">
+    <app-buscar></app-buscar>
+  </mat-tab>
+</mat-tab-group>
+
+

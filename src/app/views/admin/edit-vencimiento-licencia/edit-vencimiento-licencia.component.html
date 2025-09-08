@@ -1,0 +1,42 @@
+﻿<h1 matDialogTitle>{{ data.title }}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxFlex="50" class="pr-1" hidden>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        name="id"
+        [formControl]="itemForm.controls['id']"
+        placeholder="Id del Chofer"
+      />
+    </mat-form-field>
+  </div>
+  <div fxFlex="50" class="pr-1">
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        name="vencimiento_licencia"
+        [formControl]="itemForm.controls['vencimiento_licencia']"
+        placeholder="Fecha de vencimiento"
+        [matDatepicker]="appDatepicker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="appDatepicker">
+      </mat-datepicker-toggle>
+    </mat-form-field>
+    <mat-datepicker #appDatepicker></mat-datepicker>
+  </div>
+
+  <div fxFlex="100" class="mt-1">
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="dialogRef.close(false)"
+    >
+      Cancelar
+    </button>
+    <span fxFlex></span>
+    <button mat-raised-button color="primary" [disabled]="itemForm.invalid">
+      Guardar
+    </button>
+  </div>
+</form>

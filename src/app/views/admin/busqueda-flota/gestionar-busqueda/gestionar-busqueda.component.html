@@ -1,0 +1,408 @@
+<mat-card style="padding: 0 0.5rem 1.5rem; min-height: -webkit-fill-available;" stickyEnd>
+  <mat-card-content>
+    <mat-card-content class="p-0" style="margin-bottom: 0px;">
+      <agm-map [ngStyle]="{ height: '340px' }" [zoom]="zoom" [latitude]="busqueda.latitud_localidad"
+        [longitude]="busqueda.longitud_localidad" [mapTypeId]="'hybrid'" [mapTypeControl]="true" id="mapa">
+        <div>
+          <agm-marker *ngFor="let chofer of choferesDisponibles" (markerClick)="clickedMarker(infowindow)"
+            [latitude]="chofer.latitud"
+            [longitude]="chofer.longitud" 
+            [iconUrl]="
+              chofer.esCentro === 1
+                ? iconUrlGreen
+                : chofer.esLibre === 1
+                ? iconUrlBlue
+                : iconUrlYellow
+            ">
+            <agm-info-window #infowindow [disableAutoPan]="true" [isOpen]="false">
+              <p><strong>Patente:</strong> {{ chofer.patente_acoplado }}</p>
+              <p><strong>Chofer:</strong> {{ chofer.nombre_persona }}</p>
+              <p>
+                <strong>Transportista:</strong>
+                {{ chofer.nombre_transportista }}
+              </p>
+              <p><strong>Celular:</strong> {{ chofer.celular }}</p>
+              <p>
+                <strong>Última actualización:</strong> {{ chofer.update_at }}
+              </p>
+            </agm-info-window>
+          </agm-marker>
+          <agm-marker [latitude]="busqueda.latitud_localidad" [longitude]="busqueda.longitud_localidad"
+            [iconUrl]="iconUrlcarga">
+            <agm-info-window [disableAutoPan]="true" [isOpen]="false">
+              <p>
+                <strong>Lugar de Carga</strong>
+              </p>
+            </agm-info-window>
+          </agm-marker>
+        </div>
+        <!--agm-circle [latitude]="busqueda.latitud_localidad" [longitude]="busqueda.longitud_localidad"
+          [radius]="circleMapRadius" [editable]="true" [strokeColor]="'#000'" [strokeWeight]="'3px'"
+          (radiusChange)="circleMapRadiusChange($event)">
+        </agm-circle-->
+      </agm-map>
+    </mat-card-content>
+    <mat-sidenav-container class="chat-container"
+      style="background: white !important; min-height: -webkit-fill-available;">
+      <mat-sidenav class="chat-sidenav" [opened]="isSidenavOpen" mode="side">
+        <mat-card class="user-card p-0" style="box-shadow: none;">
+          <mat-card-title class="mat-bg-primary" style=" background: #00ACD2 !important;">
+            <div class="card-title-text" style="height: 81px; padding: 1.5rem 1.5rem  !important;">
+              <button mat-button>
+                <mat-icon>search</mat-icon>
+                Datos de la Búsqueda
+              </button>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
+          <mat-card-content>
+            <div style="background:#EEEEEC; padding: 5px;">
+              <strong>Fecha: </strong>
+              <mat-chip mat-sm-chip style="background:#2BC4F3;" [selected]="true">{{ busqueda.fecha }}</mat-chip><br />
+              <strong>Producto: </strong>
+              <mat-chip mat-sm-chip color="xasig" [selected]="true">{{
+                busqueda.nombre_producto
+              }}</mat-chip><br />
+              <strong>Localidad Carga: </strong>
+              <mat-chip mat-sm-chip color="brown" [selected]="true">{{
+                busqueda.localidad_carga
+              }}</mat-chip>
+              <strong>Zona Destino: </strong>
+              <mat-chip mat-sm-chip style="background:#51d1f8;" [selected]="true">{{ busqueda.zona_destino }}</mat-chip>
+            </div>
+            <div class="p-1">
+              <strong>Da Gasolina: </strong> {{ busqueda.da_gasoil_txt }} <br />
+              <strong>Da Efectivo: </strong> {{ busqueda.da_efectivo_txt }}
+              <br />
+              <strong>Precio Viaje: </strong>{{ busqueda.precio_viaje }} <br />
+              <strong>Carga Peligrosa: </strong>{{ busqueda.carga_peligrosa_txt
+              }}<br />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-sidenav>
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="80" fxLayout="column">
+          <mat-card class="user-card p-0">
+            <mat-card-title class="mat-bg-primary" style=" background: #277486 !important;">
+              <div class="card-title-text" style="height: 81px;">
+                <button mat-icon-button [style.alignSelf]="'center'" class="mr-1" (click)="sideNav.toggle()">
+                  <mat-icon>short_text</mat-icon>
+                </button>
+                <!-->div fxFlex fxHide.lt-sm="true" *ngIf="!showMap">
+                    <button mat-icon-button matTooltip="Mostrar  Mapa" (click)="openMap()" [style.overflow]="'visible'"
+                      class="topbar-button-right">
+                      Mostrar
+                      <mat-icon>map</mat-icon>
+                    </button>
+                  </div-->
+                {{ etiquetaTable }}
+                <div fxFlex fxHide.lt-sm="true" class="search-bar" id="buscador">
+                  <form class="top-search-form">
+                    <mat-icon role="img">search</mat-icon>
+                    <input autofocus="true" placeholder="" type="text" (keyup)='updateFilter($event)' />
+                  </form>
+                </div>
+                <button mat-button [matMenuTriggerFor]="animals">
+                  Filtrar Choferes
+                  <mat-icon>filter_list</mat-icon>
+                </button>
+                <mat-menu #animals="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="tipoacoplado">
+                    Tipo de Acoplados
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="zonachofer">
+                    Zona de Chofer
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="postulados">
+                    Postulados
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="empresatransporte">
+                    Empresa Transporte
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="intermediario">
+                    Intermediario
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="tipochofer" *ngIf="tipoForm === '0'">
+                    Tipo de Chofer
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="interesados" *ngIf="tipoForm === '0'">
+                    Interesados
+                  </button>
+                </mat-menu>
+                <mat-menu #tipoacoplado="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="filterTipoCamion" placeholder="Tipo Acoplado" name="filterTipoCamion" class="mb-1"
+                      [(value)]="selectedFilterTipoCamion" (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="let tipo of tiposCamiones" [value]="tipo.id" ngDefaultControl>
+                        {{ tipo?.descripcion }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #zonachofer="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="filterZona" placeholder="Zona de chofer" name="filterZona" class="mb-1"
+                      [(value)]="selectedFilterZona" (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="let zona of zonas" [value]="zona.id" ngDefaultControl>
+                        {{ zona?.descripcion }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #postulados="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="showPostulados" placeholder="Postulados y no postulados" name="showPostulados"
+                      class="mb-1" [(value)]="selectedFilterPostulados"
+                      (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="let postulados of mostrarPostulados" [value]="postulados.value">
+                        {{ postulados.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #empresatransporte="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="filterEmpTrans" placeholder="Empresa transportista" name="filterEmpTrans"
+                      class="mb-1" [(value)]="selectedFilterEmpTrans"
+                      (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="let centro of centrosTrans" [value]="centro.id" ngDefaultControl>
+                        {{ centro?.nombre_transporte }}
+                        {{ centro?.nombre_intermediario }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #intermediario="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="filterIntermediario" placeholder="Intermediario" name="filterIntermediario"
+                      class="mb-1" [(value)]="selectedFilterIntermediario"
+                      (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="let interm of centrosIntermediario" [value]="interm.id" ngDefaultControl>
+                        {{ interm?.nombre_centro }}
+                        {{ interm?.nombre_intermediario }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #tipochofer="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="showDisponiblesPremium" placeholder="Seleccionar Choferes"
+                      name="showDisponiblesPremium" class="mb-1" [(value)]="selectFilterDisponiblesPremium"
+                      (selectionChange)="chanceSelectTipo(inicializadorvacio)">
+                      <mat-option *ngFor="
+                          let tempDisponiblesPremium of mostrarDisponiblesPremium
+                        " [value]="tempDisponiblesPremium.value">
+                        {{ tempDisponiblesPremium.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+                <mat-menu #interesados="matMenu">
+                  <button mat-menu-item class="myButton">
+                    <mat-select id="showInteresados" placeholder="Interesados o no, en la búsqueda"
+                      name="showInteresados" class="mb-1" [(value)]="selectedFilterInteresados"
+                      (selectionChange)="chanceSelectInteresados()">
+                      <mat-option *ngFor="let interesados of mostrarInteresados" [value]="interesados.value">
+                        {{ interesados.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                  </button>
+                </mat-menu>
+
+              </div>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+          </mat-card>
+          <div class="pb-1" id="tabladisponibles">
+            <button mat-button color="primary" *ngIf="llamar" matTooltip="Enviar SMS seleccionados"
+              (click)="openPopUpsms()">
+              <mat-icon>message</mat-icon>
+            </button>
+            <button mat-button color="primary" *ngIf="llamar" matTooltip="Asignar Viaje" (click)="asignarCamiones()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <ngx-datatable style="width: 100%" class="material" [rows]="choferesDisponibles" [columnMode]="'force'"
+              [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [selected]="seleccionados"
+              [selectionType]="'checkbox'" [messages]="messages">
+              <!-- (activate)="onActivate($event)"
+              (select)="onSelect($event)" -->
+              <ngx-datatable-column name="Tipo" [width]="50" [sortable]="false" [canAutoResize]="false"
+                [draggable]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div>
+                    <button mat-icon-button matTooltip="Chofer Centro" *ngIf="row?.esCentro === 1"
+                      [style.overflow]="'visible'" class="m-0">
+                      <mat-icon>not_listed_location</mat-icon>
+                    </button>
+                    <button mat-icon-button style="color: #ffc107" matTooltip="Chofer Centro Muvin AISA Verificado"
+                      *ngIf="row?.esPremium === 1 && row?.verificado === 1" [style.overflow]="'visible'" class="m-0">
+                      <mat-icon>not_listed_location</mat-icon>
+                    </button>
+                    <button mat-icon-button style="color: #f1cc5c" matTooltip="Chofer Centro Muvin AISA No Verificado"
+                      *ngIf="row?.esPremium === 1 && row?.verificado === 0" [style.overflow]="'visible'" class="m-0">
+                      <mat-icon>not_listed_location</mat-icon>
+                    </button>
+                    <button mat-icon-button style="color: #34caf0" matTooltip="Chofer Libre" *ngIf="row?.esLibre === 1"
+                      [style.overflow]="'visible'" class="m-0">
+                      <mat-icon>not_listed_location</mat-icon>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_persona }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Celular" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.celular }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Equipo" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.patente }}/ <br />{{ row?.patente_acoplado }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tipo Acoplado" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.tipo_acoplado }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Zona Chofer" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ pedidoZona }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Transportista" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.nombre_transportista }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Intermediario" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.intermediario_transportista }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Evaluación" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button mat-icon-button [style.overflow]="'visible'" class="topbar-button-right white-icon">
+                    <mat-icon>star_border</mat-icon>
+                    <span style="color:white" class="notification-number mat-bg-accent">{{ row?.evaluacion }}</span>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="%" [width]="45" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.porciento_cumplimiento }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Acciones" [width]="80" [sortable]="false" [canAutoResize]="false"
+                [draggable]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div class="pb-1">
+                    <!-- <button mat-icon-button mat-sm-button matTooltip="Enviar Whatsapp">
+                      <img src="assets/images/muvin/whatsapp.png" alt="" (click)="openPopUpwhatsapp(row)">
+                    </button> -->
+                    <button mat-icon-button mat-sm-button (click)="asignarCamion(row)" color="primary"
+                      matTooltip=" Enviar propuesta">
+                      <mat-icon>add</mat-icon>
+                    </button>
+
+                    <!-- <button mat-icon-button mat-sm-button *ngIf="row?.esPremium===0" (click)="asignarCamion(row)" color="primary" matTooltip="Asignar Viaje">
+                        <mat-icon>delete</mat-icon>
+                      </button> -->
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="pb-1">
+            <button class="mr-1 mat-button" mat-raised-button color="warn" (click)="goToBusqueda()">
+              Cancelar
+            </button>
+            <button class="mr-1 mat-button" mat-raised-button color="primary" (click)="guardarViajes()">
+              Guardar
+            </button>
+          </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="20" fxLayout="column" style="margin-top: 6px;" id="tablaseleccionados">
+          <mat-card-title style="background:#F7954C; padding: 2rem ">
+            <div fxFlex="100">
+              <div fxFlex="70" style="text-align: right;">
+                <strong>Propuestos: </strong>
+              </div>
+              <div fxFlex="30">
+                <strong> {{ cantidadAsignadosTemp + cantidadAsignados }} </strong>
+              </div>
+            </div>
+          </mat-card-title>
+          <mat-card-content>
+            <table id="my_table">
+              <tbody>
+                <tr *ngFor="let row of choferesViajes" class="mt-1" style="border-color: #F5F6FA;border: #F5F6FA; background-color: #F5F6FA;
+                 border-radius: 23px;              
+                 padding: 1rem !important;">
+                  <td>
+                    <mat-icon>local_shipping</mat-icon>
+                  </td>
+                  <td style="width: 150px">
+                    Patente:
+                    <strong>{{ row?.patente_camion }}/{{
+                              row?.patente_acoplado
+                            }}</strong>
+                    <br />
+                    {{ row?.nombre_chofer }}
+                  </td>
+                  <td>
+                    <mat-icon style="color: #43ee20" *ngIf="row.interesado==1" matTooltip="Interesado">
+                      check_circle_outline</mat-icon>
+                    <mat-icon style="color: #dd1111e8" *ngIf="row.interesado==0" matTooltip="No Interesado">
+                      highlight_off</mat-icon>
+                    <mat-icon style="color: #ffc107" *ngIf="row.interesado==null" matTooltip="Sin responder">
+                      help_outline</mat-icon>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <span>{{cantidadAsignadosFiltrado}} Total</span>
+              </tfoot>
+            </table>
+            <table>
+              <tbody>
+                <tr *ngFor="let row of tempViajes">
+                  <td (click)="quitarCamion(row)">
+                    <div class="mt-1" style="border-color: #F5F6FA;border: #F5F6FA; background-color: rgb(213, 216, 228);
+                      border-radius: 23px;              
+                      padding: 1rem !important;">
+                      <div fxFlex="100">
+                        <div fxFlex="25">
+                          <mat-icon>local_shipping</mat-icon>
+                        </div>
+                        <span fxFlex></span>
+                        <div fxFlex="75" style="float: right; margin-right: 20%;padding-left: 10px">Patente:
+                          <strong>{{ row?.patente }}</strong>
+                          <br> {{row?.nombre_persona}}
+                          <br><button mat-button color="accent" class="mr-1">Desasignar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <span *ngIf="tempViajes.length>0">{{ cantidadAsignadosTemp }} Insertados sin Guardar</span>
+              </tfoot>
+            </table>
+          </mat-card-content>
+
+        </div>
+      </div>
+    </mat-sidenav-container>
+  </mat-card-content>
+</mat-card>
