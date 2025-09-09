@@ -43,6 +43,7 @@ import {
   Detalles2,
 } from "app/shared/models/v2-disponibles";
 import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
+import { AppAlertService } from "app/shared/services/app-alert/app-alert.service";
 import { UserService } from "app/shared/services/user.service";
 import { MessageService } from "app/shared/services/message.service";
 import * as moment from "moment";
@@ -225,7 +226,8 @@ export class PanelConsolidadoV2Component implements OnInit {
     private userService: UserService,
     private homeService: HomeService,
     private cupoService: CupoService,
-    private loader: AppLoaderService
+    private loader: AppLoaderService,
+    private alertService: AppAlertService
   ) {
     this.subscription = this.messageService
       .getMessage()
@@ -939,7 +941,9 @@ export class PanelConsolidadoV2Component implements OnInit {
       (error) => {
         this.loader.close();
         console.error('Error al descargar cupos:', error);
-        // Aquí podrías mostrar un mensaje de error al usuario
+        this.alertService.confirm({ 
+          message: 'Error al descargar el archivo Excel. Por favor, inténtelo nuevamente.' 
+        });
       }
     );
   }

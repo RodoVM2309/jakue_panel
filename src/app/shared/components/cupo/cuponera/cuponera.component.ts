@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CupoRecuperarV2 } from "@muvin/models";
 import { AppLoaderService, MessageService, UserService } from "@muvin/services";
+import { AppAlertService } from "app/shared/services/app-alert/app-alert.service";
 import * as moment from "moment";
 import { HomeService } from "../../home/home.service";
 import { CupoService } from "../cupo.service";
@@ -77,7 +78,8 @@ export class CuponeraComponent implements OnInit {
     private cupoService: CupoService,
     private loader: AppLoaderService,
     private messageService: MessageService,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AppAlertService
   ) {
     this.myData.micuit = localStorage.getItem("cuit_cuil");
     this.myData.myname = localStorage.getItem("nameUser");
@@ -444,39 +446,5 @@ export class CuponeraComponent implements OnInit {
         break;
     }
     return dia;
-  }
-
-  descargarCuposMasivo(): void {
-    this.loader.open("Descargando archivo Excel...");
-    
-    this.cupoService.exportarCuposPuerto(this.searchDateString).subscribe(
-      (data: Blob) => {
-        this.loader.close();
-        
-        // Crear un enlace de descarga temporal
-        const url = window.URL.createObjectURL(data);
-        const link = document.createElement('a');
-        link.href = url;
-        
-        // Nombre del archivo con la fecha actual
-        const fileName = `cupos_puerto_${this.searchDateString}.xlsx`;
-        link.download = fileName;
-        
-        // Simular click para descargar
-        document.body.appendChild(link);
-        link.click();
-        
-        // Limpiar
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        
-        console.log('Descarga de cupos completada:', fileName);
-      },
-      (error) => {
-        this.loader.close();
-        console.error('Error al descargar cupos:', error);
-        // Aquí podrías mostrar un mensaje de error al usuario
-      }
-    );
   }
 }
