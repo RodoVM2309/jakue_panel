@@ -169,8 +169,6 @@
                     </div>
                   </ng-container>
                   <ng-template #elseTemplate>
-
-
                     <ng-container *ngIf="!cupo.transportadora; else elseTemplateTransp">
                       <div [ngSwitch]="cupo.idCupoEstado">
                         <div *ngSwitchCase="'3'">
@@ -204,7 +202,6 @@
                         </div>
                       </div>
                     </ng-container>
-
                     <ng-template #elseTemplateTransp>
                       <div [ngSwitch]="cupo.idCupoEstado">
                         <div *ngSwitchCase="'3'">

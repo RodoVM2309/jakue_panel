@@ -30,7 +30,7 @@
         [(ngModel)]="filtroActivo" 
         (change)="updateFiltroActivo($event)"
         color="primary">
-        Solo mostrar activos
+        Solo mostrar bloqueos activos
       </mat-checkbox>
     </div>
     <ngx-datatable
@@ -93,8 +93,8 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Estado" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <span *ngIf="getEstadoChofer(row) === 'activo'" class="badge badge-success">Activo</span>
-          <span *ngIf="getEstadoChofer(row) === 'inactivo'" class="badge badge-danger">Inactivo</span>
+          <span *ngIf="getEstadoChofer(row) === 'activo'" class="badge badge-success">Activo el bloqueo</span>
+          <span *ngIf="getEstadoChofer(row) === 'inactivo'" class="badge badge-danger">Inactivo el bloqueo</span>
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Acciones" [flexGrow]="1">

@@ -166,13 +166,40 @@ export class AddPedidoRapidoComponent implements OnInit {
       this.personasService
         .getChoferCuit(this.data.cuitChofer)
         .subscribe(data => {
-          this.esValidadoChofer = true;
-          this.idChofer = data.data.transportistas[0].id_chofer
-          this.f.telefono.setValue(data.data.transportistas[0].celular);
-          this.f.razon_social.setValue(data.data.transportistas[0].nombre_chofer);
-          this.f.chapa_camion.setValue(data.data.transportistas[0].patente_camion);
-          this.f.chapa_acoplado.setValue(data.data.transportistas[0].patente_acoplado);
-          this.incorrect_chofer_cuit = false;
+          // Verificar lista negra antes de asignar los datos
+          this.personasService
+            .verificarListaNegra(data.data.transportistas[0].id_chofer, Number(this.data.id_destino))
+            .subscribe(
+              listaNegraResponse => {
+                if (listaNegraResponse.data.ocurrencias && listaNegraResponse.data.ocurrencias.length > 0) {
+                  // Chofer está en lista negra
+                  this.alertService.confirm({
+                    message: "Este chofer se encuentra en lista negra para este destino",
+                    tipo: "error"
+                  });
+                  this.incorrect_chofer_cuit = true;
+                  this.esValidadoChofer = false;
+                } else {
+                  // Chofer no está en lista negra, continuar normalmente
+                  this.esValidadoChofer = true;
+                  this.idChofer = data.data.transportistas[0].id_chofer
+                  this.f.telefono.setValue(data.data.transportistas[0].celular);
+                  this.f.razon_social.setValue(data.data.transportistas[0].nombre_chofer);
+                  this.f.chapa_camion.setValue(data.data.transportistas[0].patente_camion);
+                  this.f.chapa_acoplado.setValue(data.data.transportistas[0].patente_acoplado);
+                  this.incorrect_chofer_cuit = false;
+                }
+              },
+              error => {
+                // Error en la verificación de lista negra, mostrar error
+                this.alertService.confirm({
+                  message: "Error al verificar la lista negra del chofer",
+                  tipo: "error"
+                });
+                this.incorrect_chofer_cuit = true;
+                this.esValidadoChofer = false;
+              }
+            );
         });
     }
 
@@ -350,12 +377,44 @@ export class AddPedidoRapidoComponent implements OnInit {
             this.personasService
               .getChoferCuit(cuit)
               .subscribe(data => {
-                this.idChofer = data.data.transportistas[0].id_chofer;
-                this.f.razon_social.setValue(data.data.transportistas[0].nombre_chofer);
-                this.f.telefono.setValue(data.data.transportistas[0].celular);
-                this.f.chapa_camion.setValue(data.data.transportistas[0].patente_camion);
-                this.f.chapa_acoplado.setValue(data.data.transportistas[0].patente_acoplado);
-                this.incorrect_chofer_cuit = false;
+                // Verificar lista negra antes de asignar los datos
+                this.personasService
+                  .verificarListaNegra(data.data.transportistas[0].id_chofer, Number(this.data.id_destino))
+                  .subscribe(
+                    listaNegraResponse => {
+                      if (listaNegraResponse.data.ocurrencias && listaNegraResponse.data.ocurrencias.length > 0) {
+                        // Chofer está en lista negra
+                        this.atencionService.confirm({
+                          message: "Este chofer se encuentra en lista negra para este destino",
+                          tipo: "error"
+                        });
+                        this.incorrect_chofer_cuit = true;
+                        this.esValidadoChofer = false;
+                        // Limpiar los campos
+                        this.f.razon_social.setValue('');
+                        this.f.telefono.setValue('');
+                        this.f.chapa_camion.setValue('');
+                        this.f.chapa_acoplado.setValue('');
+                      } else {
+                        // Chofer no está en lista negra, continuar normalmente
+                        this.idChofer = data.data.transportistas[0].id_chofer;
+                        this.f.razon_social.setValue(data.data.transportistas[0].nombre_chofer);
+                        this.f.telefono.setValue(data.data.transportistas[0].celular);
+                        this.f.chapa_camion.setValue(data.data.transportistas[0].patente_camion);
+                        this.f.chapa_acoplado.setValue(data.data.transportistas[0].patente_acoplado);
+                        this.incorrect_chofer_cuit = false;
+                      }
+                    },
+                    error => {
+                      // Error en la verificación de lista negra, mostrar error
+                      this.alertService.confirm({
+                        message: "Error al verificar la lista negra del chofer",
+                        tipo: "error"
+                      });
+                      this.incorrect_chofer_cuit = true;
+                      this.esValidadoChofer = false;
+                    }
+                  );
               });
           } else {
             this.confirmService.confirm({ message: ' No existe registro con esta Cédula de Identidad (C.I). ¿Desea ingresarlo como nuevo chofer?' })
