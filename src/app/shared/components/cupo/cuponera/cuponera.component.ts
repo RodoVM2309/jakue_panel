@@ -445,4 +445,38 @@ export class CuponeraComponent implements OnInit {
     }
     return dia;
   }
+
+  descargarCuposMasivo(): void {
+    this.loader.open("Descargando archivo Excel...");
+    
+    this.cupoService.exportarCuposPuerto(this.searchDateString).subscribe(
+      (data: Blob) => {
+        this.loader.close();
+        
+        // Crear un enlace de descarga temporal
+        const url = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = url;
+        
+        // Nombre del archivo con la fecha actual
+        const fileName = `cupos_puerto_${this.searchDateString}.xlsx`;
+        link.download = fileName;
+        
+        // Simular click para descargar
+        document.body.appendChild(link);
+        link.click();
+        
+        // Limpiar
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        
+        console.log('Descarga de cupos completada:', fileName);
+      },
+      (error) => {
+        this.loader.close();
+        console.error('Error al descargar cupos:', error);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
+    );
+  }
 }

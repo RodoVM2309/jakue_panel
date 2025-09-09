@@ -111,8 +111,18 @@
               <div fxLayout="row wrap" style="margin-right: -20px;">
                 <div fxFlex="100">
                   <mat-card style="padding: 1px; margin-top: -5px;" [style.width.px]="'100%'" [style.height.px]="'40'">
-                    <div style="color: #87B1C5; font-size: 15px;margin-top: 5px; margin-left: 45px;">
-                      <b>{{selectedDestinatario.nombreDestinatario}}</b>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px;">
+                      <div style="color: #87B1C5; font-size: 15px; margin-left: 25px;">
+                        <b>{{selectedDestinatario.nombreDestinatario}}</b>
+                      </div>
+                      <button mat-raised-button
+                              class="btn-descarga-cupos"
+                              type="button"
+                              style="margin-right: 15px; margin-top: -5px;"
+                              (click)="descargarCuposMasivo()">
+                        <mat-icon>download</mat-icon>
+                        DESCARGA MASIVA DE CUPOS
+                      </button>
                     </div>
                     <mat-card style="box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important; background: #1A171B; padding: 0px; margin-top: 8px;
                     margin-left: -3px;" [style.overflow]="'auto'" [style.width.px]="'100%'" [style.height.px]="'5'">

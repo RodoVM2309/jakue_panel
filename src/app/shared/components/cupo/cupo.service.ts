@@ -638,6 +638,17 @@ export class CupoService {
       .catch(this.handleError);
   }
 
+  exportarCuposPuerto(fecha: string): Observable<any> {
+    const options = {
+      params: new HttpParams().set("fecha", fecha),
+      responseType: 'blob' as 'json'
+    };
+    return this.http.get(
+      this.globalService.apiHost + "v3/cupo/exportar-cupos-puerto",
+      options
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
 
     if (error.status === 401) {
