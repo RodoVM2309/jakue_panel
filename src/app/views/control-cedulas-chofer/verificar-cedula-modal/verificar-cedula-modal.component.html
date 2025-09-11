@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content class="mat-typography">
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div class="flex-p" fxLayout="column">
+      <mat-form-field class="mb-1">
+        <mat-label>Cédula</mat-label>
+        <input matInput formControlName="cedula" placeholder="Ej: 5475813">
+        <mat-error *ngIf="itemForm.get('cedula').hasError('required')">
+          La cédula es requerida
+        </mat-error>
+        <mat-error *ngIf="itemForm.get('cedula').hasError('pattern')">
+          Formato de cédula inválido (Ej: 5475813)
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [disabled]="!itemForm.valid" (click)="submit()" color="primary">Verificar</button>
+</div>

@@ -398,6 +398,18 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard, TermAuthGuard],
     children: [
       {
+        path: 'control-cedulas-chofer',
+        loadChildren: './views/control-cedulas-chofer/control-cedulas-chofer.module#ControlCedulasChoferModule',
+        data: { title: 'Control de Cédulas de Chofer', breadcrumb: 'CONTROL CÉDULAS CHOFER' }
+      }
+    ]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard, TermAuthGuard],
+    children: [
+      {
         path: 'vincular-zona-chofer',
         loadChildren: './views/admin/admin.module#AdminModule',
         data: { title: 'Vincular zona-chofer', breadcrumb: 'VINCULAR ZONA-CHOFER' }

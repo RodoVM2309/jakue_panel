@@ -1,0 +1,70 @@
+<br>
+<div class="m-333">
+    <h4 style="color:#124A99;">Cédulas de choferes verificadas</h4>
+</div>
+<div class="m-333">
+    <button mat-raised-button class="mb-05" color="primary" (click)="openVerificarCedulaModal()">
+        Verificar Cédula
+    </button>
+</div>
+<mat-card class="p-0">
+  <mat-card-content class="p-0">
+    <mat-form-field class="p-5" style='padding:8px;margin:15px auto;width:30%;' class="example-full-width">
+      <mat-label> <mat-icon matPrefix>search</mat-icon> Buscar cédula</mat-label>
+      <input matInput (keyup)='updateFilter($event)' placeholder="Ej: 336689-5">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Cedula Column -->
+      <ng-container matColumnDef="cedula">
+        <th mat-header-cell *matHeaderCellDef> Cédula </th>
+        <td mat-cell *matCellDef="let row">{{row?.cedula}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Encontrada Column -->
+      <ng-container matColumnDef="encontrada">
+        <th mat-header-cell *matHeaderCellDef> Encontrada </th>
+        <td mat-cell *matCellDef="let row"> 
+          <span *ngIf="row?.encontrada === 1">Sí</span>
+          <span *ngIf="row?.encontrada === 0">No</span>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Nombre Completo Column -->
+      <ng-container matColumnDef="nombre_completo">
+        <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+        <td mat-cell *matCellDef="let row"> {{row?.nombre}} {{row?.apellido}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Fecha Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let row"> {{row?.fecha}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+          <button 
+            mat-icon-button 
+            mat-sm-button 
+            color="primary" 
+            class="mr-1" 
+            *ngIf="row?.encontrada === 1" 
+            (click)="aplicarCedula(row)"
+            matTooltip="Aplicar">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator class="mat-paginator-sticky" [pageSize]="page.size" [pageSizeOptions]="[10]"
+      [showFirstLastButtons]="true" [length]="page.totalElements" (page)="setPage($event)">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
