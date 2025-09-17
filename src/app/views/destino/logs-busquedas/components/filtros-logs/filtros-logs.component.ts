@@ -133,6 +133,9 @@ export class FiltrosLogsComponent implements OnInit {
           case 'terminal':
             resultado = resultado && objeto[filtro.campo] == filtro.valor;
             break;
+          case 'procedencia':
+            resultado = resultado && objeto[filtro.campo] == filtro.valor;
+            break;
           case 'cupo':
             resultado = resultado && objeto[filtro.campo] && objeto[filtro.campo].includes(filtro.valor);
             break;
@@ -142,6 +145,13 @@ export class FiltrosLogsComponent implements OnInit {
         }
       }
       return resultado;
+    });
+    
+    // Ordenar los datos filtrados por fechaScan de forma ascendente (fechas más tempranas primero)
+    this.variables.logsFiltrados.sort((a, b) => {
+      const fechaA = new Date(a.fechaScan);
+      const fechaB = new Date(b.fechaScan);
+      return fechaA.getTime() - fechaB.getTime();
     });
     
     // Actualizar los datos del MatTableDataSource con los datos filtrados
@@ -171,6 +181,10 @@ export class FiltrosLogsComponent implements OnInit {
     // Agregar filtros según los valores del formulario
     if (formValues.terminal !== "Todos" && formValues.terminal) {
       this.filtros.push({ campo: 'terminal', valor: formValues.terminal });
+    }
+    
+    if (formValues.procedencia !== "Todos" && formValues.procedencia) {
+      this.filtros.push({ campo: 'procedencia', valor: formValues.procedencia });
     }
     
     if (formValues.producto !== "Todos" && formValues.producto) {
@@ -248,6 +262,7 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('horaInicio').setValue(formattedHoraInicio);
     this.variables.filtrarForm.get('horaFin').setValue(formattedHoraFin);
     this.variables.filtrarForm.get('terminal').setValue("Todos");
+    this.variables.filtrarForm.get('procedencia').setValue("Todos");
     this.variables.filtrarForm.get('producto').setValue("Todos");
     this.variables.filtrarForm.get('estado').setValue("Todos");
     this.variables.filtrarForm.get('placaCamion').setValue("");
@@ -256,8 +271,16 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.updateValueAndValidity();
 
     // Restaurar todos los datos originales
-    this.variables.logsFiltrados = this.variables.logs;
-    this.dataSource.data = this.variables.logs;
+    this.variables.logsFiltrados = [...this.variables.logs]; // Crear copia para no alterar el original
+    
+    // Ordenar por fechaScan de forma ascendente (fechas más tempranas primero)
+    this.variables.logsFiltrados.sort((a, b) => {
+      const fechaA = new Date(a.fechaScan);
+      const fechaB = new Date(b.fechaScan);
+      return fechaA.getTime() - fechaB.getTime();
+    });
+    
+    this.dataSource.data = this.variables.logsFiltrados;
     
     // Reiniciar paginador a la primera página
     if (this.dataSource.paginator) {

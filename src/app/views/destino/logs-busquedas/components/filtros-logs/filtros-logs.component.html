@@ -63,11 +63,11 @@
       </div>
       <div fxFlex.xs="20" fxFlex.sm="23" fxFlex.lg="23" fxLayout="columna wrap" id="sele-zona"
         class="select-opcionales">
-        <span class="label-span">Destino:</span>
+        <span class="label-span">Cliente:</span>
         <mat-form-field class="full-width mfl">
-          <mat-select name="terminal" (selectionChange)="filtroAccion('terminal')" formControlName="terminal">
-            <mat-option *ngFor="let destino of variables.destinos" [value]="destino">
-              {{ destino }}
+          <mat-select name="procedencia" (selectionChange)="filtroAccion('procedencia')" formControlName="procedencia">
+            <mat-option *ngFor="let cliente of variables.clientes" [value]="cliente">
+              {{ cliente }}
             </mat-option>
           </mat-select>
         </mat-form-field>

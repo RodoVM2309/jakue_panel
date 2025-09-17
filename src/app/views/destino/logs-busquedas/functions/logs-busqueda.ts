@@ -60,18 +60,27 @@ export module FunctionLogsBusqueda {
 
   // Función helper para procesar logs
   function processLogs(logs: LogsBusqueda[], variables: Variables) {
+    // Ordenar por fechaScan de forma ascendente (fechas más tempranas primero)
+    logs.sort((a, b) => {
+      const fechaA = new Date(a.fechaScan);
+      const fechaB = new Date(b.fechaScan);
+      return fechaA.getTime() - fechaB.getTime();
+    });
+
     variables.logs = logs;
     variables.logsFiltrados = logs;
 
     let prod = [];
     let estad = [];
     let dest = [];
+    let clien = [];
 
     // Armo los filtros
     logs.forEach(log => {
       prod.push(log.producto);
       estad.push(log.estado);
       dest.push(log.terminal);
+      clien.push(log.procedencia);
     });
 
     // producto
@@ -81,6 +90,11 @@ export module FunctionLogsBusqueda {
 
     // destino
     variables.destinos = dest.filter((valor, indice, self) => {
+      return self.indexOf(valor) === indice;
+    });
+
+    // clientes
+    variables.clientes = clien.filter((valor, indice, self) => {
       return self.indexOf(valor) === indice;
     });
 
@@ -95,6 +109,7 @@ export module FunctionLogsBusqueda {
     // add todos
     variables.productos.unshift("Todos");
     variables.destinos.unshift("Todos");
+    variables.clientes.unshift("Todos");
     variables.estados.unshift({ clave: 'Todos' });
 
     // Configurar el total para el paginador con todos los registros

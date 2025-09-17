@@ -58,6 +58,7 @@ export class ListadoLogsBusquedasComponent implements OnInit {
       horaInicio: [formattedHoraInicio],
       horaFin: [formattedHoraFin],
       terminal: ["Todos"],
+      procedencia: ["Todos"],
       producto: ["Todos"],
       estado: ["Todos"],
       placaCamion: [""],

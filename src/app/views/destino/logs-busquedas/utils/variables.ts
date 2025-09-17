@@ -9,6 +9,7 @@ export class Variables {
   logsFiltrados: LogsBusqueda[] = [];
   productos: string[] = [];
   destinos: string[] = [];
+  clientes: string[] = [];
   estados: any[] = [];
   filtroActivo: boolean;
   pageEvent: PageEvent = new PageEvent();
