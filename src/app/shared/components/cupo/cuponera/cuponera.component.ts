@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CupoRecuperarV2 } from "@muvin/models";
 import { AppLoaderService, MessageService, UserService } from "@muvin/services";
-import { AppAlertService } from "app/shared/services/app-alert/app-alert.service";
 import * as moment from "moment";
 import { HomeService } from "../../home/home.service";
 import { CupoService } from "../cupo.service";
@@ -78,8 +77,7 @@ export class CuponeraComponent implements OnInit {
     private cupoService: CupoService,
     private loader: AppLoaderService,
     private messageService: MessageService,
-    private userService: UserService,
-    private alertService: AppAlertService
+    private userService: UserService
   ) {
     this.myData.micuit = localStorage.getItem("cuit_cuil");
     this.myData.myname = localStorage.getItem("nameUser");

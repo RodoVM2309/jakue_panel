@@ -24,7 +24,8 @@ import {
 } from "@angular/material";
 import { AppConfirmService } from "../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../shared/services/app-loader/app-loader.service";
-import { Subscription } from "rxjs";
+import { Subscription, Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 import { AppErrorService } from "../../shared/services/app-error/app-error.service";
 import { AppAtencionService } from "../../shared/services/app-atencion/app-atencion.service";
@@ -48,12 +49,15 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
   public cedulas: CedulaChofer[];
   public getItemSub: Subscription;
   public searchControl: FormControl;
+  private searchSubject = new Subject<string>();
+  private searchSubscription: Subscription;
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = [
     "cedula",
     "encontrada",
     "nombre_completo",
-    "fecha",
+    "fecha_consulta",
+    "fecha_actualizacion",
     "acciones",
   ];
 
@@ -86,6 +90,19 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setPage(null);
+    this.initializeSearch();
+  }
+
+  initializeSearch() {
+    this.searchSubscription = this.searchSubject
+      .pipe(
+        debounceTime(500), // Esperar 500ms después de que el usuario deje de escribir
+        distinctUntilChanged() // Solo ejecutar si el valor realmente cambió
+      )
+      .subscribe((searchTerm) => {
+        this.filtro.cedula = searchTerm;
+        this.setPage(null);
+      });
   }
 
   configurarPaginador() {
@@ -102,12 +119,14 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
     }
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-    this.filtro.cedula = val;
-    this.setPage(null);
+    this.searchSubject.next(val);
   }
 
   setPage(event?: PageEvent) {
@@ -175,7 +194,7 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
     this.cedulasChoferService.buscarCedula(cedula).subscribe(
       (data) => {
         this.loader.close();
-        if (data.success || data.encontrada) {
+        if (data && (data.success || data.encontrada)) {
           this.alertService
             .confirm({
               message: `Cédula ${cedula} verificada correctamente`,
@@ -216,7 +235,7 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
         if (res) {
           this.loader.open();
 
-          this.cedulasChoferService.aplicarCedula(row.cedula).subscribe(
+          this.cedulasChoferService.aplicarCedula(row.id).subscribe(
             (data) => {
               this.loader.close();
               this.alertService
@@ -234,7 +253,7 @@ export class ControlCedulasChoferComponent implements OnInit, OnDestroy {
               this.loader.close();
               this.errorService
                 .confirm({
-                  message: "Error al aplicar la cédula",
+                  message: err.error.data.message,
                 })
                 .subscribe((res) => {
                   if (res) {

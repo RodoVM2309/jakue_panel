@@ -42,7 +42,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { ControlCedulasChoferComponent } from './control-cedulas-chofer.component';
 import { VerificarCedulaModalComponent } from './verificar-cedula-modal/verificar-cedula-modal.component';
-import { CedulasChoferService } from './services/cedulas-chofer.service';
+
 
 export const ControlCedulasChoferRoutes = [
   {

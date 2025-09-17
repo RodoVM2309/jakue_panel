@@ -29,10 +29,7 @@ import {
 import { CupoService } from "../cupo.service";
 import { HomeService } from "../../home/home.service";
 
-import {
-  AppDateAdapter,
-  APP_DATE_FORMATS,
-} from "@shared/helpers/date.adapter";
+import { AppDateAdapter, APP_DATE_FORMATS } from "@shared/helpers/date.adapter";
 import { DetalleConsolidadoComponent } from "../detalle-consolidado/detalle-consolidado.component";
 import { Subscription } from "rxjs";
 import {
@@ -49,6 +46,7 @@ import { MessageService } from "app/shared/services/message.service";
 import * as moment from "moment";
 import { DetalleCupoChoferComponent } from "../detalle-cupo-chofer/detalle-cupo-chofer.component";
 import { DetalleConsolidadoDerivacionComponent } from "../detalle-consolidado-derivacion/detalle-consolidado-derivacion.component";
+import { AppAtencionService, AppErrorService } from "@app/shared/services";
 
 export class DetalleDestinatario {
   idDestinatario: string;
@@ -72,7 +70,7 @@ export class DetalleDestinatario {
   descargado: number;
   anulados: number;
   cupos: Cupo[];
-  derivacion_transportadora?: number; 
+  derivacion_transportadora?: number;
   choferAsignado: number;
 }
 export class DetalleReceptor {
@@ -98,7 +96,7 @@ export class DetalleReceptor {
   anulados: number;
   cupos: Cupo[];
   choferAsignado: number;
-  derivacion_transporte:number;
+  derivacion_transporte: number;
 }
 
 export class ListadoDestinatario {
@@ -227,7 +225,7 @@ export class PanelConsolidadoV2Component implements OnInit {
     private homeService: HomeService,
     private cupoService: CupoService,
     private loader: AppLoaderService,
-    private alertService: AppAlertService
+    private atencionService: AppAtencionService,
   ) {
     this.subscription = this.messageService
       .getMessage()
@@ -323,9 +321,9 @@ export class PanelConsolidadoV2Component implements OnInit {
       }
       let tempDestinatario = {
         idCuitDestinatario: listado.idCuitDestinatario,
-        nombreDestinatario: this.detallesDisponiblesApi.destinatario[
-          listado.idCuitDestinatario
-        ].nombreDestinatario,
+        nombreDestinatario:
+          this.detallesDisponiblesApi.destinatario[listado.idCuitDestinatario]
+            .nombreDestinatario,
         totalCupos: totalCupos,
         totalPendientes: totalPendientes,
       };
@@ -358,7 +356,7 @@ export class PanelConsolidadoV2Component implements OnInit {
       if (
         listado.destinos.length > 0 &&
         listado.idCuitDestinatario ===
-        this.selectedDestinatario.idCuitDestinatario
+          this.selectedDestinatario.idCuitDestinatario
       ) {
         for (let i = 0; i < listado.destinos.length; i++) {
           const destino = listado.destinos[i];
@@ -375,17 +373,20 @@ export class PanelConsolidadoV2Component implements OnInit {
                 if (detalleDadorTemp === undefined) {
                   const detalle = new DetalleDestinatario();
                   detalle.idCuitDestinatario = listado.idCuitDestinatario;
-                  detalle.nombreDestinatario = this.detallesDisponiblesApi.destinatario[
-                    listado.idCuitDestinatario
-                  ].nombreDestinatario;
+                  detalle.nombreDestinatario =
+                    this.detallesDisponiblesApi.destinatario[
+                      listado.idCuitDestinatario
+                    ].nombreDestinatario;
                   detalle.id_destino = destino.id_destino;
-                  detalle.nombre_destino = this.detallesDisponiblesApi.destino[
-                    destino.id_destino
-                  ].nombreDestino;
+                  detalle.nombre_destino =
+                    this.detallesDisponiblesApi.destino[
+                      destino.id_destino
+                    ].nombreDestino;
                   detalle.id_producto = produc.id_producto;
-                  detalle.nombre_producto = this.detallesDisponiblesApi.producto[
-                    produc.id_producto
-                  ].nombreProducto;
+                  detalle.nombre_producto =
+                    this.detallesDisponiblesApi.producto[
+                      produc.id_producto
+                    ].nombreProducto;
                   detalle.total_cupos = 0;
                   detalle.por_asignar = 0;
                   detalle.por_vincular = 0;
@@ -402,7 +403,7 @@ export class PanelConsolidadoV2Component implements OnInit {
                   detalle.anulados = 0;
                   detalle.cupos = [];
                   detalle.derivacion_transportadora = 0;
-                  // detalle.derivacion_transportadora = 
+                  // detalle.derivacion_transportadora =
                   produc.cupos.forEach((element) => {
                     detalle.cupos.push(element);
                   });
@@ -424,8 +425,13 @@ export class PanelConsolidadoV2Component implements OnInit {
         for (let index = 0; index < element.cupos.length; index++) {
           const element1 = element.cupos[index];
           console.log(element1);
-          element1.idCuitChoferAsignado ? element.choferAsignado = element.choferAsignado + 1 : false;
-          element1['derivacion'] && element1['cupoAsignadoDadorCuit'] != null? element.derivacion_transportadora = element.derivacion_transportadora +1 : false;
+          element1.idCuitChoferAsignado
+            ? (element.choferAsignado = element.choferAsignado + 1)
+            : false;
+          element1["derivacion"] && element1["cupoAsignadoDadorCuit"] != null
+            ? (element.derivacion_transportadora =
+                element.derivacion_transportadora + 1)
+            : false;
           if (element1.idCupoEstado == "1") {
             element.sin_ctg = element.sin_ctg + 1;
             element1.estadoCalculado = "sin_ctg";
@@ -463,7 +469,7 @@ export class PanelConsolidadoV2Component implements OnInit {
     this.expandedElement = null;
   }
 
-  getCounterChofer
+  getCounterChofer;
 
   addDestinatario(element: ListadoDestinatario) {
     let tempDestinatario = this.listadoDestinatarios.find(
@@ -487,12 +493,14 @@ export class PanelConsolidadoV2Component implements OnInit {
       this.previousDetalle = row;
       this.detallesReceptor = [];
       console.log(this.detallesReceptor);
-      row.cupos.forEach((element) => { // recorrer total cupos
+      row.cupos.forEach((element) => {
+        // recorrer total cupos
         let tempCupo = new Cupo();
         tempCupo = element; // ASIGNA EL CUPO PARA LUEGO VERIFICAR A QUIEN LE PERTENECE
         tempCupo.estadoCalculado = "";
         console.log(element);
-        if (element.cupoAsignadoUltimo != null) { // si el cupo fue asignado a un cliente
+        if (element.cupoAsignadoUltimo != null) {
+          // si el cupo fue asignado a un cliente
           let id_receptor = parseInt(element.cupoAsignadoUltimo.id);
           let cuitReceptor = element.cupoAsignadoUltimo.receptorCuit;
           //&& item.id_producto == produc.id_producto
@@ -503,12 +511,14 @@ export class PanelConsolidadoV2Component implements OnInit {
               item.id_producto == row.id_producto
           );
           console.log(detalleDadorTemp);
-          if (detalleDadorTemp === undefined) { // agrega los cupos del cliente por cuit y producto
+          if (detalleDadorTemp === undefined) {
+            // agrega los cupos del cliente por cuit y producto
             const detalle = new DetalleReceptor();
             detalle.id_receptor = id_receptor;
             detalle.cuitReceptor = cuitReceptor;
             detalle.id_producto = row.id_producto;
-            detalle.nombre_receptor = this.detallesDisponiblesApi.receptor[cuitReceptor].nombreReceptor;
+            detalle.nombre_receptor =
+              this.detallesDisponiblesApi.receptor[cuitReceptor].nombreReceptor;
             //detalle.nombre_receptor = "";
             detalle.total_cupos = 0;
             detalle.por_asignar = 0;
@@ -536,15 +546,15 @@ export class PanelConsolidadoV2Component implements OnInit {
         } else {
           let detalleDadorTemp = this.detallesReceptor.find(
             (item) =>
-              item.cuitReceptor === 'sin-asignar' &&
+              item.cuitReceptor === "sin-asignar" &&
               item.id_producto == row.id_producto
           );
           if (detalleDadorTemp === undefined) {
             const detalle = new DetalleReceptor();
             detalle.id_receptor = this.myid_receptor;
-            detalle.nombre_receptor = 'Pendientes de asignación';
+            detalle.nombre_receptor = "Pendientes de asignación";
             detalle.id_producto = row.id_producto;
-            detalle.cuitReceptor = 'sin-asignar';
+            detalle.cuitReceptor = "sin-asignar";
             detalle.total_cupos = 0;
             detalle.por_asignar = 0;
             detalle.por_vincular = 0;
@@ -564,26 +574,30 @@ export class PanelConsolidadoV2Component implements OnInit {
             detalle.derivacion_transporte = 0;
             this.detallesReceptor.push(detalle);
           } else {
-
             detalleDadorTemp.cupos.push(tempCupo);
           }
         }
       });
       this.detallesReceptor.sort((a, b) => {
         if (a.cuitReceptor === "sin-asignar") return -1; // Poner este primero
-        if (b.cuitReceptor === "sin-asignar") return 1;  // Mover los demás hacia abajo
+        if (b.cuitReceptor === "sin-asignar") return 1; // Mover los demás hacia abajo
         return 0; // Mantener el orden de los demás elementos
       });
-      console.log(this.detallesReceptor);// detalleReceptor es cada cliente que se le asigno un cupo aqui lo detalla
+      console.log(this.detallesReceptor); // detalleReceptor es cada cliente que se le asigno un cupo aqui lo detalla
       if (this.detallesReceptor.length > 0) {
         this.detallesReceptor.forEach((element) => {
           element.total_cupos = element.cupos.length;
           for (let index = 0; index < element.cupos.length; index++) {
             const element1 = element.cupos[index];
-            element.derivacion_transporte = element.derivacion_transporte || 0; 
-            element1['derivacion'] && element1['cupoAsignadoUltimo'] ? element.derivacion_transporte = element.derivacion_transporte +1 : false;
+            element.derivacion_transporte = element.derivacion_transporte || 0;
+            element1["derivacion"] && element1["cupoAsignadoUltimo"]
+              ? (element.derivacion_transporte =
+                  element.derivacion_transporte + 1)
+              : false;
             console.log(element.derivacion_transporte);
-            element1.idCuitChoferAsignado ? element.choferAsignado = element.choferAsignado + 1 : false;
+            element1.idCuitChoferAsignado
+              ? (element.choferAsignado = element.choferAsignado + 1)
+              : false;
             if (element1.idCupoEstado == "1") {
               element.sin_ctg = element.sin_ctg + 1;
               element1.estadoCalculado = "sin_ctg";
@@ -731,7 +745,7 @@ export class PanelConsolidadoV2Component implements OnInit {
             ...item, // Mantiene las propiedades originales del objeto
             razonSocial_receptor: row.nombre_receptor, // Añades el nuevo atributo
           };
-        });        
+        });
         title = "En Destino";
         break;
       case "rechazado":
@@ -758,19 +772,16 @@ export class PanelConsolidadoV2Component implements OnInit {
         );
         title = " Chofer Asignado";
         break;
-        case "derivacion":
-          console.log('entro a derivacion');
-          console.log(valor);
-        someCupos = row.cupos.filter(
-          (item) => item.derivacion !== null
-        );
+      case "derivacion":
+        console.log("entro a derivacion");
+        console.log(valor);
+        someCupos = row.cupos.filter((item) => item.derivacion !== null);
         title = "derivación";
         break;
       default:
         break;
     }
     if (someCupos.length > 0) {
-
       let heightPop: number = 30 + someCupos.length * 10;
       if (valor == "sin_ctg") {
         heightPop = heightPop + 10;
@@ -779,21 +790,26 @@ export class PanelConsolidadoV2Component implements OnInit {
       if (heightPop > 80) heightPopUp = 80;
       else heightPopUp = heightPop;
       let fecha: any;
-      let payload = { cupos: someCupos, height: heightPopUp, sinCtg: sin_ctg, recupera: recupera }
-      
+      let payload = {
+        cupos: someCupos,
+        height: heightPopUp,
+        sinCtg: sin_ctg,
+        recupera: recupera,
+      };
+
       if (valor === "choferAsignado") {
         this.getModalAsignarChofer(heightPopUp, title, payload);
       } else {
-        if(valor === 'derivacion'){
-          this.getModalDerivacion(heightPop,title,payload);
-        }else{
+        if (valor === "derivacion") {
+          this.getModalDerivacion(heightPop, title, payload);
+        } else {
           this.getModalAlfanumericos(heightPopUp, title, payload);
         }
       }
     }
   }
 
-  getModalDerivacion(heightPopUp, title, payload){
+  getModalDerivacion(heightPopUp, title, payload) {
     console.log("wtf");
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       DetalleConsolidadoDerivacionComponent,
@@ -807,7 +823,7 @@ export class PanelConsolidadoV2Component implements OnInit {
           payload: payload,
         },
       }
-    )
+    );
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -836,7 +852,7 @@ export class PanelConsolidadoV2Component implements OnInit {
           payload: payload,
         },
       }
-    )
+    );
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -865,7 +881,7 @@ export class PanelConsolidadoV2Component implements OnInit {
           payload: payload,
         },
       }
-    )
+    );
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -899,9 +915,9 @@ export class PanelConsolidadoV2Component implements OnInit {
               ) {
                 const temp = {
                   id: produc.id_producto,
-                  descripcion: this.detallesDisponiblesApi.producto[
-                    produc.id_producto
-                  ].nombreProducto,
+                  descripcion:
+                    this.detallesDisponiblesApi.producto[produc.id_producto]
+                      .nombreProducto,
                 };
                 this.otrosproductos.push(temp);
               }
@@ -914,37 +930,40 @@ export class PanelConsolidadoV2Component implements OnInit {
 
   descargarCuposMasivo(): void {
     this.loader.open("Descargando archivo Excel...");
-    
-    this.cupoService.exportarCuposPuerto(this.fecha).subscribe(
-      (data: Blob) => {
-        this.loader.close();
-        
-        // Crear un enlace de descarga temporal
-        const url = window.URL.createObjectURL(data);
-        const link = document.createElement('a');
-        link.href = url;
-        
-        // Nombre del archivo con la fecha actual
-        const fileName = `cupos_puerto_${this.fecha}.xlsx`;
-        link.download = fileName;
-        
-        // Simular click para descargar
-        document.body.appendChild(link);
-        link.click();
-        
-        // Limpiar
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        
-        console.log('Descarga de cupos completada:', fileName);
-      },
-      (error) => {
-        this.loader.close();
-        console.error('Error al descargar cupos:', error);
-        this.alertService.confirm({ 
-          message: 'Error al descargar el archivo Excel. Por favor, inténtelo nuevamente.' 
-        });
-      }
-    );
+
+    this.cupoService
+      .exportarCuposPuerto(this.fecha, this.filtro.id_producto)
+      .subscribe(
+        (data: Blob) => {
+          this.loader.close();
+
+          // Crear un enlace de descarga temporal
+          const url = window.URL.createObjectURL(data);
+          const link = document.createElement("a");
+          link.href = url;
+
+          // Nombre del archivo con la fecha actual
+          const fileName = `cupos_puerto_${this.fecha}.xlsx`;
+          link.download = fileName;
+
+          // Simular click para descargar
+          document.body.appendChild(link);
+          link.click();
+
+          // Limpiar
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+
+          console.log("Descarga de cupos completada:", fileName);
+        },
+        (error) => {
+          this.loader.close();
+          console.error("Error al descargar cupos:", error);
+          this.atencionService.confirm({
+            message:
+              "No existe cupo para su descarga con los filtros seleccionados.",
+          });
+        }
+      );
   }
 }

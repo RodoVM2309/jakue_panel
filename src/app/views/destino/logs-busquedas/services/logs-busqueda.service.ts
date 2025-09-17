@@ -21,15 +21,13 @@ export class LogsBusquedaService {
   ) { }
 
   getAll(variables: Variables): Observable<LogsBusqueda[]> {
-    let pageIndex = variables.pageEvent.pageIndex === 0 ? 1 : variables.pageEvent.pageIndex;
-
+    // El API no pagina, devuelve todos los registros
+    // Solo enviamos los parámetros de filtro necesarios
     const options = {
       params: new HttpParams()
-        .set('page', pageIndex.toString())
-        .set('per-page', variables.pageEvent.pageSize.toString())
-        .set('cupo', variables.filtrarForm.value.cupo)
-        .set('chapa', variables.filtrarForm.value.placaCamion)
-        .set("fecha_scan", this.datePipe.transform(variables.filtrarForm.get('fecha').value, 'yyyy-MM-dd'))
+        .set('cupo', variables.filtrarForm.value.cupo || '')
+        .set('chapa', variables.filtrarForm.value.placaCamion || '')
+        .set("fecha_scan", this.datePipe.transform(variables.filtrarForm.get('fecha').value, 'yyyy-MM-dd') || '')
     };
     
     // params = params.set("fecha_scan", this.datePipe.transform(variables.filtrarForm.get('fecha').value, 'yyyy-MM-dd'));
@@ -39,6 +37,7 @@ export class LogsBusquedaService {
       .get<any>(`${this.baseUrl}cupo/mi-terminal`, options)
       .pipe(
         map((res) => {
+          // Como la API devuelve todos los registros, configuramos el total para el paginador del cliente
           variables.pageEvent.length = res.data.length;
           let result = res.data.map((log) => new LogsBusqueda(log))
           return result

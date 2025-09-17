@@ -13,8 +13,9 @@ import {
 import { estados } from '../../functions/logs-busqueda';
 import { debounceTime } from 'rxjs/operators';
 import { FiltroInterno } from '../../interfaces/types';
-import { LogsDataSource } from '../listado-logs-busquedas/listado-logs-busquedas.component';
+import { MatTableDataSource } from '@angular/material';
 import { HelperService } from '../../services/help.service';
+import { LogsBusqueda } from '../../models/logs-busquedas';
 
 @Component({
   selector: 'app-filtros-logs',
@@ -39,7 +40,7 @@ import { HelperService } from '../../services/help.service';
 export class FiltrosLogsComponent implements OnInit {
 
   @Input() variables: Variables;
-  @Input() dataSource: LogsDataSource;
+  @Input() dataSource: MatTableDataSource<LogsBusqueda>;
 
   @ViewChild("picker") dateRange: SatDatepicker<any>;
   @Output() refresh = new EventEmitter<boolean>();
@@ -60,7 +61,7 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('placaCamion').valueChanges
       .pipe(debounceTime(500)) // esperar 500 ms después del último cambio
       .subscribe((valueChapa) => {
-        this.variables.pageEvent.pageIndex = 1;
+        this.variables.pageEvent.pageIndex = 0;
         this.refresh.emit(true);
         this.helpSevices.changePaginator(true);
       });
@@ -68,10 +69,12 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('cupo').valueChanges
       .pipe(debounceTime(500)) // esperar 500 ms después del último cambio
       .subscribe((valueCupo) => {
-        this.variables.pageEvent.pageIndex = 1;
+        this.variables.pageEvent.pageIndex = 0;
         this.refresh.emit(true);
         this.helpSevices.changePaginator(true);
       });
+
+    // Ya no necesitamos suscribirnos a loading$ porque usamos MatTableDataSource
   }
 
   filtroGeneral() {
@@ -95,6 +98,11 @@ export class FiltrosLogsComponent implements OnInit {
         });
       }
     }
+    
+    // Resetear paginador a la primera página cuando se aplica un filtro
+    this.variables.pageEvent.pageIndex = 0;
+    this.helpSevices.changePaginator(true);
+    
     this.aplicarFiltro();
   }
 
@@ -135,7 +143,61 @@ export class FiltrosLogsComponent implements OnInit {
       }
       return resultado;
     });
-    this.dataSource.asyncTable(this.variables);
+    
+    // Actualizar los datos del MatTableDataSource con los datos filtrados
+    this.dataSource.data = this.variables.logsFiltrados;
+    
+    // Reiniciar el paginador a la primera página cuando se aplican filtros
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    
+    // Actualizar el total del paginador con los datos filtrados
+    if (this.filtros.length > 0) {
+      this.variables.pageEvent.length = this.variables.logsFiltrados.length;
+    } else {
+      // Si no hay filtros activos, mantener el total original
+      this.variables.pageEvent.length = this.variables.logs.length;
+    }
+  }
+
+  // Método para reconstruir filtros desde el formulario actual
+  reconstruirFiltrosDesdeFormulario() {
+    const filtrosAnteriores = [...this.filtros]; // Copia de los filtros anteriores
+    this.filtros = [];
+    
+    const formValues = this.variables.filtrarForm.value;
+    
+    // Agregar filtros según los valores del formulario
+    if (formValues.terminal !== "Todos" && formValues.terminal) {
+      this.filtros.push({ campo: 'terminal', valor: formValues.terminal });
+    }
+    
+    if (formValues.producto !== "Todos" && formValues.producto) {
+      this.filtros.push({ campo: 'producto', valor: formValues.producto });
+    }
+    
+    if (formValues.estado !== "Todos" && formValues.estado) {
+      this.filtros.push({ campo: 'estado', valor: formValues.estado });
+    }
+    
+    if (formValues.placaCamion && formValues.placaCamion.trim() !== "") {
+      this.filtros.push({ campo: 'placaCamion', valor: formValues.placaCamion });
+    }
+    
+    if (formValues.cupo && formValues.cupo.trim() !== "") {
+      this.filtros.push({ campo: 'cupo', valor: formValues.cupo });
+    }
+    
+    // Verificar si los filtros cambiaron para resetear paginador
+    const filtrosCambiaron = JSON.stringify(filtrosAnteriores) !== JSON.stringify(this.filtros);
+    if (filtrosCambiaron && this.filtros.length > 0) {
+      this.variables.pageEvent.pageIndex = 0;
+      this.helpSevices.changePaginator(true);
+    }
+    
+    // Aplicar los filtros reconstruidos
+    this.aplicarFiltro();
   }
 
   obtenerIdPorClave(claveBuscada, estados) {
@@ -148,6 +210,13 @@ export class FiltrosLogsComponent implements OnInit {
   }
 
   clearFilter() {
+    // Limpiar filtros internos
+    this.filtros = [];
+    
+    // Resetear paginador a la primera página
+    this.variables.pageEvent.pageIndex = 0;
+    this.helpSevices.changePaginator(true);
+    
     // Obtener la fecha y hora actual
     const horaInicio = new Date();
 
@@ -185,6 +254,18 @@ export class FiltrosLogsComponent implements OnInit {
     this.variables.filtrarForm.get('cupo').setValue("");
 
     this.variables.filtrarForm.updateValueAndValidity();
+
+    // Restaurar todos los datos originales
+    this.variables.logsFiltrados = this.variables.logs;
+    this.dataSource.data = this.variables.logs;
+    
+    // Reiniciar paginador a la primera página
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+
+    // Restaurar el total completo del paginador
+    this.variables.pageEvent.length = this.variables.logs.length;
 
     this.refresh.emit(true);
   }

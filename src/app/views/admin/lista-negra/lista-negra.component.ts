@@ -54,17 +54,17 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
     if (this.filtro === undefined) {
       this.filtro = "";
     }
-    
+
     // Crear objeto de filtros
     const filtros = {
-      busqueda: this.filtro
+      busqueda: this.filtro,
     };
-    
+
     // Agregar filtro activo solo si está habilitado
     if (this.filtroActivo) {
-      filtros['activo'] = 1;
+      filtros["activo"] = 1;
     }
-    
+
     this.centro
       .getListNegra(this.page.pageNumber, filtros)
       .subscribe((pagedData) => {
@@ -78,15 +78,15 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
   // Método para determinar el estado del chofer
   getEstadoChofer(row: any): string {
     if (!row.fecha_hasta) {
-      return 'activo'; // Si fecha_hasta es null, es activo
+      return "activo"; // Si fecha_hasta es null, es activo
     }
-    
+
     const fechaHasta = new Date(row.fecha_hasta);
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0); // Resetear horas para comparar solo fechas
     fechaHasta.setHours(0, 0, 0, 0);
-    
-    return fechaHasta > hoy ? 'activo' : 'inactivo';
+
+    return fechaHasta > hoy ? "activo" : "inactivo";
   }
 
   // Método para habilitar chofer (establecer fecha_hasta como ayer)
@@ -98,20 +98,20 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res) {
           this.loader.open();
-          
+
           // Crear fecha de ayer
           const ayer = new Date();
           ayer.setDate(ayer.getDate() - 1);
-          const fechaAyer = ayer.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-          
+          const fechaAyer = ayer.toISOString().split("T")[0]; // Formato YYYY-MM-DD
+
           const updateData = {
             id: row.id,
             id_chofer: row.id_chofer,
             id_motivo: row.id_motivo,
             explicacion: row.explicacion,
-            fecha_hasta: fechaAyer
+            fecha_hasta: fechaAyer,
           };
-          
+
           this.centro.updateChoferListaNegra(updateData).subscribe(
             (data) => {
               this.loader.close();
@@ -121,9 +121,27 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
               });
             },
             (err) => {
+              console.log(err);
               this.loader.close();
-              this.alertService.confirm({
-                message: "Error al habilitar el chofer",
+
+              // Construir mensaje de error desde el array de errores
+              let errorMessage = "Se han encontrado los siguientes errores:\n";
+              if (
+                err.error &&
+                err.error.data &&
+                Array.isArray(err.error.data)
+              ) {
+                errorMessage = err.error.data
+                  .map((error) => error.message)
+                  .join("\n");
+              } else if (err.error && err.error.message) {
+                errorMessage = err.error.message;
+              } else {
+                errorMessage = "Ha ocurrido un error inesperado";
+              }
+
+              this.errorService.confirm({
+                message: errorMessage,
               });
             }
           );
@@ -213,7 +231,7 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
       {
         width: "600px",
         disableClose: true,
-        data: { title: title }
+        data: { title: title },
       }
     );
 
@@ -230,10 +248,10 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
         {
           width: "640px",
           disableClose: true,
-          data: { 
-            title: addTitle, 
-            payload: choferData 
-          }
+          data: {
+            title: addTitle,
+            payload: choferData,
+          },
         }
       );
 
@@ -249,9 +267,13 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
             this.loader.close();
             if (data.success) {
               this.setPage({ offset: 0 });
-              this.snack.open("¡Chofer agregado a la lista negra con éxito!", "OK", {
-                duration: 4000,
-              });
+              this.snack.open(
+                "¡Chofer agregado a la lista negra con éxito!",
+                "OK",
+                {
+                  duration: 4000,
+                }
+              );
             } else {
               this.errorService.confirm({
                 message: "Error: " + data.data + "!",
@@ -260,8 +282,21 @@ export class ListaNegraComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.loader.close();
+
+            // Construir mensaje de error desde el array de errores
+            let errorMessage = "Se han encontrado los siguientes errores:\n";
+            if (err.error && err.error.data && Array.isArray(err.error.data)) {
+              errorMessage = err.error.data
+                .map((error) => error.message)
+                .join("\n");
+            } else if (err.error && err.error.message) {
+              errorMessage = err.error.message;
+            } else {
+              errorMessage = "Error al agregar el chofer a la lista negra";
+            }
+
             this.errorService.confirm({
-              message: "Error al agregar el chofer a la lista negra: " + err,
+              message: errorMessage,
             });
           }
         );

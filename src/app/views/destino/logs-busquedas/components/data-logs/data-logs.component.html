@@ -25,240 +25,247 @@
       </mat-card>
       <div fxLayout="row wrap">
         <div fxFlex="100" class="example-container mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
-            <ng-container matColumnDef="copiar">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="text-align: center; width: 5%"
-              >
-                <button
-                  mat-icon-button
-                  matTooltip="Refrescar"
-                  color="mr-1"
-                  class="mr-1"
-                  (click)="gotoRefresh()"
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+              <ng-container matColumnDef="copiar">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="text-align: center; width: 5%"
+                  class="compact-header"
                 >
-                  <mat-icon>refresh</mat-icon>
-                </button>
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="text-align: center; width: 5%"
-              >
-                <button
-                  mat-icon-button
-                  matTooltip="Copiar"
-                  (click)="copyTextToClipboard(log.cupo)"
-                >
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="cupo">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Alfanumérico
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                <div>
-                  {{ log.cupo }}
-                </div>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="fecha">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 8%"
-                class="padding-cel-table"
-              >
-                Fecha Cupo
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 6%"
-                class="padding-cel-table"
-              >
-                {{ log.fecha }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="destino">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Destino
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                {{ log.terminal }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="producto">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 5%"
-                class="padding-cel-table"
-              >
-                Producto
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 5%"
-                class="padding-cel-table"
-              >
-                {{ log.producto }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="procedencia">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Procedencia
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                {{ log.procedencia }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="chofer">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Chofer Asignado
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                {{ log.chofer }}
-                <button
-                  *ngIf="log.telefonoChofer"
-                  mat-icon-button
-                  mat-sm-button
-                  matTooltip="Enviar Whatsapp"
-                >
-                  <img
-                    src="assets/images/muvin/whatsapp.png"
-                    alt=""
-                    (click)="openPopUpwhatsapp(log)"
-                  />
-                </button>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="chapa">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Chapa Camión
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                {{ log.patente }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="estado">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Estado
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                <mat-chip-list>
-                  <mat-chip
-                    selected
-                    [ngStyle]="{
-                      'background-color': dameBgColor(log.estado),
-                      color: dameColor(log.estado)
-                    }"
+                  <button
+                    mat-icon-button
+                    matTooltip="Refrescar"
+                    color="mr-1"
+                    class="mr-1 compact-button"
+                    (click)="gotoRefresh()"
                   >
-                    {{ log.estadoClave }}
-                  </mat-chip>
-                </mat-chip-list>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="fechaScan">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                Fecha Scan
-              </th>
-              <td
-                mat-cell
-                *matCellDef="let log"
-                style="width: 10%"
-                class="padding-cel-table"
-              >
-                {{ log.fechaScan }}
-              </td>
-            </ng-container>
-            <tr
-              mat-header-row
-              *matHeaderRowDef="displayedColumns; sticky: true"
-            ></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: displayedColumns"
-              class="example-element-row"
-            ></tr>
-          </table>
+                    <mat-icon>refresh</mat-icon>
+                  </button>
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="text-align: center; width: 5%"
+                  class="compact-cell"
+                >
+                  <button
+                    mat-icon-button
+                    matTooltip="Copiar"
+                    class="compact-button"
+                    (click)="copyTextToClipboard(log.cupo)"
+                  >
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cupo">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 11%"
+                  class="padding-cel-table compact-header"
+                >
+                  Alfanumérico
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 11%"
+                  class="padding-cel-table compact-cell"
+                >
+                  <div>
+                    {{ log.cupo }}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fecha">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 9%"
+                  class="padding-cel-table compact-header"
+                >
+                  Fecha Cupo
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 9%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.fecha }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="destino">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 9%"
+                  class="padding-cel-table compact-header"
+                >
+                  Destino
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 9%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.terminal }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="producto">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 8%"
+                  class="padding-cel-table compact-header"
+                >
+                  Producto
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 8%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.producto }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="procedencia">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 16%"
+                  class="padding-cel-table compact-header"
+                >
+                  Procedencia
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 16%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.procedencia }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="chofer">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 14%"
+                  class="padding-cel-table compact-header"
+                >
+                  Chofer Asignado
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 14%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.chofer }}
+                  <button
+                    *ngIf="log.telefonoChofer"
+                    mat-icon-button
+                    mat-sm-button
+                    matTooltip="Enviar Whatsapp"
+                    class="compact-button"
+                  >
+                    <img
+                      src="assets/images/muvin/whatsapp.png"
+                      alt=""
+                      (click)="openPopUpwhatsapp(log)"
+                      style="width: 16px; height: 16px;"
+                    />
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="chapa">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 10%"
+                  class="padding-cel-table compact-header"
+                >
+                  Chapa Camión
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 10%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.patente }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="estado">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 9%"
+                  class="padding-cel-table compact-header"
+                >
+                  Estado
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 9%"
+                  class="padding-cel-table compact-cell"
+                >
+                  <mat-chip-list>
+                    <mat-chip
+                      selected
+                      class="compact-chip"
+                      [ngStyle]="{
+                        'background-color': dameBgColor(log.estado),
+                        color: dameColor(log.estado)
+                      }"
+                    >
+                      {{ log.estadoClave }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fechaScan">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  style="width: 9%"
+                  class="padding-cel-table compact-header"
+                >
+                  Fecha Scan
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let log"
+                  style="width: 9%"
+                  class="padding-cel-table compact-cell"
+                >
+                  {{ log.fechaScan }}
+                </td>
+              </ng-container>
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                class="example-element-row"
+              ></tr>
+            </table>
+          </div>
           <mat-paginator
             #paginator
             class="mat-paginator-sticky"
             showFirstLastButtons
-            [pageIndex]="page.pageNumber"
-            [length]="variables.pageEvent.length"
-            [pageSize]="page.size"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25, 50]"
             (page)="setPage($event)"
           >
           </mat-paginator>

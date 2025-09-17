@@ -1,5 +1,4 @@
 import { FormGroup } from "@angular/forms";
-import { LogsDataSource } from "../components/listado-logs-busquedas/listado-logs-busquedas.component";
 import { LogsBusqueda } from "../models/logs-busquedas";
 import { PageEvent } from "@angular/material";
 

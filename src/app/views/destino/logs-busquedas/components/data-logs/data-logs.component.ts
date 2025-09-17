@@ -5,12 +5,13 @@ import {
   OnInit,
   Output,
   ViewChild,
+  AfterViewInit,
 } from "@angular/core";
-import { MatPaginator, MatSort, PageEvent } from "@angular/material";
+import { MatPaginator, MatSort, PageEvent, MatTableDataSource } from "@angular/material";
 import { estados } from "../../functions/logs-busqueda";
 // import { MatPaginator } from '@angular/material/paginator';
 import { Variables } from "../../utils/variables";
-import { LogsDataSource } from "../listado-logs-busquedas/listado-logs-busquedas.component";
+import { LogsBusqueda } from "../../models/logs-busquedas";
 import { Page } from "@app/shared/models";
 import { HelperService } from "../../services/help.service";
 
@@ -19,12 +20,12 @@ import { HelperService } from "../../services/help.service";
   templateUrl: "./data-logs.component.html",
   styleUrls: ["./data-logs.component.scss"],
 })
-export class DataLogsComponent implements OnInit {
+export class DataLogsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input() variables: Variables;
   @Input() restartControl: boolean;
-  @Input() dataSource: LogsDataSource;
+  @Input() dataSource: MatTableDataSource<LogsBusqueda>;
   @Output() refresh = new EventEmitter<boolean>();
 
   pageEvent: PageEvent = new PageEvent();
@@ -58,9 +59,9 @@ export class DataLogsComponent implements OnInit {
 
   ngOnInit() {
     this.pageEvent.pageIndex = 0;
-    this.pageEvent.pageSize = this.variables.pageEvent.pageSize;
+    this.pageEvent.pageSize = this.variables.pageEvent.pageSize || 5;
     this.page.pageNumber = this.variables.pageEvent.pageIndex;
-    this.page.size = this.variables.pageEvent.pageSize;
+    this.page.size = this.variables.pageEvent.pageSize || 5;
 
     this.helpSevices.customChangePage.subscribe((response) => {
       response ? this.paginator.firstPage() : false;
@@ -70,14 +71,22 @@ export class DataLogsComponent implements OnInit {
     console.log(this.dataSource);
   }
 
+  ngAfterViewInit() {
+    // Conectar el paginador con el MatTableDataSource
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+
   gotoRefresh() {
     this.refresh.emit(true);
   }
 
   setPage(pageEvent) {
-    pageEvent.pageIndex = pageEvent.pageIndex + 1;
-    this.variables.pageEvent = pageEvent;
-    this.refresh.emit(true);
+    // MatTableDataSource maneja automáticamente la paginación
+    // Solo actualizamos las variables para mantener la sincronización
+    this.variables.pageEvent.pageIndex = pageEvent.pageIndex;
+    this.variables.pageEvent.pageSize = pageEvent.pageSize;
   }
 
   copyTextToClipboard(text) {

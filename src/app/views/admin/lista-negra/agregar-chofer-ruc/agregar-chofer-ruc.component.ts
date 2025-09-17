@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { PersonasService } from './../../../../shared/services/personas.service';
 import { AppLoaderService } from '../../../../shared/services/app-loader/app-loader.service';
 import { AppErrorService } from '../../../../shared/services/app-error/app-error.service';
+import { CentrosService } from '../../../../shared/services/centros.service';
 
 @Component({
   selector: 'app-agregar-chofer-ruc',
@@ -14,6 +15,7 @@ export class AgregarChoferRucComponent implements OnInit {
   public rucForm: FormGroup;
   public choferEncontrado: any = null;
   public mostrarFormularioChofer: boolean = false;
+  public choferYaEnListaNegra: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,7 +23,8 @@ export class AgregarChoferRucComponent implements OnInit {
     private fb: FormBuilder,
     private personasService: PersonasService,
     private loader: AppLoaderService,
-    private errorService: AppErrorService
+    private errorService: AppErrorService,
+    private centrosService: CentrosService
   ) { }
 
   ngOnInit() {
@@ -44,12 +47,13 @@ export class AgregarChoferRucComponent implements OnInit {
 
     this.personasService.getChoferCuit(cuit).subscribe(
       (response) => {
-        this.loader.close();
-        
         if (response.success && response.data && response.data.transportistas && response.data.transportistas.length > 0) {
           this.choferEncontrado = response.data.transportistas[0];
-          this.mostrarFormularioChofer = true;
+          
+          // Verificar si el chofer ya está en la lista negra
+          this.verificarChoferEnListaNegra(this.choferEncontrado.cuit_chofer);
         } else {
+          this.loader.close();
           this.errorService.confirm({ 
             message: 'Chofer no encontrado con el RUC proporcionado' 
           });
@@ -61,6 +65,39 @@ export class AgregarChoferRucComponent implements OnInit {
         this.loader.close();
         this.errorService.confirm({ 
           message: 'Error al buscar el chofer: ' + error 
+        });
+        this.choferEncontrado = null;
+        this.mostrarFormularioChofer = false;
+      }
+    );
+  }
+
+  verificarChoferEnListaNegra(cuit: string) {
+    // Crear filtros para buscar en lista negra con el CUIT específico
+    const filtros = {
+      activo: 1,
+      cuit: cuit,
+      perPage: 1
+    };
+
+    this.centrosService.getListNegra(1, filtros).subscribe(
+      (pagedData) => {
+        this.loader.close();
+        
+        if (pagedData.data && pagedData.data.length > 0) {
+          // El chofer ya está en la lista negra
+          this.choferYaEnListaNegra = true;
+        } else {
+          // El chofer no está en la lista negra
+          this.choferYaEnListaNegra = false;
+        }
+        
+        this.mostrarFormularioChofer = true;
+      },
+      (error) => {
+        this.loader.close();
+        this.errorService.confirm({ 
+          message: 'Error al verificar lista negra: ' + error 
         });
         this.choferEncontrado = null;
         this.mostrarFormularioChofer = false;

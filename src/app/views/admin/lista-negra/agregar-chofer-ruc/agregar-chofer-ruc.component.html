@@ -43,6 +43,11 @@
 
   <!-- Información del chofer encontrado -->
   <div *ngIf="mostrarFormularioChofer && choferEncontrado">
+    <!-- Alerta si el chofer ya está en lista negra -->
+    <div *ngIf="choferYaEnListaNegra" class="alert-warning mb-3" style="background-color: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 12px; border-radius: 4px; margin-bottom: 20px; text-align: center; font-weight: bold;">
+      El chofer ya se encuentra en la lista negra
+    </div>
+    
     <div class="chofer-info-card">
       <h3>Chofer Encontrado</h3>
       <div class="info-grid">
@@ -80,6 +85,7 @@
         Cancelar
       </button>
       <button
+        *ngIf="!choferYaEnListaNegra"
         mat-raised-button
         color="primary"
         (click)="continuar()"

@@ -1,6 +1,6 @@
 import { AppLoaderService } from "@app/shared/services";
-import { BehaviorSubject, of } from "rxjs";
-import { catchError, finalize } from "rxjs/operators";
+import { BehaviorSubject, of, Observable } from "rxjs";
+import { catchError, finalize, map } from "rxjs/operators";
 import { LogsBusqueda } from "../models/logs-busquedas";
 import { LogsBusquedaService } from "../services/logs-busqueda.service";
 import { Variables } from "../utils/variables";
@@ -21,59 +21,83 @@ export module FunctionLogsBusqueda {
     loadingSubject: BehaviorSubject<boolean>,
     variables: Variables
   ) {
-    loader.open();
+    // Si se usan BehaviorSubjects (modo original)
+    if (logsSubject && loadingSubject) {
+      loader.open();
 
-    service.getAll(variables)
+      service.getAll(variables)
+        .pipe(
+          catchError(() => of([])),
+          finalize(() => loadingSubject.next(false))
+        )
+        .subscribe({
+          next: (logs: LogsBusqueda[]) => {
+            processLogs(logs, variables);
+            loader.close();
+            logsSubject.next(variables.logsFiltrados);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+    }
+  }
+
+  // Función para usar con MatTableDataSource
+  export function getAllObservable(
+    service: LogsBusquedaService,
+    variables: Variables
+  ): Observable<LogsBusqueda[]> {
+    return service.getAll(variables)
       .pipe(
         catchError(() => of([])),
-        finalize(() => loadingSubject.next(false))
-      )
-      .subscribe({
-        next: (logs: LogsBusqueda[]) => {
-          variables.logs = logs;
-          variables.logsFiltrados = logs;
+        map((logs: LogsBusqueda[]) => {
+          processLogs(logs, variables);
+          return logs;
+        })
+      );
+  }
 
-          let prod = [];
-          let estad = [];
-          let dest = [];
+  // Función helper para procesar logs
+  function processLogs(logs: LogsBusqueda[], variables: Variables) {
+    variables.logs = logs;
+    variables.logsFiltrados = logs;
 
-          // Armo los filtros
-          logs.forEach(log => {
-            prod.push(log.producto);
-            estad.push(log.estado);
-            dest.push(log.terminal);
-          });
+    let prod = [];
+    let estad = [];
+    let dest = [];
 
-          // producto
-          variables.productos = prod.filter((valor, indice, self) => {
-            return self.indexOf(valor) === indice;
-          });
+    // Armo los filtros
+    logs.forEach(log => {
+      prod.push(log.producto);
+      estad.push(log.estado);
+      dest.push(log.terminal);
+    });
 
-          // destino
-          variables.destinos = dest.filter((valor, indice, self) => {
-            return self.indexOf(valor) === indice;
-          });
+    // producto
+    variables.productos = prod.filter((valor, indice, self) => {
+      return self.indexOf(valor) === indice;
+    });
 
-          // estado
-          const estadTemp = estad.map(id => estados[id] || { clave: 'SIN PROCESAR', color: '#C9BC5E' });
-          variables.estados = estadTemp.filter((el, index) => {
-            return index === estadTemp.findIndex(obj => {
-              return obj.clave === el.clave;
-            });
-          });
+    // destino
+    variables.destinos = dest.filter((valor, indice, self) => {
+      return self.indexOf(valor) === indice;
+    });
 
-          // add todos
-          variables.productos.unshift("Todos");
-          variables.destinos.unshift("Todos");
-          variables.estados.unshift({ clave: 'Todos' });
-
-          loader.close();
-
-          logsSubject.next(variables.logsFiltrados);
-        },
-        error: (error) => {
-          console.log(error);
-        }
+    // estado
+    const estadTemp = estad.map(id => estados[id] || { clave: 'SIN PROCESAR', color: '#C9BC5E' });
+    variables.estados = estadTemp.filter((el, index) => {
+      return index === estadTemp.findIndex(obj => {
+        return obj.clave === el.clave;
       });
+    });
+
+    // add todos
+    variables.productos.unshift("Todos");
+    variables.destinos.unshift("Todos");
+    variables.estados.unshift({ clave: 'Todos' });
+
+    // Configurar el total para el paginador con todos los registros
+    variables.pageEvent.length = variables.logs.length;
   }
 }

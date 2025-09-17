@@ -612,8 +612,7 @@ export class CentrosService {
 
   updateChoferListaNegra(data): Observable<any> {
     return this.http.put(this.globalService.apiHost + 'lista-negra/' + data.id, data)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(this.extractData);
   }
   getListNegra(page, filtro): Observable<any> {
     let params = new HttpParams().set('page', page);
@@ -630,6 +629,12 @@ export class CentrosService {
       }
       if (filtro.activo !== undefined) {
         params = params.set('activo', filtro.activo.toString());
+      }
+      if (filtro.cuit && filtro.cuit.trim() !== '') {
+        params = params.set('cuit', filtro.cuit);
+      }
+      if (filtro.perPage !== undefined) {
+        params = params.set('per-page', filtro.perPage.toString());
       }
     }
     

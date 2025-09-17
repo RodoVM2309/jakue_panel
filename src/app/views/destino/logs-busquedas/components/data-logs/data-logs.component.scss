@@ -3,14 +3,185 @@
     padding: 12px;
 }
 
+/* Container de la tabla con scroll */
+.table-container {
+    max-height: 400px; /* Altura máxima del contenido de la tabla */
+    overflow-x: auto; /* Scroll horizontal solo cuando sea necesario */
+    overflow-y: auto; /* Scroll vertical solo cuando sea necesario */
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+/* Estilos para la tabla */
+.mat-table {
+    width: 100% !important;
+    min-width: 800px; /* Ancho mínimo para scroll horizontal en pantallas pequeñas */
+    font-size: 12px; /* Reducir tamaño de fuente */
+}
+
+/* Hacer que las columnas sean responsive pero mantengan proporciones */
+.mat-header-cell,
+.mat-cell {
+    min-width: 80px; /* Ancho mínimo para cada celda */
+    box-sizing: border-box;
+    font-size: 12px; /* Tamaño de fuente más pequeño */
+    padding: 6px 8px !important; /* Reducir padding para hacer filas más delgadas */
+    line-height: 1.2; /* Reducir altura de línea */
+}
+
+/* Header fijo (sticky) */
+.mat-header-row {
+    background-color: #f5f5f5;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 40px; /* Reducir altura del header */
+}
+
+/* Filas de datos más delgadas */
+.mat-row {
+    height: 35px; /* Reducir altura de las filas */
+    min-height: 35px;
+}
+
+/* Texto más pequeño en celdas */
+.mat-cell {
+    font-size: 11px; /* Aún más pequeño para el contenido */
+}
+
+/* Header con texto un poco más grande pero no mucho */
+.mat-header-cell {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.padding-cel-table {
+    text-align: left;
+    padding: 4px 6px !important; /* Reducir padding significativamente */
+    font-size: 11px; /* Texto más pequeño */
+    line-height: 1.1;
+}
+
+/* Botones más pequeños */
+.mat-icon-button {
+    width: 28px !important;
+    height: 28px !important;
+    line-height: 28px !important;
+}
+
+.mat-icon {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Chips más pequeños */
+.mat-chip {
+    font-size: 10px !important;
+    min-height: 22px !important;
+    padding: 2px 8px !important;
+}
+
+/* Estilos responsive */
 @media screen and (max-width: 1030px) {
     .padding-cel-table {
-        padding: 3px;
+        padding: 2px 3px !important;
+        font-size: 10px;
+    }
+    
+    .table-container {
+        max-height: 350px;
+    }
+    
+    .mat-header-cell,
+    .mat-cell {
+        font-size: 10px;
+        padding: 4px 6px !important;
+    }
+    
+    .mat-row {
+        height: 32px;
+        min-height: 32px;
     }
 }
 
 @media screen and (max-width: 900px) {
     .padding-cel-table {
-        padding: 0px;
+        padding: 1px 2px !important;
+        font-size: 9px;
     }
+    
+    .table-container {
+        max-height: 300px;
+    }
+    
+    .mat-table {
+        min-width: 900px; /* Forzar scroll horizontal en pantallas pequeñas */
+        font-size: 9px;
+    }
+    
+    .mat-header-cell,
+    .mat-cell {
+        font-size: 9px;
+        padding: 2px 4px !important;
+    }
+    
+    .mat-row {
+        height: 30px;
+        min-height: 30px;
+    }
+    
+    .mat-header-row {
+        height: 35px;
+    }
+}
+
+/* Estilos para el contenedor principal */
+.example-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Paginador fijo en la parte inferior */
+.mat-paginator-sticky {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    border-top: 1px solid #e0e0e0;
+    z-index: 5;
+}
+
+/* Clases específicas para elementos compactos */
+.compact-header {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 4px 6px !important;
+    line-height: 1.1 !important;
+}
+
+.compact-cell {
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+    line-height: 1.1 !important;
+    vertical-align: middle;
+}
+
+.compact-button {
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    
+    .mat-icon {
+        font-size: 14px !important;
+        width: 14px !important;
+        height: 14px !important;
+    }
+}
+
+.compact-chip {
+    font-size: 9px !important;
+    min-height: 20px !important;
+    padding: 1px 6px !important;
 }

@@ -638,9 +638,9 @@ export class CupoService {
       .catch(this.handleError);
   }
 
-  exportarCuposPuerto(fecha: string): Observable<any> {
+  exportarCuposPuerto(fecha: string, id_producto: number): Observable<any> {
     const options = {
-      params: new HttpParams().set("fecha", fecha),
+      params: new HttpParams().set("fecha", fecha).set("id_producto", id_producto.toString()),
       responseType: 'blob' as 'json'
     };
     return this.http.get(

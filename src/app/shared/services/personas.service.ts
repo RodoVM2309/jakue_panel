@@ -335,6 +335,18 @@ export class PersonasService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  verificarListaNegra(id_chofer: number, id_destino: number): Observable<any> {
+    const data = {
+      id_chofer: id_chofer,
+      id_destino: id_destino
+    };
+    return this.http
+      .post(this.globalService.apiHost + "lista-negra/verificar", data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   getEntregadorCuit(data): Observable<any> {
     const options = { params: new HttpParams().set("cuit", data) };
     return this.http
