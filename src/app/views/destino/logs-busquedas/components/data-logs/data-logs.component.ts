@@ -157,4 +157,31 @@ export class DataLogsComponent implements OnInit, AfterViewInit {
       fechaInicio
     )} a las 12:00 PM hasta el ${formatoFecha(fechaFin)} a las 12:00 PM`;
   }
+
+  // Función para cambiar el orden de fechas de ingreso
+  cambiarOrdenFechaIngreso() {
+    this.variables.ordenAscendente = !this.variables.ordenAscendente;
+    
+    // Reaplicar el ordenamiento a los datos filtrados actuales
+    this.variables.logsFiltrados.sort((a, b) => {
+      const fechaA = new Date(a.fechaScan);
+      const fechaB = new Date(b.fechaScan);
+      
+      if (this.variables.ordenAscendente) {
+        return fechaA.getTime() - fechaB.getTime(); // Ascendente: fechas más tempranas primero
+      } else {
+        return fechaB.getTime() - fechaA.getTime(); // Descendente: fechas más recientes primero
+      }
+    });
+    
+    // Actualizar la tabla con el nuevo orden
+    this.dataSource.data = [...this.variables.logsFiltrados];
+    
+    // Resetear el paginador a la primera página
+    this.variables.pageEvent.pageIndex = 0;
+    this.helpSevices.changePaginator(true);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

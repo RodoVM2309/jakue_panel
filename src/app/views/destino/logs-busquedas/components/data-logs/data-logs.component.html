@@ -238,7 +238,18 @@
                   style="width: 9%"
                   class="padding-cel-table compact-header"
                 >
-                  Fecha Scan
+                  Fecha Ingreso
+                  <button 
+                    type="button" 
+                    mat-icon-button 
+                    mat-sm-button 
+                    [matTooltip]="variables.ordenAscendente ? 'Ordenar por fecha ingreso descendente' : 'Ordenar por fecha ingreso ascendente'" 
+                    (click)="cambiarOrdenFechaIngreso()"
+                    style="margin-left: 5px;">
+                    <mat-icon style="color: #4C4D4B; font-size: 16px;">
+                      {{ variables.ordenAscendente ? 'arrow_upward' : 'arrow_downward' }}
+                    </mat-icon>
+                  </button>
                 </th>
                 <td
                   mat-cell

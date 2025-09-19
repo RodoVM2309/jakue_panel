@@ -147,11 +147,16 @@ export class FiltrosLogsComponent implements OnInit {
       return resultado;
     });
     
-    // Ordenar los datos filtrados por fechaScan de forma ascendente (fechas más tempranas primero)
+    // Ordenar los datos filtrados por fechaScan según la preferencia del usuario
     this.variables.logsFiltrados.sort((a, b) => {
       const fechaA = new Date(a.fechaScan);
       const fechaB = new Date(b.fechaScan);
-      return fechaA.getTime() - fechaB.getTime();
+      
+      if (this.variables.ordenAscendente) {
+        return fechaA.getTime() - fechaB.getTime(); // Ascendente: fechas más tempranas primero
+      } else {
+        return fechaB.getTime() - fechaA.getTime(); // Descendente: fechas más recientes primero
+      }
     });
     
     // Actualizar los datos del MatTableDataSource con los datos filtrados
@@ -273,11 +278,16 @@ export class FiltrosLogsComponent implements OnInit {
     // Restaurar todos los datos originales
     this.variables.logsFiltrados = [...this.variables.logs]; // Crear copia para no alterar el original
     
-    // Ordenar por fechaScan de forma ascendente (fechas más tempranas primero)
+    // Ordenar por fechaScan según la preferencia del usuario
     this.variables.logsFiltrados.sort((a, b) => {
       const fechaA = new Date(a.fechaScan);
       const fechaB = new Date(b.fechaScan);
-      return fechaA.getTime() - fechaB.getTime();
+      
+      if (this.variables.ordenAscendente) {
+        return fechaA.getTime() - fechaB.getTime(); // Ascendente: fechas más tempranas primero
+      } else {
+        return fechaB.getTime() - fechaA.getTime(); // Descendente: fechas más recientes primero
+      }
     });
     
     this.dataSource.data = this.variables.logsFiltrados;

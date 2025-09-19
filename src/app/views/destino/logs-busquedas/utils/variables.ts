@@ -13,4 +13,5 @@ export class Variables {
   estados: any[] = [];
   filtroActivo: boolean;
   pageEvent: PageEvent = new PageEvent();
+  ordenAscendente: boolean = true; // true = ascendente, false = descendente
 }

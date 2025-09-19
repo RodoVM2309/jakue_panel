@@ -14,6 +14,20 @@ export const estados = {
 };
 
 export module FunctionLogsBusqueda {
+  // Función para ordenar logs por fechaScan
+  export function ordenarLogsPorFechaIngreso(logs: LogsBusqueda[], ascendente: boolean = true): LogsBusqueda[] {
+    return logs.sort((a, b) => {
+      const fechaA = new Date(a.fechaScan);
+      const fechaB = new Date(b.fechaScan);
+      
+      if (ascendente) {
+        return fechaA.getTime() - fechaB.getTime(); // Ascendente: fechas más tempranas primero
+      } else {
+        return fechaB.getTime() - fechaA.getTime(); // Descendente: fechas más recientes primero
+      }
+    });
+  }
+
   export function getAll(
     service: LogsBusquedaService,
     loader: AppLoaderService,
@@ -60,12 +74,8 @@ export module FunctionLogsBusqueda {
 
   // Función helper para procesar logs
   function processLogs(logs: LogsBusqueda[], variables: Variables) {
-    // Ordenar por fechaScan de forma ascendente (fechas más tempranas primero)
-    logs.sort((a, b) => {
-      const fechaA = new Date(a.fechaScan);
-      const fechaB = new Date(b.fechaScan);
-      return fechaA.getTime() - fechaB.getTime();
-    });
+    // Ordenar por fechaScan según la preferencia del usuario (ascendente por defecto)
+    ordenarLogsPorFechaIngreso(logs, variables.ordenAscendente);
 
     variables.logs = logs;
     variables.logsFiltrados = logs;
